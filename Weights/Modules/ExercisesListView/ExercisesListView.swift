@@ -12,9 +12,7 @@ struct ExercisesListView : View {
     let model: ExercisesListModel
     
     var body: some View {
-        List(model.exercises, action: { value in
-
-        }, rowContent: { exercise in
+        List(model.exercises, rowContent: { exercise in
             ExerciseCell(model: exercise)
                 .listRowBackground(
                     RoundedRectangle(cornerRadius: .grid(2))

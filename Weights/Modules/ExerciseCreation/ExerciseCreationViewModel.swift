@@ -10,12 +10,8 @@ import Foundation
 import Combine
 import SwiftUI
 
-class ExerciseCreationViewModel: BindableObject {
-    var willChange = PassthroughSubject<Void, Never>()
-    
-    var name: String = "" {
-        didSet { willChange.send() }
-    }
+class ExerciseCreationViewModel: ObservableObject {
+    @Published var name: String = ""
     var lateralityModel: QuickSelectorModel = initialLateralityModel()
     var muscleGroupModel: QuickSelectorModel = initialMuscleGroupModel()
     var quantityMetricModel: QuickSelectorModel = initialQuantityMetricModel()
@@ -24,7 +20,6 @@ class ExerciseCreationViewModel: BindableObject {
 private extension ExerciseCreationViewModel {
     static func initialLateralityModel() -> QuickSelectorModel {
         QuickSelectorModel(
-            title: "Laterality",
             options: Laterality.allCases.map({
                 QuickSelectorModel.Option(
                     id: $0.rawValue,
@@ -36,7 +31,6 @@ private extension ExerciseCreationViewModel {
     
     static func initialMuscleGroupModel() -> QuickSelectorModel {
         QuickSelectorModel(
-            title: "Muscle Group",
             options: MuscleGroup.allCases.map({
                 QuickSelectorModel.Option(
                     id: $0.rawValue,
@@ -48,7 +42,6 @@ private extension ExerciseCreationViewModel {
     
     static func initialQuantityMetricModel() -> QuickSelectorModel {
         return QuickSelectorModel(
-            title: "Quantity Metric",
             options: QuantityMetric.allCases.map({
                 QuickSelectorModel.Option(
                     id: $0.rawValue,
@@ -64,7 +57,6 @@ private extension Laterality {
         switch self {
         case .unilateral: return "Unilateral"
         case .bilateral: return "Bilateral"
-        case .independentBilateral: return "Independent bilateral"
         }
     }
 }

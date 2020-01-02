@@ -6,10 +6,9 @@
 //  Copyright © 2019 Łukasz Kasperek. All rights reserved.
 //
 
-import Foundation
-import SwiftUI
+import UIKit
 
-extension Length {
-    static var grid: Length { 8 }
-    static func grid(_ multiplier: Length) -> Length { grid * multiplier }
+extension CGFloat {
+    static var grid: Self { 8 }
+    static func grid(_ multiplier: Self) -> Self { grid * multiplier }
 }

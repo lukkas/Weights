@@ -11,7 +11,7 @@ import SwiftUI
 
 extension Color {
     static var appTheme: Color {
-        return fromUIColor(.systemOrange)
+        return fromUIColor(.systemBlue)
     }
     
     static var systemGray: Color {

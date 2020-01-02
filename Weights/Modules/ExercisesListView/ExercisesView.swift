@@ -25,8 +25,12 @@ struct ExercisesView: View {
                 })
             )
         }
-        .sheet(isPresented: $isPresentingCreationView) {
+        .popover(isPresented: $isPresentingCreationView) {
             ExerciseCreationView(model: ExerciseCreationViewModel())
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .foregroundColor(.secondarySystemBackground)
+            )
         }
     }
 }

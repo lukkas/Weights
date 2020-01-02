@@ -9,8 +9,7 @@
 import SwiftUI
 import Combine
 
-
-class QuickSelectorModel: BindableObject {
+class QuickSelectorModel: ObservableObject {
     let willChange = PassthroughSubject<Void, Never>()
     
 	struct Option: Identifiable {
@@ -18,27 +17,22 @@ class QuickSelectorModel: BindableObject {
 		let title: String
 	}
 	
-	let title: String
 	let options: [Option]
     var selectedOption: Option? {
-        didSet { willChange.send() }
+        willSet { willChange.send() }
     }
 	
-	init(title: String, options: [Option]) {
-		self.title = title
+	init(options: [Option]) {
 		self.options = options
         self.selectedOption = options.first!
 	}
 }
 
 struct QuickSelector : View {
-	@ObjectBinding var model: QuickSelectorModel
+	@ObservedObject var model: QuickSelectorModel
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(model.title)
-                .font(.caption)
-                .foregroundColor(.label)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(model.options) { option in
@@ -49,7 +43,7 @@ struct QuickSelector : View {
                     }
                 }
             }
-            .frame(maxHeight: 50)
+            .frame(maxHeight: 44)
         }
             .background(Color.systemBackground)
     }
@@ -62,14 +56,31 @@ struct QuickSelectorButton : View {
     var body: some View {
         Button(action: {
             self.selectedOption = self.option
-        }, label: {
-            Text(option.title)
-                .foregroundColor(themeColor())
-                .padding(8)
-                .border(themeColor(), cornerRadius: 16)
-        })
+        }, label: { label })
     }
     
+    private var label: some View {
+        Text(option.title)
+        .font(.caption)
+        .foregroundColor(fontColor)
+        .padding(8)
+        .background(
+            RoundedRectangle(cornerRadius: .grid)
+                .foregroundColor(backgroundColor)
+        )
+    }
+    
+    private var fontColor: Color {
+        return isSelected ? .systemBackground : .secondaryLabel
+    }
+    
+    private var backgroundColor: Color {
+        return isSelected ? .appTheme : .systemFill
+    }
+    
+    private var isSelected: Bool {
+        return option.id == selectedOption?.id
+    }
     private func themeColor() -> Color {
         return option.id == selectedOption?.id ? .appTheme : .tertiaryLabel
     }
@@ -87,7 +98,6 @@ struct QuickSelector_Previews : PreviewProvider {
 extension QuickSelectorModel {
     static var sample: QuickSelectorModel {
         QuickSelectorModel(
-            title: "Laterality",
             options: [
                 .init(id: 0, title: "Unilateral"),
                 .init(id: 1, title: "Bilateral")

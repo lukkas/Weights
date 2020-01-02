@@ -11,7 +11,7 @@ import Combine
 
 struct ExerciseCreationView : View {
     @State private var isEditingName: Bool = false
-    @ObjectBinding var model: ExerciseCreationViewModel
+    @ObservedObject var model: ExerciseCreationViewModel
     
     var body: some View {
         VStack() {
@@ -24,27 +24,24 @@ struct ExerciseCreationView : View {
             QuickSelector(model: model.lateralityModel)
             QuickSelector(model: model.muscleGroupModel)
             QuickSelector(model: model.quantityMetricModel)
-            HStack(spacing: 0) {
-                Button(action: {
-                    
-                }, label: {
-                    Text("Cancel")
-                        .font(.callout)
-                        .foregroundColor(.appTheme)
-                })
-                Spacer()
-                Button(action: {
-                    
-                }, label: {
-                    Text("Create")
-                        .font(.callout)
-                        .foregroundColor(Color.systemBackground)
-                        .padding(.grid)
-                        .background(
-                            RoundedRectangle(cornerRadius: .grid(2), style: .circular)
-                                .foregroundColor(.appTheme))
-                })
-            }.padding(.top, .grid)
+            Button(action: {
+                                
+                            }, label: {
+                                Text("Cancel")
+                                    .font(.callout)
+                                    .foregroundColor(.appTheme)
+                            })
+            Button(action: {
+                                
+            }, label: {
+                Text("Create")
+                    .font(.callout)
+                    .foregroundColor(Color.systemBackground)
+                    .padding(.grid)
+                    .background(
+                        RoundedRectangle(cornerRadius: .grid)
+                            .foregroundColor(.appTheme))
+            })
         }
             .padding()
     }

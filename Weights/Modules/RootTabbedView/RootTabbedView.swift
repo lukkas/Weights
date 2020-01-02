@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RootTabbedView : View {
     var body: some View {
-        TabbedView(selection: .constant(3)) {
+        TabView(selection: .constant(3)) {
             Text("Tab 1!")
                 .tabItem({
                     Text("Plan")

@@ -11,5 +11,4 @@ import Foundation
 enum Laterality: Int, CaseIterable {
     case unilateral = 0
     case bilateral
-    case independentBilateral
 }
