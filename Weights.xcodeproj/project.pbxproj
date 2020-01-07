@@ -12,6 +12,9 @@
 		0F17C98722E3198C0050ED0E /* ExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F17C98622E3198C0050ED0E /* ExercisesView.swift */; };
 		0F17C98922E47F570050ED0E /* Length+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F17C98822E47F570050ED0E /* Length+Grid.swift */; };
 		0F21F33523B7D3EB00065F6A /* BiSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F21F33423B7D3EB00065F6A /* BiSelector.swift */; };
+		0F21F33723BE9CC100065F6A /* WheelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F21F33623BE9CC100065F6A /* WheelSelector.swift */; };
+		0F21F33A23BFF95E00065F6A /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F21F33923BFF95E00065F6A /* CGSize+Extensions.swift */; };
+		0F21F33C23C281D500065F6A /* CGRect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F21F33B23C281D500065F6A /* CGRect+Extensions.swift */; };
 		0F2BDD0422B5803B00977A37 /* RootTabbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2BDD0322B5803B00977A37 /* RootTabbedView.swift */; };
 		0F30989522B4518000DCDD5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F30989422B4518000DCDD5E /* AppDelegate.swift */; };
 		0F30989722B4518000DCDD5E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F30989622B4518000DCDD5E /* SceneDelegate.swift */; };
@@ -49,6 +52,9 @@
 		0F17C98622E3198C0050ED0E /* ExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExercisesView.swift; path = ../../../../../../../../System/Volumes/Data/Users/lukaszkasperek/Documents/developer/Weights/Weights/Modules/ExercisesListView/ExercisesView.swift; sourceTree = "<group>"; };
 		0F17C98822E47F570050ED0E /* Length+Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Length+Grid.swift"; path = "../../../../../../../System/Volumes/Data/Users/lukaszkasperek/Documents/developer/Weights/Weights/Style/Length+Grid.swift"; sourceTree = "<group>"; };
 		0F21F33423B7D3EB00065F6A /* BiSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiSelector.swift; sourceTree = "<group>"; };
+		0F21F33623BE9CC100065F6A /* WheelSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelSelector.swift; sourceTree = "<group>"; };
+		0F21F33923BFF95E00065F6A /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
+		0F21F33B23C281D500065F6A /* CGRect+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Extensions.swift"; sourceTree = "<group>"; };
 		0F2BDD0322B5803B00977A37 /* RootTabbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabbedView.swift; sourceTree = "<group>"; };
 		0F30989122B4518000DCDD5E /* Weights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F30989422B4518000DCDD5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,11 +98,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F21F33823BFF94F00065F6A /* CommonExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				0F21F33923BFF95E00065F6A /* CGSize+Extensions.swift */,
+				0F21F33B23C281D500065F6A /* CGRect+Extensions.swift */,
+			);
+			path = CommonExtensions;
+			sourceTree = "<group>";
+		};
 		0F2BDD0522B5804100977A37 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				0F132F4022B58221006B5865 /* QuickSelector.swift */,
 				0F21F33423B7D3EB00065F6A /* BiSelector.swift */,
+				0F21F33623BE9CC100065F6A /* WheelSelector.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,6 +138,7 @@
 		0F30989322B4518000DCDD5E /* Weights */ = {
 			isa = PBXGroup;
 			children = (
+				0F21F33823BFF94F00065F6A /* CommonExtensions */,
 				0F30989422B4518000DCDD5E /* AppDelegate.swift */,
 				0F30989622B4518000DCDD5E /* SceneDelegate.swift */,
 				0F30989D22B4518200DCDD5E /* Assets.xcassets */,
@@ -315,9 +332,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F21F33723BE9CC100065F6A /* WheelSelector.swift in Sources */,
 				0F17C98722E3198C0050ED0E /* ExercisesView.swift in Sources */,
 				0F30989522B4518000DCDD5E /* AppDelegate.swift in Sources */,
+				0F21F33C23C281D500065F6A /* CGRect+Extensions.swift in Sources */,
 				0F7B3BD222BE4C5F004D0857 /* ExerciseCreationView.swift in Sources */,
+				0F21F33A23BFF95E00065F6A /* CGSize+Extensions.swift in Sources */,
 				0FB500C322DB98BA00535FA2 /* ExercisesListView.swift in Sources */,
 				0F30989722B4518000DCDD5E /* SceneDelegate.swift in Sources */,
 				0FBAA4CB22C7691700986D90 /* Laterality.swift in Sources */,

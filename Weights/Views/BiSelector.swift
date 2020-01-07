@@ -135,6 +135,5 @@ struct BiSelector_Previews: PreviewProvider {
     
     static var previews: some View {
         BiSelector(model: model)
-//            .frame(width: 345)
     }
 }
