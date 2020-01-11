@@ -33,7 +33,8 @@ struct WheelSelector: View {
                 Circle()
                     .fill(Color.secondarySystemBackground)
                     .overlay(
-                        Circle().inset(by: 50).foregroundColor(.systemBackground)
+                        Circle().inset(by: Dimensions.trackWidth)
+                            .foregroundColor(.systemBackground)
                     )
                     .shadow(radius: 1)
                     .modifier(
@@ -43,28 +44,24 @@ struct WheelSelector: View {
                         )
                     )
                 ForEach(0 ..< self.model.options.count) { index in
-                    WheelSelectorOptionMarker(option: self.model.options[index])
-                        .offset(self.offset(
-                            forMarkerAt: index,
-                            radius: (geometry.size.shorterDimension - 50) * 0.5
-                        ))
+                    self.model.options[index].image
+                        .offset(self.offset(forMarkerAt: index, containerSize: geometry.size))
                         .foregroundColor(
-                            self.model.selectedIndex == index
-                                ? .white
-                                : .systemGray
-                    ).onTapGesture {
-                        withAnimation {
-                            self.model.selectedIndex = index
+                            self.iconColor(isSelected: self.model.selectedIndex == index)
+                        )
+                        .onTapGesture {
+                            withAnimation {
+                                self.model.selectedIndex = index
+                            }
                         }
-                    }
                 }
                 Text(self.model.options[self.model.selectedIndex].name).font(.body)
             }
         }
-        .frame(width: 250, height: 300)
     }
     
-    private func offset(forMarkerAt index: Int, radius: CGFloat) -> CGSize {
+    private func offset(forMarkerAt index: Int, containerSize: CGSize) -> CGSize {
+        let radius = (containerSize.shorterDimension - Dimensions.trackWidth) * 0.5
         let optionFraction = Double(index) / Double(model.options.count)
         let angle = Angle(degrees: -optionFraction * 360 + 180)
         let xOffset = CGFloat(sin(angle.radians)) * radius
@@ -73,6 +70,10 @@ struct WheelSelector: View {
             width: xOffset,
             height: yOffset
         )
+    }
+    
+    private func iconColor(isSelected: Bool) -> Color {
+        return isSelected ? .white : .systemGray
     }
 }
 
@@ -113,7 +114,7 @@ private struct SelectionMarker: AnimatableModifier {
             var path = Path()
             path.addArc(
                 center: rect.center,
-                radius: (rect.size.shorterDimension - 50) * 0.5,
+                radius: (rect.size.shorterDimension - Dimensions.trackWidth) * 0.5,
                 startAngle: markerCenterAngle - perItemAngle * 0.2,
                 endAngle: markerCenterAngle + perItemAngle * 0.2,
                 clockwise: false
@@ -132,28 +133,17 @@ private struct SelectionMarker: AnimatableModifier {
         }
         
         private var strokeStyle: StrokeStyle {
+            let margin = 3 as CGFloat
             return StrokeStyle(
-                lineWidth: 44,
+                lineWidth: Dimensions.trackWidth - (2 * margin),
                 lineCap: .round
             )
         }
     }
 }
 
-private struct WheelSelectorOptionMarker: View {
-    let option: WheelSelectorModel.Option
-    
-    var body: some View {
-        option.image
-    }
-}
-
-private struct WheelSelectorKnob: View {
-    var body: some View {
-        Circle()
-            .stroke(lineWidth: 3)
-            .foregroundColor(.appTheme)
-    }
+private struct Dimensions {
+    static var trackWidth: CGFloat = 50
 }
 
 struct WheelSelector_Previews: PreviewProvider {
