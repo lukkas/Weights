@@ -26,49 +26,42 @@ struct BiSelector: View {
     @State private var buttonRects: [CGRect] = Array(repeating: .zero, count: 2)
     
     var body: some View {
-        HStack {
-            Button(action: {}) {
-                Image(systemName: "info.circle")
-                    .foregroundColor(.appTheme)
-            }
-            .padding()
-            HStack(spacing: 0) {
-                BiSelectorButton(
-                    index: 0,
-                    title: self.model.options[0],
-                    selectedIndex: self.$model.selectedIndex
-                )
-                BiSelectorButton(
-                    index: 1,
-                    title: self.model.options[1],
-                    selectedIndex: self.$model.selectedIndex
-                )
-            }
-            .coordinateSpace(name: biSelectorCoordinateSpace)
-            .onPreferenceChange(SelectionMarkerPreferenceKey.self) { preferences in
-                for preference in preferences {
-                    self.buttonRects[preference.index] = preference.rect
-                }
-            }
-            .font(.subheadline)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundColor(.appTheme)
-                    .padding(2)
-                    .frame(
-                        width: selectedButtonRect.width,
-                        height: selectedButtonRect.height,
-                        alignment: .topLeading
-                    )
-                    .offset(x: selectedButtonRect.minX, y: 0),
-                alignment: .leading
+        HStack(spacing: 0) {
+            BiSelectorButton(
+                index: 0,
+                title: self.model.options[0],
+                selectedIndex: self.$model.selectedIndex
             )
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundColor(.secondarySystemBackground)
+            BiSelectorButton(
+                index: 1,
+                title: self.model.options[1],
+                selectedIndex: self.$model.selectedIndex
             )
-            .shadow(radius: 1)
         }
+        .coordinateSpace(name: biSelectorCoordinateSpace)
+        .onPreferenceChange(SelectionMarkerPreferenceKey.self) { preferences in
+            for preference in preferences {
+                self.buttonRects[preference.index] = preference.rect
+            }
+        }
+        .font(.subheadline)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .foregroundColor(.appTheme)
+                .padding(2)
+                .frame(
+                    width: selectedButtonRect.width,
+                    height: selectedButtonRect.height,
+                    alignment: .topLeading
+            )
+                .offset(x: selectedButtonRect.minX, y: 0),
+            alignment: .leading
+        )
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .foregroundColor(.systemBackground)
+        )
+            .shadow(color: Color.black.opacity(0.2), radius: 5, y: 1)
     }
     
     private var selectedButtonRect: CGRect {
@@ -85,7 +78,7 @@ private struct BiSelectorButton: View {
     var body: some View {
         GeometryReader { geometry in
             Button(action: {
-                withAnimation {
+                withAnimation(.easeInOut(duration: 0.15)) {
                     self.selectedIndex = self.index
                 }
             }) {
@@ -96,7 +89,7 @@ private struct BiSelectorButton: View {
                             : .secondaryLabel
                 )
             }
-            .padding(.init(top: 12, leading: 16, bottom: 12, trailing: 16))
+            .padding(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
             .preference(
                 key: SelectionMarkerPreferenceKey.self,
                 value: [SelectionMarkerPreferenceKey.Data(
@@ -105,7 +98,7 @@ private struct BiSelectorButton: View {
                 )]
             )
         }
-        .frame(height: 50)
+        .frame(height: 48)
     }
 }
 
@@ -129,7 +122,7 @@ private struct SelectionMarkerPreferenceKey: PreferenceKey {
 
 struct BiSelector_Previews: PreviewProvider {
     static let model = BiSelectorModel(
-        options: ["Unilateral", "Bilateral"],
+        options: ["Reps", "Duration"],
         selectedIndex: 0
     )
     

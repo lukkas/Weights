@@ -26,6 +26,7 @@
 		0F67DC6922C7754800C6C9C8 /* QuantityMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F67DC6822C7754800C6C9C8 /* QuantityMetric.swift */; };
 		0F67DC6B22C7831500C6C9C8 /* ExerciseCreationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F67DC6A22C7831500C6C9C8 /* ExerciseCreationInteractor.swift */; };
 		0F67DC6D22C7A85E00C6C9C8 /* Color+Weights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F67DC6C22C7A85E00C6C9C8 /* Color+Weights.swift */; };
+		0F7214E323F9C39700AC7F09 /* DoubleSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7214E223F9C39700AC7F09 /* DoubleSelector.swift */; };
 		0F7B3BD022BE47D2004D0857 /* Color+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B3BCF22BE47D2004D0857 /* Color+UIColor.swift */; };
 		0F7B3BD222BE4C5F004D0857 /* ExerciseCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B3BD122BE4C5F004D0857 /* ExerciseCreationView.swift */; };
 		0FB500C322DB98BA00535FA2 /* ExercisesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB500C222DB98BA00535FA2 /* ExercisesListView.swift */; };
@@ -70,6 +71,7 @@
 		0F67DC6822C7754800C6C9C8 /* QuantityMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityMetric.swift; sourceTree = "<group>"; };
 		0F67DC6A22C7831500C6C9C8 /* ExerciseCreationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationInteractor.swift; sourceTree = "<group>"; };
 		0F67DC6C22C7A85E00C6C9C8 /* Color+Weights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Weights.swift"; sourceTree = "<group>"; };
+		0F7214E223F9C39700AC7F09 /* DoubleSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleSelector.swift; sourceTree = "<group>"; };
 		0F7B3BCF22BE47D2004D0857 /* Color+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+UIColor.swift"; sourceTree = "<group>"; };
 		0F7B3BD122BE4C5F004D0857 /* ExerciseCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationView.swift; sourceTree = "<group>"; };
 		0FB500C222DB98BA00535FA2 /* ExercisesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				0F132F4022B58221006B5865 /* QuickSelector.swift */,
 				0F21F33423B7D3EB00065F6A /* BiSelector.swift */,
 				0F21F33623BE9CC100065F6A /* WheelSelector.swift */,
+				0F7214E223F9C39700AC7F09 /* DoubleSelector.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				0F21F33723BE9CC100065F6A /* WheelSelector.swift in Sources */,
 				0F17C98722E3198C0050ED0E /* ExercisesView.swift in Sources */,
 				0F30989522B4518000DCDD5E /* AppDelegate.swift in Sources */,
+				0F7214E323F9C39700AC7F09 /* DoubleSelector.swift in Sources */,
 				0F21F33C23C281D500065F6A /* CGRect+Extensions.swift in Sources */,
 				0F7B3BD222BE4C5F004D0857 /* ExerciseCreationView.swift in Sources */,
 				0F21F33A23BFF95E00065F6A /* CGSize+Extensions.swift in Sources */,

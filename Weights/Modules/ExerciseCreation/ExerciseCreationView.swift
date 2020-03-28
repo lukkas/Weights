@@ -7,10 +7,23 @@
 //
 
 import SwiftUI
-import Combine
+
+class ExerciseCreationModel: ObservableObject {
+    
+}
 
 struct ExerciseCreationView : View {
+    @State private var name: String = ""
     @State private var isEditingName: Bool = false
+    private let count = ["Reps", "Duration"]
+    @State var selectedCount = 0
+    private let laterality = [
+        "Unilateral / both sides in single set",
+        "Unilateral / independent sets",
+        "Bilateral"
+    ]
+    @State var selectedLaterality = 0
+    
     @ObservedObject var model: ExerciseCreationViewModel
     
     var body: some View {
@@ -18,32 +31,19 @@ struct ExerciseCreationView : View {
             TextField("Name", text: $model.name, onEditingChanged: {
                 self.isEditingName = $0
             })
-                .font(.title)
+                .font(.subheadline)
                 .multilineTextAlignment(.center)
-                .padding(.grid)
-            QuickSelector(model: model.lateralityModel)
-            QuickSelector(model: model.muscleGroupModel)
-            QuickSelector(model: model.quantityMetricModel)
-            Button(action: {
-                                
-                            }, label: {
-                                Text("Cancel")
-                                    .font(.callout)
-                                    .foregroundColor(.appTheme)
-                            })
-            Button(action: {
-                                
-            }, label: {
-                Text("Create")
-                    .font(.callout)
-                    .foregroundColor(Color.systemBackground)
-                    .padding(.grid)
-                    .background(
-                        RoundedRectangle(cornerRadius: .grid)
-                            .foregroundColor(.appTheme))
-            })
+            Picker("Count", selection: $selectedCount) {
+                ForEach(0 ..< count.count) { index in
+                    Text(self.count[index])
+                }
+            }.pickerStyle(SegmentedPickerStyle())
+            Picker("Laterality", selection: $selectedLaterality) {
+                ForEach(0 ..< laterality.count) { index in
+                    Text(self.laterality[index])
+                }
+            }
         }
-            .padding()
     }
 }
 
