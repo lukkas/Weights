@@ -47,7 +47,7 @@ struct BiSelector: View {
         .font(.subheadline)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .foregroundColor(.appTheme)
+                .foregroundColor(.theme)
                 .padding(2)
                 .frame(
                     width: selectedButtonRect.width,
@@ -59,9 +59,9 @@ struct BiSelector: View {
         )
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .foregroundColor(.systemBackground)
+                .foregroundColor(.background)
+                .outerDepthShadow()
         )
-            .shadow(color: Color.black.opacity(0.2), radius: 5, y: 1)
     }
     
     private var selectedButtonRect: CGRect {
@@ -86,10 +86,10 @@ private struct BiSelectorButton: View {
                     .foregroundColor(
                         self.selectedIndex == self.index
                             ? .white
-                            : .secondaryLabel
-                )
+                            : .label
+                    )
+                    .padding(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
             }
-            .padding(.init(top: 8, leading: 12, bottom: 8, trailing: 12))
             .preference(
                 key: SelectionMarkerPreferenceKey.self,
                 value: [SelectionMarkerPreferenceKey.Data(
@@ -128,5 +128,8 @@ struct BiSelector_Previews: PreviewProvider {
     
     static var previews: some View {
         BiSelector(model: model)
+            .padding(40)
+            .previewLayout(.fixed(width: 300, height: 500))
+            .background(Color.background)
     }
 }

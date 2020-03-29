@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import Core
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -22,13 +23,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Use a UIHostingController as window root view controller
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = UIHostingController(rootView: ExerciseCreationView(model: vm))
+        window.rootViewController = UIHostingController(rootView: makeInitialView())
         self.window = window
         window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        let b = UISearchBar().searchTextField
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
