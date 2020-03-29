@@ -8,21 +8,21 @@
 
 import SwiftUI
 
-class BiSelectorModel: ObservableObject {
-    let options: [String]
-    @Published var selectedIndex: Int?
-    
-    init(options: [String], selectedIndex: Int? = nil) {
-        precondition(options.count == 2)
-        self.options = options
-        self.selectedIndex = selectedIndex
-    }
-}
-
 private let biSelectorCoordinateSpace = "biSelectorCoordinateSpace"
 
 struct BiSelector: View {
-    @ObservedObject var model: BiSelectorModel
+    struct Model {
+        let options: [String]
+        var selectedIndex: Int
+        
+        init(options: [String], selectedIndex: Int) {
+            precondition(options.count == 2)
+            self.options = options
+            self.selectedIndex = selectedIndex
+        }
+    }
+    
+    @Binding var model: Model
     @State private var buttonRects: [CGRect] = Array(repeating: .zero, count: 2)
     
     var body: some View {
@@ -65,15 +65,14 @@ struct BiSelector: View {
     }
     
     private var selectedButtonRect: CGRect {
-        guard let index = model.selectedIndex else { return .zero }
-        return buttonRects[index]
+        return buttonRects[model.selectedIndex]
     }
 }
 
 private struct BiSelectorButton: View {
     let index: Int
     let title: String
-    @Binding var selectedIndex: Int?
+    @Binding var selectedIndex: Int
     
     var body: some View {
         GeometryReader { geometry in
@@ -121,15 +120,17 @@ private struct SelectionMarkerPreferenceKey: PreferenceKey {
 }
 
 struct BiSelector_Previews: PreviewProvider {
-    static let model = BiSelectorModel(
+    static let model = BiSelector.Model(
         options: ["Reps", "Duration"],
         selectedIndex: 0
     )
     
     static var previews: some View {
-        BiSelector(model: model)
+        PreviewWrapper<BiSelector, BiSelector.Model>(model: model)
             .padding(40)
             .previewLayout(.fixed(width: 300, height: 500))
             .background(Color.background)
     }
 }
+
+extension BiSelector: WrappablePreviewView {}

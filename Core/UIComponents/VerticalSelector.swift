@@ -24,6 +24,7 @@ struct VerticalSelector: View {
                     index: index,
                     selectedIndex: self.$model.selectedIndex
                 )
+                .frame(maxWidth: .infinity)
             }
         }
         .background(
@@ -75,23 +76,5 @@ struct VerticalSelector_Previews: PreviewProvider {
         .background(Color.background)
     }
 }
-
-//struct VerticalSelector_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VerticalSelector(
-//            model: .init(
-//                options: [
-//                    "Unilateral",
-//                    "Multiset unilateral",
-//                    "Bilateral"
-//                ],
-//                selectedIndex: 0
-//            )
-//        )
-////        .previewLayout(.fixed(width: 300, height: 500))
-////        .padding(40)
-////        .background(Color.background)
-//    }
-//}
 
 extension VerticalSelector: WrappablePreviewView {}
