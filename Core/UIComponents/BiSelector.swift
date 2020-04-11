@@ -60,7 +60,6 @@ struct BiSelector: View {
             .background(
                 RoundedRectangle(cornerRadius: 16)
                 .foregroundColor(.background)
-                .outerDepthShadow()
         )
     }
     

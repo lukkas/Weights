@@ -12,7 +12,7 @@ extension ExerciseCreationView {
     class Model: ObservableObject {
         @Published var name: String = ""
         @Published var metric: BiSelector.Model
-        @Published var laterality: VerticalSelector.Model
+        @Published var laterality: GraphicalSelector.Model
         
         init() {
             metric = BiSelector.Model(
@@ -24,11 +24,20 @@ extension ExerciseCreationView {
             )
             laterality = .init(
                 options: [
-                    L10n.ExerciseCreation.LateralitySelector.bilateral,
-                    L10n.ExerciseCreation.LateralitySelector.unilateralSimultaneous,
-                    L10n.ExerciseCreation.LateralitySelector.unilateralSeparate
+                    .init(
+                        image: Image(systemName: "tray.fill"),
+                        description: L10n.ExerciseCreation.LateralitySelector.bilateral
+                    ),
+                    .init(
+                        image: Image(systemName: "folder.fill"),
+                        description: L10n.ExerciseCreation.LateralitySelector.unilateralSimultaneous
+                    ),
+                    .init(
+                        image: Image(systemName: "paperplane.fill"),
+                        description: L10n.ExerciseCreation.LateralitySelector.unilateralSeparate
+                    )
                 ],
-                selectedIndex: 1
+                selectedIndex: 0
             )
         }
     }
@@ -38,17 +47,17 @@ struct ExerciseCreationView: View {
     @ObservedObject var model: Model
     
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
             TextField(L10n.ExerciseCreation.NameField.title, text: $model.name)
-                .padding()
+                .padding(12)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
                         .foregroundColor(.background)
-                        .outerDepthShadow()
             )
             BiSelector(model: $model.metric)
-            VerticalSelector(model: $model.laterality)
+            GraphicalSelector(model: $model.laterality)
         }
+        .padding()
     }
 }
 

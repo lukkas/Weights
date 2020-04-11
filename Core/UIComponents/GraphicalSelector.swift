@@ -33,7 +33,7 @@ struct GraphicalSelector: View {
                         self.model.options[index].image
                             .foregroundColor(self.color(for: index))
                             .padding()
-                            .frame(minWidth: 44, minHeight: 44)
+                            .frame(minWidth: 80, minHeight: 80)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
                                     .stroke(self.color(for: index))
