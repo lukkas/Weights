@@ -28,7 +28,7 @@ extension ExerciseCreationView {
                     L10n.ExerciseCreation.LateralitySelector.unilateralSimultaneous,
                     L10n.ExerciseCreation.LateralitySelector.unilateralSeparate
                 ],
-                selectedIndex: 0
+                selectedIndex: 1
             )
         }
     }

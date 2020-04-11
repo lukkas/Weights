@@ -13,6 +13,7 @@ extension Color {
     static var background: Color { .init("background", bundle: current) }
     static var theme: Color { .init("theme", bundle: current) }
     static var label: Color { .init("label", bundle: current) }
+    static var border: Color { .init("border", bundle: current) }
 }
 
 private var current: Bundle {

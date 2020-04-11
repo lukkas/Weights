@@ -126,7 +126,7 @@ struct BiSelector_Previews: PreviewProvider {
     )
     
     static var previews: some View {
-        PreviewWrapper<BiSelector, BiSelector.Model>(model: model)
+        PreviewWrapper<BiSelector>(model: model)
             .padding(40)
             .previewLayout(.fixed(width: 300, height: 500))
             .background(Color.background)

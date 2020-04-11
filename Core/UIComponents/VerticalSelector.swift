@@ -17,7 +17,7 @@ struct VerticalSelector: View {
     @Binding var model: Model
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .center) {
             ForEach(0 ..< model.options.count) { index in
                 OptionButton(
                     text: self.model.options[index],
@@ -46,7 +46,7 @@ private struct OptionButton: View {
             .scaleEffect(
                 x: isSelected ? 1.15 : 1,
                 y: isSelected ? 1.15 : 1,
-                anchor: .leading
+                anchor: .center
             )
             .foregroundColor(isSelected ? .theme : .label)
             .padding(EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12))
@@ -61,7 +61,7 @@ private struct OptionButton: View {
 
 struct VerticalSelector_Previews: PreviewProvider {
     static var previews: some View {
-        PreviewWrapper<VerticalSelector, VerticalSelector.Model>(
+        PreviewWrapper<VerticalSelector>(
             model: .init(
                 options: [
                     "Unilateral",

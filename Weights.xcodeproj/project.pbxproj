@@ -50,6 +50,7 @@
 		0FB500C922DBACC100535FA2 /* ExerciseCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB500C822DBACC100535FA2 /* ExerciseCellModel.swift */; };
 		0FBAA4CB22C7691700986D90 /* Laterality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBAA4CA22C7691700986D90 /* Laterality.swift */; };
 		0FBAA4CD22C7693100986D90 /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBAA4CC22C7693100986D90 /* MuscleGroup.swift */; };
+		0FE33807243D012A00461BB5 /* GraphicalSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE33806243D012A00461BB5 /* GraphicalSelector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,7 @@
 		0FB500C822DBACC100535FA2 /* ExerciseCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellModel.swift; sourceTree = "<group>"; };
 		0FBAA4CA22C7691700986D90 /* Laterality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laterality.swift; sourceTree = "<group>"; };
 		0FBAA4CC22C7693100986D90 /* MuscleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroup.swift; sourceTree = "<group>"; };
+		0FE33806243D012A00461BB5 /* GraphicalSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicalSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +341,7 @@
 				0F56F7012430F290002A2EBA /* Modifiers */,
 				0F21F33423B7D3EB00065F6A /* BiSelector.swift */,
 				0F7EE595242FEF8F0015951B /* VerticalSelector.swift */,
+				0FE33806243D012A00461BB5 /* GraphicalSelector.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				0F56F7062430F916002A2EBA /* VerticalSelector.swift in Sources */,
 				0F7EE5BA243010B70015951B /* BiSelector.swift in Sources */,
 				0F56F70F24312A3A002A2EBA /* ExerciseCreationView.swift in Sources */,
+				0FE33807243D012A00461BB5 /* GraphicalSelector.swift in Sources */,
 				0F56F70C24312017002A2EBA /* CoreEntry.swift in Sources */,
 				0F56F71824313C72002A2EBA /* Localizable.swift in Sources */,
 				0F7EE5C3243013550015951B /* Colors.swift in Sources */,

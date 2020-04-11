@@ -9,8 +9,8 @@
 import Foundation
 import SwiftUI
 
-struct PreviewWrapper<WrappedView: WrappablePreviewView, Model>: View where WrappedView.Model == Model {
-    @State var model: Model
+struct PreviewWrapper<WrappedView: WrappablePreviewView>: View {
+    @State var model: WrappedView.Model
     
     var body: some View {
         WrappedView(model: $model)
