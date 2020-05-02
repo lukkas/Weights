@@ -1,0 +1,4 @@
+{"identity":{"generator":"Crashlytics iOS SDK/4.0.0-beta.6","display_version":"4.0.0-beta.6","build_version":"4.0.0-beta.6","started_at":1586882812,"session_id":"c39e8b4db5d64bdab03ad28a1269a5e7","install_id":"93317853-2E59-410A-B851-808CD41F1027","beta_token":null,"absolute_log_timestamps":true}}
+{"host":{"model":"iPhone12,3","machine":"D421AP","os_build_version":"17E262","os_display_version":"13.4.1","platform":"ios","locale":"en_PL"}}
+{"application":{"bundle_id":"com.appunite.zinrecord","custom_bundle_id":null,"build_version":"1","display_version":"1.0","extension_id":null}}
+{"executable":{"architecture":"arm64","uuid":"f8bebe571c1c3c9580551a69da9b67af","base":4340088832,"size":114688,"encrypted":false,"minimum_sdk_version":"11.0.0","built_sdk_version":"13.4.0"}}

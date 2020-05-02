@@ -17,6 +17,10 @@ extension GraphicalSelector {
         
         let options: [Option]
         var selectedIndex: Int = 0
+        
+        var selectedOption: Option {
+            return options[selectedIndex]
+        }
     }
 }
 
@@ -33,7 +37,7 @@ struct GraphicalSelector: View {
                         self.model.options[index].image
                             .foregroundColor(self.color(for: index))
                             .padding()
-                            .frame(minWidth: 80, minHeight: 80)
+                            .frame(minWidth: 100, minHeight: 100)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
                                     .stroke(self.color(for: index))
@@ -41,7 +45,8 @@ struct GraphicalSelector: View {
                     }
                 }
             }
-            Text(self.model.options[self.model.selectedIndex].description).font(.footnote)
+            Text(self.model.selectedOption.description)
+                .font(.footnote)
         }
     }
     

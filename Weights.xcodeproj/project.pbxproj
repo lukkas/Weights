@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F08333D24426C10003665EB /* ExerciseCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */; };
+		0F08333F24426CB0003665EB /* PlainButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F08333E24426CB0003665EB /* PlainButtonStyle.swift */; };
 		0F30989522B4518000DCDD5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F30989422B4518000DCDD5E /* AppDelegate.swift */; };
 		0F30989722B4518000DCDD5E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F30989622B4518000DCDD5E /* SceneDelegate.swift */; };
 		0F30989E22B4518200DCDD5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F30989D22B4518200DCDD5E /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 		0F56F70F24312A3A002A2EBA /* ExerciseCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F70E24312A3A002A2EBA /* ExerciseCreationView.swift */; };
 		0F56F71324313AB2002A2EBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F56F71524313AB2002A2EBA /* Localizable.strings */; };
 		0F56F71824313C72002A2EBA /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F71724313C72002A2EBA /* Localizable.swift */; };
+		0F6E72DD245E20A80052BAEC /* Publishers+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E72DC245E20A80052BAEC /* Publishers+Keyboard.swift */; };
+		0F6E72DF245E23820052BAEC /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E72DE245E23820052BAEC /* KeyboardAdaptive.swift */; };
 		0F7EE5A5243010970015951B /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; };
 		0F7EE5AC243010970015951B /* CoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EE5AB243010970015951B /* CoreTests.swift */; };
 		0F7EE5AE243010970015951B /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7EE59E243010970015951B /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,6 +33,9 @@
 		0F7EE5C0243011070015951B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F7EE5BF243011070015951B /* Colors.xcassets */; };
 		0F7EE5C3243013550015951B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EE5C2243013550015951B /* Colors.swift */; };
 		0FB4D49C24425182004E244D /* Length+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D49B2442517F004E244D /* Length+Grid.swift */; };
+		0FB4D4A024425278004E244D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D49F24425278004E244D /* RootView.swift */; };
+		0FB4D4A224425328004E244D /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D4A124425328004E244D /* RootViewModel.swift */; };
+		0FB4D4A424425B1D004E244D /* ExercisesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D4A324425B1D004E244D /* ExercisesListView.swift */; };
 		0FE33807243D012A00461BB5 /* GraphicalSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE33806243D012A00461BB5 /* GraphicalSelector.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +85,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModel.swift; sourceTree = "<group>"; };
+		0F08333E24426CB0003665EB /* PlainButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainButtonStyle.swift; sourceTree = "<group>"; };
 		0F21F33423B7D3EB00065F6A /* BiSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiSelector.swift; sourceTree = "<group>"; };
 		0F30989122B4518000DCDD5E /* Weights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F30989422B4518000DCDD5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +105,8 @@
 		0F56F70E24312A3A002A2EBA /* ExerciseCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationView.swift; sourceTree = "<group>"; };
 		0F56F71424313AB2002A2EBA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0F56F71724313C72002A2EBA /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		0F6E72DC245E20A80052BAEC /* Publishers+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publishers+Keyboard.swift"; sourceTree = "<group>"; };
+		0F6E72DE245E23820052BAEC /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		0F7EE59C243010970015951B /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7EE59E243010970015951B /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
 		0F7EE59F243010970015951B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,6 +116,9 @@
 		0F7EE5BF243011070015951B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		0F7EE5C2243013550015951B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0FB4D49B2442517F004E244D /* Length+Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Length+Grid.swift"; sourceTree = "<group>"; };
+		0FB4D49F24425278004E244D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		0FB4D4A124425328004E244D /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
+		0FB4D4A324425B1D004E244D /* ExercisesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListView.swift; sourceTree = "<group>"; };
 		0FE33806243D012A00461BB5 /* GraphicalSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicalSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,6 +213,8 @@
 			children = (
 				0F56F7022430F2AA002A2EBA /* OuterDepthShadow.swift */,
 				0F56F7042430F536002A2EBA /* InnerDepthShadow.swift */,
+				0F08333E24426CB0003665EB /* PlainButtonStyle.swift */,
+				0F6E72DE245E23820052BAEC /* KeyboardAdaptive.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -207,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				0F56F70824310864002A2EBA /* PreviewWrapper.swift */,
+				0F6E72DC245E20A80052BAEC /* Publishers+Keyboard.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -222,7 +239,9 @@
 		0F56F70D24312A21002A2EBA /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				0F56F70E24312A3A002A2EBA /* ExerciseCreationView.swift */,
+				0FB4D49E24425269004E244D /* Root */,
+				0FB4D4A524425B22004E244D /* ExercisesList */,
+				0FB4D49D24425255004E244D /* ExerciseCreation */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -286,6 +305,32 @@
 				0FB4D49B2442517F004E244D /* Length+Grid.swift */,
 			);
 			path = Spacing;
+			sourceTree = "<group>";
+		};
+		0FB4D49D24425255004E244D /* ExerciseCreation */ = {
+			isa = PBXGroup;
+			children = (
+				0F56F70E24312A3A002A2EBA /* ExerciseCreationView.swift */,
+				0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */,
+			);
+			path = ExerciseCreation;
+			sourceTree = "<group>";
+		};
+		0FB4D49E24425269004E244D /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				0FB4D49F24425278004E244D /* RootView.swift */,
+				0FB4D4A124425328004E244D /* RootViewModel.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		0FB4D4A524425B22004E244D /* ExercisesList */ = {
+			isa = PBXGroup;
+			children = (
+				0FB4D4A324425B1D004E244D /* ExercisesListView.swift */,
+			);
+			path = ExercisesList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -481,7 +526,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F08333F24426CB0003665EB /* PlainButtonStyle.swift in Sources */,
+				0F6E72DD245E20A80052BAEC /* Publishers+Keyboard.swift in Sources */,
 				0F56F70924310864002A2EBA /* PreviewWrapper.swift in Sources */,
+				0F6E72DF245E23820052BAEC /* KeyboardAdaptive.swift in Sources */,
 				0F56F7052430F536002A2EBA /* InnerDepthShadow.swift in Sources */,
 				0F56F7032430F2AA002A2EBA /* OuterDepthShadow.swift in Sources */,
 				0F7EE5BA243010B70015951B /* BiSelector.swift in Sources */,
@@ -491,6 +539,10 @@
 				0FB4D49C24425182004E244D /* Length+Grid.swift in Sources */,
 				0F56F71824313C72002A2EBA /* Localizable.swift in Sources */,
 				0F7EE5C3243013550015951B /* Colors.swift in Sources */,
+				0FB4D4A224425328004E244D /* RootViewModel.swift in Sources */,
+				0F08333D24426C10003665EB /* ExerciseCreationViewModel.swift in Sources */,
+				0FB4D4A424425B1D004E244D /* ExercisesListView.swift in Sources */,
+				0FB4D4A024425278004E244D /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

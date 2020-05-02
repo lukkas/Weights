@@ -10,5 +10,5 @@ import Foundation
 import SwiftUI
 
 public func makeInitialView() -> some View {
-    EmptyView()
+    RootView(viewModel: RootViewModel())
 }

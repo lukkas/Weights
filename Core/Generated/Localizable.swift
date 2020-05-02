@@ -32,6 +32,28 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "exerciseCreation.nameField.title")
     }
   }
+
+  internal enum ExercisesList {
+    internal enum NavBar {
+      /// Exercises
+      internal static let exercises = L10n.tr("Localizable", "exercisesList.navBar.exercises")
+      /// Home
+      internal static let home = L10n.tr("Localizable", "exercisesList.navBar.home")
+      /// Plan
+      internal static let plan = L10n.tr("Localizable", "exercisesList.navBar.plan")
+    }
+  }
+
+  internal enum Root {
+    internal enum Tab {
+      /// Exercises
+      internal static let exercises = L10n.tr("Localizable", "root.tab.exercises")
+      /// Home
+      internal static let home = L10n.tr("Localizable", "root.tab.home")
+      /// Plan
+      internal static let plan = L10n.tr("Localizable", "root.tab.plan")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name

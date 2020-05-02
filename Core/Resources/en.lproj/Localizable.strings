@@ -6,6 +6,14 @@
   Copyright © 2020 Łukasz Kasperek. All rights reserved.
 */
 
+"root.tab.home" = "Home";
+"root.tab.plan" = "Plan";
+"root.tab.exercises" = "Exercises";
+
+"exercisesList.navBar.home" = "Home";
+"exercisesList.navBar.plan" = "Plan";
+"exercisesList.navBar.exercises" = "Exercises";
+
 "exerciseCreation.nameField.title" = "Name";
 
 "exerciseCreation.metricSelector.reps" = "Reps";
