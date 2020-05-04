@@ -15,29 +15,37 @@ class ExerciseCreationViewModel: ObservableObject {
     @Published var laterality: GraphicalSelector.Model
     
     init() {
-        metric = BiSelector.Model(
-            options: [
-                L10n.ExerciseCreation.MetricSelector.reps,
-                L10n.ExerciseCreation.MetricSelector.duration
-            ],
-            selectedIndex: 0
-        )
-        laterality = .init(
-            options: [
-                .init(
-                    image: Image(systemName: "tray.fill"),
-                    description: L10n.ExerciseCreation.LateralitySelector.bilateral
-                ),
-                .init(
-                    image: Image(systemName: "folder.fill"),
-                    description: L10n.ExerciseCreation.LateralitySelector.unilateralSimultaneous
-                ),
-                .init(
-                    image: Image(systemName: "paperplane.fill"),
-                    description: L10n.ExerciseCreation.LateralitySelector.unilateralSeparate
-                )
-            ],
-            selectedIndex: 0
-        )
+        metric = makeMetricSelectorViewModel()
+        laterality = makeLateralitySelectorViewModel()
     }
+}
+
+private func makeMetricSelectorViewModel() -> BiSelector.Model {
+    BiSelector.Model(
+        options: [
+            L10n.ExerciseCreation.MetricSelector.reps,
+            L10n.ExerciseCreation.MetricSelector.duration
+        ],
+        selectedIndex: 0
+    )
+}
+
+private func makeLateralitySelectorViewModel() -> GraphicalSelector.Model {
+    GraphicalSelector.Model(
+        options: [
+            .init(
+                image: Image(systemName: "tray.fill"),
+                description: L10n.ExerciseCreation.LateralitySelector.bilateral
+            ),
+            .init(
+                image: Image(systemName: "folder.fill"),
+                description: L10n.ExerciseCreation.LateralitySelector.unilateralSimultaneous
+            ),
+            .init(
+                image: Image(systemName: "paperplane.fill"),
+                description: L10n.ExerciseCreation.LateralitySelector.unilateralSeparate
+            )
+        ],
+        selectedIndex: 0
+    )
 }
