@@ -11,9 +11,14 @@ import Foundation
 
 public class ExercisesRepository {
     private let context: NSManagedObjectContext
+    private let currentDate: () -> Date
     
-    init(context: NSManagedObjectContext) {
+    init(
+        context: NSManagedObjectContext,
+        currentDate: @escaping () -> Date = Date.init
+    ) {
         self.context = context
+        self.currentDate = currentDate
     }
     
     public func insertExercise(
@@ -27,10 +32,13 @@ public class ExercisesRepository {
         exercise.name = name
         exercise.volumeUnit = volumeUnit
         exercise.laterality = laterality
+        exercise.addedAt = currentDate()
+        context.performSaveOrRollback()
     }
     
-    public func fetchExercises() -> FetchResult<Exercise> {
+    public func fetchExercises() -> [Exercise] {
         let fetchRequest = Exercise.sortedFetchRequest
-        return FetchResult(fetchRequest: fetchRequest)
+        let result = try! context.fetch(fetchRequest)
+        return result
     }
 }

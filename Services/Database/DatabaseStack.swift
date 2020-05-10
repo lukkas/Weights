@@ -13,7 +13,10 @@ import Foundation
 public func makeWeightsPersistentContainer() -> AnyPublisher<NSPersistentContainer, Error> {
     return Future { promise in
         DispatchQueue.global(qos: .userInitiated).async {
-            let container = NSPersistentContainer(name: "Weights")
+            let container = NSPersistentContainer(
+                name: "Weights",
+                managedObjectModel: DatabaseModelVersion.version1.managedObjectModel()
+            )
             container.loadPersistentStores { _, error in
                 if let error = error {
                     promise(.failure(error))

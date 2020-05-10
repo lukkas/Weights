@@ -3,4 +3,54 @@
    uuid = "0099C60E-3626-4365-81C8-921EC6F7B76A"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5DAD1FDC-1588-4A54-BC73-6E06310EC686"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Services/Database/DatabaseStack.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "makeWeightsPersistentContainer()"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "5DAD1FDC-1588-4A54-BC73-6E06310EC686 - 2b8f8fe4f5853ce8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Services.makeWeightsPersistentContainer() -&gt; Combine.AnyPublisher&lt;__C.NSPersistentContainer, Swift.Error&gt;"
+                  moduleName = "Services"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lukaszkasperek/Documents/developer/Weights/Services/Database/DatabaseStack.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "10">
+               </Location>
+               <Location
+                  uuid = "5DAD1FDC-1588-4A54-BC73-6E06310EC686 - 599056f350eb04a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((Swift.Result&lt;__C.NSPersistentContainer, Swift.Error&gt;) -&gt; ()) -&gt; () in Services.makeWeightsPersistentContainer() -&gt; Combine.AnyPublisher&lt;__C.NSPersistentContainer, Swift.Error&gt;"
+                  moduleName = "Services"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lukaszkasperek/Documents/developer/Weights/Services/Database/DatabaseStack.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "217">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -9,10 +9,14 @@
 import Combine
 import CoreData
 import Foundation
+@testable import Services
 
 func makeInMemoryPeristentContainer() -> AnyPublisher<NSPersistentContainer, Error> {
     return Future { promise in
-        let container = NSPersistentContainer(name: "Weights")
+        let container = NSPersistentContainer(
+            name: "Weights",
+            managedObjectModel: DatabaseModelVersion.version1.managedObjectModel()
+        )
         let description = NSPersistentStoreDescription()
         description.type = NSInMemoryStoreType
         container.persistentStoreDescriptions = [description]
