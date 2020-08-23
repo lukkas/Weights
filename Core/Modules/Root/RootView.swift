@@ -21,7 +21,7 @@ struct RootView: View {
                 .tabItem {
                     Text(L10n.Root.Tab.plan)
                 }
-            ExercisesListView()
+            ExercisesListView(viewModel: viewModel.routes.exercisesList())
                 .tabItem {
                     Text(L10n.Root.Tab.exercises)
                 }
@@ -31,6 +31,6 @@ struct RootView: View {
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView(viewModel: RootViewModel())
+        RootView(viewModel: RootViewModel(routes: .init(exercisesList: placeholderClosure)))
     }
 }

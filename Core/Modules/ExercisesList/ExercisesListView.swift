@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ExercisesListView: View {
     @State private var isPresenting = false
+    var viewModel: ExercisesListViewModel
     
     var body: some View {
         NavigationView {
@@ -22,14 +23,27 @@ struct ExercisesListView: View {
                     })
             )
         }
+        .fullScreenCover(isPresented: /*@START_MENU_TOKEN@*/.constant(true)/*@END_MENU_TOKEN@*/, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{}/*@END_MENU_TOKEN@*/) {
+            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Content@*/Text("Placeholder")/*@END_MENU_TOKEN@*/
+        }
         .sheet(isPresented: $isPresenting) {
-            ExerciseCreationView(model: .init())
+            ExerciseCreationView(
+                model: self.viewModel.routes.createExercise(),
+                isPresented: self.$isPresenting
+            )
         }
     }
 }
 
 struct ExercisesListView_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisesListView()
+        ExercisesListView(viewModel: ExercisesListViewModel(
+            exerciseStorage: PlaceholderExerciseStorage(),
+            routes: .init(createExercise: placeholderClosure)
+            )
+        )
     }
 }
+
+func placeholderClosure<T>() -> T { fatalError() }
+func placeholderClosure<P, T>(arg1: P) ->  T { fatalError() }

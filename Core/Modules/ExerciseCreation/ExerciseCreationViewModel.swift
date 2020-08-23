@@ -6,33 +6,34 @@
 //  Copyright © 2020 Łukasz Kasperek. All rights reserved.
 //
 
+import Combine
 import Foundation
 import SwiftUI
 
-class ExerciseCreationViewModel: ObservableObject {
-    @Published var name: String = ""
-    @Published var metric: BiSelector.Model
-    @Published var laterality: GraphicalSelector.Model
+protocol ExerciseCreationViewModeling: ObservableObject {
+    var name: String { get set }
+    var volumeUnit: Exercise.VolumeUnit? { get set }
+    var laterality: Exercise.Laterality? { get set }
+}
+
+class ExerciseCreationViewModel: ExerciseCreationViewModeling {
+    @Published var name: String  = ""
+    @Published var volumeUnit: Exercise.VolumeUnit?
+    @Published var laterality: Exercise.Laterality?
     
-    init() {
-        metric = makeMetricSelectorViewModel()
-        laterality = makeLateralitySelectorViewModel()
+    private let exerciseStorage: ExerciseStoring
+    
+    init(exerciseStorage: ExerciseStoring) {
+        self.exerciseStorage = exerciseStorage
     }
-}
-
-private func makeMetricSelectorViewModel() -> BiSelector.Model {
-    BiSelector.Model(
-        options: [
-            L10n.ExerciseCreation.MetricSelector.reps,
-            L10n.ExerciseCreation.MetricSelector.duration
-        ],
-        selectedIndex: 0
-    )
-}
-
-private func makeLateralitySelectorViewModel() -> GraphicalSelector.Model {
-    GraphicalSelector.Model(
-        options: [
+    
+    var metricTitles: [String] {
+        [L10n.ExerciseCreation.MetricSelector.reps,
+         L10n.ExerciseCreation.MetricSelector.duration]
+    }
+    
+    var lateralityOptions: [GraphicalSelector.Option] {
+        [
             .init(
                 image: Image(systemName: "tray.fill"),
                 description: L10n.ExerciseCreation.LateralitySelector.bilateral
@@ -45,7 +46,10 @@ private func makeLateralitySelectorViewModel() -> GraphicalSelector.Model {
                 image: Image(systemName: "paperplane.fill"),
                 description: L10n.ExerciseCreation.LateralitySelector.unilateralSeparate
             )
-        ],
-        selectedIndex: 0
-    )
+        ]
+    }
+    
+    func handleDoneTapped() {
+        
+    }
 }

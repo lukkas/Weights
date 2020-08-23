@@ -13,6 +13,8 @@ import Foundation
 internal enum L10n {
 
   internal enum ExerciseCreation {
+    /// Add
+    internal static let add = L10n.tr("Localizable", "exerciseCreation.add")
     internal enum LateralitySelector {
       /// Bilateral
       internal static let bilateral = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.bilateral")

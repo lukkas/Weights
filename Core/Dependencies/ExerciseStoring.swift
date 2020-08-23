@@ -10,4 +10,17 @@ import Foundation
 
 public protocol ExerciseStoring {
     func insert(_ exercise: Exercise)
+    func fetchExercises() -> [Exercise]
+}
+
+class PlaceholderExerciseStorage: ExerciseStoring {
+    var exercises = [Exercise]()
+    
+    func insert(_ exercise: Exercise) {
+        exercises.append(exercise)
+    }
+    
+    func fetchExercises() -> [Exercise] {
+        return exercises
+    }
 }

@@ -10,20 +10,15 @@ import Combine
 import CoreData
 import Foundation
 
-public func makeWeightsPersistentContainer() -> AnyPublisher<NSPersistentContainer, Error> {
-    return Future { promise in
-        DispatchQueue.global(qos: .userInitiated).async {
-            let container = NSPersistentContainer(
-                name: "Weights",
-                managedObjectModel: DatabaseModelVersion.version1.managedObjectModel()
-            )
-            container.loadPersistentStores { _, error in
-                if let error = error {
-                    promise(.failure(error))
-                } else {
-                    promise(.success(container))
-                }
-            }
+public func makeWeightsPersistentContainer() -> NSPersistentContainer {
+    let container = NSPersistentContainer(
+        name: "Weights",
+        managedObjectModel: DatabaseModelVersion.version1.managedObjectModel()
+    )
+    container.loadPersistentStores { _, error in
+        if let error = error {
+            assertionFailure("Did fail loading peristent store with: \(error)")
         }
-    }.eraseToAnyPublisher()
+    }
+    return container
 }

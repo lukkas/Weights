@@ -22,3 +22,5 @@
 "exerciseCreation.lateralitySelector.bilateral" = "Bilateral";
 "exerciseCreation.lateralitySelector.unilateralSimultaneous" = "Unilateral simultaneous";
 "exerciseCreation.lateralitySelector.unilateralSeparate" = "Unilateral separate";
+
+"exerciseCreation.add" = "Add";

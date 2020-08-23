@@ -13,7 +13,6 @@ public class Exercise: NSManagedObject {
     @objc public enum Laterality: Int16 {
         case bilateral = 0
         case unilateral
-        case unilateralSimultanous
     }
     
     @objc public enum VolumeUnit: Int16 {

@@ -10,10 +10,16 @@ import Foundation
 import SwiftUI
 
 extension Color {
-    static var background: Color { .init("background", bundle: current) }
-    static var theme: Color { .init("theme", bundle: current) }
-    static var label: Color { .init("label", bundle: current) }
-    static var border: Color { .init("border", bundle: current) }
+    static var background: Color { named("background") }
+    static var primaryElement: Color { named("primary_element") }
+    static var theme: Color { named("theme") }
+    static var label: Color { named("label") }
+    static var overThemeLabel: Color { named("over_theme_label") }
+    static var border: Color { named("border") }
+    
+    private static func named(_ name: String) -> Color {
+        return .init(name, bundle: current)
+    }
 }
 
 private var current: Bundle {

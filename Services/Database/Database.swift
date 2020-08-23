@@ -12,11 +12,11 @@ import Foundation
 public class Database {
     private let persistentContainer: NSPersistentContainer
     
-    init(persistentContainer: NSPersistentContainer) {
+    public init(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
     }
     
-    func getExercisesRepository() -> ExercisesRepository {
+    public func getExercisesRepository() -> ExercisesRepository {
         return ExercisesRepository(context: persistentContainer.viewContext)
     }
 }

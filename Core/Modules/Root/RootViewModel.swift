@@ -9,14 +9,20 @@
 import Foundation
 
 class RootViewModel: ObservableObject {
+    struct Routes {
+        let exercisesList: () -> ExercisesListViewModel
+    }
+    
     struct Tab: Identifiable {
         let id = UUID()
         let title: String
     }
     
     @Published var tabs: [Tab]
+    let routes: Routes
     
-    init() {
+    init(routes: Routes) {
+        self.routes = routes
         tabs = Self.buildTabs()
     }
 }

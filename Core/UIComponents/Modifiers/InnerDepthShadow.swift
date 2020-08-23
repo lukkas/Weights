@@ -33,7 +33,7 @@ struct InnerDepthShadow<S: Shape>: ViewModifier {
 
 extension View {
     func innerDepthShadow<S: Shape>(shape: S) -> some View {
-        return self.modifier(InnerDepthShadow(shape: shape))
+        return modifier(InnerDepthShadow(shape: shape))
     }
 }
 

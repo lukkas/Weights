@@ -11,31 +11,26 @@ import SwiftUI
 private let biSelectorCoordinateSpace = "biSelectorCoordinateSpace"
 
 struct BiSelector: View {
-    struct Model {
-        let options: [String]
-        var selectedIndex: Int
-        
-        init(options: [String], selectedIndex: Int) {
-            precondition(options.count == 2)
-            self.options = options
-            self.selectedIndex = selectedIndex
-        }
-    }
-    
-    @Binding var model: Model
+    @Binding private var selection: Int
+    private let options: [String]
     @State private var buttonRects: [CGRect] = Array(repeating: .zero, count: 2)
+    
+    init(selection: Binding<Int>, options: [String]) {
+        _selection = selection
+        self.options = options
+    }
     
     var body: some View {
         HStack(spacing: 0) {
             BiSelectorButton(
                 index: 0,
-                title: self.model.options[0],
-                selectedIndex: self.$model.selectedIndex
+                title: self.options[0],
+                selectedIndex: self.$selection
             )
             BiSelectorButton(
                 index: 1,
-                title: self.model.options[1],
-                selectedIndex: self.$model.selectedIndex
+                title: self.options[1],
+                selectedIndex: self.$selection
             )
         }
         .coordinateSpace(name: biSelectorCoordinateSpace)
@@ -46,7 +41,7 @@ struct BiSelector: View {
         }
         .font(.subheadline)
         .background(
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: 12)
                 .foregroundColor(.theme)
                 .padding(2)
                 .frame(
@@ -58,13 +53,13 @@ struct BiSelector: View {
             alignment: .leading
         )
             .background(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 12)
                 .foregroundColor(.background)
         )
     }
     
     private var selectedButtonRect: CGRect {
-        return buttonRects[model.selectedIndex]
+        return buttonRects[selection]
     }
 }
 
@@ -119,17 +114,21 @@ private struct SelectionMarkerPreferenceKey: PreferenceKey {
 }
 
 struct BiSelector_Previews: PreviewProvider {
-    static let model = BiSelector.Model(
-        options: ["Reps", "Duration"],
-        selectedIndex: 0
-    )
-    
     static var previews: some View {
-        PreviewWrapper<BiSelector>(model: model)
+        Wrapper()
             .padding(40)
             .previewLayout(.fixed(width: 300, height: 500))
             .background(Color.background)
     }
+    
+    private struct Wrapper: View {
+        @State var selection = 0
+        
+        var body: some View {
+            BiSelector(
+                selection: $selection,
+                options: ["Reps", "Duration"]
+            )
+        }
+    }
 }
-
-extension BiSelector: WrappablePreviewView {}

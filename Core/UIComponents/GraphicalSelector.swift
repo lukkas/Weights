@@ -8,33 +8,29 @@
 
 import SwiftUI
 
-extension GraphicalSelector {
-    struct Model {
-        struct Option {
-            let image: Image
-            let description: String
-        }
-        
-        let options: [Option]
-        var selectedIndex: Int = 0
-        
-        var selectedOption: Option {
-            return options[selectedIndex]
-        }
-    }
-}
-
 struct GraphicalSelector: View {
-    @Binding var model: Model
+    struct Option {
+        let image: Image
+        let description: String
+    }
+    
+    @Binding private var selection: Int
+    private let options: [Option]
+    private var selectedOption: Option { options[selection] }
+    
+    init(selection: Binding<Int>, options: [Option]) {
+        _selection = selection
+        self.options = options
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                ForEach(model.options.indices) { index in
+                ForEach(options.indices) { index in
                     Button(action: {
-                        self.model.selectedIndex = index
+                        self.selection = index
                     }) {
-                        self.model.options[index].image
+                        self.options[index].image
                             .foregroundColor(self.color(for: index))
                             .padding()
                             .frame(minWidth: 100, minHeight: 100)
@@ -45,38 +41,46 @@ struct GraphicalSelector: View {
                     }
                 }
             }
-            Text(self.model.selectedOption.description)
+            Text(self.selectedOption.description)
                 .font(.footnote)
         }
     }
     
     private func color(for index: Int) -> Color {
-        return model.selectedIndex == index ? .theme : .border
+        return selection == index ? .theme : .border
     }
 }
 
 struct GraphicalSelector_Previews: PreviewProvider {
-    static let model = GraphicalSelector.Model(
-        options: [
-            .init(
-                image: Image(systemName: "paperplane.fill"),
-                description: "Some pretty long description, just to check."
-            ),
-            .init(
-                image: Image(systemName: "folder.fill"),
-                description: "Another fairly long description."
-            ),
-            .init(
-                image: Image(systemName: "tray.fill"),
-                description: "This one isn't that short either."
-            ),
-        ],
-        selectedIndex: 0
-    )
-    
     static var previews: some View {
-        PreviewWrapper<GraphicalSelector>(model: model)
+        Wrapper()
+    }
+    
+    private struct Wrapper: View {
+        @State var selection = 0
+        
+        var body: some View {
+            GraphicalSelector(
+                selection: $selection,
+                options: options
+            )
+        }
+        
+        private var options: [GraphicalSelector.Option] {
+            [
+                .init(
+                    image: Image(systemName: "paperplane.fill"),
+                    description: "Some pretty long description, just to check."
+                ),
+                .init(
+                    image: Image(systemName: "folder.fill"),
+                    description: "Another fairly long description."
+                ),
+                .init(
+                    image: Image(systemName: "tray.fill"),
+                    description: "This one isn't that short either."
+                )
+            ]
+        }
     }
 }
-
-extension GraphicalSelector: WrappablePreviewView {}
