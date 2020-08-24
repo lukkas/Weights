@@ -16,8 +16,10 @@
 
 "exerciseCreation.nameField.title" = "Name";
 
+"exerciseCreation.metricSelector.title" = "Metric";
 "exerciseCreation.metricSelector.reps" = "Reps";
 "exerciseCreation.metricSelector.duration" = "Duration";
+"exerciseCreation.metricSelector.comment" = "Metric is how volume of exercise is measured.\nFor exercises with duration metric you'll be able to use Weights as timer indicating when your set is over.";
 
 "exerciseCreation.lateralitySelector.bilateral" = "Bilateral";
 "exerciseCreation.lateralitySelector.unilateralSimultaneous" = "Unilateral simultaneous";

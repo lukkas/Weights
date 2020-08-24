@@ -17,15 +17,17 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
         Form {
             TextField("Exercise Name", text: $model.name)
             Section(
-                header: Text("Metric")
+                header: Text(
+                    verbatim: L10n.ExerciseCreation.MetricSelector.title
+                )
                     .font(.headline),
-                footer: Text("Siusiak")
+                footer: Text(
+                    verbatim:
+                        L10n.ExerciseCreation.MetricSelector.comment
+                )
             ) {
-                HStack {
-                    optionButton(volumeUnit: .reps)
-                    Image(systemName: "arrow.left.arrow.right")
-                    optionButton(volumeUnit: .duration)
-                }
+                optionButton(volumeUnit: .reps)
+                optionButton(volumeUnit: .duration)
             }
             Section(
                 header: Text("Laterality")
@@ -41,33 +43,23 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
         volumeUnit: Exercise.VolumeUnit
     ) -> some View {
         Button(action: { model.volumeUnit = volumeUnit }, label: {
-            VStack {
-                volumeUnit.image.foregroundColor(
-                    model.volumeUnit == volumeUnit ? .white : nil
-                )
-                Spacer()
-                Text(volumeUnit.title).foregroundColor(
-                    model.volumeUnit == volumeUnit ? .white : nil
-                )
+            HStack {
+                Image(systemName: volumeUnit.imageName)
+                    .foregroundColor(
+                        model.volumeUnit == volumeUnit ? .theme : .label
+                    )
+                Text(volumeUnit.title)
+                    .foregroundColor(
+                        model.volumeUnit == volumeUnit ? .theme : .label
+                    )
+                if model.volumeUnit == volumeUnit {
+                    Spacer()
+                    Image(systemName: "checkmark")
+                        .foregroundColor(.theme)
+                }
             }
         })
-        .buttonStyle(PlainButtonStyle())
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(
-            model.volumeUnit == volumeUnit
-                ? Color.theme.cornerRadius(8)
-                : nil
-        )
-        .overlay(
-            model.volumeUnit == volumeUnit
-                ? nil
-                : RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1)
-        )
     }
-    
-    private let volumeUnits = Exercise.VolumeUnit.allCases
-    private let lateralityOptions = Exercise.Laterality.allCases
 }
 
 private extension Exercise.VolumeUnit {
@@ -78,10 +70,10 @@ private extension Exercise.VolumeUnit {
         }
     }
     
-    var image: Image {
+    var imageName: String {
         switch self {
-        case .duration: return Image(systemName: "clock")
-        case .reps: return Image(systemName: "number.circle")
+        case .duration: return "clock"
+        case .reps: return "number.circle"
         }
     }
 }
