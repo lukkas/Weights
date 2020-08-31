@@ -14,7 +14,7 @@ extension Exercise {
         return .init(
             id: .init(),
             name: "Squat",
-            volumeUnit: .reps,
+            metric: .reps,
             laterality: .bilateral
         )
     }

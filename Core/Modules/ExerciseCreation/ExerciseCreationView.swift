@@ -15,7 +15,7 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
     
     var body: some View {
         Form {
-            TextField("Exercise Name", text: $model.name)
+            TextField(L10n.ExerciseCreation.NameField.title, text: $model.name)
             Section(
                 header: Text(
                     verbatim: L10n.ExerciseCreation.MetricSelector.title
@@ -26,33 +26,53 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
                         L10n.ExerciseCreation.MetricSelector.comment
                 )
             ) {
-                optionButton(volumeUnit: .reps)
-                optionButton(volumeUnit: .duration)
+                optionButton(metric: .reps)
+                optionButton(metric: .duration)
             }
             Section(
-                header: Text("Laterality")
+                header: Text(verbatim: L10n.ExerciseCreation.LateralitySelector.title)
                     .font(.headline),
-                footer: Text("Siusiak")
+                footer: Text(verbatim: L10n.ExerciseCreation.LateralitySelector.comment)
             ) {
-                
+                optionButton(laterality: .bilateral)
+                optionButton(laterality: .unilateralSingle)
+                optionButton(laterality: .unilateralIndividual)
             }
         }
     }
     
     @ViewBuilder private func optionButton(
-        volumeUnit: Exercise.VolumeUnit
+        metric: Exercise.Metric
     ) -> some View {
-        Button(action: { model.volumeUnit = volumeUnit }, label: {
+        Button(action: { model.metric = metric }, label: {
             HStack {
-                Image(systemName: volumeUnit.imageName)
+                Image(systemName: metric.imageName)
                     .foregroundColor(
-                        model.volumeUnit == volumeUnit ? .theme : .label
+                        model.metric == metric ? .theme : .label
                     )
-                Text(volumeUnit.title)
+                Text(metric.title)
                     .foregroundColor(
-                        model.volumeUnit == volumeUnit ? .theme : .label
+                        model.metric == metric ? .theme : .label
                     )
-                if model.volumeUnit == volumeUnit {
+                if model.metric == metric {
+                    Spacer()
+                    Image(systemName: "checkmark")
+                        .foregroundColor(.theme)
+                }
+            }
+        })
+    }
+    
+    @ViewBuilder private func optionButton(
+        laterality: Exercise.Laterality
+    ) -> some View {
+        Button(action: { model.laterality = laterality }, label: {
+            HStack {
+                Text(laterality.title)
+                    .foregroundColor(
+                        model.laterality == laterality ? .theme : .label
+                    )
+                if model.laterality == laterality {
                     Spacer()
                     Image(systemName: "checkmark")
                         .foregroundColor(.theme)
@@ -62,7 +82,7 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
     }
 }
 
-private extension Exercise.VolumeUnit {
+private extension Exercise.Metric {
     var title: String {
         switch self {
         case .duration: return L10n.ExerciseCreation.MetricSelector.duration
@@ -78,9 +98,22 @@ private extension Exercise.VolumeUnit {
     }
 }
 
+private extension Exercise.Laterality {
+    var title: String {
+        switch self {
+        case .bilateral:
+            return L10n.ExerciseCreation.LateralitySelector.bilateral
+        case .unilateralSingle:
+            return L10n.ExerciseCreation.LateralitySelector.unilateralSingle
+        case .unilateralIndividual:
+            return L10n.ExerciseCreation.LateralitySelector.unilateralIndividual
+        }
+    }
+}
+
 class ExerciseCreationPreviewModel: ExerciseCreationViewModeling {
     @Published var name: String = ""
-    @Published var volumeUnit: Exercise.VolumeUnit? = nil
+    @Published var metric: Exercise.Metric? = nil
     @Published var laterality: Exercise.Laterality? = nil
 }
 

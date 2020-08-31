@@ -12,10 +12,11 @@ import Foundation
 public class Exercise: NSManagedObject {
     @objc public enum Laterality: Int16 {
         case bilateral = 0
-        case unilateral
+        case unilateralSingle
+        case unilateralIndividual
     }
     
-    @objc public enum VolumeUnit: Int16 {
+    @objc public enum Metric: Int16 {
         case reps = 0
         case duration
     }
@@ -24,7 +25,7 @@ public class Exercise: NSManagedObject {
     @NSManaged public internal(set) var name: String
     @NSManaged public internal(set) var addedAt: Date
     @NSManaged public internal(set) var laterality: Laterality
-    @NSManaged public internal(set) var volumeUnit: VolumeUnit
+    @NSManaged public internal(set) var metric: Metric
 }
 
 extension Exercise: Managed {

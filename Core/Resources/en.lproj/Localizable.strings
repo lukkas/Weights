@@ -14,15 +14,17 @@
 "exercisesList.navBar.plan" = "Plan";
 "exercisesList.navBar.exercises" = "Exercises";
 
-"exerciseCreation.nameField.title" = "Name";
+"exerciseCreation.nameField.title" = "Exercise Name";
 
 "exerciseCreation.metricSelector.title" = "Metric";
 "exerciseCreation.metricSelector.reps" = "Reps";
 "exerciseCreation.metricSelector.duration" = "Duration";
 "exerciseCreation.metricSelector.comment" = "Metric is how volume of exercise is measured.\nFor exercises with duration metric you'll be able to use Weights as timer indicating when your set is over.";
 
+"exerciseCreation.lateralitySelector.title" = "Laterality";
 "exerciseCreation.lateralitySelector.bilateral" = "Bilateral";
-"exerciseCreation.lateralitySelector.unilateralSimultaneous" = "Unilateral simultaneous";
-"exerciseCreation.lateralitySelector.unilateralSeparate" = "Unilateral separate";
+"exerciseCreation.lateralitySelector.unilateralSingle" = "Unilateral (both sides at once)";
+"exerciseCreation.lateralitySelector.unilateralIndividual" = "Unilateral (one side after another)";
+"exerciseCreation.lateralitySelector.comment" = "Laterality is about how work is distributed in any given exercise among left and right side of your body.\n* bilateral - left and right side work together i.e. bench press,\n* unilateral (both sides at once) - each side works individually, but on the same time i.e. dumbbell bench press,\n* unilateral (one side after another) - each body side works individually and you exercise second side of your body only after you finish first i.e. side plank.";
 
 "exerciseCreation.add" = "Add";

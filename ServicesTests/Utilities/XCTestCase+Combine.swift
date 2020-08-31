@@ -13,7 +13,7 @@ import XCTest
 extension XCTestCase {
     func awaitValue<T, F: Error>(
         _ publisher: AnyPublisher<T, F>,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) throws -> T {
         let expectation = self.expectation(description: "\(publisher) should emit value")

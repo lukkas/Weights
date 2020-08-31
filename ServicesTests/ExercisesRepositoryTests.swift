@@ -40,7 +40,7 @@ class ExercisesRepositoryTests: XCTestCase {
         sut.insertExercise(
             id: id,
             name: "Squat",
-            volumeUnit: .reps,
+            metric: .reps,
             laterality: .bilateral
         )
         
@@ -49,7 +49,7 @@ class ExercisesRepositoryTests: XCTestCase {
         result.verify_hasOneExercise(
             withId: id,
             name: "Squat",
-            volumeUnit: .reps,
+            metric: .reps,
             laterlaity: .bilateral,
             addedAt: currentDate
         )
@@ -60,17 +60,17 @@ private extension Array where Element == Exercise {
     func verify_hasOneExercise(
         withId id: UUID,
         name: String,
-        volumeUnit: Exercise.VolumeUnit,
+        metric: Exercise.Metric,
         laterlaity: Exercise.Laterality,
         addedAt: Date,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) {
         XCTAssertEqual(count, 1, file: file, line: line)
         let exercise = self[0]
         XCTAssertEqual(exercise.id, id, file: file, line: line)
         XCTAssertEqual(exercise.name, name, file: file, line: line)
-        XCTAssertEqual(exercise.volumeUnit, volumeUnit, file: file, line: line)
+        XCTAssertEqual(exercise.metric, metric, file: file, line: line)
         XCTAssertEqual(exercise.laterality, laterlaity, file: file, line: line)
         XCTAssertEqual(exercise.addedAt, addedAt, file: file, line: line)
     }

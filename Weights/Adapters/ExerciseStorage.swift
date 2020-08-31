@@ -15,7 +15,7 @@ extension ExercisesRepository: ExerciseStoring {
         insertExercise(
             id: exercise.id,
             name: exercise.name,
-            volumeUnit: exercise.volumeUnit.toServices(),
+            metric: exercise.metric.toServices(),
             laterality: exercise.laterality.toServices()
         )
     }

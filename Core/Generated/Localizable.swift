@@ -17,10 +17,14 @@ internal enum L10n {
     internal enum LateralitySelector {
       /// Bilateral
       internal static let bilateral = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.bilateral")
-      /// Unilateral separate
-      internal static let unilateralSeparate = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.unilateralSeparate")
-      /// Unilateral simultaneous
-      internal static let unilateralSimultaneous = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.unilateralSimultaneous")
+      /// Laterality is about how work is distributed in any given exercise among left and right side of your body.\n* bilateral - left and right side work together i.e. bench press,\n* unilateral (both sides at once) - each side works individually, but on the same time i.e. dumbbell bench press,\n* unilateral (one side after another) - each body side works individually and you exercise second side of your body only after you finish first i.e. side plank.
+      internal static let comment = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.comment")
+      /// Laterality
+      internal static let title = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.title")
+      /// Unilateral (one side after another)
+      internal static let unilateralIndividual = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.unilateralIndividual")
+      /// Unilateral (both sides at once)
+      internal static let unilateralSingle = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.unilateralSingle")
     }
     internal enum MetricSelector {
       /// Metric is how volume of exercise is measured.\nFor exercises with duration metric you'll be able to use Weights as timer indicating when your set is over.
@@ -33,7 +37,7 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "exerciseCreation.metricSelector.title")
     }
     internal enum NameField {
-      /// Name
+      /// Exercise Name
       internal static let title = L10n.tr("Localizable", "exerciseCreation.nameField.title")
     }
   }

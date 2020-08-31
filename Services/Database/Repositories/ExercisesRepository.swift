@@ -24,13 +24,13 @@ public class ExercisesRepository {
     public func insertExercise(
         id: UUID,
         name: String,
-        volumeUnit: Exercise.VolumeUnit,
+        metric: Exercise.Metric,
         laterality: Exercise.Laterality
     ) {
         let exercise = context.insertObject() as Exercise
         exercise.id = id
         exercise.name = name
-        exercise.volumeUnit = volumeUnit
+        exercise.metric = metric
         exercise.laterality = laterality
         exercise.addedAt = currentDate()
         context.performSaveOrRollback()

@@ -9,33 +9,33 @@
 import Foundation
 
 public struct Exercise {
-    public enum VolumeUnit: CaseIterable {
+    public enum Metric: CaseIterable {
         case reps, duration
     }
     
     public enum Laterality: CaseIterable {
-        case bilateral, unilateral
+        case bilateral, unilateralSingle, unilateralIndividual
     }
     
     public let id: UUID
     public let name: String
-    public let volumeUnit: VolumeUnit
+    public let metric: Metric
     public let laterality: Laterality
     
     public init(
         id: UUID,
         name: String,
-        volumeUnit: Exercise.VolumeUnit,
+        metric: Exercise.Metric,
         laterality: Exercise.Laterality
     ) {
         self.id = id
         self.name = name
-        self.volumeUnit = volumeUnit
+        self.metric = metric
         self.laterality = laterality
     }
 }
 
-extension Exercise.VolumeUnit: Identifiable {
+extension Exercise.Metric: Identifiable {
     public var id: Self {
         return self
     }

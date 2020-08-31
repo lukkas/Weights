@@ -13,8 +13,9 @@ import Services
 extension Core.Exercise.Laterality {
     func toServices() -> Services.Exercise.Laterality {
         switch self {
-        case .unilateral: return .unilateral
         case .bilateral: return .bilateral
+        case .unilateralSingle: return .unilateralSingle
+        case .unilateralIndividual: return .unilateralIndividual
         }
     }
 }
@@ -22,14 +23,15 @@ extension Core.Exercise.Laterality {
 extension Services.Exercise.Laterality {
     func toCore() -> Core.Exercise.Laterality {
         switch self {
-        case .unilateral: return .unilateral
         case .bilateral: return .bilateral
+        case .unilateralSingle: return .unilateralSingle
+        case .unilateralIndividual: return .unilateralIndividual
         }
     }
 }
 
-extension Core.Exercise.VolumeUnit {
-    func toServices() -> Services.Exercise.VolumeUnit {
+extension Core.Exercise.Metric {
+    func toServices() -> Services.Exercise.Metric {
         switch self {
         case .reps: return .reps
         case .duration: return .duration
@@ -37,8 +39,8 @@ extension Core.Exercise.VolumeUnit {
     }
 }
 
-extension Services.Exercise.VolumeUnit {
-    func toCore() -> Core.Exercise.VolumeUnit {
+extension Services.Exercise.Metric {
+    func toCore() -> Core.Exercise.Metric {
         switch self {
         case .reps: return .reps
         case .duration: return .duration
@@ -51,7 +53,7 @@ extension Services.Exercise {
         return .init(
             id: id,
             name: name,
-            volumeUnit: volumeUnit.toCore(),
+            metric: metric.toCore(),
             laterality: laterality.toCore()
         )
     }
