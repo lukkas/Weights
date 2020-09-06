@@ -11,9 +11,16 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
 
+  internal enum Common {
+    /// Cancel
+    internal static let cancel = L10n.tr("Localizable", "common.cancel")
+  }
+
   internal enum ExerciseCreation {
     /// Add
     internal static let add = L10n.tr("Localizable", "exerciseCreation.add")
+    /// Add Exercise
+    internal static let title = L10n.tr("Localizable", "exerciseCreation.title")
     internal enum LateralitySelector {
       /// Bilateral
       internal static let bilateral = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.bilateral")

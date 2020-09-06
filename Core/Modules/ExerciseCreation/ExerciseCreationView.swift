@@ -14,30 +14,38 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
     @Binding var isPresented: Bool
     
     var body: some View {
-        Form {
-            TextField(L10n.ExerciseCreation.NameField.title, text: $model.name)
-            Section(
-                header: Text(
-                    verbatim: L10n.ExerciseCreation.MetricSelector.title
-                )
-                    .font(.headline),
-                footer: Text(
-                    verbatim:
-                        L10n.ExerciseCreation.MetricSelector.comment
-                )
-            ) {
-                optionButton(metric: .reps)
-                optionButton(metric: .duration)
+        NavigationView {
+            Form {
+                TextField(L10n.ExerciseCreation.NameField.title, text: $model.name)
+                Section(
+                    header: Text(
+                        verbatim: L10n.ExerciseCreation.MetricSelector.title
+                    )
+                        .font(.headline),
+                    footer: Text(
+                        verbatim:
+                            L10n.ExerciseCreation.MetricSelector.comment
+                    )
+                ) {
+                    optionButton(metric: .reps)
+                    optionButton(metric: .duration)
+                }
+                Section(
+                    header: Text(verbatim: L10n.ExerciseCreation.LateralitySelector.title)
+                        .font(.headline),
+                    footer: Text(verbatim: L10n.ExerciseCreation.LateralitySelector.comment)
+                ) {
+                    optionButton(laterality: .bilateral)
+                    optionButton(laterality: .unilateralSingle)
+                    optionButton(laterality: .unilateralIndividual)
+                }
             }
-            Section(
-                header: Text(verbatim: L10n.ExerciseCreation.LateralitySelector.title)
-                    .font(.headline),
-                footer: Text(verbatim: L10n.ExerciseCreation.LateralitySelector.comment)
-            ) {
-                optionButton(laterality: .bilateral)
-                optionButton(laterality: .unilateralSingle)
-                optionButton(laterality: .unilateralIndividual)
-            }
+            .navigationBarItems(
+                leading: Button(L10n.Common.cancel, action: {
+                    self.isPresented = false
+                }),
+                trailing: Button(L10n.ExerciseCreation.add, action: {})
+            ).navigationBarTitle(L10n.ExerciseCreation.title, displayMode: .inline)
         }
     }
     
