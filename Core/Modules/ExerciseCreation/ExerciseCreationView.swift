@@ -23,8 +23,7 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
                     )
                         .font(.headline),
                     footer: Text(
-                        verbatim:
-                            L10n.ExerciseCreation.MetricSelector.comment
+                        verbatim: L10n.ExerciseCreation.MetricSelector.comment
                     )
                 ) {
                     optionButton(metric: .reps)
@@ -45,6 +44,7 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
                     self.isPresented = false
                 }),
                 trailing: Button(L10n.ExerciseCreation.add, action: {})
+                    .disabled(!model.isAddButtonActive)
             ).navigationBarTitle(L10n.ExerciseCreation.title, displayMode: .inline)
         }
     }
@@ -123,6 +123,7 @@ class ExerciseCreationPreviewModel: ExerciseCreationViewModeling {
     @Published var name: String = ""
     @Published var metric: Exercise.Metric? = nil
     @Published var laterality: Exercise.Laterality? = nil
+    var isAddButtonActive: Bool = true
 }
 
 struct ExerciseCreationView_Previews: PreviewProvider {

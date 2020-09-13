@@ -29,6 +29,7 @@
 		0F6E730C245EF73E0052BAEC /* Weights.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E730A245EF73E0052BAEC /* Weights.xcdatamodeld */; };
 		0F6E730F245EFE8C0052BAEC /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E730E245EFE8C0052BAEC /* Exercise.swift */; };
 		0F6E7311245F13C30052BAEC /* DatabaseStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E7310245F13C30052BAEC /* DatabaseStack.swift */; };
+		0F7A1DF5250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */; };
 		0F7EE5A5243010970015951B /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; };
 		0F7EE5AE243010970015951B /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7EE59E243010970015951B /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F7EE5B1243010970015951B /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; };
@@ -46,7 +47,6 @@
 		0FB4D4A424425B1D004E244D /* ExercisesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D4A324425B1D004E244D /* ExercisesListView.swift */; };
 		0FC7FB8F246852C9006BFBA4 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB8E246852C9006BFBA4 /* NSManagedObject+Extensions.swift */; };
 		0FC7FB9124689187006BFBA4 /* DateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9024689187006BFBA4 /* DateProvider.swift */; };
-		0FC7FB9424689CD3006BFBA4 /* ExerciseCreationInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9324689CD3006BFBA4 /* ExerciseCreationInteractorTests.swift */; };
 		0FC7FB9724689CFC006BFBA4 /* ExerciseStoringStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9624689CFC006BFBA4 /* ExerciseStoringStub.swift */; };
 		0FC7FB9924689DAF006BFBA4 /* ExerciseDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */; };
 		0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */; };
@@ -159,6 +159,7 @@
 		0F6E730B245EF73E0052BAEC /* Weights.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Weights.xcdatamodel; sourceTree = "<group>"; };
 		0F6E730E245EFE8C0052BAEC /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		0F6E7310245F13C30052BAEC /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
+		0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModelTests.swift; sourceTree = "<group>"; };
 		0F7EE59C243010970015951B /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7EE59E243010970015951B /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
 		0F7EE59F243010970015951B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -176,7 +177,6 @@
 		0FB4D4A324425B1D004E244D /* ExercisesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListView.swift; sourceTree = "<group>"; };
 		0FC7FB8E246852C9006BFBA4 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		0FC7FB9024689187006BFBA4 /* DateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
-		0FC7FB9324689CD3006BFBA4 /* ExerciseCreationInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationInteractorTests.swift; sourceTree = "<group>"; };
 		0FC7FB9624689CFC006BFBA4 /* ExerciseStoringStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStoringStub.swift; sourceTree = "<group>"; };
 		0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDummy.swift; sourceTree = "<group>"; };
 		0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListViewModel.swift; sourceTree = "<group>"; };
@@ -490,7 +490,7 @@
 		0FC7FB9224689CA3006BFBA4 /* ExerciseCreation */ = {
 			isa = PBXGroup;
 			children = (
-				0FC7FB9324689CD3006BFBA4 /* ExerciseCreationInteractorTests.swift */,
+				0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */,
 			);
 			path = ExerciseCreation;
 			sourceTree = "<group>";
@@ -706,7 +706,6 @@
 					};
 					0F6E72F1245EF6F10052BAEC = {
 						CreatedOnToolsVersion = 11.4.1;
-						TestTargetID = 0F30989022B4518000DCDD5E;
 					};
 					0F7EE59B243010970015951B = {
 						CreatedOnToolsVersion = 11.4;
@@ -714,7 +713,6 @@
 					0F7EE5A3243010970015951B = {
 						CreatedOnToolsVersion = 11.4;
 						LastSwiftMigration = 1140;
-						TestTargetID = 0F30989022B4518000DCDD5E;
 					};
 				};
 			};
@@ -870,8 +868,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FC7FB9724689CFC006BFBA4 /* ExerciseStoringStub.swift in Sources */,
-				0FC7FB9424689CD3006BFBA4 /* ExerciseCreationInteractorTests.swift in Sources */,
 				0FC7FB9924689DAF006BFBA4 /* ExerciseDummy.swift in Sources */,
+				0F7A1DF5250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1206,7 +1204,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Weights.app/Weights";
 			};
 			name = Debug;
 		};
@@ -1226,7 +1223,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Weights.app/Weights";
 			};
 			name = Release;
 		};
@@ -1294,7 +1290,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X3PT3894T4;
 				INFOPLIST_FILE = CoreTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1305,7 +1300,6 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Weights.app/Weights";
 			};
 			name = Debug;
 		};
@@ -1317,7 +1311,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X3PT3894T4;
 				INFOPLIST_FILE = CoreTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1327,7 +1320,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Weights.app/Weights";
 			};
 			name = Release;
 		};
