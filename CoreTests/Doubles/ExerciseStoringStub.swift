@@ -8,11 +8,24 @@
 
 @testable import Core
 import Foundation
+import XCTest
 
 class ExerciseStoringStub: ExerciseStoring {
-    var insertCallsCount = 0
+    var insertCallsCount: Int { insertedExercises.count }
+    private var insertedExercises: [Exercise] = []
     func insert(_ exercise: Exercise) {
-        insertCallsCount += 1
+        insertedExercises.append(exercise)
+    }
+    
+    func verify_insertedExercise(
+        at index: Int,
+        asserts: (Exercise) -> Void
+    ) {
+        guard insertedExercises.count > index else {
+            XCTFail("Expected exercise at index \(index), but got only \(insertedExercises.count)")
+            return
+        }
+        asserts(insertedExercises[index])
     }
     
     func fetchExercises() -> [Exercise] {

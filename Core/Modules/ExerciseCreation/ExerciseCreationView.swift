@@ -41,12 +41,24 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
             }
             .navigationBarItems(
                 leading: Button(L10n.Common.cancel, action: {
-                    self.isPresented = false
+                    isPresented = false
                 }),
-                trailing: Button(L10n.ExerciseCreation.add, action: {})
+                trailing: Button(action: {
+                    model.handleAddTapped()
+                }, label: {
+                    if model.isProcessing {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                    } else {
+                        Text(L10n.ExerciseCreation.add)
+                    }
+                })
                     .disabled(!model.isAddButtonActive)
             ).navigationBarTitle(L10n.ExerciseCreation.title, displayMode: .inline)
         }
+        .onReceive(model.didAddExercise, perform: { _ in
+            isPresented = false
+        })
     }
     
     @ViewBuilder private func optionButton(
@@ -123,7 +135,15 @@ class ExerciseCreationPreviewModel: ExerciseCreationViewModeling {
     @Published var name: String = ""
     @Published var metric: Exercise.Metric? = nil
     @Published var laterality: Exercise.Laterality? = nil
-    var isAddButtonActive: Bool = true
+    @Published var isAddButtonActive: Bool = true
+    @Published var isProcessing = false
+    var didAddExercise: AnyPublisher<Void, Never> {
+        PassthroughSubject<Void, Never>().eraseToAnyPublisher()
+    }
+    
+    func handleAddTapped() {
+        isProcessing.toggle()
+    }
 }
 
 struct ExerciseCreationView_Previews: PreviewProvider {

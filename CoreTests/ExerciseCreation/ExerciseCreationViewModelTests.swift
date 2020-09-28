@@ -46,11 +46,50 @@ class ExerciseCreationViewModelTests: XCTestCase {
     
     func test_isAddButtonActive_whenEverythingFilled_shouldBeTrue() {
         // when
-        sut.name = "Squat"
-        sut.metric = .reps
-        sut.laterality = .bilateral
+        preconfigure_sutFilledWithCorrectData()
         
         // then
         XCTAssertTrue(sut.isAddButtonActive)
+    }
+    
+    func test_add_whenDataIncomplete_shouldNotAddExercise() {
+        // when
+        sut.handleAddTapped()
+        
+        // then
+        XCTAssertEqual(exerciseStorage.insertCallsCount, 0)
+    }
+    
+    func test_add_whenDataISFilled_shouldInsertExercise() {
+        // given
+        preconfigure_sutFilledWithCorrectData()
+        
+        // when
+        sut.handleAddTapped()
+        
+        // then
+        exerciseStorage.verify_insertedExercise(at: 0) { received in
+            XCTAssertEqual(received.name, sut.name)
+            XCTAssertEqual(received.metric, sut.metric)
+            XCTAssertEqual(received.laterality, sut.laterality)
+        }
+    }
+    
+    func test_add_whenAdded_shouldEmitFromDidAddExercisePublisher() {
+        // given
+        let listener = PublisherListener(publisher: sut.didAddExercise)
+        preconfigure_sutFilledWithCorrectData()
+        
+        // when
+        sut.handleAddTapped()
+        
+        // then
+        XCTAssertEqual(listener.receivedValues.count, 1)
+    }
+    
+    private func preconfigure_sutFilledWithCorrectData() {
+        sut.name = "Deadlift"
+        sut.metric = .reps
+        sut.laterality = .bilateral
     }
 }
