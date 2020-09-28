@@ -21,7 +21,7 @@ struct RootView: View {
                 .tabItem {
                     Text(L10n.Root.Tab.plan)
                 }
-            ExercisesListView(viewModel: viewModel.routes.exercisesList())
+            ExercisesListView(model: viewModel.routes.exercisesList())
                 .tabItem {
                     Text(L10n.Root.Tab.exercises)
                 }

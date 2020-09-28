@@ -14,6 +14,8 @@
 		0F3098A422B4518200DCDD5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F3098A222B4518200DCDD5E /* LaunchScreen.storyboard */; };
 		0F3098AF22B4518200DCDD5E /* WeightsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3098AE22B4518200DCDD5E /* WeightsTests.swift */; };
 		0F33B64C25227BE000B44EAA /* PublisherListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33B64B25227BE000B44EAA /* PublisherListener.swift */; };
+		0F33B6592522817E00B44EAA /* PlaceholderClosures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33B6582522817E00B44EAA /* PlaceholderClosures.swift */; };
+		0F33B6652522844C00B44EAA /* ExerciseCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33B6642522844C00B44EAA /* ExerciseCellViewModel.swift */; };
 		0F56F7032430F2AA002A2EBA /* OuterDepthShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F7022430F2AA002A2EBA /* OuterDepthShadow.swift */; };
 		0F56F7052430F536002A2EBA /* InnerDepthShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F7042430F536002A2EBA /* InnerDepthShadow.swift */; };
 		0F56F70924310864002A2EBA /* PreviewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F70824310864002A2EBA /* PreviewWrapper.swift */; };
@@ -144,6 +146,8 @@
 		0F3098AE22B4518200DCDD5E /* WeightsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsTests.swift; sourceTree = "<group>"; };
 		0F3098B022B4518200DCDD5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F33B64B25227BE000B44EAA /* PublisherListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherListener.swift; sourceTree = "<group>"; };
+		0F33B6582522817E00B44EAA /* PlaceholderClosures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderClosures.swift; sourceTree = "<group>"; };
+		0F33B6642522844C00B44EAA /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
 		0F56F7022430F2AA002A2EBA /* OuterDepthShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuterDepthShadow.swift; sourceTree = "<group>"; };
 		0F56F7042430F536002A2EBA /* InnerDepthShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerDepthShadow.swift; sourceTree = "<group>"; };
 		0F56F70824310864002A2EBA /* PreviewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWrapper.swift; sourceTree = "<group>"; };
@@ -310,6 +314,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		0F33B6572522816800B44EAA /* PreviewHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				0F33B6582522817E00B44EAA /* PlaceholderClosures.swift */,
+			);
+			path = PreviewHelpers;
+			sourceTree = "<group>";
+		};
 		0F56F7012430F290002A2EBA /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +446,7 @@
 		0F7EE5BB243010BC0015951B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				0F33B6572522816800B44EAA /* PreviewHelpers */,
 				0FB4D49A2442516E004E244D /* Spacing */,
 				0F56F70724310858002A2EBA /* Helpers */,
 				0F56F7012430F290002A2EBA /* Modifiers */,
@@ -494,6 +507,7 @@
 			children = (
 				0FB4D4A324425B1D004E244D /* ExercisesListView.swift */,
 				0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */,
+				0F33B6642522844C00B44EAA /* ExerciseCellViewModel.swift */,
 			);
 			path = ExercisesList;
 			sourceTree = "<group>";
@@ -855,11 +869,13 @@
 				0FE6008F245F56710052539C /* ExerciseStoring.swift in Sources */,
 				0F56F70924310864002A2EBA /* PreviewWrapper.swift in Sources */,
 				0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */,
+				0F33B6592522817E00B44EAA /* PlaceholderClosures.swift in Sources */,
 				0FE6296824E068180003D6D5 /* ButtonPicker.swift in Sources */,
 				0F56F7052430F536002A2EBA /* InnerDepthShadow.swift in Sources */,
 				0F56F7032430F2AA002A2EBA /* OuterDepthShadow.swift in Sources */,
 				0F7EE5BA243010B70015951B /* BiSelector.swift in Sources */,
 				0F56F70F24312A3A002A2EBA /* ExerciseCreationView.swift in Sources */,
+				0F33B6652522844C00B44EAA /* ExerciseCellViewModel.swift in Sources */,
 				0FE33807243D012A00461BB5 /* GraphicalSelector.swift in Sources */,
 				0F6E72E4245EE80F0052BAEC /* Exercise.swift in Sources */,
 				0F56F70C24312017002A2EBA /* CoreEntry.swift in Sources */,

@@ -8,13 +8,16 @@
 
 import SwiftUI
 
-struct ExercisesListView: View {
+struct ExercisesListView<Model: ExerciseListViewModeling>: View {
     @State private var isPresenting = false
-    var viewModel: ExercisesListViewModel
+    @State private var selectedExercise: ExerciseCellViewModel?
+    @ObservedObject var model: Model
     
     var body: some View {
         NavigationView {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            List(model.cellViewModels, selection: $selectedExercise, rowContent: { cellViewModel in
+                Text(cellViewModel.exerciseName)
+            })
                 .navigationBarTitle(L10n.ExercisesList.NavBar.exercises)
                 .navigationBarItems(trailing:
                     Button(action: { self.isPresenting.toggle() }, label: {
@@ -23,27 +26,21 @@ struct ExercisesListView: View {
                     })
             )
         }
-        .fullScreenCover(isPresented: /*@START_MENU_TOKEN@*/.constant(true)/*@END_MENU_TOKEN@*/, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{}/*@END_MENU_TOKEN@*/) {
-            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Content@*/Text("Placeholder")/*@END_MENU_TOKEN@*/
-        }
         .sheet(isPresented: $isPresenting) {
             ExerciseCreationView(
-                model: self.viewModel.routes.createExercise(),
+                model: self.model.routes.createExercise(),
                 isPresented: self.$isPresenting
             )
         }
     }
 }
 
-struct ExercisesListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExercisesListView(viewModel: ExercisesListViewModel(
-            exerciseStorage: PlaceholderExerciseStorage(),
-            routes: .init(createExercise: placeholderClosure)
-            )
-        )
-    }
-}
-
-func placeholderClosure<T>() -> T { fatalError() }
-func placeholderClosure<P, T>(arg1: P) ->  T { fatalError() }
+//struct ExercisesListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExercisesListView(viewModel: ExercisesListViewModel(
+//            exerciseStorage: PlaceholderExerciseStorage(),
+//            routes: .init(createExercise: placeholderClosure)
+//            )
+//        )
+//    }
+//}
