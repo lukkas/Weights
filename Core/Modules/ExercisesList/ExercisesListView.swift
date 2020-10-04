@@ -15,19 +15,32 @@ struct ExercisesListView<Model: ExerciseListViewModeling>: View {
     
     var body: some View {
         NavigationView {
-            List(
-                model.cellViewModels,
-                selection: $selectedExercise,
-                rowContent: { cellViewModel in
-                    Text(cellViewModel.exerciseName)
+            Group {
+                if model.cellViewModels.isEmpty {
+                    VStack {
+                        Text(L10n.ExercisesList.Placeholder.title)
+                            .font(.title)
+                        Text(L10n.ExercisesList.Placeholder.subtitle)
+                            .font(.subheadline)
+                    }
+                } else {
+                    List(
+                        model.cellViewModels,
+                        selection: $selectedExercise,
+                        rowContent: { cellViewModel in
+                            Text(cellViewModel.exerciseName)
+                        }
+                    )
+                    .listStyle(InsetGroupedListStyle())
+                }
+            }
+            .navigationBarTitle(L10n.ExercisesList.NavBar.exercises)
+            .navigationBarItems(trailing:
+                Button(action: { self.isPresenting.toggle() }, label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 24))
                 })
-                .navigationBarTitle(L10n.ExercisesList.NavBar.exercises)
-                .navigationBarItems(trailing:
-                    Button(action: { self.isPresenting.toggle() }, label: {
-                        Image(systemName: "plus")
-                            .font(.system(size: 24))
-                    })
-                ).listStyle(InsetGroupedListStyle())
+            )
         }
         .sheet(isPresented: $isPresenting) {
             ExerciseCreationView(

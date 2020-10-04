@@ -58,6 +58,12 @@ internal enum L10n {
       /// Plan
       internal static let plan = L10n.tr("Localizable", "exercisesList.navBar.plan")
     }
+    internal enum Placeholder {
+      /// Tap add to add first exercise
+      internal static let subtitle = L10n.tr("Localizable", "exercisesList.placeholder.subtitle")
+      /// No exercises yet
+      internal static let title = L10n.tr("Localizable", "exercisesList.placeholder.title")
+    }
   }
 
   internal enum Root {
