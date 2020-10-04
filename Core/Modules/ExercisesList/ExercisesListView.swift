@@ -15,16 +15,19 @@ struct ExercisesListView<Model: ExerciseListViewModeling>: View {
     
     var body: some View {
         NavigationView {
-            List(model.cellViewModels, selection: $selectedExercise, rowContent: { cellViewModel in
-                Text(cellViewModel.exerciseName)
-            })
+            List(
+                model.cellViewModels,
+                selection: $selectedExercise,
+                rowContent: { cellViewModel in
+                    Text(cellViewModel.exerciseName)
+                })
                 .navigationBarTitle(L10n.ExercisesList.NavBar.exercises)
                 .navigationBarItems(trailing:
                     Button(action: { self.isPresenting.toggle() }, label: {
                         Image(systemName: "plus")
                             .font(.system(size: 24))
                     })
-            )
+                ).listStyle(InsetGroupedListStyle())
         }
         .sheet(isPresented: $isPresenting) {
             ExerciseCreationView(
@@ -35,12 +38,21 @@ struct ExercisesListView<Model: ExerciseListViewModeling>: View {
     }
 }
 
-//struct ExercisesListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ExercisesListView(viewModel: ExercisesListViewModel(
-//            exerciseStorage: PlaceholderExerciseStorage(),
-//            routes: .init(createExercise: placeholderClosure)
-//            )
-//        )
-//    }
-//}
+class ExercisesListPreviewModel: ExerciseListViewModeling {
+    var routes: ExercisesListViewModel.Routes {
+        return .init(createExercise: placeholderClosure)
+    }
+    
+    var cellViewModels: [ExerciseCellViewModel] {
+        return [
+            .init(id: UUID(), exerciseName: "Squat"),
+            .init(id: UUID(), exerciseName: "Bench Press")
+        ]
+    }
+}
+
+struct ExercisesListView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExercisesListView(model: ExercisesListPreviewModel())
+    }
+}
