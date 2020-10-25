@@ -66,6 +66,13 @@ internal enum L10n {
     }
   }
 
+  internal enum Planner {
+    /// Add training day
+    internal static let addDay = L10n.tr("Localizable", "planner.addDay")
+    /// Planner
+    internal static let title = L10n.tr("Localizable", "planner.title")
+  }
+
   internal enum Root {
     internal enum Tab {
       /// Exercises

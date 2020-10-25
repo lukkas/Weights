@@ -18,6 +18,7 @@ public class CoreEntry {
     
     public func makeInitialView() -> some View {
         return makeRootView()
+//        return PlannerView()
     }
     
     private func makeRootView() -> some View {

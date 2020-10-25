@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
-    @ObservedObject var model: Model
+    @StateObject var model: Model
     @Binding var isPresented: Bool
     
     var body: some View {

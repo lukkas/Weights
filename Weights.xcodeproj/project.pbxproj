@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0F04301124649E8E00BF7993 /* DatabaseModelVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F04301024649E8E00BF7993 /* DatabaseModelVersion.swift */; };
 		0F08333D24426C10003665EB /* ExerciseCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */; };
+		0F167153253388E3000C5E79 /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F167152253388E3000C5E79 /* PlannerExerciseView.swift */; };
+		0F16715A2533B302000C5E79 /* PickerBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1671592533B302000C5E79 /* PickerBox.swift */; };
 		0F30989E22B4518200DCDD5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F30989D22B4518200DCDD5E /* Assets.xcassets */; };
 		0F3098A122B4518200DCDD5E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F3098A022B4518200DCDD5E /* Preview Assets.xcassets */; };
 		0F3098A422B4518200DCDD5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F3098A222B4518200DCDD5E /* LaunchScreen.storyboard */; };
@@ -37,7 +39,6 @@
 		0F7EE5AE243010970015951B /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7EE59E243010970015951B /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F7EE5B1243010970015951B /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; };
 		0F7EE5B2243010970015951B /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0F7EE5BA243010B70015951B /* BiSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F21F33423B7D3EB00065F6A /* BiSelector.swift */; };
 		0F7EE5C0243011070015951B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F7EE5BF243011070015951B /* Colors.xcassets */; };
 		0F7EE5C3243013550015951B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EE5C2243013550015951B /* Colors.swift */; };
 		0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99873024F2ED4A00366D0B /* View+Debug.swift */; };
@@ -56,7 +57,6 @@
 		0FC7FB9924689DAF006BFBA4 /* ExerciseDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */; };
 		0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */; };
 		0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DD2471B045007D638E /* CoreDependencies.swift */; };
-		0FE33807243D012A00461BB5 /* GraphicalSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE33806243D012A00461BB5 /* GraphicalSelector.swift */; };
 		0FE60086245F29F70052539C /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60085245F29F70052539C /* Managed.swift */; };
 		0FE60088245F2AF10052539C /* NSManagedObjectContext+Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60087245F2AF10052539C /* NSManagedObjectContext+Managed.swift */; };
 		0FE6008B245F36040052539C /* ExercisesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE6008A245F36040052539C /* ExercisesRepository.swift */; };
@@ -64,7 +64,6 @@
 		0FE60095245F60D30052539C /* FakeDatabaseStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60094245F60D30052539C /* FakeDatabaseStack.swift */; };
 		0FE60097245F6D5D0052539C /* XCTestCase+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60096245F6D5D0052539C /* XCTestCase+Combine.swift */; };
 		0FE60099245F70690052539C /* ExercisesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60098245F70690052539C /* ExercisesRepositoryTests.swift */; };
-		0FE6296824E068180003D6D5 /* ButtonPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE6296724E068180003D6D5 /* ButtonPicker.swift */; };
 		0FE667BD24B26D3E005F9B9B /* WeightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE667BC24B26D3E005F9B9B /* WeightsApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -138,7 +137,8 @@
 /* Begin PBXFileReference section */
 		0F04301024649E8E00BF7993 /* DatabaseModelVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseModelVersion.swift; sourceTree = "<group>"; };
 		0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModel.swift; sourceTree = "<group>"; };
-		0F21F33423B7D3EB00065F6A /* BiSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiSelector.swift; sourceTree = "<group>"; };
+		0F167152253388E3000C5E79 /* PlannerExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseView.swift; sourceTree = "<group>"; };
+		0F1671592533B302000C5E79 /* PickerBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerBox.swift; sourceTree = "<group>"; };
 		0F30989122B4518000DCDD5E /* Weights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F30989D22B4518200DCDD5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F3098A022B4518200DCDD5E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -191,7 +191,6 @@
 		0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDummy.swift; sourceTree = "<group>"; };
 		0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListViewModel.swift; sourceTree = "<group>"; };
 		0FD751DD2471B045007D638E /* CoreDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDependencies.swift; sourceTree = "<group>"; };
-		0FE33806243D012A00461BB5 /* GraphicalSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicalSelector.swift; sourceTree = "<group>"; };
 		0FE60085245F29F70052539C /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		0FE60087245F2AF10052539C /* NSManagedObjectContext+Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Managed.swift"; sourceTree = "<group>"; };
 		0FE6008A245F36040052539C /* ExercisesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesRepository.swift; sourceTree = "<group>"; };
@@ -199,7 +198,6 @@
 		0FE60094245F60D30052539C /* FakeDatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDatabaseStack.swift; sourceTree = "<group>"; };
 		0FE60096245F6D5D0052539C /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
 		0FE60098245F70690052539C /* ExercisesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesRepositoryTests.swift; sourceTree = "<group>"; };
-		0FE6296724E068180003D6D5 /* ButtonPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPicker.swift; sourceTree = "<group>"; };
 		0FE667BC24B26D3E005F9B9B /* WeightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -455,9 +453,7 @@
 				0FB4D49A2442516E004E244D /* Spacing */,
 				0F56F70724310858002A2EBA /* Helpers */,
 				0F56F7012430F290002A2EBA /* Modifiers */,
-				0F21F33423B7D3EB00065F6A /* BiSelector.swift */,
-				0FE33806243D012A00461BB5 /* GraphicalSelector.swift */,
-				0FE6296724E068180003D6D5 /* ButtonPicker.swift */,
+				0F1671592533B302000C5E79 /* PickerBox.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -486,6 +482,7 @@
 			children = (
 				0FAECC65252A37DD00693A8A /* PlannerView.swift */,
 				0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */,
+				0F167152253388E3000C5E79 /* PlannerExerciseView.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -884,17 +881,16 @@
 				0F56F70924310864002A2EBA /* PreviewWrapper.swift in Sources */,
 				0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */,
 				0F33B6592522817E00B44EAA /* PlaceholderClosures.swift in Sources */,
+				0F167153253388E3000C5E79 /* PlannerExerciseView.swift in Sources */,
 				0FAECC72252A37ED00693A8A /* PlannerViewModel.swift in Sources */,
-				0FE6296824E068180003D6D5 /* ButtonPicker.swift in Sources */,
 				0F56F7052430F536002A2EBA /* InnerDepthShadow.swift in Sources */,
 				0F56F7032430F2AA002A2EBA /* OuterDepthShadow.swift in Sources */,
-				0F7EE5BA243010B70015951B /* BiSelector.swift in Sources */,
 				0F56F70F24312A3A002A2EBA /* ExerciseCreationView.swift in Sources */,
 				0F33B6652522844C00B44EAA /* ExerciseCellViewModel.swift in Sources */,
-				0FE33807243D012A00461BB5 /* GraphicalSelector.swift in Sources */,
 				0F6E72E4245EE80F0052BAEC /* Exercise.swift in Sources */,
 				0FAECC66252A37DD00693A8A /* PlannerView.swift in Sources */,
 				0F56F70C24312017002A2EBA /* CoreEntry.swift in Sources */,
+				0F16715A2533B302000C5E79 /* PickerBox.swift in Sources */,
 				0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */,
 				0FB4D49C24425182004E244D /* Length+Grid.swift in Sources */,
 				0F56F71824313C72002A2EBA /* Localizable.swift in Sources */,
@@ -1098,14 +1094,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Weights/Preview\\ Content";
-				DEVELOPMENT_TEAM = X3PT3894T4;
+				DEVELOPMENT_TEAM = E6WRHQXQE9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Weights/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lukaszkasperek.Weights;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appunite.applemusicplayground;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1119,14 +1115,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Weights/Preview\\ Content";
-				DEVELOPMENT_TEAM = X3PT3894T4;
+				DEVELOPMENT_TEAM = E6WRHQXQE9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Weights/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lukaszkasperek.Weights;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appunite.applemusicplayground;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -11,7 +11,7 @@ import SwiftUI
 struct ExercisesListView<Model: ExerciseListViewModeling>: View {
     @State private var isPresenting = false
     @State private var selectedExercise: ExerciseCellViewModel?
-    @ObservedObject var model: Model
+    @StateObject var model: Model
     
     var body: some View {
         NavigationView {

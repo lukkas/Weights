@@ -10,15 +10,50 @@ import SwiftUI
 
 struct PlannerView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                HStack {
+                    Text("Kutas")
+                }
+                
+                TabView {
+                    ScrollView {
+                        ForEach(0 ..< 10) { _ in
+                            Button(action: {}, label: {
+                                Text(verbatim: L10n.Planner.addDay)
+                                    .foregroundColor(.overThemeLabel)
+                            })
+                            .padding(.vertical, 12)
+                            .frame(maxWidth: 800)
+                            .background(Color.red.cornerRadius(8))
+                            .padding()
+                            .onDrag({
+                                NSItemProvider(object: URL(string: "http://apple.com")! as NSURL)
+                            })
+                        }
+                    }
+                    
+                    Button(action: {}, label: {
+                        Text(verbatim: L10n.Planner.addDay)
+                    })
+                    .padding(.vertical, 12)
+                    .frame(maxWidth: 800)
+                    .background(Color.red.cornerRadius(8))
+                    .padding()
+                }
+                .tabViewStyle(PageTabViewStyle())
+                .background(Color(.tertiarySystemBackground))
+            }
+            .navigationBarTitle(L10n.Planner.title)
+        }
     }
 }
 
-class PlannerPreviewModel: PlannerViewModeling {
-    
-}
-
 struct PlannerView_Previews: PreviewProvider {
+    fileprivate class PreviewModel: PlannerViewModeling {
+        
+    }
+    
     static var previews: some View {
         PlannerView()
     }
