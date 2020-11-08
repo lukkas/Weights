@@ -13,7 +13,8 @@ extension Color {
     // MARK: - Theme
     static var theme: Color { named("theme") }
     static var overThemeLabel: Color { named("over_theme_label") }
-    static var border: Color { named("border") }
+    static var rpeTheme: Color { named("rpe_theme") }
+    static var paceTheme: Color { named("pace_theme") }
     
     // MARK: - Background
     static var background: Color { Color(UIColor.systemBackground) }

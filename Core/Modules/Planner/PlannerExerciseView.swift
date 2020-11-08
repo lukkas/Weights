@@ -19,8 +19,14 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
         VStack {
             HStack {
                 Text(model.name)
+                Spacer()
+                ParameterGauge(value: "RPE", themeColor: .rpeTheme)
+                ParameterGauge(value: "Pace", themeColor: .paceTheme)
             }
         }
+        .padding(10)
+        .background(Color.background)
+        .cornerRadius(10)
     }
 }
 
@@ -31,5 +37,6 @@ struct PlannerExerciseView_Previews: PreviewProvider {
     
     static var previews: some View {
         PlannerExerciseView(model: PreviewModel())
+            .cellPreview()
     }
 }
