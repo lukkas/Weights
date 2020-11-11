@@ -24,7 +24,7 @@ struct ParameterField: View {
     @State var viewIndex = 0
     var body: some View {
         VStack(spacing: 0) {
-            TextField("", text: $value)
+            TextField("Add", text: $value)
                 .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
                     d[VerticalAlignment.center]
                 })
@@ -36,7 +36,7 @@ struct ParameterField: View {
                 .frame(width: 50)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .foregroundColor(Color.red.opacity(0.75))
+                    .foregroundColor(Color.red.opacity(0.75))
                 )
             Text(label).font(.caption2)
         }

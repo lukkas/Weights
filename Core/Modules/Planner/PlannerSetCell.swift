@@ -18,19 +18,25 @@ struct PlannerSetCell: View {
     @State var rpe = ""
     
     var body: some View {
-        HStack(alignment: .parameterFieldAlignment) {
-            ParameterField(label: "Reps", value: $reps)
-            Text("x")
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-            ParameterField(label: "kg", value: $kilograms)
-            Text("@")
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-            ParameterField(label: "RPE", value: $rpe)
+        HStack(spacing: 0) {
+            HStack(alignment: .parameterFieldAlignment) {
+                ParameterField(label: "Reps", value: $reps)
+                Text("x")
+                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
+                ParameterField(label: "kg", value: $kilograms)
+                Text("@")
+                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
+                ParameterField(label: "RPE", value: $rpe)
+            }
+            
             Spacer()
+            
             Button(action: {}, label: {
                 Image(systemName: "plus")
                     .frame(width: 44, height: 44)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.black))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8).stroke(Color.black)
+                    )
             })
         }
         .background(Color.background)
