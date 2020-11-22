@@ -33,7 +33,7 @@ extension View {
 struct OuterDepthShadow_Previews: PreviewProvider {
     static var previews: some View {
         Text("Text")
-            .foregroundColor(.overThemeLabel)
+            .foregroundColor(.contrastLabel)
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16.0)

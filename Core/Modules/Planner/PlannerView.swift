@@ -21,7 +21,7 @@ struct PlannerView: View {
                         ForEach(0 ..< 10) { _ in
                             Button(action: {}, label: {
                                 Text(verbatim: L10n.Planner.addDay)
-                                    .foregroundColor(.overThemeLabel)
+                                    .foregroundColor(.contrastLabel)
                             })
                             .padding(.vertical, 12)
                             .frame(maxWidth: 800)

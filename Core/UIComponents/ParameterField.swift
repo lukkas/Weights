@@ -19,35 +19,51 @@ extension VerticalAlignment {
 
 struct ParameterField: View {
     let label: String
+    let themeColor: Color
     @Binding var value: String
     
-    @State var viewIndex = 0
     var body: some View {
-        VStack(spacing: 0) {
+        HStack(alignment: .bottom, spacing: 4) {
             TextField("Add", text: $value)
+                .font(.system(
+                        size: 18,
+                        weight: .semibold,
+                        design: .rounded
+                ))
                 .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
                     d[VerticalAlignment.center]
                 })
                 .keyboardType(.numberPad)
                 .multilineTextAlignment(.center)
-                .foregroundColor(.overThemeLabel)
+                .foregroundColor(.contrastLabel)
                 .padding(.horizontal, 6)
                 .padding(.vertical, 3)
                 .frame(width: 50)
                 .background(
-                    RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(Color.red.opacity(0.75))
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(themeColor)
                 )
-            Text(label).font(.caption2)
+            Text(label)
+                .foregroundColor(.secondaryLabel)
+                .font(.system(
+                        size: 12,
+                        weight: .medium,
+                        design: .rounded
+                ))
+                .offset(y: -2)
         }
     }
 }
 
 struct ParameterField_Previews: PreviewProvider {
     struct Wrapper: View {
-        @State var value: String = ""
+        @State var value: String = "2"
         var body: some View {
-            ParameterField(label: "Reps", value: $value)
+            ParameterField(
+                label: "reps",
+                themeColor: .weightBlue,
+                value: $value
+            )
         }
     }
     

@@ -15,7 +15,7 @@ struct ParameterGauge: View {
     var body: some View {
         Text(value)
             .font(.footnote)
-            .foregroundColor(.overThemeLabel)
+            .foregroundColor(.contrastLabel)
             .padding(.horizontal, 8)
             .padding(.vertical, 6)
             .background(themeColor.cornerRadius(8))
@@ -26,7 +26,7 @@ struct ParameterGauge_Previews: PreviewProvider {
     static var previews: some View {
         ParameterGauge(
             value: "RPE",
-            themeColor: .paceTheme
+            themeColor: .weightGreen
         )
     }
 }

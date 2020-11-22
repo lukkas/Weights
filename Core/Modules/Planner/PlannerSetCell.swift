@@ -20,13 +20,13 @@ struct PlannerSetCell: View {
     var body: some View {
         HStack(spacing: 0) {
             HStack(alignment: .parameterFieldAlignment) {
-                ParameterField(label: "Reps", value: $reps)
+                ParameterField(label: "reps", themeColor: .weightYellow, value: $reps)
                 Text("x")
                     .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-                ParameterField(label: "kg", value: $kilograms)
-                Text("@")
-                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-                ParameterField(label: "RPE", value: $rpe)
+                ParameterField(label: "kg", themeColor: .weightBlue, value: $kilograms)
+//                Text("@")
+//                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
+//                ParameterField(label: "RPE", value: $rpe)
             }
             
             Spacer()

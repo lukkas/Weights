@@ -20,8 +20,8 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
             HStack {
                 Text(model.name)
                 Spacer()
-                ParameterGauge(value: "RPE", themeColor: .rpeTheme)
-                ParameterGauge(value: "Pace", themeColor: .paceTheme)
+                ParameterGauge(value: "RPE", themeColor: .weightGreen)
+                ParameterGauge(value: "Pace", themeColor: .weightBlue)
             }
         }
         .padding(10)

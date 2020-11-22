@@ -11,10 +11,12 @@ import SwiftUI
 
 extension Color {
     // MARK: - Theme
-    static var theme: Color { named("theme") }
-    static var overThemeLabel: Color { named("over_theme_label") }
-    static var rpeTheme: Color { named("rpe_theme") }
-    static var paceTheme: Color { named("pace_theme") }
+    static var theme: Color { weightRed }
+    static var contrastLabel: Color { named("contrast_label") }
+    static var weightRed: Color { named("weight_red") }
+    static var weightBlue: Color { named("weight_blue") }
+    static var weightYellow: Color { named("weight_yellow") }
+    static var weightGreen: Color { named("weight_green") }
     
     // MARK: - Background
     static var background: Color { Color(UIColor.systemBackground) }
