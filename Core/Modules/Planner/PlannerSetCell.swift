@@ -23,7 +23,11 @@ struct PlannerSetCell: View {
                 ParameterField(label: "reps", themeColor: .weightYellow, value: $reps)
                 Text("x")
                     .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-                ParameterField(label: "kg", themeColor: .weightBlue, value: $kilograms)
+                ParameterField(
+                    label: "kg",
+                    themeColor: .weightBlue,
+                    value: $kilograms
+                )
 //                Text("@")
 //                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
 //                ParameterField(label: "RPE", value: $rpe)

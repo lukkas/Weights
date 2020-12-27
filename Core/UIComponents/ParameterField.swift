@@ -23,26 +23,22 @@ struct ParameterField: View {
     @Binding var value: String
     
     var body: some View {
-        HStack(alignment: .bottom, spacing: 4) {
-            TextField("Add", text: $value)
+        HStack(alignment: .firstTextBaseline, spacing: 0) {
+            TextField("", text: $value)
                 .font(.system(
-                        size: 18,
+                        size: 20,
                         weight: .semibold,
                         design: .rounded
                 ))
+                .foregroundColor(themeColor)
                 .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
                     d[VerticalAlignment.center]
                 })
                 .keyboardType(.numberPad)
                 .multilineTextAlignment(.center)
-                .foregroundColor(.contrastLabel)
                 .padding(.horizontal, 6)
                 .padding(.vertical, 3)
                 .frame(width: 50)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(themeColor)
-                )
             Text(label)
                 .foregroundColor(.secondaryLabel)
                 .font(.system(
@@ -50,18 +46,20 @@ struct ParameterField: View {
                         weight: .medium,
                         design: .rounded
                 ))
-                .offset(y: -2)
         }
     }
+    
+    
 }
 
 struct ParameterField_Previews: PreviewProvider {
     struct Wrapper: View {
         @State var value: String = "2"
+        
         var body: some View {
             ParameterField(
                 label: "reps",
-                themeColor: .weightBlue,
+                themeColor: .weightGreen,
                 value: $value
             )
         }
