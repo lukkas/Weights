@@ -21,12 +21,26 @@ struct ParameterField: View {
     let label: String
     let themeColor: Color
     @Binding var value: String
+    @State private var isEditing = false
     
     var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 0) {
-            TextField("", text: $value)
+        VStack(spacing: 0) {
+            Text(label)
+                .foregroundColor(themeColor)
                 .font(.system(
-                        size: 20,
+                        size: 11,
+                        weight: .medium,
+                        design: .rounded
+                ))
+            
+            TextField(
+                "",
+                text: $value,
+                onEditingChanged: { changed in
+                    isEditing = changed
+                })
+                .font(.system(
+                        size: 18,
                         weight: .semibold,
                         design: .rounded
                 ))
@@ -38,14 +52,15 @@ struct ParameterField: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 6)
                 .padding(.vertical, 3)
-                .frame(width: 50)
-            Text(label)
-                .foregroundColor(.secondaryLabel)
-                .font(.system(
-                        size: 12,
-                        weight: .medium,
-                        design: .rounded
-                ))
+                .frame(width: 44)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(.fill)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(themeColor, lineWidth: isEditing ? 2 : 0)
+                )
         }
     }
     

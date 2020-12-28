@@ -46,6 +46,7 @@
 		0F7EE5B2243010970015951B /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0F7EE5C0243011070015951B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F7EE5BF243011070015951B /* Colors.xcassets */; };
 		0F7EE5C3243013550015951B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EE5C2243013550015951B /* Colors.swift */; };
+		0F86D9C8259A76C50060BAE3 /* RPEPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */; };
 		0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99873024F2ED4A00366D0B /* View+Debug.swift */; };
 		0FA934FD2473172400D939F1 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FC2473172400D939F1 /* AppDependencies.swift */; };
 		0FA93500247319C700D939F1 /* ExerciseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FF247319C700D939F1 /* ExerciseStorage.swift */; };
@@ -186,6 +187,7 @@
 		0F7EE5AD243010970015951B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F7EE5BF243011070015951B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		0F7EE5C2243013550015951B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPEPicker.swift; sourceTree = "<group>"; };
 		0F99873024F2ED4A00366D0B /* View+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Debug.swift"; sourceTree = "<group>"; };
 		0FA934FC2473172400D939F1 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		0FA934FF247319C700D939F1 /* ExerciseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorage.swift; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 				0F56F7012430F290002A2EBA /* Modifiers */,
 				0F76E9002546056C00D1B2F1 /* ParameterGauge.swift */,
 				0F051DD32558584600B8C590 /* ParameterField.swift */,
+				0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -917,6 +920,7 @@
 				0FB4D49C24425182004E244D /* Length+Grid.swift in Sources */,
 				0F56F71824313C72002A2EBA /* Localizable.swift in Sources */,
 				0F76E908254605D300D1B2F1 /* RPE.swift in Sources */,
+				0F86D9C8259A76C50060BAE3 /* RPEPicker.swift in Sources */,
 				0F7EE5C3243013550015951B /* Colors.swift in Sources */,
 				0FB4D4A224425328004E244D /* RootViewModel.swift in Sources */,
 				0F08333D24426C10003665EB /* ExerciseCreationViewModel.swift in Sources */,

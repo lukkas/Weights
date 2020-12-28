@@ -13,34 +13,39 @@ struct PlannerSetCellModel {
 }
 
 struct PlannerSetCell: View {
-    @State var reps = ""
-    @State var kilograms = ""
-    @State var rpe = ""
+    @State var reps = "12"
+    @State var kilograms = "80"
+    @State var rpe = "8"
     
     var body: some View {
-        HStack(spacing: 0) {
-            HStack(alignment: .parameterFieldAlignment) {
-                ParameterField(label: "reps", themeColor: .weightYellow, value: $reps)
-                Text("x")
-                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-                ParameterField(
-                    label: "kg",
-                    themeColor: .weightBlue,
-                    value: $kilograms
-                )
-//                Text("@")
-//                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-//                ParameterField(label: "RPE", value: $rpe)
-            }
-            
+        HStack(alignment: .parameterFieldAlignment) {
+            ParameterField(label: "reps", themeColor: .weightYellow, value: $reps)
+            Text("x")
+                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
+            ParameterField(
+                label: "kg",
+                themeColor: .weightBlue,
+                value: $kilograms
+            )
+            Text("@")
+                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
+//            ParameterField(
+//                label: "RPE",
+//                themeColor: .weightRed,
+//                value: $rpe
+//            )
             Spacer()
             
             Button(action: {}, label: {
                 Image(systemName: "plus")
+                    .font(.system(
+                        size: 21,
+                        weight: .semibold,
+                        design: .rounded
+                    ))
+                    .accentColor(.theme)
                     .frame(width: 44, height: 44)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8).stroke(Color.black)
-                    )
+                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
             })
         }
         .background(Color.background)
