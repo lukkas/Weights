@@ -11,14 +11,20 @@ import SwiftUI
 import UIKit
 
 struct PickerTextField: UIViewRepresentable {
-    @Binding var value: Double
+    @Binding var value: Double?
     
     func makeUIView(context: Context) -> UIPickerTextField {
-        return UIPickerTextField()
+        let field = UIPickerTextField()
+        field.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.updateValue(sender:)),
+            for: .valueChanged
+        )
+        return field
     }
     
     func updateUIView(_ uiView: UIPickerTextField, context: Context) {
-        
+        uiView.value = value
     }
     
     func makeCoordinator() -> Coordinator {
@@ -32,6 +38,8 @@ struct PickerTextField: UIViewRepresentable {
             self.textField = textField
         }
         
-        
+        @objc func updateValue(sender: UIPickerTextField) {
+            textField.value = sender.value
+        }
     }
 }

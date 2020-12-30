@@ -22,7 +22,7 @@ class UIPickerTextField: UIControl, UIKeyInput {
         }
     }
     
-    private(set) var value: Double? {
+    var value: Double? {
         didSet {
             label.text = getCurrentTextValue()
         }
@@ -72,6 +72,7 @@ class UIPickerTextField: UIControl, UIKeyInput {
         isDecimalSeparatorLastEntered = text.last.map(String.init) == formatter.decimalSeparator
             && mode == .floatingPoint
         value = formatter.number(from: text)?.doubleValue
+        sendActions(for: .valueChanged)
     }
     
     func deleteBackward() {

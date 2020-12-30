@@ -226,4 +226,29 @@ class UIPickerTextFieldTests: XCTestCase {
         // then
         XCTAssertEqual(sut.textValue, "12")
     }
+    
+//    func test_fieldEmitsTargetActions() {
+//        // given
+//        let observer = Observer()
+//        sut.addTarget(
+//            observer,
+//            action: #selector(Observer.receiveEvent(sender:)),
+//            for: .valueChanged
+//        )
+//        XCTAssertFalse(observer.eventReceived)
+//        
+//        // when
+//        sut.insertText("1")
+//        RunLoop.current.run(until: Date())
+//        
+//        // then
+//        XCTAssertTrue(observer.eventReceived)
+//    }
+}
+
+private class Observer: NSObject {
+    private(set) var eventReceived = false
+    @objc func receiveEvent(sender: UIPickerTextField) {
+        eventReceived = true
+    }
 }
