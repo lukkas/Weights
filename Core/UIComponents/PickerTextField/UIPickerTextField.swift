@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import UIKit
 
-class UIPickerTextField: UIControl, UIKeyInput {
+class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     enum Mode {
         case wholes, floatingPoint
     }
@@ -121,15 +121,51 @@ class UIPickerTextField: UIControl, UIKeyInput {
         label.font = UIFont.rounded(ofSize: 18, weight: .semibold)
     }
     
+    private lazy var tap = UITapGestureRecognizer()
+    private lazy var pan = UIPanGestureRecognizer()
+    
     private func configureGestures() {
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(handleTap(sender:))
-        )
+        tap.addTarget(self, action: #selector(handleTap(sender:)))
+        pan.addTarget(self, action: #selector(handlePan(sender:)))
+        pan.delegate = self
         addGestureRecognizer(tap)
+        addGestureRecognizer(pan)
     }
+    
+    // MARK: - UIGestureRecognizerDelegate
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer === pan {
+            return jumpInterval != nil
+        }
+        return true
+    }
+    
+    // MARK: - Gesture Handling
     
     @objc private func handleTap(sender: UITapGestureRecognizer) {
         becomeFirstResponder()
+    }
+    
+    private var initialPanLocation: CGPoint?
+    private var valueWhenGestureBegan: Double?
+    private let panJumpThreshold: CGFloat = 7
+    
+    @objc private func handlePan(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            valueWhenGestureBegan = value
+        case .changed:
+            let translation = sender.translation(in: self).y
+            let numberOfJumps = -translation / panJumpThreshold
+            let valueChange = Double(floor(numberOfJumps)) * jumpInterval!
+            value = (valueWhenGestureBegan ?? 0) + valueChange
+        case .ended:
+            valueWhenGestureBegan = nil
+        case .cancelled:
+            value = valueWhenGestureBegan
+            valueWhenGestureBegan = nil
+        default: break
+        }
     }
 }
