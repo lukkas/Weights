@@ -10,6 +10,8 @@
 		0F04301124649E8E00BF7993 /* DatabaseModelVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F04301024649E8E00BF7993 /* DatabaseModelVersion.swift */; };
 		0F051DD42558584600B8C590 /* ParameterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F051DD32558584600B8C590 /* ParameterField.swift */; };
 		0F08333D24426C10003665EB /* ExerciseCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */; };
+		0F0F9ACA259B758A00AC4B9B /* UIFont+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9AC9259B758A00AC4B9B /* UIFont+Rounded.swift */; };
+		0F0F9AD2259B790A00AC4B9B /* UIPickerTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9AD1259B790A00AC4B9B /* UIPickerTextFieldTests.swift */; };
 		0F167153253388E3000C5E79 /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F167152253388E3000C5E79 /* PlannerExerciseView.swift */; };
 		0F30989E22B4518200DCDD5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F30989D22B4518200DCDD5E /* Assets.xcassets */; };
 		0F3098A122B4518200DCDD5E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F3098A022B4518200DCDD5E /* Preview Assets.xcassets */; };
@@ -53,7 +55,6 @@
 		0FA9350224731BA200D939F1 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9350124731BA200D939F1 /* Exercise.swift */; };
 		0FAECC66252A37DD00693A8A /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAECC65252A37DD00693A8A /* PlannerView.swift */; };
 		0FAECC72252A37ED00693A8A /* PlannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */; };
-		0FB4D49C24425182004E244D /* Length+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D49B2442517F004E244D /* Length+Grid.swift */; };
 		0FB4D4A024425278004E244D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D49F24425278004E244D /* RootView.swift */; };
 		0FB4D4A224425328004E244D /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D4A124425328004E244D /* RootViewModel.swift */; };
 		0FB4D4A424425B1D004E244D /* ExercisesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D4A324425B1D004E244D /* ExercisesListView.swift */; };
@@ -61,6 +62,8 @@
 		0FC7FB9124689187006BFBA4 /* DateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9024689187006BFBA4 /* DateProvider.swift */; };
 		0FC7FB9724689CFC006BFBA4 /* ExerciseStoringStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9624689CFC006BFBA4 /* ExerciseStoringStub.swift */; };
 		0FC7FB9924689DAF006BFBA4 /* ExerciseDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */; };
+		0FCDC4EB259A9D9B00CC1D22 /* UIPickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCDC4EA259A9D9B00CC1D22 /* UIPickerTextField.swift */; };
+		0FCDC4FD259A9FF900CC1D22 /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */; };
 		0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */; };
 		0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DD2471B045007D638E /* CoreDependencies.swift */; };
 		0FE1DF3225520A5800CE7A93 /* PlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1DF3125520A5800CE7A93 /* PlannerSetCell.swift */; };
@@ -145,6 +148,8 @@
 		0F04301024649E8E00BF7993 /* DatabaseModelVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseModelVersion.swift; sourceTree = "<group>"; };
 		0F051DD32558584600B8C590 /* ParameterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterField.swift; sourceTree = "<group>"; };
 		0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModel.swift; sourceTree = "<group>"; };
+		0F0F9AC9259B758A00AC4B9B /* UIFont+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Rounded.swift"; sourceTree = "<group>"; };
+		0F0F9AD1259B790A00AC4B9B /* UIPickerTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerTextFieldTests.swift; sourceTree = "<group>"; };
 		0F167152253388E3000C5E79 /* PlannerExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseView.swift; sourceTree = "<group>"; };
 		0F30989122B4518000DCDD5E /* Weights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F30989D22B4518200DCDD5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,7 +199,6 @@
 		0FA9350124731BA200D939F1 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		0FAECC65252A37DD00693A8A /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewModel.swift; sourceTree = "<group>"; };
-		0FB4D49B2442517F004E244D /* Length+Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Length+Grid.swift"; sourceTree = "<group>"; };
 		0FB4D49F24425278004E244D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		0FB4D4A124425328004E244D /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		0FB4D4A324425B1D004E244D /* ExercisesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListView.swift; sourceTree = "<group>"; };
@@ -202,6 +206,8 @@
 		0FC7FB9024689187006BFBA4 /* DateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
 		0FC7FB9624689CFC006BFBA4 /* ExerciseStoringStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStoringStub.swift; sourceTree = "<group>"; };
 		0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDummy.swift; sourceTree = "<group>"; };
+		0FCDC4EA259A9D9B00CC1D22 /* UIPickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerTextField.swift; sourceTree = "<group>"; };
+		0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
 		0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListViewModel.swift; sourceTree = "<group>"; };
 		0FD751DD2471B045007D638E /* CoreDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDependencies.swift; sourceTree = "<group>"; };
 		0FE1DF3125520A5800CE7A93 /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
@@ -265,6 +271,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F0F9AD0259B78E600AC4B9B /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				0F0F9AD1259B790A00AC4B9B /* UIPickerTextFieldTests.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
 		0F30988822B4518000DCDD5E = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				0F99873024F2ED4A00366D0B /* View+Debug.swift */,
+				0F0F9AC9259B758A00AC4B9B /* UIFont+Rounded.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -455,6 +470,7 @@
 		0F7EE5AA243010970015951B /* CoreTests */ = {
 			isa = PBXGroup;
 			children = (
+				0F0F9AD0259B78E600AC4B9B /* UIComponents */,
 				0F33B64A25227BCD00B44EAA /* Helpers */,
 				0FC7FB9524689CE6006BFBA4 /* Doubles */,
 				0FC7FB9224689CA3006BFBA4 /* ExerciseCreation */,
@@ -466,8 +482,8 @@
 		0F7EE5BB243010BC0015951B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				0FCDC4FB259A9FE700CC1D22 /* PickerTextField */,
 				0F33B6572522816800B44EAA /* PreviewHelpers */,
-				0FB4D49A2442516E004E244D /* Spacing */,
 				0F56F70724310858002A2EBA /* Helpers */,
 				0F56F7012430F290002A2EBA /* Modifiers */,
 				0F76E9002546056C00D1B2F1 /* ParameterGauge.swift */,
@@ -506,14 +522,6 @@
 				0FE1DF3125520A5800CE7A93 /* PlannerSetCell.swift */,
 			);
 			path = Planner;
-			sourceTree = "<group>";
-		};
-		0FB4D49A2442516E004E244D /* Spacing */ = {
-			isa = PBXGroup;
-			children = (
-				0FB4D49B2442517F004E244D /* Length+Grid.swift */,
-			);
-			path = Spacing;
 			sourceTree = "<group>";
 		};
 		0FB4D49D24425255004E244D /* ExerciseCreation */ = {
@@ -559,6 +567,15 @@
 				0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */,
 			);
 			path = Doubles;
+			sourceTree = "<group>";
+		};
+		0FCDC4FB259A9FE700CC1D22 /* PickerTextField */ = {
+			isa = PBXGroup;
+			children = (
+				0FCDC4EA259A9D9B00CC1D22 /* UIPickerTextField.swift */,
+				0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */,
+			);
+			path = PickerTextField;
 			sourceTree = "<group>";
 		};
 		0FD751DF2471C12E007D638E /* Services */ = {
@@ -897,11 +914,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F0F9ACA259B758A00AC4B9B /* UIFont+Rounded.swift in Sources */,
 				0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */,
 				0FE6008F245F56710052539C /* ExerciseStoring.swift in Sources */,
 				0FE1DF3225520A5800CE7A93 /* PlannerSetCell.swift in Sources */,
 				0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */,
 				0F76E91B25460C6D00D1B2F1 /* ColorPreviews.swift in Sources */,
+				0FCDC4FD259A9FF900CC1D22 /* PickerTextField.swift in Sources */,
+				0FCDC4EB259A9D9B00CC1D22 /* UIPickerTextField.swift in Sources */,
 				0F33B6592522817E00B44EAA /* PlaceholderClosures.swift in Sources */,
 				0F167153253388E3000C5E79 /* PlannerExerciseView.swift in Sources */,
 				0FAECC72252A37ED00693A8A /* PlannerViewModel.swift in Sources */,
@@ -917,7 +937,6 @@
 				0F56F70C24312017002A2EBA /* CoreEntry.swift in Sources */,
 				0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */,
 				0F051DD42558584600B8C590 /* ParameterField.swift in Sources */,
-				0FB4D49C24425182004E244D /* Length+Grid.swift in Sources */,
 				0F56F71824313C72002A2EBA /* Localizable.swift in Sources */,
 				0F76E908254605D300D1B2F1 /* RPE.swift in Sources */,
 				0F86D9C8259A76C50060BAE3 /* RPEPicker.swift in Sources */,
@@ -934,6 +953,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F0F9AD2259B790A00AC4B9B /* UIPickerTextFieldTests.swift in Sources */,
 				0FC7FB9724689CFC006BFBA4 /* ExerciseStoringStub.swift in Sources */,
 				0FC7FB9924689DAF006BFBA4 /* ExerciseDummy.swift in Sources */,
 				0F33B64C25227BE000B44EAA /* PublisherListener.swift in Sources */,

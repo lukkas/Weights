@@ -17,8 +17,9 @@ public class CoreEntry {
     }
     
     public func makeInitialView() -> some View {
-        return makeRootView()
+//        return makeRootView()
 //        return PlannerView()
+        return ParameterFieldWrapper()
     }
     
     private func makeRootView() -> some View {
@@ -40,5 +41,13 @@ public class CoreEntry {
     
     private func makeExerciseCreation() -> ExerciseCreationViewModel {
         return ExerciseCreationViewModel(exerciseStorage: dependencies.exerciseStorage)
+    }
+}
+
+struct ParameterFieldWrapper: View {
+    @State var value = "0"
+    
+    var body: some View {
+        ParameterField(label: "reps", themeColor: .weightRed, value: $value)
     }
 }
