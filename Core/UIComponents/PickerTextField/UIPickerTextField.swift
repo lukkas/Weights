@@ -44,6 +44,14 @@ class UIPickerTextField: UIControl, UIKeyInput {
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) { fatalError("Storyboards are not compatible with truth and beauty") }
     
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: 50, height: 44)
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
     override func layoutSubviews() {
         label.frame = bounds
     }
@@ -77,7 +85,6 @@ class UIPickerTextField: UIControl, UIKeyInput {
     
     func deleteBackward() {
         let currentText = getCurrentTextValue()
-        print(currentText)
         setValue(withText: String(currentText.dropLast()))
     }
     
@@ -101,6 +108,7 @@ class UIPickerTextField: UIControl, UIKeyInput {
     private func setUp() {
         applyStyling()
         addLabel()
+        configureGestures()
     }
     
     private func applyStyling() {
@@ -111,5 +119,17 @@ class UIPickerTextField: UIControl, UIKeyInput {
         addSubview(label)
         label.textAlignment = .center
         label.font = UIFont.rounded(ofSize: 18, weight: .semibold)
+    }
+    
+    private func configureGestures() {
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handleTap(sender:))
+        )
+        addGestureRecognizer(tap)
+    }
+    
+    @objc private func handleTap(sender: UITapGestureRecognizer) {
+        becomeFirstResponder()
     }
 }

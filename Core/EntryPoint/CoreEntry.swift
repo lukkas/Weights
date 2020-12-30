@@ -46,8 +46,10 @@ public class CoreEntry {
 
 struct ParameterFieldWrapper: View {
     @State var value = "0"
+    @State var doubleValue: Double? = nil
     
     var body: some View {
-        ParameterField(label: "reps", themeColor: .weightRed, value: $value)
+        PickerTextField(value: $doubleValue)
+//        ParameterField(label: "reps", themeColor: .weightRed, value: $value)
     }
 }
