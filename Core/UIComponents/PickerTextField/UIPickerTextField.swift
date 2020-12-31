@@ -141,9 +141,17 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     // MARK: - Setup
     
     private func setUp() {
+        configureAutolayoutPriorities()
         applyStyling()
         addLabel()
         configureGestures()
+    }
+    
+    private func configureAutolayoutPriorities() {
+        setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        setContentHuggingPriority(.defaultHigh, for: .vertical)
+        setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
     }
     
     private func applyStyling() {
