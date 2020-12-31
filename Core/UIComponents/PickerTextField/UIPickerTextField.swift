@@ -147,24 +147,33 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         becomeFirstResponder()
     }
     
-    private var initialPanLocation: CGPoint?
     private var valueWhenGestureBegan: Double?
+    private var previousNumberOfJumps: Double?
     private let panJumpThreshold: CGFloat = 7
+    private let hapticsGenerator = UISelectionFeedbackGenerator()
     
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
             valueWhenGestureBegan = value
+            previousNumberOfJumps = 0
+            hapticsGenerator.prepare()
         case .changed:
             let translation = sender.translation(in: self).y
-            let numberOfJumps = -translation / panJumpThreshold
-            let valueChange = Double(floor(numberOfJumps)) * jumpInterval!
+            let numberOfJumps = Double(floor(-translation / panJumpThreshold))
+            if numberOfJumps != previousNumberOfJumps {
+                hapticsGenerator.selectionChanged()
+            }
+            previousNumberOfJumps = numberOfJumps
+            let valueChange = numberOfJumps * jumpInterval!
             value = (valueWhenGestureBegan ?? 0) + valueChange
         case .ended:
             valueWhenGestureBegan = nil
+            previousNumberOfJumps = nil
         case .cancelled:
             value = valueWhenGestureBegan
             valueWhenGestureBegan = nil
+            previousNumberOfJumps = nil
         default: break
         }
     }
