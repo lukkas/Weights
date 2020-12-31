@@ -31,6 +31,12 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         return getCurrentTextValue()
     }
     private var isDecimalSeparatorLastEntered = false
+    private var isBeingEdited = false {
+        didSet { adjustBorder() }
+    }
+    private var isBeingPannedOn = false {
+        didSet { adjustBorder() }
+    }
     private let label = UILabel()
     
     private let formatter = NumberFormatter()
@@ -52,8 +58,37 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         return true
     }
     
+    override func becomeFirstResponder() -> Bool {
+        let hasBecome = super.becomeFirstResponder()
+        if hasBecome {
+            isBeingEdited = true
+        }
+        return hasBecome
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        let didResign = super.resignFirstResponder()
+        if didResign {
+            isBeingEdited = false
+        }
+        return didResign
+    }
+    
     override func layoutSubviews() {
         label.frame = bounds
+    }
+    
+    private func adjustBorder() {
+        let shouldHighlightBorder = isBeingEdited || isBeingPannedOn
+        UIView.animateKeyframes(
+            withDuration: 0.15,
+            delay: 0,
+            options: [.beginFromCurrentState],
+            animations: {
+                self.layer.borderWidth = shouldHighlightBorder ? 2 : 0
+            },
+            completion: nil
+        )
     }
     
     // MARK: UIKeyInput
@@ -113,6 +148,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     
     private func applyStyling() {
         backgroundColor = .systemFill
+        layer.cornerRadius = 8
+        layer.masksToBounds = true
+        layer.borderWidth = 0
+        layer.borderColor = tintColor.cgColor
     }
     
     private func addLabel() {
@@ -121,8 +160,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         label.font = UIFont.rounded(ofSize: 18, weight: .semibold)
     }
     
-    private lazy var tap = UITapGestureRecognizer()
-    private lazy var pan = UIPanGestureRecognizer()
+    private let tap = UITapGestureRecognizer()
+    private let pan = UIPanGestureRecognizer()
     
     private func configureGestures() {
         tap.addTarget(self, action: #selector(handleTap(sender:)))
@@ -144,7 +183,11 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     // MARK: - Gesture Handling
     
     @objc private func handleTap(sender: UITapGestureRecognizer) {
-        becomeFirstResponder()
+        if isFirstResponder {
+            _ = resignFirstResponder()
+        } else {
+            _ = becomeFirstResponder()
+        }
     }
     
     private var valueWhenGestureBegan: Double?
@@ -157,6 +200,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         case .began:
             valueWhenGestureBegan = value
             previousNumberOfJumps = 0
+            isBeingPannedOn = true
             hapticsGenerator.prepare()
         case .changed:
             let translation = sender.translation(in: self).y
@@ -170,10 +214,12 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         case .ended:
             valueWhenGestureBegan = nil
             previousNumberOfJumps = nil
+            isBeingPannedOn = false
         case .cancelled:
             value = valueWhenGestureBegan
             valueWhenGestureBegan = nil
             previousNumberOfJumps = nil
+            isBeingPannedOn = false
         default: break
         }
     }
