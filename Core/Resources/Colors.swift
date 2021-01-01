@@ -11,7 +11,7 @@ import SwiftUI
 
 extension Color {
     // MARK: - Theme
-    static var theme: Color { weightRed }
+    static var theme: Color { Color(UIColor.systemPink) }
     static var contrastLabel: Color { named("contrast_label") }
     static var weightRed: Color { named("weight_red") }
     static var weightBlue: Color { named("weight_blue") }

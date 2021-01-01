@@ -41,14 +41,17 @@ struct PlannerSetCell: View {
             Spacer()
             
             Button(action: {}, label: {
-                Image(systemName: "plus")
+                Text("Add")
                     .font(.system(
-                        size: 21,
-                        weight: .semibold,
-                        design: .rounded
+                        size: 16,
+                        weight: .semibold
                     ))
-                    .accentColor(.theme)
-                    .frame(width: 44, height: 44)
+                    .accentColor(.contrastLabel)
+                    .frame(width: 60, height: 44)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(.theme)
+                    )
                     .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
             })
         }
