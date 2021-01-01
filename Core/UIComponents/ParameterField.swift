@@ -12,21 +12,7 @@ struct ParameterField: View {
     let label: String
     let themeColor: Color
     //    let increment: Float = 1
-    @Binding var value: String
-    
-    @State private var isEditing = false
-    @GestureState private var isDragging = false
-    
-    var drag: some Gesture {
-        DragGesture()
-            .updating(
-                $isDragging,
-                body: { value, state, transaction in
-                    guard let currentValue = Int(self.value) else { return }
-                    let inc = value.translation.height / 10
-                    self.value = String(currentValue + Int(inc))
-                })
-    }
+    @Binding var value: Double?
     
     var body: some View {
         VStack(spacing: 0) {
@@ -38,38 +24,10 @@ struct ParameterField: View {
                     design: .rounded
                 ))
             
-            TextField(
-                "",
-                text: $value,
-                onEditingChanged: { changed in
-                    isEditing = changed
-                }
-            )
-            .font(.system(
-                size: 18,
-                weight: .semibold,
-                design: .rounded
-            ))
-            .foregroundColor(themeColor)
-            .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
-                d[VerticalAlignment.center]
-            })
-            .keyboardType(.numberPad)
-            .multilineTextAlignment(.center)
-            .padding(EdgeInsets(
-                top: 3, leading: 6,
-                bottom: 3, trailing: 6
-            ))
-            .frame(width: 44)
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(.fill)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(themeColor, lineWidth: isEditing ? 2 : 0)
-            )
-            .gesture(drag)
+            PickerTextField(value: $value, themeColor: themeColor)
+                .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
+                    d[VerticalAlignment.center]
+                })
         }
     }
 }
@@ -85,7 +43,7 @@ extension VerticalAlignment {
 
 struct ParameterField_Previews: PreviewProvider {
     struct Wrapper: View {
-        @State var value: String = "2"
+        @State var value: Double? = nil
         
         var body: some View {
             ParameterField(

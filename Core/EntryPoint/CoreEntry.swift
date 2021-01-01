@@ -49,7 +49,7 @@ struct ParameterFieldWrapper: View {
     @State var doubleValue: Double? = nil
     
     var body: some View {
-        PickerTextField(value: $doubleValue)
+        PickerTextField(value: $doubleValue, themeColor: .weightBlue)
 //        ParameterField(label: "reps", themeColor: .weightRed, value: $value)
     }
 }

@@ -26,6 +26,7 @@ extension XCTestCase {
         })
         wait(for: [expectation], timeout: 1)
         cancellable = nil
+        _ = cancellable // silence warning
         return try XCTUnwrap(receivedValue)
     }
 }

@@ -12,9 +12,11 @@ import UIKit
 
 struct PickerTextField: UIViewRepresentable {
     @Binding var value: Double?
+    let themeColor: Color
     
     func makeUIView(context: Context) -> UIPickerTextField {
         let field = UIPickerTextField()
+        field.themeColor = UIColor(themeColor)
         field.addTarget(
             context.coordinator,
             action: #selector(Coordinator.updateValue(sender:)),

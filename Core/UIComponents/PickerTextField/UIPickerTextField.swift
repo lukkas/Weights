@@ -40,6 +40,11 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private let label = UILabel()
     
     private let formatter = NumberFormatter()
+    lazy var themeColor: UIColor = tintColor {
+        didSet {
+            layer.borderColor = themeColor.cgColor
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,7 +56,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     required init?(coder aDecoder: NSCoder) { fatalError("Storyboards are not compatible with truth and beauty") }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 50, height: 44)
+        return CGSize(width: 50, height: 36)
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -159,7 +164,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         layer.cornerRadius = 8
         layer.masksToBounds = true
         layer.borderWidth = 0
-        layer.borderColor = tintColor.cgColor
+        layer.borderColor = themeColor.cgColor
     }
     
     private func addLabel() {
