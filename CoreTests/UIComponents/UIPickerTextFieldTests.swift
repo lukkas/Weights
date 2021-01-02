@@ -227,6 +227,29 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.textValue, "12")
     }
     
+    func test_gesturesAreAdded() throws {
+        _ = try getPan()
+        _ = try getTap()
+    }
+    
+    private func getPan() throws -> UIPanGestureRecognizer {
+        return try getGesture()
+    }
+    
+    private func getTap() throws -> UITapGestureRecognizer {
+        return try getGesture()
+    }
+    
+    private func getGesture<T: UIGestureRecognizer>() throws -> T {
+        guard let gesture = sut.gestureRecognizers?
+            .first(where: { $0 is T })
+            .map({ $0 as! T })
+        else {
+            throw TestFailure("No \(T.self) gesture found")
+        }
+        return gesture
+    }
+    
 //    func test_fieldEmitsTargetActions() {
 //        // given
 //        let observer = Observer()

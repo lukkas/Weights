@@ -12,6 +12,13 @@
 		0F08333D24426C10003665EB /* ExerciseCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */; };
 		0F0F9ACA259B758A00AC4B9B /* UIFont+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9AC9259B758A00AC4B9B /* UIFont+Rounded.swift */; };
 		0F0F9AD2259B790A00AC4B9B /* UIPickerTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9AD1259B790A00AC4B9B /* UIPickerTextFieldTests.swift */; };
+		0F0F9ADE259FEDAF00AC4B9B /* TestFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9ADD259FEDAF00AC4B9B /* TestFailure.swift */; };
+		0F0F9AF025A0987000AC4B9B /* MetatypeInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9AEF25A0987000AC4B9B /* MetatypeInjector.swift */; };
+		0F0F9AF825A09A4200AC4B9B /* Metatypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9AF725A09A4200AC4B9B /* Metatypes.swift */; };
+		0F0F9B0425A09C6600AC4B9B /* UIPanGestureRecognizerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9B0325A09C6600AC4B9B /* UIPanGestureRecognizerMock.swift */; };
+		0F0F9B0B25A0A56500AC4B9B /* UITapGestureRecognizerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9B0A25A0A56500AC4B9B /* UITapGestureRecognizerMock.swift */; };
+		0F0F9B1725A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9B1625A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift */; };
+		0F0F9B2325A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9B2225A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift */; };
 		0F167153253388E3000C5E79 /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F167152253388E3000C5E79 /* PlannerExerciseView.swift */; };
 		0F30989E22B4518200DCDD5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F30989D22B4518200DCDD5E /* Assets.xcassets */; };
 		0F3098A122B4518200DCDD5E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F3098A022B4518200DCDD5E /* Preview Assets.xcassets */; };
@@ -150,6 +157,13 @@
 		0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModel.swift; sourceTree = "<group>"; };
 		0F0F9AC9259B758A00AC4B9B /* UIFont+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Rounded.swift"; sourceTree = "<group>"; };
 		0F0F9AD1259B790A00AC4B9B /* UIPickerTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerTextFieldTests.swift; sourceTree = "<group>"; };
+		0F0F9ADD259FEDAF00AC4B9B /* TestFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFailure.swift; sourceTree = "<group>"; };
+		0F0F9AEF25A0987000AC4B9B /* MetatypeInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetatypeInjector.swift; sourceTree = "<group>"; };
+		0F0F9AF725A09A4200AC4B9B /* Metatypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metatypes.swift; sourceTree = "<group>"; };
+		0F0F9B0325A09C6600AC4B9B /* UIPanGestureRecognizerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerMock.swift; sourceTree = "<group>"; };
+		0F0F9B0A25A0A56500AC4B9B /* UITapGestureRecognizerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecognizerMock.swift; sourceTree = "<group>"; };
+		0F0F9B1625A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISelectionFeedbackGeneratorMock.swift; sourceTree = "<group>"; };
+		0F0F9B2225A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImpactFeedbackGeneratorMock.swift; sourceTree = "<group>"; };
 		0F167152253388E3000C5E79 /* PlannerExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseView.swift; sourceTree = "<group>"; };
 		0F30989122B4518000DCDD5E /* Weights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F30989D22B4518200DCDD5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -279,6 +293,14 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
+		0F0F9AF625A09A2300AC4B9B /* Metatypes */ = {
+			isa = PBXGroup;
+			children = (
+				0F0F9AF725A09A4200AC4B9B /* Metatypes.swift */,
+			);
+			path = Metatypes;
+			sourceTree = "<group>";
+		};
 		0F30988822B4518000DCDD5E = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +362,8 @@
 			isa = PBXGroup;
 			children = (
 				0F33B64B25227BE000B44EAA /* PublisherListener.swift */,
+				0F0F9ADD259FEDAF00AC4B9B /* TestFailure.swift */,
+				0F0F9AEF25A0987000AC4B9B /* MetatypeInjector.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -482,6 +506,7 @@
 		0F7EE5BB243010BC0015951B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				0F0F9AF625A09A2300AC4B9B /* Metatypes */,
 				0FCDC4FB259A9FE700CC1D22 /* PickerTextField */,
 				0F33B6572522816800B44EAA /* PreviewHelpers */,
 				0F56F70724310858002A2EBA /* Helpers */,
@@ -565,6 +590,10 @@
 			children = (
 				0FC7FB9624689CFC006BFBA4 /* ExerciseStoringStub.swift */,
 				0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */,
+				0F0F9B0325A09C6600AC4B9B /* UIPanGestureRecognizerMock.swift */,
+				0F0F9B0A25A0A56500AC4B9B /* UITapGestureRecognizerMock.swift */,
+				0F0F9B1625A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift */,
+				0F0F9B2225A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift */,
 			);
 			path = Doubles;
 			sourceTree = "<group>";
@@ -921,6 +950,7 @@
 				0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */,
 				0F76E91B25460C6D00D1B2F1 /* ColorPreviews.swift in Sources */,
 				0FCDC4FD259A9FF900CC1D22 /* PickerTextField.swift in Sources */,
+				0F0F9AF825A09A4200AC4B9B /* Metatypes.swift in Sources */,
 				0FCDC4EB259A9D9B00CC1D22 /* UIPickerTextField.swift in Sources */,
 				0F33B6592522817E00B44EAA /* PlaceholderClosures.swift in Sources */,
 				0F167153253388E3000C5E79 /* PlannerExerciseView.swift in Sources */,
@@ -953,10 +983,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F0F9B0425A09C6600AC4B9B /* UIPanGestureRecognizerMock.swift in Sources */,
+				0F0F9B2325A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift in Sources */,
+				0F0F9AF025A0987000AC4B9B /* MetatypeInjector.swift in Sources */,
 				0F0F9AD2259B790A00AC4B9B /* UIPickerTextFieldTests.swift in Sources */,
 				0FC7FB9724689CFC006BFBA4 /* ExerciseStoringStub.swift in Sources */,
 				0FC7FB9924689DAF006BFBA4 /* ExerciseDummy.swift in Sources */,
+				0F0F9B1725A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift in Sources */,
 				0F33B64C25227BE000B44EAA /* PublisherListener.swift in Sources */,
+				0F0F9ADE259FEDAF00AC4B9B /* TestFailure.swift in Sources */,
+				0F0F9B0B25A0A56500AC4B9B /* UITapGestureRecognizerMock.swift in Sources */,
 				0F7A1DF5250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,21 +15,18 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         case wholes, floatingPoint
     }
     
-    var jumpInterval: Double? = 1
     var mode: Mode = .wholes {
-        didSet {
-            adoptToCurrentMode()
-        }
+        didSet { adoptToCurrentMode() }
     }
+    var jumpInterval: Double? = 1
     
     var value: Double? {
-        didSet {
-            label.text = getCurrentTextValue()
-        }
+        didSet { label.text = getCurrentTextValue() }
     }
     var textValue: String {
         return getCurrentTextValue()
     }
+    
     private var isDecimalSeparatorLastEntered = false
     private var isBeingEdited = false {
         didSet { adjustBorder() }
@@ -41,9 +38,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     
     private let formatter = NumberFormatter()
     lazy var themeColor: UIColor = tintColor {
-        didSet {
-            layer.borderColor = themeColor.cgColor
-        }
+        didSet { layer.borderColor = themeColor.cgColor }
     }
     
     override init(frame: CGRect) {
@@ -173,8 +168,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         label.font = UIFont.rounded(ofSize: 18, weight: .semibold)
     }
     
-    private let tap = UITapGestureRecognizer()
-    private let pan = UIPanGestureRecognizer()
+    private let tap = metaUITapGestureRecognizer.init()
+    private let pan = metaUIPanGestureRecognizer.init()
     
     private func configureGestures() {
         tap.addTarget(self, action: #selector(handleTap(sender:)))
@@ -206,20 +201,22 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private var valueWhenGestureBegan: Double?
     private var previousNumberOfJumps: Double?
     private let panJumpThreshold: CGFloat = 7
-    private let hapticsGenerator = UISelectionFeedbackGenerator()
+    private let selectionHaptics = UISelectionFeedbackGenerator()
+    private let impactHaptics = UIImpactFeedbackGenerator()
     
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
+            sender.state = .began
             valueWhenGestureBegan = value
             previousNumberOfJumps = 0
             isBeingPannedOn = true
-            hapticsGenerator.prepare()
+            selectionHaptics.prepare()
         case .changed:
             let translation = sender.translation(in: self).y
             let numberOfJumps = Double(floor(-translation / panJumpThreshold))
             if numberOfJumps != previousNumberOfJumps {
-                hapticsGenerator.selectionChanged()
+                selectionHaptics.selectionChanged()
             }
             previousNumberOfJumps = numberOfJumps
             let valueChange = numberOfJumps * jumpInterval!
