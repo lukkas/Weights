@@ -10,14 +10,24 @@
 import XCTest
 
 class UIPickerTextFieldTests: XCTestCase {
+    var window: UIWindow!
     var sut: UIPickerTextField!
+    var panInjector: UIPanGestureRecognizerMockInjector!
+    var tapInjector: UITapGestureRecognizerMockInjector!
     
     override func setUpWithError() throws {
+        window = UIWindow()
+        panInjector = UIPanGestureRecognizerMockInjector()
+        tapInjector = UITapGestureRecognizerMockInjector()
         sut = UIPickerTextField()
+        window.addSubview(sut)
     }
 
     override func tearDownWithError() throws {
+        window = nil
         sut = nil
+        tapInjector = nil
+        panInjector = nil
     }
     
     func test_insertText_whenFirstNumberIsEntered() {
@@ -232,22 +242,149 @@ class UIPickerTextFieldTests: XCTestCase {
         _ = try getTap()
     }
     
-    private func getPan() throws -> UIPanGestureRecognizer {
-        return try getGesture()
+    func test_tap_whenTapped_shouldHighlightWithBorder() throws {
+        // when
+        try getTap().tap()
+        
+        // then
+        XCTAssertEqual(sut.layer.borderWidth, 2)
     }
     
-    private func getTap() throws -> UITapGestureRecognizer {
-        return try getGesture()
+    func test_tap_whenTappedSecondTime_shouldRemoveBorderHighlight() throws {
+        // given
+        try getTap().tap()
+        
+        // when
+        try getTap().tap()
+        
+        // then
+        verify_isFieldHighlighted(false)
     }
     
-    private func getGesture<T: UIGestureRecognizer>() throws -> T {
-        guard let gesture = sut.gestureRecognizers?
-            .first(where: { $0 is T })
-            .map({ $0 as! T })
-        else {
-            throw TestFailure("No \(T.self) gesture found")
-        }
-        return gesture
+    private func verify_isFieldHighlighted(_ highlighted: Bool = true) {
+        let expectedWidth: CGFloat = highlighted ? 2 : 0
+        XCTAssertEqual(sut.layer.borderWidth, expectedWidth)
+    }
+    
+    func test_panning_whenPanningStarts_shouldHighlightWithBorder() throws {
+        // when
+        try getPan().beginPanning()
+        
+        // then
+        verify_isFieldHighlighted()
+    }
+    
+    func test_panning_whenPansByJumpThreshold_shouldIncrementValue() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        XCTAssertEqual(sut.value, 2)
+    }
+    
+    func test_panning_shouldRespectJumpSetInterval() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 8, jump: 0.3)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        XCTAssertEqual(sut.value, 8.3)
+    }
+    
+    func test_panning_whenPanningEnds_shouldSetValueStay() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 2, jump: 0.5)
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 2))
+        XCTAssertEqual(sut.value, 3)
+        
+        // when
+        pan.endPanning()
+        
+        // then
+        XCTAssertEqual(sut.value, 3)
+    }
+    
+    func test_panning_whenPanningIsCancelled_shouldResetValue() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 2, jump: 0.5)
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 3))
+        XCTAssertEqual(sut.value, 3.5)
+        
+        // when
+        pan.cancelPanning()
+        
+        // then
+        XCTAssertEqual(sut.value, 2)
+    }
+    
+    func test_panning_whenPanningEnds_shouldRemoveHighlight() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        verify_isFieldHighlighted()
+        
+        // when
+        pan.endPanning()
+        
+        // then
+        verify_isFieldHighlighted(false)
+    }
+    
+    func test_panning_whenPanningIsCancelled_shouldRemoveHighlight() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        verify_isFieldHighlighted()
+        
+        // when
+        pan.cancelPanning()
+        
+        // then
+        verify_isFieldHighlighted(false)
+    }
+    
+    func test_panning_whenPanningEndsButStaysFirstResponder_shouldLeaveHighlight() throws {
+        // given
+        try getTap().tap()
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        
+        // when
+        pan.cancelPanning()
+        
+        // then
+        verify_isFieldHighlighted()
+    }
+    
+    private func preconfigure_beganPanning(
+        initialValue: Double,
+        jump: Double
+    ) throws -> UIPanGestureRecognizerMock {
+        sut.value = initialValue
+        sut.jumpInterval = jump
+        let pan = try getPan()
+        pan.beginPanning()
+        return pan
+    }
+    
+    private func panTranslation(toIncreaseValueBy factor: CGFloat) -> CGPoint {
+        let threshold = 7 as CGFloat
+        return CGPoint(
+            x: 0,
+            y: -factor * threshold
+        )
+    }
+    
+    private func getPan() throws -> UIPanGestureRecognizerMock {
+        return try panInjector.getOnlyAliveInstance()
+    }
+    
+    private func getTap() throws -> UITapGestureRecognizerMock {
+        return try tapInjector.getOnlyAliveInstance()
     }
     
 //    func test_fieldEmitsTargetActions() {

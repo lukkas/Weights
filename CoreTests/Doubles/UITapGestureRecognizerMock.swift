@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 @testable import Core
 
-class TapGestureRecognizerMock: UITapGestureRecognizer {
+class UITapGestureRecognizerMock: UITapGestureRecognizer {
     override init(target: Any?, action: Selector?) {
         self.target = target
         self.selector = action
@@ -34,14 +34,14 @@ class TapGestureRecognizerMock: UITapGestureRecognizer {
     }
 }
 
-class UITapGestureRecognizerMockInjector: MetaTypeInjector<UITapGestureRecognizer, TapGestureRecognizerMock> {
-    fileprivate static var instances: [WeakBox<TapGestureRecognizerMock>] = []
+class UITapGestureRecognizerMockInjector: MetaTypeInjector<UITapGestureRecognizer, UITapGestureRecognizerMock> {
+    fileprivate static var instances: [WeakBox<UITapGestureRecognizerMock>] = []
     
     init() {
-        super.init(mockClass: TapGestureRecognizerMock.self)
+        super.init(mockClass: UITapGestureRecognizerMock.self)
     }
     
-    override var injected: [WeakBox<TapGestureRecognizerMock>] {
+    override var injected: [WeakBox<UITapGestureRecognizerMock>] {
         get { Self.instances }
         set { Self.instances = newValue }
     }
