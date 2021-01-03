@@ -405,6 +405,21 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(haptics.selectionChangedCallsCount, 3)
     }
     
+    func test_panning_whenNoJumpIntervalIsSet_shouldIgnorePanning() throws {
+        // given
+        sut.value = 5
+        sut.jumpInterval = nil
+        
+        // when
+        let pan = try getPan()
+        pan.beginPanning()
+        pan.continuePanning(by: CGPoint(x: 0, y: 100))
+        pan.endPanning()
+        
+        // then
+        XCTAssertEqual(sut.value, 5)
+    }
+    
     private func preconfigure_beganPanning(
         initialValue: Double,
         jump: Double

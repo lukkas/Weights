@@ -31,9 +31,6 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private var isBeingEdited = false {
         didSet { adjustBorder() }
     }
-    private var isBeingPannedOn = false {
-        didSet { adjustBorder() }
-    }
     private let label = UILabel()
     
     private let formatter = NumberFormatter()
@@ -79,7 +76,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func adjustBorder() {
-        let shouldHighlightBorder = isBeingEdited || isBeingPannedOn
+        let shouldHighlightBorder = isBeingEdited || panningState != nil
         UIView.animateKeyframes(
             withDuration: 0.15,
             delay: 0,
@@ -198,39 +195,54 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         }
     }
     
-    private var valueWhenGestureBegan: Double?
-    private var previousNumberOfJumps: Double?
-    private let panJumpThreshold: CGFloat = 7
+    private struct PanningState {
+        let valueBefore: Double?
+        var lastNumberOfJumps: Double
+        
+        mutating func shouldDoHapticTap(updatingTo numberOfJumps: Double) -> Bool {
+            let shouldTap = lastNumberOfJumps != numberOfJumps
+            lastNumberOfJumps = numberOfJumps
+            return shouldTap
+        }
+    }
+    
+    private var panningState: PanningState? {
+        didSet {
+            if oldValue == nil || panningState == nil {
+                adjustBorder()
+            }
+        }
+    }
     private let selectionHaptics = metaUISelectionFeedbackGenerator.init()
     private let impactHaptics = metaUIImpactFeedbackGenerator.init()
     
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            sender.state = .began
-            valueWhenGestureBegan = value
-            previousNumberOfJumps = 0
-            isBeingPannedOn = true
+            panningState = .init(valueBefore: value, lastNumberOfJumps: 0)
             selectionHaptics.prepare()
         case .changed:
-            let translation = sender.translation(in: self).y
-            let numberOfJumps = Double(floor(-translation / panJumpThreshold))
-            if numberOfJumps != previousNumberOfJumps {
+            let numberOfJumps = getNumberOfValueJumps(for: sender.translation(in: self))
+            if panningState?.shouldDoHapticTap(updatingTo: numberOfJumps) == true {
                 selectionHaptics.selectionChanged()
             }
-            previousNumberOfJumps = numberOfJumps
-            let valueChange = numberOfJumps * jumpInterval!
-            value = (valueWhenGestureBegan ?? 0) + valueChange
+            value = newValue(forNumberOfJumps: numberOfJumps)
         case .ended:
-            valueWhenGestureBegan = nil
-            previousNumberOfJumps = nil
-            isBeingPannedOn = false
+            panningState = nil
         case .cancelled:
-            value = valueWhenGestureBegan
-            valueWhenGestureBegan = nil
-            previousNumberOfJumps = nil
-            isBeingPannedOn = false
+            value = panningState?.valueBefore
+            panningState = nil
         default: break
         }
+    }
+    
+    private func getNumberOfValueJumps(for translation: CGPoint) -> Double {
+        let singleJumpThreshold = 7 as CGFloat
+        return Double(floor(-translation.y / singleJumpThreshold))
+    }
+    
+    private func newValue(forNumberOfJumps numberOfJumps: Double) -> Double {
+        let valueChange = numberOfJumps * jumpInterval!
+        return (panningState?.valueBefore ?? 0) + valueChange
     }
 }
