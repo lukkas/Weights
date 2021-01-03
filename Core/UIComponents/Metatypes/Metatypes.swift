@@ -14,9 +14,11 @@ var metaUITapGestureRecognizer: UITapGestureRecognizer.Type = UITapGestureRecogn
 var metaUIPanGestureRecognizer: UIPanGestureRecognizer.Type = UIPanGestureRecognizer.self
 var metaUISelectionFeedbackGenerator: UISelectionFeedbackGenerator.Type = UISelectionFeedbackGenerator.self
 var metaUIImpactFeedbackGenerator: UIImpactFeedbackGenerator.Type = UIImpactFeedbackGenerator.self
+var metaUINotificationFeedbackGenerator: UINotificationFeedbackGenerator.Type = UINotificationFeedbackGenerator.self
 #else
 let metaUITapGestureRecognizer: UITapGestureRecognizer.Type = UITapGestureRecognizer.self
 let metaUIPanGestureRecognizer: UIPanGestureRecognizer.Type = UIPanGestureRecognizer.self
 let metaUISelectionFeedbackGenerator: UISelectionFeedbackGenerator.Type = UISelectionFeedbackGenerator.self
 let metaUIImpactFeedbackGenerator: UIImpactFeedbackGenerator.Type = UIImpactFeedbackGenerator.self
+let metaUINotificationFeedbackGenerator: UINotificationFeedbackGenerator.Type = UINotificationFeedbackGenerator.self
 #endif

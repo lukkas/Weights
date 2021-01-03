@@ -15,14 +15,14 @@ class UIPickerTextFieldTests: XCTestCase {
     var panInjector: UIPanGestureRecognizerMockInjector!
     var tapInjector: UITapGestureRecognizerMockInjector!
     var selectionHapticsInjector: UISelectionFeedbackGeneratorInjector!
-    var impactHapticsInjector: UIImpactFeedbackGeneratorInjector!
+    var notificationHapticsInjector: UINotificationFeedbackGeneratorInjector!
     
     override func setUpWithError() throws {
         window = UIWindow()
         panInjector = UIPanGestureRecognizerMockInjector()
         tapInjector = UITapGestureRecognizerMockInjector()
         selectionHapticsInjector = UISelectionFeedbackGeneratorInjector()
-        impactHapticsInjector = UIImpactFeedbackGeneratorInjector()
+        notificationHapticsInjector = UINotificationFeedbackGeneratorInjector()
         sut = UIPickerTextField()
         window.addSubview(sut)
     }
@@ -33,7 +33,7 @@ class UIPickerTextFieldTests: XCTestCase {
         tapInjector = nil
         panInjector = nil
         selectionHapticsInjector = nil
-        impactHapticsInjector = nil
+        notificationHapticsInjector = nil
     }
     
     func test_insertText_whenFirstNumberIsEntered() {
@@ -291,6 +291,19 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.value, 2)
     }
     
+    func test_panning_whenPansSlowlyByFractionsOfJump_shouldWork() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 0.5))
+        XCTAssertEqual(sut.value, 1)
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 0.5))
+        
+        // then
+        XCTAssertEqual(sut.value, 2)
+    }
+    
     func test_panning_shouldRespectJumpSetInterval() throws {
         // given
         let pan = try preconfigure_beganPanning(initialValue: 8, jump: 0.3)
@@ -422,7 +435,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_minMaxRange_whenUserTriesToTypeInTooLargeValue_shouldIgnoreInput() throws {
         // given
-        sut.minMaxRange = 0 ..< 999
+        sut.minMaxRange = 0 ..< 1000
         sut.insertText("100")
         XCTAssertEqual(sut.value, 100)
         
@@ -431,6 +444,89 @@ class UIPickerTextFieldTests: XCTestCase {
         
         // then
         XCTAssertEqual(sut.value, 100)
+    }
+    
+    func test_minMaxRange_whenUserPanOverValidRange_shouldIgnoreInput() throws {
+        // given
+        sut.minMaxRange = 0 ..< 10
+        let pan = try preconfigure_beganPanning(initialValue: 9, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        XCTAssertEqual(sut.value, 9)
+    }
+    
+    func test_outOfRangeHaptics_whenUserTriesToTypeInNumberOfOfRange_shouldGiveFeedback() throws {
+        // given
+        sut.minMaxRange = 0 ..< 10
+        sut.insertText("9")
+        
+        // when
+        sut.insertText("9")
+        
+        // then
+        let haptics = try getNotificationHaptics()
+        XCTAssertEqual(haptics.receivedNotifications, [.warning])
+    }
+    
+    func test_outOfRangeHaptics_whenUserPansOverAllowedRange() throws {
+        // given
+        sut.minMaxRange = 0 ..< 100
+        let pan = try preconfigure_beganPanning(initialValue: 99, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        let haptics = try getNotificationHaptics()
+        XCTAssertEqual(haptics.receivedNotifications, [.warning])
+    }
+    
+    func test_outOfRangeHatpics_whenUserKeepsPanningOverRange_shouldGiveFeedbackOnlyOnce() throws {
+        // given
+        sut.minMaxRange = 0 ..< 100
+        let pan = try preconfigure_beganPanning(initialValue: 99, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        let haptics = try getNotificationHaptics()
+        XCTAssertEqual(haptics.receivedNotifications, [.warning])
+    }
+    
+    func test_outOfRangeHaptics_whenUserPansMultipleTimeOverRangeStepsBackAndThenPansAgain_shouldGiveFeedbackTwoTimes() throws {
+        // given
+        sut.minMaxRange = 0 ..< 100
+        let pan = try preconfigure_beganPanning(initialValue: 99, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: -1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        let haptics = try getNotificationHaptics()
+        XCTAssertEqual(haptics.receivedNotifications, [.warning, .warning])
+    }
+    
+    func test_outOfRangeHaptics_whenUserPansOutOfRange_shouldNotDoSelectionFeedback() throws {
+        // given
+        sut.minMaxRange = 0 ..< 100
+        let pan = try preconfigure_beganPanning(initialValue: 99, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        let haptics = try getSelectionHaptics()
+        XCTAssertEqual(haptics.selectionChangedCallsCount, 0)
     }
     
     private func preconfigure_beganPanning(
@@ -464,7 +560,7 @@ class UIPickerTextFieldTests: XCTestCase {
         return try selectionHapticsInjector.getOnlyAliveInstance()
     }
     
-    private func getImpactHaptics() throws -> UIImpactFeedbackGeneratorMock {
-        return try impactHapticsInjector.getOnlyAliveInstance()
+    private func getNotificationHaptics() throws -> UINotificationFeedbackGeneratorMock {
+        return try notificationHapticsInjector.getOnlyAliveInstance()
     }
 }

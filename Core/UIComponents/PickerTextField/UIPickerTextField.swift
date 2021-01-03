@@ -19,7 +19,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         didSet { adoptToCurrentMode() }
     }
     var jumpInterval: Double? = 1
-    var minMaxRange: Range<Double>?
+    var minMaxRange: Range<Double>? = 0 ..< 1000
     
     var value: Double? {
         didSet { label.text = getCurrentTextValue() }
@@ -109,7 +109,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     
     private func setValue(withText text: String) {
         let valueCandidate = formatter.number(from: text)?.doubleValue
-        guard validateValue(valueCandidate) else { return }
+        guard validateValue(valueCandidate) else {
+            notificationHaptics.notificationOccurred(.warning)
+            return
+        }
         isDecimalSeparatorLastEntered = text.last.map(String.init) == formatter.decimalSeparator
             && mode == .floatingPoint
         value = valueCandidate
@@ -204,14 +207,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     
     private struct PanningState {
         let valueBefore: Double?
-        var lastNumberOfJumps: Double
-        
-        mutating func shouldDoHapticTap(updatingTo numberOfJumps: Double) -> Bool {
-            let shouldTap = lastNumberOfJumps != numberOfJumps
-            lastNumberOfJumps = numberOfJumps
-            return shouldTap
-        }
+        var translationRemainder: CGFloat
     }
+    
+    private struct ValueOutOfRangeError: Error {}
     
     private var panningState: PanningState? {
         didSet {
@@ -220,20 +219,30 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             }
         }
     }
+    private var errorHapticsRun = false
     private let selectionHaptics = metaUISelectionFeedbackGenerator.init()
-    private let impactHaptics = metaUIImpactFeedbackGenerator.init()
+    private let notificationHaptics = metaUINotificationFeedbackGenerator.init()
     
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            panningState = .init(valueBefore: value, lastNumberOfJumps: 0)
+            panningState = .init(valueBefore: value, translationRemainder: 0)
             selectionHaptics.prepare()
         case .changed:
-            let numberOfJumps = getNumberOfValueJumps(for: sender.translation(in: self))
-            if panningState?.shouldDoHapticTap(updatingTo: numberOfJumps) == true {
-                selectionHaptics.selectionChanged()
+            guard var panningState = panningState else { return }
+            let valueChange = consumePan(sender, panningState: &panningState)
+            self.panningState = panningState
+            do {
+                value = try newValue(for: valueChange)
+                errorHapticsRun = false
+                if valueChange != 0 {
+                    selectionHaptics.selectionChanged()
+                }
+            } catch {
+                if errorHapticsRun { return }
+                errorHapticsRun = true
+                notificationHaptics.notificationOccurred(.warning)
             }
-            value = newValue(forNumberOfJumps: numberOfJumps)
         case .ended:
             panningState = nil
         case .cancelled:
@@ -248,8 +257,24 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         return Double(floor(-translation.y / singleJumpThreshold))
     }
     
-    private func newValue(forNumberOfJumps numberOfJumps: Double) -> Double {
-        let valueChange = numberOfJumps * jumpInterval!
-        return (panningState?.valueBefore ?? 0) + valueChange
+    private func consumePan(
+        _ pan: UIPanGestureRecognizer,
+        panningState: inout PanningState
+    ) -> Double {
+        defer { pan.setTranslation(.zero, in: self) }
+        let translation = pan.translation(in: self).y + panningState.translationRemainder
+        let singleJumpThreshold = 7 as Double
+        let numberOfJumps = floor(Double(-translation) / singleJumpThreshold)
+        let remainder = translation.remainder(dividingBy: CGFloat(singleJumpThreshold))
+        panningState.translationRemainder = remainder
+        return numberOfJumps * jumpInterval!
+    }
+    
+    private func newValue(for valueChange: Double) throws -> Double {
+        let valueCandidate = (panningState?.valueBefore ?? 0) + valueChange
+        if let range = minMaxRange, range.contains(valueCandidate) == false {
+            throw ValueOutOfRangeError()
+        }
+        return valueCandidate
     }
 }

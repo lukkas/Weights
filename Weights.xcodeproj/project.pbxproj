@@ -49,6 +49,7 @@
 		0F76E91B25460C6D00D1B2F1 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76E91A25460C6D00D1B2F1 /* ColorPreviews.swift */; };
 		0F76E922254630B300D1B2F1 /* CellPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76E921254630B300D1B2F1 /* CellPreview.swift */; };
 		0F7A1DF5250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */; };
+		0F7EC99A25A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EC99925A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift */; };
 		0F7EE5A5243010970015951B /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; };
 		0F7EE5AE243010970015951B /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7EE59E243010970015951B /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F7EE5B1243010970015951B /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; };
@@ -199,6 +200,7 @@
 		0F76E91A25460C6D00D1B2F1 /* ColorPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviews.swift; sourceTree = "<group>"; };
 		0F76E921254630B300D1B2F1 /* CellPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPreview.swift; sourceTree = "<group>"; };
 		0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModelTests.swift; sourceTree = "<group>"; };
+		0F7EC99925A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINotificationFeedbackGeneratorMock.swift; sourceTree = "<group>"; };
 		0F7EE59C243010970015951B /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7EE59E243010970015951B /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
 		0F7EE59F243010970015951B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -594,6 +596,7 @@
 				0F0F9B0A25A0A56500AC4B9B /* UITapGestureRecognizerMock.swift */,
 				0F0F9B1625A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift */,
 				0F0F9B2225A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift */,
+				0F7EC99925A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift */,
 			);
 			path = Doubles;
 			sourceTree = "<group>";
@@ -986,6 +989,7 @@
 				0F0F9B0425A09C6600AC4B9B /* UIPanGestureRecognizerMock.swift in Sources */,
 				0F0F9B2325A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift in Sources */,
 				0F0F9AF025A0987000AC4B9B /* MetatypeInjector.swift in Sources */,
+				0F7EC99A25A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift in Sources */,
 				0F0F9AD2259B790A00AC4B9B /* UIPickerTextFieldTests.swift in Sources */,
 				0FC7FB9724689CFC006BFBA4 /* ExerciseStoringStub.swift in Sources */,
 				0FC7FB9924689DAF006BFBA4 /* ExerciseDummy.swift in Sources */,
