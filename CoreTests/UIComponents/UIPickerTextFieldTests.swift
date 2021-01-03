@@ -420,6 +420,19 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.value, 5)
     }
     
+    func test_minMaxRange_whenUserTriesToTypeInTooLargeValue_shouldIgnoreInput() throws {
+        // given
+        sut.minMaxRange = 0 ..< 999
+        sut.insertText("100")
+        XCTAssertEqual(sut.value, 100)
+        
+        // when
+        sut.insertText("9")
+        
+        // then
+        XCTAssertEqual(sut.value, 100)
+    }
+    
     private func preconfigure_beganPanning(
         initialValue: Double,
         jump: Double

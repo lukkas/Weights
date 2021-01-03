@@ -19,13 +19,12 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         didSet { adoptToCurrentMode() }
     }
     var jumpInterval: Double? = 1
+    var minMaxRange: Range<Double>?
     
     var value: Double? {
         didSet { label.text = getCurrentTextValue() }
     }
-    var textValue: String {
-        return getCurrentTextValue()
-    }
+    var textValue: String { getCurrentTextValue() }
     
     private var isDecimalSeparatorLastEntered = false
     private var isBeingEdited = false {
@@ -109,10 +108,18 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func setValue(withText text: String) {
+        let valueCandidate = formatter.number(from: text)?.doubleValue
+        guard validateValue(valueCandidate) else { return }
         isDecimalSeparatorLastEntered = text.last.map(String.init) == formatter.decimalSeparator
             && mode == .floatingPoint
-        value = formatter.number(from: text)?.doubleValue
+        value = valueCandidate
         sendActions(for: .valueChanged)
+    }
+    
+    private func validateValue(_ valueCandidate: Double?) -> Bool {
+        guard let value = valueCandidate else { return true }
+        guard let validationRange = minMaxRange else { return true }
+        return validationRange.contains(value)
     }
     
     func deleteBackward() {
