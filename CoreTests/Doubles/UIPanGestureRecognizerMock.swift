@@ -29,12 +29,9 @@ class UIPanGestureRecognizerMock: UIPanGestureRecognizer {
         _ = (target as AnyObject).perform(selector, with: self)
     }
     
-    private var underlyingTranslation: CGPoint?
+    private var underlyingTranslation = CGPoint(x: 0, y: 0)
     override func translation(in view: UIView?) -> CGPoint {
-        if let translation = underlyingTranslation {
-            return translation
-        }
-        return super.translation(in: view)
+        return underlyingTranslation
     }
     
     func beginPanning() {
@@ -43,7 +40,7 @@ class UIPanGestureRecognizerMock: UIPanGestureRecognizer {
     }
     
     func continuePanning(by translation: CGPoint) {
-        underlyingTranslation = translation
+        underlyingTranslation = underlyingTranslation + translation
         state = .changed
         callSelector()
     }
@@ -74,5 +71,11 @@ class UIPanGestureRecognizerMockInjector: MetaTypeInjector<UIPanGestureRecognize
     override var metatype: UIPanGestureRecognizer.Type {
         get { metaUIPanGestureRecognizer }
         set { metaUIPanGestureRecognizer = newValue }
+    }
+}
+
+extension CGPoint {
+    static func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+        return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
     }
 }

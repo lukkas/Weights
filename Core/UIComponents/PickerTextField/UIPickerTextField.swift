@@ -201,8 +201,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private var valueWhenGestureBegan: Double?
     private var previousNumberOfJumps: Double?
     private let panJumpThreshold: CGFloat = 7
-    private let selectionHaptics = UISelectionFeedbackGenerator()
-    private let impactHaptics = UIImpactFeedbackGenerator()
+    private let selectionHaptics = metaUISelectionFeedbackGenerator.init()
+    private let impactHaptics = metaUIImpactFeedbackGenerator.init()
     
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {

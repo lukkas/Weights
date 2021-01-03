@@ -15,6 +15,11 @@ class UISelectionFeedbackGeneratorMock: UISelectionFeedbackGenerator {
         super.init()
         UISelectionFeedbackGeneratorInjector.instances.append(WeakBox(self))
     }
+    
+    private(set) var selectionChangedCallsCount = 0
+    override func selectionChanged() {
+        selectionChangedCallsCount += 1
+    }
 }
 
 class UISelectionFeedbackGeneratorInjector: MetaTypeInjector<UISelectionFeedbackGenerator, UISelectionFeedbackGeneratorMock> {

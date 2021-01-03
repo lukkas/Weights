@@ -14,11 +14,15 @@ class UIPickerTextFieldTests: XCTestCase {
     var sut: UIPickerTextField!
     var panInjector: UIPanGestureRecognizerMockInjector!
     var tapInjector: UITapGestureRecognizerMockInjector!
+    var selectionHapticsInjector: UISelectionFeedbackGeneratorInjector!
+    var impactHapticsInjector: UIImpactFeedbackGeneratorInjector!
     
     override func setUpWithError() throws {
         window = UIWindow()
         panInjector = UIPanGestureRecognizerMockInjector()
         tapInjector = UITapGestureRecognizerMockInjector()
+        selectionHapticsInjector = UISelectionFeedbackGeneratorInjector()
+        impactHapticsInjector = UIImpactFeedbackGeneratorInjector()
         sut = UIPickerTextField()
         window.addSubview(sut)
     }
@@ -28,6 +32,8 @@ class UIPickerTextFieldTests: XCTestCase {
         sut = nil
         tapInjector = nil
         panInjector = nil
+        selectionHapticsInjector = nil
+        impactHapticsInjector = nil
     }
     
     func test_insertText_whenFirstNumberIsEntered() {
@@ -360,6 +366,45 @@ class UIPickerTextFieldTests: XCTestCase {
         verify_isFieldHighlighted()
     }
     
+    func test_selectionHaptics_whenGestureCausesValueChange_shouldTap() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        let haptics = try getSelectionHaptics()
+        XCTAssertEqual(haptics.selectionChangedCallsCount, 0)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        XCTAssertEqual(haptics.selectionChangedCallsCount, 1)
+    }
+    
+    func test_selectionHaptics_whenGestureCauseMultipleValueJumps_shouldStillTapOnce() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        let haptics = try getSelectionHaptics()
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 5))
+        
+        // then
+        XCTAssertEqual(haptics.selectionChangedCallsCount, 1)
+    }
+    
+    func test_selectionHaptics_whenMultipleGestureChangesAreRegistered() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        let haptics = try getSelectionHaptics()
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        XCTAssertEqual(haptics.selectionChangedCallsCount, 3)
+    }
+    
     private func preconfigure_beganPanning(
         initialValue: Double,
         jump: Double
@@ -387,28 +432,11 @@ class UIPickerTextFieldTests: XCTestCase {
         return try tapInjector.getOnlyAliveInstance()
     }
     
-//    func test_fieldEmitsTargetActions() {
-//        // given
-//        let observer = Observer()
-//        sut.addTarget(
-//            observer,
-//            action: #selector(Observer.receiveEvent(sender:)),
-//            for: .valueChanged
-//        )
-//        XCTAssertFalse(observer.eventReceived)
-//        
-//        // when
-//        sut.insertText("1")
-//        RunLoop.current.run(until: Date())
-//        
-//        // then
-//        XCTAssertTrue(observer.eventReceived)
-//    }
-}
-
-private class Observer: NSObject {
-    private(set) var eventReceived = false
-    @objc func receiveEvent(sender: UIPickerTextField) {
-        eventReceived = true
+    private func getSelectionHaptics() throws -> UISelectionFeedbackGeneratorMock {
+        return try selectionHapticsInjector.getOnlyAliveInstance()
+    }
+    
+    private func getImpactHaptics() throws -> UIImpactFeedbackGeneratorMock {
+        return try impactHapticsInjector.getOnlyAliveInstance()
     }
 }
