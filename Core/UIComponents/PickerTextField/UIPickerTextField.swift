@@ -34,6 +34,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         didSet { adjustBorder() }
     }
     private var timeEditor: TimeEditor?
+    private var numberEditor: NumberEditor?
     private let label = UILabel()
     
     private let formatter = NumberFormatter()
@@ -148,6 +149,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             }
         }
     }
+    
+//    private func enterNewValue
     
     private func getFormattedNumberText(from value: Double) -> String {
         guard let formatted = formatter.string(from: NSNumber(value: value)) else { return "" }
@@ -327,7 +330,55 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
 private struct ValueOutOfRangeError: Error {}
 
 private class NumberEditor {
+    private let formatter = NumberFormatter()
+    private let decimalMode: Bool
+    private let minMaxRange: Range<Double>?
+    private var isDecimalSeparatorLastEntered = false
     
+    init(decimalMode: Bool, minMaxRange: Range<Double>?) {
+        self.decimalMode = decimalMode
+        self.minMaxRange = minMaxRange
+        formatter.minimumSignificantDigits = decimalMode ? 1 : 0
+    }
+    
+    func getNewValue(
+        forInsertion insertion: String,
+        currentValue: Double?
+    ) throws -> Double? {
+        let currentText = currentValue.map(getFormattedText(from:)) ?? ""
+        return try getValue(forText: currentText + insertion)
+    }
+    
+    func getNewValueForDeletion(currentValue: Double?) throws -> Double? {
+        let currentText = currentValue.map(getFormattedText(from:)) ?? ""
+        if currentText.isEmpty {
+            throw ValueOutOfRangeError()
+        }
+        return try getValue(forText: String(currentText.dropLast()))
+    }
+    
+    func getFormattedText(from value: Double) -> String {
+        guard let formatted = formatter.string(from: NSNumber(value: value)) else { return "" }
+        let result = isDecimalSeparatorLastEntered
+            ? formatted + formatter.decimalSeparator!
+            : formatted
+        return result
+    }
+    
+    private func getValue(forText text: String) throws -> Double? {
+        let valueCandidate = formatter.number(from: text)?.doubleValue
+        guard validateValue(valueCandidate) else {
+            throw ValueOutOfRangeError()
+        }
+        isDecimalSeparatorLastEntered = decimalMode && text.last.map(String.init) == formatter.decimalSeparator
+        return valueCandidate
+    }
+    
+    private func validateValue(_ valueCandidate: Double?) -> Bool {
+        guard let value = valueCandidate else { return true }
+        guard let validationRange = minMaxRange else { return true }
+        return validationRange.contains(value)
+    }
 }
 
 private class TimeEditor {
