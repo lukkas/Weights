@@ -14,30 +14,34 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     enum Mode {
         case wholes, floatingPoint, time
     }
+    private enum Editor {
+        case number(NumberEditor)
+        case time(TimeEditor)
+    }
     
     var mode: Mode = .wholes {
         didSet {
-            adoptToCurrentMode()
+            updateKeyboardTypeForCurrentMode()
+            resetEditor()
             updateLabel()
         }
     }
     var jumpInterval: Double? = 1
-    var minMaxRange: Range<Double>? = 0 ..< 1000
+    var minMaxRange: Range<Double>? = 0 ..< 1000 {
+        didSet { resetEditor() }
+    }
     
     var value: Double? {
         didSet { updateLabel() }
     }
     var textValue: String { label.text ?? "" }
     
-    private var isDecimalSeparatorLastEntered = false
     private var isBeingEdited = false {
         didSet { adjustBorder() }
     }
-    private var timeEditor: TimeEditor?
-    private var numberEditor: NumberEditor?
+    private var editor: Editor!
     private let label = UILabel()
     
-    private let formatter = NumberFormatter()
     lazy var themeColor: UIColor = tintColor {
         didSet { layer.borderColor = themeColor.cgColor }
     }
@@ -45,7 +49,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
-        adoptToCurrentMode()
+        updateKeyboardTypeForCurrentMode()
+        resetEditor()
     }
     
     @available(*, unavailable)
@@ -63,9 +68,6 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         let hasBecome = super.becomeFirstResponder()
         if hasBecome {
             isBeingEdited = true
-            if mode == .time {
-                timeEditor = TimeEditor(value: value)
-            }
         }
         return hasBecome
     }
@@ -74,14 +76,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         let didResign = super.resignFirstResponder()
         if didResign {
             isBeingEdited = false
-            if let editor = timeEditor {
-                editor.reformatComponents()
-                label.text = editor.getFormattedText()
-                timeEditor = nil
-            } else if isDecimalSeparatorLastEntered {
-                isDecimalSeparatorLastEntered = false
-                updateLabel()
+            switch editor! {
+            case let .number(numberEditor):
+                numberEditor.resetDecimalSeparator()
+            case let .time(timeEditor):
+                timeEditor.reformatComponents()
             }
+            updateLabel()
         }
         return didResign
     }
@@ -104,11 +105,11 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func updateLabel() {
-        switch mode {
-        case .wholes, .floatingPoint:
-            label.text = value.map(getFormattedNumberText(from:))
-        case .time:
-            label.text = (timeEditor ?? TimeEditor(value: value)).getFormattedText()
+        switch editor! {
+        case let .number(editor):
+            label.text = editor.getFormattedText(from: value)
+        case let .time(editor):
+            label.text = editor.getFormattedText()
         }
     }
     
@@ -119,12 +120,11 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     func insertText(_ text: String) {
-        switch mode {
-        case .floatingPoint, .wholes:
-            let currentText = value.map(getFormattedNumberText(from:)) ?? ""
-            setValue(withText: currentText + text)
-        case .time:
-            editValue(editor: timeEditor) { editor in
+        editValue {
+            switch editor! {
+            case let .number(editor):
+                return try editor.getNewValue(forInsertion: text, currentValue: value)
+            case let .time(editor):
                 try editor.insert(text)
                 return editor.value
             }
@@ -132,45 +132,24 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     func deleteBackward() {
-        switch mode {
-        case .floatingPoint, .wholes:
-            let currentText = value.map(getFormattedNumberText(from:)) ?? ""
-            setValue(withText: String(currentText.dropLast()))
-        case .time:
-            editValue(editor: timeEditor) { editor in
+        editValue {
+            switch editor! {
+            case let .number(editor):
+                return try editor.getNewValueForDeletion(currentValue: value)
+            case let .time(editor):
                 try editor.deleteBackward()
                 return editor.value
             }
         }
     }
     
-    private func editValue<E>(editor: E?, process: (E) throws -> Double?) {
-        guard let editor = editor else { return }
+    private func editValue(process: () throws -> Double?) {
         do {
-            value = try process(editor)
+            value = try process()
+            sendActions(for: .valueChanged)
         } catch {
             notificationHaptics.notificationOccurred(.warning)
         }
-    }
-    
-    private func getFormattedNumberText(from value: Double) -> String {
-        guard let formatted = formatter.string(from: NSNumber(value: value)) else { return "" }
-        let result = isDecimalSeparatorLastEntered
-            ? formatted + formatter.decimalSeparator!
-            : formatted
-        return result
-    }
-    
-    private func setValue(withText text: String) {
-        let valueCandidate = formatter.number(from: text)?.doubleValue
-        guard validateValue(valueCandidate) else {
-            notificationHaptics.notificationOccurred(.warning)
-            return
-        }
-        isDecimalSeparatorLastEntered = text.last.map(String.init) == formatter.decimalSeparator
-            && mode == .floatingPoint
-        value = valueCandidate
-        sendActions(for: .valueChanged)
     }
     
     private func validateValue(_ valueCandidate: Double?) -> Bool {
@@ -181,16 +160,21 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     
     // MARK: - UITextInputTraits
     
-    private func adoptToCurrentMode() {
+    private func updateKeyboardTypeForCurrentMode() {
+        switch mode {
+        case .wholes, .time: keyboardType = .numberPad
+        case .floatingPoint: keyboardType = .decimalPad
+        }
+    }
+    
+    private func resetEditor() {
         switch mode {
         case .wholes:
-            keyboardType = .numberPad
-            formatter.minimumSignificantDigits = 0
+            editor = .number(NumberEditor(decimalMode: false, minMaxRange: minMaxRange))
         case .floatingPoint:
-            keyboardType = .decimalPad
-            formatter.minimumSignificantDigits = 1
+            editor = .number(NumberEditor(decimalMode: true, minMaxRange: minMaxRange))
         case .time:
-            keyboardType = .numberPad
+            editor = .time(TimeEditor(value: value))
         }
     }
     
@@ -342,24 +326,29 @@ private class NumberEditor {
         formatter.minimumSignificantDigits = decimalMode ? 1 : 0
     }
     
+    func resetDecimalSeparator() {
+        isDecimalSeparatorLastEntered = false
+    }
+    
     func getNewValue(
         forInsertion insertion: String,
         currentValue: Double?
     ) throws -> Double? {
-        let currentText = currentValue.map(getFormattedText(from:)) ?? ""
+        let currentText = currentValue.flatMap(getFormattedText(from:)) ?? ""
         return try getValue(forText: currentText + insertion)
     }
     
     func getNewValueForDeletion(currentValue: Double?) throws -> Double? {
-        let currentText = currentValue.map(getFormattedText(from:)) ?? ""
+        let currentText = currentValue.flatMap(getFormattedText(from:)) ?? ""
         if currentText.isEmpty {
             throw ValueOutOfRangeError()
         }
         return try getValue(forText: String(currentText.dropLast()))
     }
     
-    func getFormattedText(from value: Double) -> String {
-        guard let formatted = formatter.string(from: NSNumber(value: value)) else { return "" }
+    func getFormattedText(from value: Double?) -> String? {
+        guard let value = value else { return nil }
+        guard let formatted = formatter.string(from: NSNumber(value: value)) else { return nil }
         let result = isDecimalSeparatorLastEntered
             ? formatted + formatter.decimalSeparator!
             : formatted
