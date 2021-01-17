@@ -124,12 +124,9 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             let currentText = value.map(getFormattedNumberText(from:)) ?? ""
             setValue(withText: currentText + text)
         case .time:
-            guard let editor = timeEditor else { return }
-            do {
+            editValue(editor: timeEditor) { editor in
                 try editor.insert(text)
-                value = editor.value
-            } catch {
-                notificationHaptics.notificationOccurred(.warning)
+                return editor.value
             }
         }
     }
@@ -140,17 +137,21 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             let currentText = value.map(getFormattedNumberText(from:)) ?? ""
             setValue(withText: String(currentText.dropLast()))
         case .time:
-            guard let editor = timeEditor else { return }
-            do {
+            editValue(editor: timeEditor) { editor in
                 try editor.deleteBackward()
-                value = editor.value
-            } catch {
-                notificationHaptics.notificationOccurred(.warning)
+                return editor.value
             }
         }
     }
     
-//    private func enterNewValue
+    private func editValue<E>(editor: E?, process: (E) throws -> Double?) {
+        guard let editor = editor else { return }
+        do {
+            value = try process(editor)
+        } catch {
+            notificationHaptics.notificationOccurred(.warning)
+        }
+    }
     
     private func getFormattedNumberText(from value: Double) -> String {
         guard let formatted = formatter.string(from: NSNumber(value: value)) else { return "" }
