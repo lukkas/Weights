@@ -103,7 +103,12 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func updateLabel() {
-        label.text = getCurrentTextValue()
+        switch mode {
+        case .wholes, .floatingPoint:
+            label.text = value.map(getFormattedNumberText(from:))
+        case .time:
+            label.text = (timeEditor ?? TimeEditor(value: value)).getFormattedText()
+        }
     }
     
     // MARK: UIKeyInput
@@ -115,7 +120,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     func insertText(_ text: String) {
         switch mode {
         case .floatingPoint, .wholes:
-            let currentText = getCurrentTextValue()
+            let currentText = value.map(getFormattedNumberText(from:)) ?? ""
             setValue(withText: currentText + text)
         case .time:
             guard let editor = timeEditor else { return }
@@ -131,7 +136,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     func deleteBackward() {
         switch mode {
         case .floatingPoint, .wholes:
-            let currentText = getCurrentTextValue()
+            let currentText = value.map(getFormattedNumberText(from:)) ?? ""
             setValue(withText: String(currentText.dropLast()))
         case .time:
             guard let editor = timeEditor else { return }
@@ -141,16 +146,6 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             } catch {
                 notificationHaptics.notificationOccurred(.warning)
             }
-        }
-    }
-    
-    private func getCurrentTextValue() -> String {
-        switch mode {
-        case .wholes, .floatingPoint:
-            guard let value = value else { return "" }
-            return getFormattedNumberText(from: value)
-        case .time:
-            return (timeEditor ?? TimeEditor(value: value)).getFormattedText()
         }
     }
     
@@ -330,6 +325,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
 }
 
 private struct ValueOutOfRangeError: Error {}
+
+private class NumberEditor {
+    
+}
 
 private class TimeEditor {
     private var components: [Double] = []
