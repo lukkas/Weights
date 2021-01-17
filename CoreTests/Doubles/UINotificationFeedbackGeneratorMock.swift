@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 @testable import Core
+import XCTest
 
 class UINotificationFeedbackGeneratorMock: UINotificationFeedbackGenerator {
     override init() {
@@ -19,6 +20,10 @@ class UINotificationFeedbackGeneratorMock: UINotificationFeedbackGenerator {
     private(set) var receivedNotifications = [UINotificationFeedbackGenerator.FeedbackType]()
     override func notificationOccurred(_ notificationType: UINotificationFeedbackGenerator.FeedbackType) {
         receivedNotifications.append(notificationType)
+    }
+    
+    func verify_givenFeedback(_ feedback: UINotificationFeedbackGenerator.FeedbackType...) {
+        XCTAssertEqual(receivedNotifications, feedback)
     }
 }
 

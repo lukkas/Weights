@@ -99,6 +99,31 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.value, 9.8)
     }
     
+    func test_floatingPointFormatting_whenDecimalSeparatorWasLastEntered_shouldBeDisplayed() throws {
+        // given
+        try preconfigure_enteringFloatingPoints()
+        
+        // when
+        sut.insertText("3")
+        sut.insertText(".")
+        
+        // then
+        XCTAssertEqual(sut.textValue, "3.")
+    }
+    
+    func test_floatingPointFormatting_whenDecimalSeparatorWasLastEnteredAndSutStopsBeingFirstResponder_shouldRemoveSeparator() throws {
+        // given
+        try preconfigure_enteringFloatingPoints()
+        sut.insertText("3")
+        sut.insertText(".")
+        
+        // when
+        try toggleFirstResponderState()
+        
+        // then
+        XCTAssertEqual(sut.textValue, "3")
+    }
+    
     func test_initialKeyboardSettingAndMode() {
         XCTAssertEqual(sut.mode, .wholes)
         XCTAssertEqual(sut.keyboardType, .numberPad)
@@ -512,8 +537,7 @@ class UIPickerTextFieldTests: XCTestCase {
         pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
         
         // then
-        let haptics = try getNotificationHaptics()
-        XCTAssertEqual(haptics.receivedNotifications, [.warning, .warning])
+        try getNotificationHaptics().verify_givenFeedback(.warning, .warning)
     }
     
     func test_outOfRangeHaptics_whenUserPansOutOfRange_shouldNotDoSelectionFeedback() throws {
@@ -527,6 +551,174 @@ class UIPickerTextFieldTests: XCTestCase {
         // then
         let haptics = try getSelectionHaptics()
         XCTAssertEqual(haptics.selectionChangedCallsCount, 0)
+    }
+    
+    // MARK: - Time
+    
+    func test_timeFormatting_whenValueIsNil() {
+        // given
+        sut.mode = .time
+        
+        // then
+        XCTAssertEqual(sut.textValue, "0:00")
+    }
+    
+    func test_enteringTime_whenFirstDigitIsEntered() throws {
+        // given
+        try preconfigure_enteringTime()
+        
+        // when
+        sut.insertText("1")
+        
+        // then
+        XCTAssertEqual(sut.textValue, "0:01")
+    }
+    
+    func test_enteringTime_whenSecondDigitIsEntered() throws {
+        // given
+        try preconfigure_enteringTime()
+        
+        // when
+        sut.insertText("1")
+        sut.insertText("2")
+        
+        // then
+        XCTAssertEqual(sut.textValue, "0:12")
+    }
+    
+    func test_enteringTime_whenThirdDigitIsEntered() throws {
+        // given
+        try preconfigure_enteringTime()
+        
+        // when
+        sut.insertText("1")
+        sut.insertText("2")
+        sut.insertText("8")
+        
+        // then
+        XCTAssertEqual(sut.textValue, "1:28")
+    }
+    
+    func test_enteringTime_whenZeroAppearsInTheMiddle() throws {
+        // given
+        try preconfigure_enteringTime()
+        
+        // when
+        sut.insertText("2")
+        sut.insertText("0")
+        sut.insertText("9")
+        
+        // then
+        XCTAssertEqual(sut.textValue, "2:09")
+    }
+    
+    func test_enteringTime_when9IsEnteredAsSecondNumber_shouldKeepSecondFormattingWhenEntering() throws {
+        // given
+        try preconfigure_enteringTime()
+        
+        // when
+        sut.insertText("9")
+        sut.insertText("0")
+        
+        // then
+        XCTAssertEqual(sut.textValue, "0:90")
+    }
+    
+    func test_enteringTime_when80SecondsIsEnteredAndResignsResponder_shouldReformatToMinutesAndSeconds() throws {
+        // given
+        try preconfigure_enteringTime()
+        sut.insertText("8")
+        sut.insertText("0")
+        
+        // when
+        XCTAssertTrue(sut.resignFirstResponder())
+        
+        // then
+        XCTAssertEqual(sut.textValue, "1:20")
+    }
+    
+    func test_enteringTime_shouldUpdateValueWithEachKeystroke() throws {
+        // given
+        try preconfigure_enteringTime()
+        
+        // when
+        sut.insertText("4")
+        
+        // then
+        XCTAssertEqual(sut.value, 4)
+    }
+    
+    func test_backspacingTime_whenAllDigitsAreEntered() throws {
+        // given
+        try preconfigure(timeEntered: "1", "3", "5")
+        XCTAssertEqual(sut.textValue, "1:35")
+        
+        // when
+        sut.deleteBackward()
+        
+        // then
+        XCTAssertEqual(sut.textValue, "0:13")
+    }
+    
+    func test_backspacingEntireTimeEntry() throws {
+        // given
+        try preconfigure(timeEntered: "8", "3", "9")
+        
+        // when
+        for _ in 0 ..< 3 {
+            sut.deleteBackward()
+        }
+        
+        // then
+        XCTAssertEqual(sut.textValue, "0:00")
+        XCTAssertEqual(sut.value, nil)
+    }
+    
+    func test_timeEnteringHaptics_whenUserTriesToEnterFourthNumber_shouldVibrate() throws {
+        // given
+        try preconfigure(timeEntered: "1", "1", "2")
+        
+        // when
+        sut.insertText("1")
+        
+        // then
+        try getNotificationHaptics().verify_givenFeedback(.warning)
+    }
+    
+    func test_timeEnteringHaptics_whenUserTriesToBackspaceWhenNothingIsEntered_shouldVibrate() throws {
+        // given
+        try preconfigure_enteringTime()
+        
+        // when
+        sut.deleteBackward()
+        
+        // then
+        try getNotificationHaptics().verify_givenFeedback(.warning)
+    }
+    
+    private func preconfigure(timeEntered: String...) throws {
+        try preconfigure_enteringTime()
+        for digit in timeEntered {
+            sut.insertText(digit)
+        }
+    }
+    
+    private func preconfigure_enteringTime() throws {
+        sut.mode = .time
+        try getTap().tap()
+        XCTAssertTrue(sut.isFirstResponder)
+    }
+    
+    private func preconfigure_enteringFloatingPoints() throws {
+        sut.mode = .floatingPoint
+        try getTap().tap()
+        XCTAssertTrue(sut.isFirstResponder)
+    }
+    
+    private func toggleFirstResponderState() throws {
+        let wasFirstResponder = sut.isFirstResponder
+        try getTap().tap()
+        XCTAssertNotEqual(sut.isFirstResponder, wasFirstResponder)
     }
     
     private func preconfigure_beganPanning(

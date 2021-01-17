@@ -38,7 +38,7 @@ struct PlannerView: View {
                     })
                     .padding(.vertical, 12)
                     .frame(maxWidth: 800)
-                    .background(Color.red.cornerRadius(8))
+                    .background(Color.theme.cornerRadius(8))
                     .padding()
                 }
                 .tabViewStyle(PageTabViewStyle())

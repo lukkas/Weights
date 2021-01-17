@@ -12,24 +12,28 @@ import UIKit
 
 class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     enum Mode {
-        case wholes, floatingPoint
+        case wholes, floatingPoint, time
     }
     
     var mode: Mode = .wholes {
-        didSet { adoptToCurrentMode() }
+        didSet {
+            adoptToCurrentMode()
+            updateLabel()
+        }
     }
     var jumpInterval: Double? = 1
     var minMaxRange: Range<Double>? = 0 ..< 1000
     
     var value: Double? {
-        didSet { label.text = getCurrentTextValue() }
+        didSet { updateLabel() }
     }
-    var textValue: String { getCurrentTextValue() }
+    var textValue: String { label.text ?? "" }
     
     private var isDecimalSeparatorLastEntered = false
     private var isBeingEdited = false {
         didSet { adjustBorder() }
     }
+    private var editingTimeConverter: TimeConverter?
     private let label = UILabel()
     
     private let formatter = NumberFormatter()
@@ -58,6 +62,9 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         let hasBecome = super.becomeFirstResponder()
         if hasBecome {
             isBeingEdited = true
+            if mode == .time {
+                editingTimeConverter = TimeConverter(value: value)
+            }
         }
         return hasBecome
     }
@@ -66,6 +73,14 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         let didResign = super.resignFirstResponder()
         if didResign {
             isBeingEdited = false
+            if let timeConverter = editingTimeConverter {
+                timeConverter.reformatComponents()
+                label.text = timeConverter.getFormattedText()
+                editingTimeConverter = nil
+            } else if isDecimalSeparatorLastEntered {
+                isDecimalSeparatorLastEntered = false
+                updateLabel()
+            }
         }
         return didResign
     }
@@ -87,6 +102,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         )
     }
     
+    private func updateLabel() {
+        label.text = getCurrentTextValue()
+    }
+    
     // MARK: UIKeyInput
     
     var hasText: Bool {
@@ -94,12 +113,49 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     func insertText(_ text: String) {
-        let currentText = getCurrentTextValue()
-        setValue(withText: currentText + text)
+        switch mode {
+        case .floatingPoint, .wholes:
+            let currentText = getCurrentTextValue()
+            setValue(withText: currentText + text)
+        case .time:
+            guard let timeConverter = editingTimeConverter else { return }
+            do {
+                try timeConverter.insert(text)
+                value = timeConverter.value
+            } catch {
+                notificationHaptics.notificationOccurred(.warning)
+            }
+        }
+    }
+    
+    func deleteBackward() {
+        switch mode {
+        case .floatingPoint, .wholes:
+            let currentText = getCurrentTextValue()
+            setValue(withText: String(currentText.dropLast()))
+        case .time:
+            guard let timeConverter = editingTimeConverter else { return }
+            do {
+                try timeConverter.deleteBackward()
+                value = timeConverter.value
+            } catch {
+                notificationHaptics.notificationOccurred(.warning)
+            }
+        }
     }
     
     private func getCurrentTextValue() -> String {
-        guard let value = value else { return "" }
+        switch mode {
+        case .wholes, .floatingPoint:
+            guard let value = value else { return "" }
+            return getFormattedNumberText(from: value)
+        case .time:
+            let converter = editingTimeConverter ?? TimeConverter(value: value)
+            return converter.getFormattedText()
+        }
+    }
+    
+    private func getFormattedNumberText(from value: Double) -> String {
         guard let formatted = formatter.string(from: NSNumber(value: value)) else { return "" }
         let result = isDecimalSeparatorLastEntered
             ? formatted + formatter.decimalSeparator!
@@ -125,11 +181,6 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         return validationRange.contains(value)
     }
     
-    func deleteBackward() {
-        let currentText = getCurrentTextValue()
-        setValue(withText: String(currentText.dropLast()))
-    }
-    
     // MARK: - UITextInputTraits
     
     private func adoptToCurrentMode() {
@@ -140,6 +191,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         case .floatingPoint:
             keyboardType = .decimalPad
             formatter.minimumSignificantDigits = 1
+        case .time:
+            keyboardType = .numberPad
         }
     }
     
@@ -210,8 +263,6 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         var translationRemainder: CGFloat
     }
     
-    private struct ValueOutOfRangeError: Error {}
-    
     private var panningState: PanningState? {
         didSet {
             if oldValue == nil || panningState == nil {
@@ -276,5 +327,100 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             throw ValueOutOfRangeError()
         }
         return valueCandidate
+    }
+}
+
+private struct ValueOutOfRangeError: Error {}
+
+private class TimeConverter {
+    private var components: [Double] = []
+    private let maximumValue: Double = 599 // 9:59
+    
+    init(value: Double?) {
+        setComponents(for: value)
+    }
+    
+    var value: Double? {
+        get { getValue() }
+        set { setComponents(for: newValue) }
+    }
+    
+    func getFormattedText() -> String {
+        var result = components.alignedWithZeros(3)
+            .map({ String(format: "%.0f", $0) })
+            .joined()
+        result.insert(":", at: result.index(after: result.startIndex))
+        return result
+    }
+    
+    func reformatComponents() {
+        setComponents(for: value)
+    }
+    
+    private func setComponents(for value: Double?) {
+        if let value = value, value > 0 {
+            let limitedValue = min(value, maximumValue)
+            components = extractComponents(fromNonZeroValue: limitedValue)
+        } else {
+            components = []
+        }
+    }
+    
+    private func extractComponents(fromNonZeroValue value: Double) -> [Double] {
+        var components = [Double]()
+        let singles = value.truncatingRemainder(dividingBy: 10)
+        let secondsLeft = value - singles
+        components.insert(singles, at: 0)
+        if secondsLeft == 0 { return components }
+        let (minutes, remainder) = secondsLeft.quotientAndRemainder(divdingBy: 60)
+        components.insert(remainder / 10, at: 0)
+        if minutes == 0 { return components }
+        components.insert(minutes, at: 0)
+        return components
+    }
+    
+    private func getValue() -> Double? {
+        var components = self.components
+        var result: Double?
+        var multipliers = [60, 10, 1] as [Double]
+        while
+            let component = components.popLast(),
+            let multiplier = multipliers.popLast() {
+            result = (result ?? 0) + component * multiplier
+        }
+        return result
+    }
+    
+    func insert(_ stringComponent: String) throws {
+        guard let number = Double(stringComponent), components.count < 3 else {
+            throw ValueOutOfRangeError()
+        }
+        components.append(number)
+    }
+    
+    func deleteBackward() throws {
+        let popped = components.popLast()
+        if popped == nil {
+            throw ValueOutOfRangeError()
+        }
+    }
+}
+
+private extension Double {
+    func quotientAndRemainder(divdingBy divider: Double) -> (Double, Double) {
+        return (
+            (self / divider).rounded(.down),
+            truncatingRemainder(dividingBy: divider)
+        )
+    }
+}
+
+private extension Array where Element == Double {
+    func alignedWithZeros(_ numberOfZeroes: Int) -> [Double] {
+        var mutableCopy = self
+        while mutableCopy.count < numberOfZeroes {
+            mutableCopy.insert(0, at: 0)
+        }
+        return mutableCopy
     }
 }
