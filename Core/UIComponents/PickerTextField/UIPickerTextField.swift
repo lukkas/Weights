@@ -33,7 +33,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private var isBeingEdited = false {
         didSet { adjustBorder() }
     }
-    private var editingTimeConverter: TimeConverter?
+    private var timeEditor: TimeEditor?
     private let label = UILabel()
     
     private let formatter = NumberFormatter()
@@ -63,7 +63,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         if hasBecome {
             isBeingEdited = true
             if mode == .time {
-                editingTimeConverter = TimeConverter(value: value)
+                timeEditor = TimeEditor(value: value)
             }
         }
         return hasBecome
@@ -73,10 +73,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         let didResign = super.resignFirstResponder()
         if didResign {
             isBeingEdited = false
-            if let timeConverter = editingTimeConverter {
-                timeConverter.reformatComponents()
-                label.text = timeConverter.getFormattedText()
-                editingTimeConverter = nil
+            if let editor = timeEditor {
+                editor.reformatComponents()
+                label.text = editor.getFormattedText()
+                timeEditor = nil
             } else if isDecimalSeparatorLastEntered {
                 isDecimalSeparatorLastEntered = false
                 updateLabel()
@@ -118,10 +118,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             let currentText = getCurrentTextValue()
             setValue(withText: currentText + text)
         case .time:
-            guard let timeConverter = editingTimeConverter else { return }
+            guard let editor = timeEditor else { return }
             do {
-                try timeConverter.insert(text)
-                value = timeConverter.value
+                try editor.insert(text)
+                value = editor.value
             } catch {
                 notificationHaptics.notificationOccurred(.warning)
             }
@@ -134,10 +134,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             let currentText = getCurrentTextValue()
             setValue(withText: String(currentText.dropLast()))
         case .time:
-            guard let timeConverter = editingTimeConverter else { return }
+            guard let editor = timeEditor else { return }
             do {
-                try timeConverter.deleteBackward()
-                value = timeConverter.value
+                try editor.deleteBackward()
+                value = editor.value
             } catch {
                 notificationHaptics.notificationOccurred(.warning)
             }
@@ -150,8 +150,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             guard let value = value else { return "" }
             return getFormattedNumberText(from: value)
         case .time:
-            let converter = editingTimeConverter ?? TimeConverter(value: value)
-            return converter.getFormattedText()
+            return (timeEditor ?? TimeEditor(value: value)).getFormattedText()
         }
     }
     
@@ -332,7 +331,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
 
 private struct ValueOutOfRangeError: Error {}
 
-private class TimeConverter {
+private class TimeEditor {
     private var components: [Double] = []
     private let maximumValue: Double = 599 // 9:59
     
