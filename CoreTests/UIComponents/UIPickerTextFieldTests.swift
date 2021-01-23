@@ -696,28 +696,28 @@ class UIPickerTextFieldTests: XCTestCase {
         try getNotificationHaptics().verify_givenFeedback(.warning)
     }
     
-//    func test_timeLabelUpdating_whenValueIsUpdatedFromOutside_shouldUpdateLabel() {
-//        // given
-//        sut.mode = .time
-//        
-//        // when
-//        sut.value = 5
-//        
-//        // then
-//        XCTAssertEqual(sut.textValue, "0:05")
-//    }
-//    
-//    func test_panning_whenInTimeMode() throws {
-//        // given
-//        sut.mode = .time
-//        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
-//        
-//        // when
-//        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
-//        
-//        // then
-//        XCTAssertEqual(sut.textValue, "0:02")
-//    }
+    func test_timeLabelUpdating_whenValueIsUpdatedFromOutside_shouldUpdateLabel() {
+        // given
+        sut.mode = .time
+
+        // when
+        sut.value = 5
+
+        // then
+        XCTAssertEqual(sut.textValue, "0:05")
+    }
+
+    func test_panning_whenInTimeMode() throws {
+        // given
+        sut.mode = .time
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+
+        // then
+        XCTAssertEqual(sut.textValue, "0:02")
+    }
     
     private func preconfigure(timeEntered: String...) throws {
         try preconfigure_enteringTime()

@@ -14,10 +14,6 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     enum Mode {
         case wholes, floatingPoint, time
     }
-    private enum Editor {
-        case number(NumberEditor)
-        case time(TimeEditor)
-    }
     
     var mode: Mode = .wholes {
         didSet {
@@ -32,14 +28,18 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     var value: Double? {
-        didSet { updateLabel() }
+        get { editor.value }
+        set {
+            editor.value = newValue
+            updateLabel()
+        }
     }
     var textValue: String { label.text ?? "" }
     
     private var isBeingEdited = false {
         didSet { adjustBorder() }
     }
-    private var editor: Editor!
+    private var editor: Editing!
     private let label = UILabel()
     
     lazy var themeColor: UIColor = tintColor {
@@ -76,12 +76,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         let didResign = super.resignFirstResponder()
         if didResign {
             isBeingEdited = false
-            switch editor! {
-            case let .number(numberEditor):
-                numberEditor.resetDecimalSeparator()
-            case let .time(timeEditor):
-                timeEditor.reformatComponents()
-            }
+            editor.closeEditingSession()
             updateLabel()
         }
         return didResign
@@ -105,12 +100,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func updateLabel() {
-        switch editor! {
-        case let .number(editor):
-            label.text = editor.getFormattedText(from: value)
-        case let .time(editor):
-            label.text = editor.getFormattedText()
-        }
+        label.text = editor.getFormattedText()
     }
     
     // MARK: UIKeyInput
@@ -121,33 +111,20 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     
     func insertText(_ text: String) {
         editValue {
-            switch editor! {
-            case let .number(editor):
-                try editor.insert(text)
-                return editor.value
-            case let .time(editor):
-                try editor.insert(text)
-                return editor.value
-            }
+            try editor.insert(text)
         }
     }
     
     func deleteBackward() {
         editValue {
-            switch editor! {
-            case let .number(editor):
-                try editor.deleteBackward()
-                return editor.value
-            case let .time(editor):
-                try editor.deleteBackward()
-                return editor.value
-            }
+            try editor.deleteBackward()
         }
     }
     
-    private func editValue(process: () throws -> Double?) {
+    private func editValue(process: () throws -> Void) {
         do {
-            value = try process()
+            try process()
+            updateLabel()
             sendActions(for: .valueChanged)
         } catch {
             notificationHaptics.notificationOccurred(.warning)
@@ -172,15 +149,11 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private func resetEditor() {
         switch mode {
         case .wholes:
-            editor = .number(
-                NumberEditor(value: value, decimalMode: false, minMaxRange: minMaxRange)
-            )
+            editor = NumberEditor(value: editor?.value, decimalMode: false, minMaxRange: minMaxRange)
         case .floatingPoint:
-            editor = .number(
-                NumberEditor(value: value, decimalMode: true, minMaxRange: minMaxRange)
-            )
+            editor = NumberEditor(value: editor?.value, decimalMode: true, minMaxRange: minMaxRange)
         case .time:
-            editor = .time(TimeEditor(value: value))
+            editor = TimeEditor(value: editor?.value)
         }
     }
     
@@ -272,7 +245,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             let valueChange = consumePan(sender, panningState: &panningState)
             self.panningState = panningState
             do {
-                value = try newValue(for: valueChange)
+                let value = try calculateNewValue(for: valueChange)
+                mutateValueForPanning(value)
                 errorHapticsRun = false
                 if valueChange != 0 {
                     selectionHaptics.selectionChanged()
@@ -283,9 +257,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
                 notificationHaptics.notificationOccurred(.warning)
             }
         case .ended:
+            let didChangeValue = value != panningState?.valueBefore
             panningState = nil
+            if didChangeValue {
+                sendActions(for: .valueChanged)
+            }
         case .cancelled:
-            value = panningState?.valueBefore
+            mutateValueForPanning(panningState?.valueBefore)
             panningState = nil
         default: break
         }
@@ -309,24 +287,37 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         return numberOfJumps * jumpInterval!
     }
     
-    private func newValue(for valueChange: Double) throws -> Double {
+    private func calculateNewValue(for valueChange: Double) throws -> Double {
         let valueCandidate = (panningState?.valueBefore ?? 0) + valueChange
         if let range = minMaxRange, range.contains(valueCandidate) == false {
             throw ValueOutOfRangeError()
         }
         return valueCandidate
     }
+    
+    private func mutateValueForPanning(_ newValue: Double?) {
+        editor.value = newValue
+        updateLabel()
+    }
 }
 
 private struct ValueOutOfRangeError: Error {}
 
-private class NumberEditor {
+private protocol Editing {
+    var value: Double? { get set }
+    func insert(_ insertion: String) throws
+    func deleteBackward() throws
+    func getFormattedText() -> String
+    func closeEditingSession()
+}
+
+private class NumberEditor: Editing {
     private let formatter = NumberFormatter()
     private let decimalMode: Bool
     private let minMaxRange: Range<Double>?
     private var isDecimalSeparatorLastEntered = false
     
-    private(set) var value: Double?
+    var value: Double?
     
     init(
         value: Double?,
@@ -339,26 +330,26 @@ private class NumberEditor {
         formatter.minimumSignificantDigits = decimalMode ? 1 : 0
     }
     
-    func resetDecimalSeparator() {
+    func closeEditingSession() {
         isDecimalSeparatorLastEntered = false
     }
     
     func insert(_ insertion: String) throws {
-        let currentText = value.flatMap(getFormattedText(from:)) ?? ""
+        let currentText = getFormattedText()
         value = try getValue(forText: currentText + insertion)
     }
     
     func deleteBackward() throws {
-        let currentText = value.flatMap(getFormattedText(from:)) ?? ""
+        let currentText = getFormattedText()
         if currentText.isEmpty {
             throw ValueOutOfRangeError()
         }
         value = try getValue(forText: String(currentText.dropLast()))
     }
     
-    func getFormattedText(from value: Double?) -> String? {
-        guard let value = value else { return nil }
-        guard let formatted = formatter.string(from: NSNumber(value: value)) else { return nil }
+    func getFormattedText() -> String {
+        guard let value = value else { return "" }
+        guard let formatted = formatter.string(from: NSNumber(value: value)) else { return "" }
         let result = isDecimalSeparatorLastEntered
             ? formatted + formatter.decimalSeparator!
             : formatted
@@ -381,7 +372,7 @@ private class NumberEditor {
     }
 }
 
-private class TimeEditor {
+private class TimeEditor: Editing {
     private var components: [Double] = []
     private let maximumValue: Double = 599 // 9:59
     
@@ -402,8 +393,11 @@ private class TimeEditor {
         return result
     }
     
-    func reformatComponents() {
-        setComponents(for: value)
+    func closeEditingSession() {
+        func reformatComponents() {
+            setComponents(for: value)
+        }
+        reformatComponents()
     }
     
     private func setComponents(for value: Double?) {
