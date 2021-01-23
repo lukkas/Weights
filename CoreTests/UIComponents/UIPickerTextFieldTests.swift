@@ -719,6 +719,18 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.textValue, "0:02")
     }
     
+    func test_settingTimeExternally_whenLabelHasExcessFormattingAndIsExternallySetToSameValue_shouldKeepFormatting() throws {
+        // given
+        try preconfigure(timeEntered: "9", "5")
+        XCTAssertEqual(sut.textValue, "0:95")
+        
+        // when
+        sut.value = 95
+        
+        // then
+        XCTAssertEqual(sut.textValue, "0:95")
+    }
+    
     private func preconfigure(timeEntered: String...) throws {
         try preconfigure_enteringTime()
         for digit in timeEntered {

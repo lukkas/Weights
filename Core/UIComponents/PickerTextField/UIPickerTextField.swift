@@ -23,13 +23,14 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         }
     }
     var jumpInterval: Double? = 1
-    var minMaxRange: Range<Double>? = 0 ..< 1000 {
+    var minMaxRange: Range<Double>? {
         didSet { resetEditor() }
     }
     
     var value: Double? {
         get { editor.value }
         set {
+            guard newValue != editor.value else { return }
             editor.value = newValue
             updateLabel()
         }
@@ -220,8 +221,14 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private struct PanningState {
-        let valueBefore: Double?
-        var translationRemainder: CGFloat
+        let originalValue: Double?
+        private(set) var jumps: Double = 0
+        private(set) var didChangeInLastIteration = false
+        
+        mutating func update(jumps newJumps: Double) {
+            didChangeInLastIteration = newJumps != jumps
+            jumps = newJumps
+        }
     }
     
     private var panningState: PanningState? {
@@ -238,17 +245,16 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            panningState = .init(valueBefore: value, translationRemainder: 0)
+            panningState = .init(originalValue: value)
             selectionHaptics.prepare()
         case .changed:
             guard var panningState = panningState else { return }
             let valueChange = consumePan(sender, panningState: &panningState)
             self.panningState = panningState
             do {
-                let value = try calculateNewValue(for: valueChange)
-                mutateValueForPanning(value)
+                mutateValueForPanning(try calculateNewValue(for: valueChange))
                 errorHapticsRun = false
-                if valueChange != 0 {
+                if panningState.didChangeInLastIteration {
                     selectionHaptics.selectionChanged()
                 }
             } catch {
@@ -257,13 +263,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
                 notificationHaptics.notificationOccurred(.warning)
             }
         case .ended:
-            let didChangeValue = value != panningState?.valueBefore
+            let didChangeValue = value != panningState?.originalValue
             panningState = nil
             if didChangeValue {
                 sendActions(for: .valueChanged)
             }
         case .cancelled:
-            mutateValueForPanning(panningState?.valueBefore)
+            mutateValueForPanning(panningState?.originalValue)
             panningState = nil
         default: break
         }
@@ -278,17 +284,15 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         _ pan: UIPanGestureRecognizer,
         panningState: inout PanningState
     ) -> Double {
-        defer { pan.setTranslation(.zero, in: self) }
-        let translation = pan.translation(in: self).y + panningState.translationRemainder
+        let translation = pan.translation(in: self).y
         let singleJumpThreshold = 7 as Double
         let numberOfJumps = floor(Double(-translation) / singleJumpThreshold)
-        let remainder = translation.remainder(dividingBy: CGFloat(singleJumpThreshold))
-        panningState.translationRemainder = remainder
+        panningState.update(jumps: numberOfJumps)
         return numberOfJumps * jumpInterval!
     }
     
     private func calculateNewValue(for valueChange: Double) throws -> Double {
-        let valueCandidate = (panningState?.valueBefore ?? 0) + valueChange
+        let valueCandidate = (panningState?.originalValue ?? 0) + valueChange
         if let range = minMaxRange, range.contains(valueCandidate) == false {
             throw ValueOutOfRangeError()
         }
