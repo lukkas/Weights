@@ -123,7 +123,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         editValue {
             switch editor! {
             case let .number(editor):
-                return try editor.getNewValue(forInsertion: text, currentValue: value)
+                try editor.insert(text)
+                return editor.value
             case let .time(editor):
                 try editor.insert(text)
                 return editor.value
@@ -135,7 +136,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         editValue {
             switch editor! {
             case let .number(editor):
-                return try editor.getNewValueForDeletion(currentValue: value)
+                try editor.deleteBackward()
+                return editor.value
             case let .time(editor):
                 try editor.deleteBackward()
                 return editor.value
@@ -170,9 +172,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private func resetEditor() {
         switch mode {
         case .wholes:
-            editor = .number(NumberEditor(decimalMode: false, minMaxRange: minMaxRange))
+            editor = .number(
+                NumberEditor(value: value, decimalMode: false, minMaxRange: minMaxRange)
+            )
         case .floatingPoint:
-            editor = .number(NumberEditor(decimalMode: true, minMaxRange: minMaxRange))
+            editor = .number(
+                NumberEditor(value: value, decimalMode: true, minMaxRange: minMaxRange)
+            )
         case .time:
             editor = .time(TimeEditor(value: value))
         }
@@ -320,7 +326,14 @@ private class NumberEditor {
     private let minMaxRange: Range<Double>?
     private var isDecimalSeparatorLastEntered = false
     
-    init(decimalMode: Bool, minMaxRange: Range<Double>?) {
+    private(set) var value: Double?
+    
+    init(
+        value: Double?,
+        decimalMode: Bool,
+        minMaxRange: Range<Double>?
+    ) {
+        self.value = value
         self.decimalMode = decimalMode
         self.minMaxRange = minMaxRange
         formatter.minimumSignificantDigits = decimalMode ? 1 : 0
@@ -330,20 +343,17 @@ private class NumberEditor {
         isDecimalSeparatorLastEntered = false
     }
     
-    func getNewValue(
-        forInsertion insertion: String,
-        currentValue: Double?
-    ) throws -> Double? {
-        let currentText = currentValue.flatMap(getFormattedText(from:)) ?? ""
-        return try getValue(forText: currentText + insertion)
+    func insert(_ insertion: String) throws {
+        let currentText = value.flatMap(getFormattedText(from:)) ?? ""
+        value = try getValue(forText: currentText + insertion)
     }
     
-    func getNewValueForDeletion(currentValue: Double?) throws -> Double? {
-        let currentText = currentValue.flatMap(getFormattedText(from:)) ?? ""
+    func deleteBackward() throws {
+        let currentText = value.flatMap(getFormattedText(from:)) ?? ""
         if currentText.isEmpty {
             throw ValueOutOfRangeError()
         }
-        return try getValue(forText: String(currentText.dropLast()))
+        value = try getValue(forText: String(currentText.dropLast()))
     }
     
     func getFormattedText(from value: Double?) -> String? {
