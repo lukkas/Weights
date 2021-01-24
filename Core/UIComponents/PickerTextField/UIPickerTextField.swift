@@ -31,7 +31,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         get { editor.value }
         set {
             guard newValue != editor.value else { return }
-            editor.value = newValue
+            try? editor.setValue(newValue)
             updateLabel()
         }
     }
@@ -252,7 +252,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             let valueChange = consumePan(sender, panningState: &panningState)
             self.panningState = panningState
             do {
-                mutateValueForPanning(try calculateNewValue(for: valueChange))
+                let valueCandidate = (panningState.originalValue ?? 0) + valueChange
+                try mutateValueForPanning(valueCandidate)
                 errorHapticsRun = false
                 if panningState.didChangeInLastIteration {
                     selectionHaptics.selectionChanged()
@@ -269,7 +270,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
                 sendActions(for: .valueChanged)
             }
         case .cancelled:
-            mutateValueForPanning(panningState?.originalValue)
+            try? mutateValueForPanning(panningState?.originalValue)
             panningState = nil
         default: break
         }
@@ -291,16 +292,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         return numberOfJumps * jumpInterval!
     }
     
-    private func calculateNewValue(for valueChange: Double) throws -> Double {
-        let valueCandidate = (panningState?.originalValue ?? 0) + valueChange
-        if let range = minMaxRange, range.contains(valueCandidate) == false {
-            throw ValueOutOfRangeError()
-        }
-        return valueCandidate
-    }
-    
-    private func mutateValueForPanning(_ newValue: Double?) {
-        editor.value = newValue
+    private func mutateValueForPanning(_ newValue: Double?) throws {
+        try editor.setValue(newValue)
         updateLabel()
     }
 }
@@ -308,7 +301,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
 private struct ValueOutOfRangeError: Error {}
 
 private protocol Editing {
-    var value: Double? { get set }
+    var value: Double? { get }
+    func setValue(_ newValue: Double?) throws
     func insert(_ insertion: String) throws
     func deleteBackward() throws
     func getFormattedText() -> String
@@ -321,7 +315,7 @@ private class NumberEditor: Editing {
     private let minMaxRange: Range<Double>?
     private var isDecimalSeparatorLastEntered = false
     
-    var value: Double?
+    private(set) var value: Double?
     
     init(
         value: Double?,
@@ -332,6 +326,16 @@ private class NumberEditor: Editing {
         self.decimalMode = decimalMode
         self.minMaxRange = minMaxRange
         formatter.minimumSignificantDigits = decimalMode ? 1 : 0
+    }
+    
+    func setValue(_ newValue: Double?) throws {
+        if
+            let range = minMaxRange,
+            let newValue = newValue,
+            range.contains(newValue) == false {
+            throw ValueOutOfRangeError()
+        }
+        value = newValue
     }
     
     func closeEditingSession() {
@@ -384,9 +388,15 @@ private class TimeEditor: Editing {
         setComponents(for: value)
     }
     
-    var value: Double? {
-        get { getValue() }
-        set { setComponents(for: newValue) }
+    var value: Double? { getValue() }
+    
+    func setValue(_ newValue: Double?) throws {
+        if
+            let newValue = newValue,
+            (0 ... maximumValue).contains(newValue) == false {
+            throw ValueOutOfRangeError()
+        }
+        setComponents(for: newValue)
     }
     
     func getFormattedText() -> String {
