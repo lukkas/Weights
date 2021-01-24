@@ -460,7 +460,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_minMaxRange_whenUserTriesToTypeInTooLargeValue_shouldIgnoreInput() throws {
         // given
-        sut.minMaxRange = 0 ..< 1000
+        sut.minMaxRange = 0 ... 1000
         sut.insertText("100")
         XCTAssertEqual(sut.value, 100)
         
@@ -473,19 +473,19 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_minMaxRange_whenUserPanOverValidRange_shouldIgnoreInput() throws {
         // given
-        sut.minMaxRange = 0 ..< 10
-        let pan = try preconfigure_beganPanning(initialValue: 9, jump: 1)
+        sut.minMaxRange = 0 ... 10
+        let pan = try preconfigure_beganPanning(initialValue: 10, jump: 1)
         
         // when
         pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
         
         // then
-        XCTAssertEqual(sut.value, 9)
+        XCTAssertEqual(sut.value, 10)
     }
     
     func test_outOfRangeHaptics_whenUserTriesToTypeInNumberOfOfRange_shouldGiveFeedback() throws {
         // given
-        sut.minMaxRange = 0 ..< 10
+        sut.minMaxRange = 0 ... 10
         sut.insertText("9")
         
         // when
@@ -498,8 +498,8 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_outOfRangeHaptics_whenUserPansOverAllowedRange() throws {
         // given
-        sut.minMaxRange = 0 ..< 100
-        let pan = try preconfigure_beganPanning(initialValue: 99, jump: 1)
+        sut.minMaxRange = 0 ... 100
+        let pan = try preconfigure_beganPanning(initialValue: 100, jump: 1)
         
         // when
         pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
@@ -511,8 +511,8 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_outOfRangeHatpics_whenUserKeepsPanningOverRange_shouldGiveFeedbackOnlyOnce() throws {
         // given
-        sut.minMaxRange = 0 ..< 100
-        let pan = try preconfigure_beganPanning(initialValue: 99, jump: 1)
+        sut.minMaxRange = 0 ... 100
+        let pan = try preconfigure_beganPanning(initialValue: 100, jump: 1)
         
         // when
         pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
@@ -526,8 +526,8 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_outOfRangeHaptics_whenUserPansMultipleTimeOverRangeStepsBackAndThenPansAgain_shouldGiveFeedbackTwoTimes() throws {
         // given
-        sut.minMaxRange = 0 ..< 100
-        let pan = try preconfigure_beganPanning(initialValue: 99, jump: 1)
+        sut.minMaxRange = 0 ... 100
+        let pan = try preconfigure_beganPanning(initialValue: 100, jump: 1)
         
         // when
         pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
@@ -540,10 +540,121 @@ class UIPickerTextFieldTests: XCTestCase {
         try getNotificationHaptics().verify_givenFeedback(.warning, .warning)
     }
     
+    func test_panningOutsideRange_whenUserPansSeveralJumpsOverMinValueAndTurnsAround_shouldValueChangeAfterFirstJump() throws {
+        // given
+        sut.minMaxRange = 0 ... 10
+        let pan = try preconfigure_beganPanning(initialValue: 0, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: -1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: -1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: -1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        
+        // then
+        XCTAssertEqual(sut.value, 1)
+    }
+    
+    func test_panningOutsideRange_whenPansOverMinAndThenOverMax_shouldIgnoreOverscrollWhenGoingBack() throws {
+        // given
+        sut.minMaxRange = 0 ... 5
+        let pan = try preconfigure_beganPanning(initialValue: 0, jump: 1)
+        
+        // when
+        for _ in 0 ..< 3 {
+            pan.continuePanning(by: panTranslation(toIncreaseValueBy: -1))
+        }
+        for _ in 0 ..< 10 {
+            pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))
+        }
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: -1))
+        
+        // then
+        XCTAssertEqual(sut.value, 4)
+    }
+    
+    func test_panningOutsideRange_shouldNotTriggerExcesiveSelectionHaptics() throws {
+        // given
+        sut.minMaxRange = 0 ... 5
+        let pan = try preconfigure_beganPanning(initialValue: 0, jump: 1)
+        
+        // when
+        for _ in 0 ..< 3 {
+            pan.continuePanning(by: panTranslation(toIncreaseValueBy: -1))
+        }
+        
+        // then
+        let haptics = try getSelectionHaptics()
+        XCTAssertEqual(haptics.selectionChangedCallsCount, 0)
+    }
+    
+    func test_panningOutsideRange_whenPanningCausesNegativeAndZeroChanges_shouldNotTriggerExcesiveWarningHaptics() throws {
+        // given
+        sut.minMaxRange = 0 ... 5
+        let pan = try preconfigure_beganPanning(initialValue: 0, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: -1))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 0))
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: -1))
+        
+        // then
+        let haptics = try getNotificationHaptics()
+        XCTAssertEqual(haptics.receivedNotifications, [.warning])
+    }
+    
+    func test_panningOutsideRange_whenJumpIsTooLargeToHitLowerLimit_shouldSetToLimit() throws {
+        // given
+        sut.minMaxRange = 0 ... 10
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: -2))
+        
+        // then
+        XCTAssertEqual(sut.value, 0)
+    }
+    
+    func test_panningOutsideRange_whenJumpIsTooLargeToHitUpperLimit_shouldSetToLimit() throws {
+        // given
+        sut.minMaxRange = 0 ... 10
+        let pan = try preconfigure_beganPanning(initialValue: 9, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 2))
+        
+        // then
+        XCTAssertEqual(sut.value, 10)
+    }
+    
+    func test_panningOutsideRange_whenJumpIsTooLargeToHitLowerLimitInTimeMode() throws {
+        // given
+        sut.mode = .time
+        let pan = try preconfigure_beganPanning(initialValue: 1, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: -2))
+        
+        // then
+        XCTAssertEqual(sut.value, nil)
+    }
+    
+    func test_panningOutsideRange_whenJumpIsTooLargeToHitUpperLimitInTimeMode() throws {
+        // given
+        sut.mode = .time
+        let pan = try preconfigure_beganPanning(initialValue: 598, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toIncreaseValueBy: 2))
+        
+        // then
+        XCTAssertEqual(sut.value, 599)
+    }
+ 
     func test_outOfRangeHaptics_whenUserPansOutOfRange_shouldNotDoSelectionFeedback() throws {
         // given
-        sut.minMaxRange = 0 ..< 100
-        let pan = try preconfigure_beganPanning(initialValue: 99, jump: 1)
+        sut.minMaxRange = 0 ... 100
+        let pan = try preconfigure_beganPanning(initialValue: 100, jump: 1)
         
         // when
         pan.continuePanning(by: panTranslation(toIncreaseValueBy: 1))

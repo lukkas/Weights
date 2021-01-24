@@ -23,7 +23,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         }
     }
     var jumpInterval: Double? = 1
-    var minMaxRange: Range<Double>? {
+    var minMaxRange: ClosedRange<Double>? {
         didSet { resetEditor() }
     }
     
@@ -31,7 +31,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         get { editor.value }
         set {
             guard newValue != editor.value else { return }
-            try? editor.setValue(newValue)
+            try? editor.setValue(newValue, allowReachingLimit: false)
             updateLabel()
         }
     }
@@ -223,11 +223,17 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private struct PanningState {
         let originalValue: Double?
         private(set) var jumps: Double = 0
+        private(set) var unconsumedJumps: Double = 0
         private(set) var didChangeInLastIteration = false
         
-        mutating func update(jumps newJumps: Double) {
-            didChangeInLastIteration = newJumps != jumps
-            jumps = newJumps
+        mutating func update(jumps newJumps: Double, didConsume: Bool) {
+            if didConsume {
+                didChangeInLastIteration = newJumps != jumps
+                jumps = newJumps
+            } else {
+                unconsumedJumps += newJumps - jumps
+                jumps = newJumps
+            }
         }
     }
     
@@ -247,22 +253,22 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         case .began:
             panningState = .init(originalValue: value)
             selectionHaptics.prepare()
+            errorHapticsRun = false
         case .changed:
             guard var panningState = panningState else { return }
-            let valueChange = consumePan(sender, panningState: &panningState)
-            self.panningState = panningState
             do {
-                let valueCandidate = (panningState.originalValue ?? 0) + valueChange
-                try mutateValueForPanning(valueCandidate)
-                errorHapticsRun = false
+                try consumePan(sender, panningState: &panningState)
                 if panningState.didChangeInLastIteration {
+                    errorHapticsRun = false
                     selectionHaptics.selectionChanged()
                 }
             } catch {
-                if errorHapticsRun { return }
-                errorHapticsRun = true
-                notificationHaptics.notificationOccurred(.warning)
+                if !errorHapticsRun {
+                    errorHapticsRun = true
+                    notificationHaptics.notificationOccurred(.warning)
+                }
             }
+            self.panningState = panningState
         case .ended:
             let didChangeValue = value != panningState?.originalValue
             panningState = nil
@@ -284,16 +290,23 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private func consumePan(
         _ pan: UIPanGestureRecognizer,
         panningState: inout PanningState
-    ) -> Double {
-        let translation = pan.translation(in: self).y
+    ) throws {
+        let translation = pan.translation(in: self)
         let singleJumpThreshold = 7 as Double
-        let numberOfJumps = floor(Double(-translation) / singleJumpThreshold)
-        panningState.update(jumps: numberOfJumps)
-        return numberOfJumps * jumpInterval!
+        let numberOfJumps = floor(Double(-translation.y) / singleJumpThreshold)
+        let offsetNumberOfJumps = numberOfJumps - panningState.unconsumedJumps
+        let valueChange = offsetNumberOfJumps * jumpInterval!
+        do {
+            try mutateValueForPanning((panningState.originalValue ?? 0) + valueChange)
+            panningState.update(jumps: numberOfJumps, didConsume: true)
+        } catch {
+            panningState.update(jumps: numberOfJumps, didConsume: false)
+            throw error
+        }
     }
     
     private func mutateValueForPanning(_ newValue: Double?) throws {
-        try editor.setValue(newValue)
+        try editor.setValue(newValue, allowReachingLimit: true)
         updateLabel()
     }
 }
@@ -302,7 +315,7 @@ private struct ValueOutOfRangeError: Error {}
 
 private protocol Editing {
     var value: Double? { get }
-    func setValue(_ newValue: Double?) throws
+    func setValue(_ newValue: Double?, allowReachingLimit: Bool) throws
     func insert(_ insertion: String) throws
     func deleteBackward() throws
     func getFormattedText() -> String
@@ -312,7 +325,7 @@ private protocol Editing {
 private class NumberEditor: Editing {
     private let formatter = NumberFormatter()
     private let decimalMode: Bool
-    private let minMaxRange: Range<Double>?
+    private let minMaxRange: ClosedRange<Double>?
     private var isDecimalSeparatorLastEntered = false
     
     private(set) var value: Double?
@@ -320,7 +333,7 @@ private class NumberEditor: Editing {
     init(
         value: Double?,
         decimalMode: Bool,
-        minMaxRange: Range<Double>?
+        minMaxRange: ClosedRange<Double>?
     ) {
         self.value = value
         self.decimalMode = decimalMode
@@ -328,14 +341,26 @@ private class NumberEditor: Editing {
         formatter.minimumSignificantDigits = decimalMode ? 1 : 0
     }
     
-    func setValue(_ newValue: Double?) throws {
-        if
-            let range = minMaxRange,
-            let newValue = newValue,
-            range.contains(newValue) == false {
+    func setValue(_ newValue: Double?, allowReachingLimit: Bool) throws {
+        guard let range = minMaxRange, let unwrappedValue = newValue else {
+            value = newValue; return
+        }
+        if range.contains(unwrappedValue) {
+            value = newValue; return
+        }
+        if allowReachingLimit == false {
             throw ValueOutOfRangeError()
         }
-        value = newValue
+        guard let currentValue = value else {
+            throw ValueOutOfRangeError()
+        }
+        if currentValue > range.lowerBound && unwrappedValue < currentValue {
+            value = range.lowerBound; return
+        }
+        if currentValue < range.upperBound && unwrappedValue > currentValue {
+            value = range.upperBound; return
+        }
+        throw ValueOutOfRangeError()
     }
     
     func closeEditingSession() {
@@ -390,14 +415,29 @@ private class TimeEditor: Editing {
     
     var value: Double? { getValue() }
     
-    func setValue(_ newValue: Double?) throws {
-        if
-            let newValue = newValue,
-            (0 ... maximumValue).contains(newValue) == false {
+    func setValue(_ newValue: Double?, allowReachingLimit: Bool) throws {
+        guard let newValue = newValue else {
+            setComponents(for: nil); return
+        }
+        if allowedRange.contains(newValue) {
+            setComponents(for: newValue); return
+        }
+        if allowReachingLimit == false {
             throw ValueOutOfRangeError()
         }
-        setComponents(for: newValue)
+        guard let currentValue = value else {
+            throw ValueOutOfRangeError()
+        }
+        if currentValue > allowedRange.lowerBound && newValue < currentValue {
+            setComponents(for: allowedRange.lowerBound); return
+        }
+        if currentValue < allowedRange.upperBound && newValue > currentValue {
+            setComponents(for: allowedRange.upperBound); return
+        }
+        throw ValueOutOfRangeError()
     }
+    
+    private var allowedRange: ClosedRange<Double> { 0 ... maximumValue }
     
     func getFormattedText() -> String {
         var result = components.alignedWithZeros(3)
