@@ -16,8 +16,6 @@ struct PickerTextField: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UIPickerTextField {
         let field = UIPickerTextField()
-        field.mode = .time
-        field.jumpInterval = 5
         field.themeColor = UIColor(themeColor)
         field.addTarget(
             context.coordinator,

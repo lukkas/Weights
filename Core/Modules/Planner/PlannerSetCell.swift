@@ -12,6 +12,11 @@ struct PlannerSetCellModel {
     
 }
 
+protocol PlannerSetCellModeling: ObservableObject {
+    var reps: Double? { get set }
+//    var
+}
+
 struct PlannerSetCell: View {
     @State var reps: Double? = 12
     @State var kilograms: Double? = 80
@@ -31,26 +36,26 @@ struct PlannerSetCell: View {
                 themeColor: .weightBlue,
                 value: $kilograms
             )
-            Text("@")
+            Text("|")
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-//            ParameterField(
-//                label: "RPE",
-//                themeColor: .weightRed,
-//                value: $rpe
-//            )
+            ParameterField(
+                label: "RPE",
+                themeColor: .weightRed,
+                value: $rpe
+            )
             Spacer()
             
             Button(action: {}, label: {
-                Text("Add")
+                Image(systemName: "plus")
                     .font(.system(
-                        size: 16,
+                        size: 20,
                         weight: .semibold
                     ))
-                    .accentColor(.contrastLabel)
-                    .frame(width: 60, height: 44)
+                    .accentColor(.theme)
+                    .frame(width: 44, height: 44)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .foregroundColor(.theme)
+                            .foregroundColor(.secondaryBackground)
                     )
                     .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
             })

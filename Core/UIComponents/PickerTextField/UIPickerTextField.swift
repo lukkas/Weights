@@ -177,7 +177,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func applyStyling() {
-        backgroundColor = .systemFill
+        backgroundColor = .secondarySystemBackground
         layer.cornerRadius = 8
         layer.masksToBounds = true
         layer.borderWidth = 0
