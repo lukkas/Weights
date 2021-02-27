@@ -220,75 +220,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         }
     }
     
-    private enum xx_PanningState {
-        case undetermined
-        case steppingOverValues
-        case nilingValue
-    }
-    
-    private struct PanningState {
-        private let editor: Editing
-        private let update: () -> Void
-        private let jumpInterval: Double
-        private let originalValue: Double?
-        private(set) var jumps: Double = 0
-        private(set) var unconsumedJumps: Double = 0
-        private(set) var didChangeInLastIteration = false
-        
-        init(
-            editor: Editing,
-            jumpInterval: Double,
-            onValueUpdated: @escaping () -> Void
-        ) {
-            self.editor = editor
-            self.update = onValueUpdated
-            self.jumpInterval = jumpInterval
-            self.originalValue = editor.value
-        }
-        
-        mutating func consume(_ pan: UIPanGestureRecognizer, relativelyTo view: UIView) throws {
-            let translation = pan.translation(in: view)
-            let singleJumpThreshold = 7 as Double
-            let numberOfJumps = floor(Double(-translation.y) / singleJumpThreshold)
-            let offsetNumberOfJumps = numberOfJumps - unconsumedJumps
-            let valueChange = offsetNumberOfJumps * jumpInterval
-            do {
-                try mutateValue((originalValue ?? 0) + valueChange)
-                update(jumps: numberOfJumps, didConsume: true)
-            } catch {
-                update(jumps: numberOfJumps, didConsume: false)
-                throw error
-            }
-        }
-        
-        func cancel() {
-            try? mutateValue(originalValue)
-        }
-        
-        func commit(onValueChanged: () -> Void) {
-            let valueWasChanged = editor.value != originalValue
-            if valueWasChanged {
-                onValueChanged()
-            }
-        }
-        
-        private func mutateValue(_ newValue: Double?) throws {
-            try editor.setValue(newValue, allowReachingLimit: true)
-            update()
-        }
-        
-        private mutating func update(jumps newJumps: Double, didConsume: Bool) {
-            if didConsume {
-                didChangeInLastIteration = newJumps != jumps
-                jumps = newJumps
-            } else {
-                unconsumedJumps += newJumps - jumps
-                jumps = newJumps
-            }
-        }
-    }
-    
-    private var panningState: PanningState? {
+    private var panningState: Panning? {
         didSet {
             if oldValue == nil || panningState == nil {
                 adjustBorder()
@@ -300,7 +232,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            panningState = .init(
+            panningState = ValueSteppingPanner(
                 editor: editor,
                 jumpInterval: jumpInterval!,
                 onValueUpdated: {
@@ -308,16 +240,12 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             })
             haptics.prepare()
         case .changed:
-            guard var panningState = panningState else { return }
-            do {
-                try panningState.consume(pan, relativelyTo: self)
-                if panningState.didChangeInLastIteration {
-                    haptics.selection()
-                }
-            } catch {
-                haptics.wallHit()
-            }
-            self.panningState = panningState
+            panningState?.consume(
+                pan,
+                relativelyTo: self,
+                onValueChanged: { haptics.selection() },
+                onWallHit: { haptics.wallHit() }
+            )
         case .ended:
             panningState?.commit {
                 self.sendActions(for: .valueChanged)
@@ -357,6 +285,87 @@ private struct Haptics {
             repeatedErrorsBlockade = true
             notificationHaptics.notificationOccurred(.warning)
         }
+    }
+}
+
+private protocol Panning {
+    mutating func consume(
+        _ pan: UIPanGestureRecognizer,
+        relativelyTo view: UIView,
+        onValueChanged: () -> Void,
+        onWallHit: () -> Void
+    )
+    func cancel()
+    func commit(onValueChanged: () -> Void)
+}
+
+private struct ValueSteppingPanner: Panning {
+    private let editor: Editing
+    private let update: () -> Void
+    private let jumpInterval: Double
+    private let originalValue: Double?
+    private(set) var jumps: Double = 0
+    private(set) var unconsumedJumps: Double = 0
+    
+    init(
+        editor: Editing,
+        jumpInterval: Double,
+        onValueUpdated: @escaping () -> Void
+    ) {
+        self.editor = editor
+        self.update = onValueUpdated
+        self.jumpInterval = jumpInterval
+        self.originalValue = editor.value
+    }
+    
+    mutating func consume(
+        _ pan: UIPanGestureRecognizer,
+        relativelyTo view: UIView,
+        onValueChanged: () -> Void,
+        onWallHit: () -> Void
+    ) {
+        let translation = pan.translation(in: view)
+        let singleJumpThreshold = 7 as Double
+        let numberOfJumps = floor(Double(-translation.y) / singleJumpThreshold)
+        let offsetNumberOfJumps = numberOfJumps - unconsumedJumps
+        let valueChange = offsetNumberOfJumps * jumpInterval
+        do {
+            try mutateValue((originalValue ?? 0) + valueChange)
+            let didUpdate = update(withConsumedJumps: numberOfJumps)
+            if didUpdate {
+                onValueChanged()
+            }
+        } catch {
+            update(withUnconsumedJumps: numberOfJumps)
+            onWallHit()
+        }
+    }
+    
+    func cancel() {
+        try? mutateValue(originalValue)
+    }
+    
+    func commit(onValueChanged: () -> Void) {
+        let valueWasChanged = editor.value != originalValue
+        if valueWasChanged {
+            onValueChanged()
+        }
+    }
+    
+    private func mutateValue(_ newValue: Double?) throws {
+        try editor.setValue(newValue, allowReachingLimit: true)
+        update()
+    }
+    
+    private mutating func update(withConsumedJumps newJumps: Double) -> Bool {
+        let didUpdate = newJumps != jumps
+        jumps = newJumps
+        return didUpdate
+    }
+    
+    private mutating func update(withUnconsumedJumps newJumps: Double) {
+        unconsumedJumps += newJumps - jumps
+        jumps = newJumps
     }
 }
 
