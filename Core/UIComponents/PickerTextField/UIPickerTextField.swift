@@ -220,13 +220,64 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         }
     }
     
+    private enum xx_PanningState {
+        case undetermined
+        case steppingOverValues
+        case nilingValue
+    }
+    
     private struct PanningState {
-        let originalValue: Double?
+        private let editor: Editing
+        private let update: () -> Void
+        private let jumpInterval: Double
+        private let originalValue: Double?
         private(set) var jumps: Double = 0
         private(set) var unconsumedJumps: Double = 0
         private(set) var didChangeInLastIteration = false
         
-        mutating func update(jumps newJumps: Double, didConsume: Bool) {
+        init(
+            editor: Editing,
+            jumpInterval: Double,
+            onValueUpdated: @escaping () -> Void
+        ) {
+            self.editor = editor
+            self.update = onValueUpdated
+            self.jumpInterval = jumpInterval
+            self.originalValue = editor.value
+        }
+        
+        mutating func consume(_ pan: UIPanGestureRecognizer, relativelyTo view: UIView) throws {
+            let translation = pan.translation(in: view)
+            let singleJumpThreshold = 7 as Double
+            let numberOfJumps = floor(Double(-translation.y) / singleJumpThreshold)
+            let offsetNumberOfJumps = numberOfJumps - unconsumedJumps
+            let valueChange = offsetNumberOfJumps * jumpInterval
+            do {
+                try mutateValue((originalValue ?? 0) + valueChange)
+                update(jumps: numberOfJumps, didConsume: true)
+            } catch {
+                update(jumps: numberOfJumps, didConsume: false)
+                throw error
+            }
+        }
+        
+        func cancel() {
+            try? mutateValue(originalValue)
+        }
+        
+        func commit(onValueChanged: () -> Void) {
+            let valueWasChanged = editor.value != originalValue
+            if valueWasChanged {
+                onValueChanged()
+            }
+        }
+        
+        private func mutateValue(_ newValue: Double?) throws {
+            try editor.setValue(newValue, allowReachingLimit: true)
+            update()
+        }
+        
+        private mutating func update(jumps newJumps: Double, didConsume: Bool) {
             if didConsume {
                 didChangeInLastIteration = newJumps != jumps
                 jumps = newJumps
@@ -249,12 +300,17 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            panningState = .init(originalValue: value)
+            panningState = .init(
+                editor: editor,
+                jumpInterval: jumpInterval!,
+                onValueUpdated: {
+                    self.updateLabel()
+            })
             haptics.prepare()
         case .changed:
             guard var panningState = panningState else { return }
             do {
-                try consumePan(sender, panningState: &panningState)
+                try panningState.consume(pan, relativelyTo: self)
                 if panningState.didChangeInLastIteration {
                     haptics.selection()
                 }
@@ -263,38 +319,14 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             }
             self.panningState = panningState
         case .ended:
-            let didChangeValue = value != panningState?.originalValue
-            panningState = nil
-            if didChangeValue {
-                sendActions(for: .valueChanged)
+            panningState?.commit {
+                self.sendActions(for: .valueChanged)
             }
+            panningState = nil
         case .cancelled:
-            try? mutateValueForPanning(panningState?.originalValue)
+            panningState?.cancel()
             panningState = nil
         default: break
-        }
-    }
-    
-    private func getNumberOfValueJumps(for translation: CGPoint) -> Double {
-        let singleJumpThreshold = 7 as CGFloat
-        return Double(floor(-translation.y / singleJumpThreshold))
-    }
-    
-    private func consumePan(
-        _ pan: UIPanGestureRecognizer,
-        panningState: inout PanningState
-    ) throws {
-        let translation = pan.translation(in: self)
-        let singleJumpThreshold = 7 as Double
-        let numberOfJumps = floor(Double(-translation.y) / singleJumpThreshold)
-        let offsetNumberOfJumps = numberOfJumps - panningState.unconsumedJumps
-        let valueChange = offsetNumberOfJumps * jumpInterval!
-        do {
-            try mutateValueForPanning((panningState.originalValue ?? 0) + valueChange)
-            panningState.update(jumps: numberOfJumps, didConsume: true)
-        } catch {
-            panningState.update(jumps: numberOfJumps, didConsume: false)
-            throw error
         }
     }
     
