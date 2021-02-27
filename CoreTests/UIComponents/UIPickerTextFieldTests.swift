@@ -887,7 +887,7 @@ class UIPickerTextFieldTests: XCTestCase {
     }
     
     private func getPan() throws -> UIPanGestureRecognizerMock {
-        return try panInjector.getOnlyAliveInstance()
+        return try panInjector.getCreatedInstance(at: 0)
     }
     
     private func getTap() throws -> UITapGestureRecognizerMock {

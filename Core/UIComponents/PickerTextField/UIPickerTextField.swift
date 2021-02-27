@@ -128,7 +128,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             updateLabel()
             sendActions(for: .valueChanged)
         } catch {
-            notificationHaptics.notificationOccurred(.warning)
+            haptics.wallHit(ignoreBlockade: true)
         }
     }
     
@@ -244,29 +244,22 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             }
         }
     }
-    private var errorHapticsRun = false
-    private let selectionHaptics = metaUISelectionFeedbackGenerator.init()
-    private let notificationHaptics = metaUINotificationFeedbackGenerator.init()
+    private var haptics = Haptics()
     
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
             panningState = .init(originalValue: value)
-            selectionHaptics.prepare()
-            errorHapticsRun = false
+            haptics.prepare()
         case .changed:
             guard var panningState = panningState else { return }
             do {
                 try consumePan(sender, panningState: &panningState)
                 if panningState.didChangeInLastIteration {
-                    errorHapticsRun = false
-                    selectionHaptics.selectionChanged()
+                    haptics.selection()
                 }
             } catch {
-                if !errorHapticsRun {
-                    errorHapticsRun = true
-                    notificationHaptics.notificationOccurred(.warning)
-                }
+                haptics.wallHit()
             }
             self.panningState = panningState
         case .ended:
@@ -312,6 +305,33 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
 }
 
 private struct ValueOutOfRangeError: Error {}
+
+private struct Haptics {
+    private let selectionHaptics = metaUISelectionFeedbackGenerator.init()
+    private let notificationHaptics = metaUINotificationFeedbackGenerator.init()
+    private var repeatedErrorsBlockade = false
+    
+    mutating func prepare() {
+        selectionHaptics.prepare()
+        repeatedErrorsBlockade = false
+    }
+    
+    mutating func selection() {
+        if repeatedErrorsBlockade == true {
+            repeatedErrorsBlockade = false
+        }
+        selectionHaptics.selectionChanged()
+    }
+    
+    mutating func wallHit(ignoreBlockade: Bool = false) {
+        if ignoreBlockade {
+            notificationHaptics.notificationOccurred(.warning)
+        } else if repeatedErrorsBlockade == false {
+            repeatedErrorsBlockade = true
+            notificationHaptics.notificationOccurred(.warning)
+        }
+    }
+}
 
 private protocol Editing {
     var value: Double? { get }
