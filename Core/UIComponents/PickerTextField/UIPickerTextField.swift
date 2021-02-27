@@ -329,11 +329,6 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         default: break
         }
     }
-    
-    private func mutateValueForPanning(_ newValue: Double?) throws {
-        try editor.setValue(newValue, allowReachingLimit: true)
-        updateLabel()
-    }
 }
 
 private struct ValueOutOfRangeError: Error {}
