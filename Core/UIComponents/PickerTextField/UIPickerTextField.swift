@@ -232,7 +232,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            panningState = ValueSteppingPanner(
+            panningState = UndeterminedPanner(
                 editor: editor,
                 jumpInterval: jumpInterval!,
                 onValueUpdated: {
@@ -297,6 +297,48 @@ private protocol Panning {
     )
     func cancel()
     func commit(onValueChanged: () -> Void)
+}
+
+private struct UndeterminedPanner: Panning {
+    private var determinedPanner: Panning?
+    
+    init(
+        editor: Editing,
+        jumpInterval: Double?,
+        onValueUpdated: @escaping () -> Void
+    ) {
+        determinedPanner = ValueSteppingPanner(
+            editor: editor,
+            jumpInterval: jumpInterval!,
+            onValueUpdated: onValueUpdated
+        )
+    }
+    
+    mutating func consume(
+        _ pan: UIPanGestureRecognizer,
+        relativelyTo view: UIView,
+        onValueChanged: () -> Void,
+        onWallHit: () -> Void
+    ) {
+        guard determinedPanner == nil else {
+            determinedPanner!.consume(
+                pan,
+                relativelyTo: view,
+                onValueChanged: onValueChanged,
+                onWallHit: onWallHit
+            )
+            return
+        }
+        
+    }
+    
+    func cancel() {
+        determinedPanner?.cancel()
+    }
+    
+    func commit(onValueChanged: () -> Void) {
+        determinedPanner?.commit(onValueChanged: onValueChanged)
+    }
 }
 
 private struct ValueSteppingPanner: Panning {
