@@ -232,14 +232,12 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     @objc private func handlePan(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            panningState = UndeterminedPanner(
-                editor: editor,
-                jumpInterval: jumpInterval!,
-                onValueUpdated: {
-                    self.updateLabel()
-            })
+            panningState = tryToCreatePanner(for: sender)
             haptics.prepare()
         case .changed:
+            if panningState == nil {
+                panningState = tryToCreatePanner(for: sender)
+            }
             panningState?.consume(
                 pan,
                 relativelyTo: self,
@@ -256,6 +254,20 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             panningState = nil
         default: break
         }
+    }
+    
+    private func tryToCreatePanner(for pan: UIPanGestureRecognizer) -> Panning? {
+        let translation = pan.translation(in: self)
+        if abs(translation.y) > abs(translation.x) {
+            return ValueSteppingPanner(
+                editor: editor,
+                jumpInterval: jumpInterval!,
+                onValueUpdated: {
+                    self.updateLabel()
+                }
+            )
+        }
+        return nil
     }
 }
 
@@ -297,48 +309,6 @@ private protocol Panning {
     )
     func cancel()
     func commit(onValueChanged: () -> Void)
-}
-
-private struct UndeterminedPanner: Panning {
-    private var determinedPanner: Panning?
-    
-    init(
-        editor: Editing,
-        jumpInterval: Double?,
-        onValueUpdated: @escaping () -> Void
-    ) {
-        determinedPanner = ValueSteppingPanner(
-            editor: editor,
-            jumpInterval: jumpInterval!,
-            onValueUpdated: onValueUpdated
-        )
-    }
-    
-    mutating func consume(
-        _ pan: UIPanGestureRecognizer,
-        relativelyTo view: UIView,
-        onValueChanged: () -> Void,
-        onWallHit: () -> Void
-    ) {
-        guard determinedPanner == nil else {
-            determinedPanner!.consume(
-                pan,
-                relativelyTo: view,
-                onValueChanged: onValueChanged,
-                onWallHit: onWallHit
-            )
-            return
-        }
-        
-    }
-    
-    func cancel() {
-        determinedPanner?.cancel()
-    }
-    
-    func commit(onValueChanged: () -> Void) {
-        determinedPanner?.commit(onValueChanged: onValueChanged)
-    }
 }
 
 private struct ValueSteppingPanner: Panning {
@@ -408,6 +378,25 @@ private struct ValueSteppingPanner: Panning {
     private mutating func update(withUnconsumedJumps newJumps: Double) {
         unconsumedJumps += newJumps - jumps
         jumps = newJumps
+    }
+}
+
+private struct ValueResettingPanner: Panning {
+    mutating func consume(
+        _ pan: UIPanGestureRecognizer,
+        relativelyTo view: UIView,
+        onValueChanged: () -> Void,
+        onWallHit: () -> Void
+    ) {
+        
+    }
+    
+    func cancel() {
+        
+    }
+    
+    func commit(onValueChanged: () -> Void) {
+        
     }
 }
 

@@ -38,7 +38,8 @@ class UIPanGestureRecognizerMock: UIPanGestureRecognizer {
         underlyingTranslation = translation
     }
     
-    func beginPanning() {
+    func beginPanning(withTranslation translation: CGPoint = .zero) {
+        underlyingTranslation = translation
         state = .began
         callSelector()
     }

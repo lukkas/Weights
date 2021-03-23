@@ -297,9 +297,9 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.layer.borderWidth, expectedWidth)
     }
     
-    func test_panning_whenPanningStarts_shouldHighlightWithBorder() throws {
+    func test_panning_whenPanningStartsInVerticalDirection_shouldHighlightWithBorder() throws {
         // when
-        try getPan().beginPanning()
+        try getPan().beginPanning(withTranslation: CGPoint(x: 0, y: 2))
         
         // then
         verify_isFieldHighlighted()
@@ -842,6 +842,19 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.textValue, "0:95")
     }
     
+    // MARK: - Resetting value pan
+    
+    func test_panning_whenPanningHorizontally_shouldNotHighlight() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 0, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toReset: 0.2))
+        
+        // then
+        XCTAssertEqual(sut.layer.borderWidth, 0)
+    }
+    
     private func preconfigure(timeEntered: String...) throws {
         try preconfigure_enteringTime()
         for digit in timeEntered {
@@ -883,6 +896,13 @@ class UIPickerTextFieldTests: XCTestCase {
         return CGPoint(
             x: 0,
             y: -factor * threshold
+        )
+    }
+    
+    private func panTranslation(toReset resetFractionDone: CGFloat) -> CGPoint {
+        return CGPoint(
+            x: resetFractionDone * 50,
+            y: 0
         )
     }
     
