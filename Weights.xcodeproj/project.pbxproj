@@ -27,6 +27,8 @@
 		0F33B64C25227BE000B44EAA /* PublisherListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33B64B25227BE000B44EAA /* PublisherListener.swift */; };
 		0F33B6592522817E00B44EAA /* PlaceholderClosures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33B6582522817E00B44EAA /* PlaceholderClosures.swift */; };
 		0F33B6652522844C00B44EAA /* ExerciseCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33B6642522844C00B44EAA /* ExerciseCellViewModel.swift */; };
+		0F4BBCF42610F03100486B96 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4BBCF32610F03100486B96 /* CGFloat+Extensions.swift */; };
+		0F4BBCF626112B5E00486B96 /* FloatingPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4BBCF526112B5E00486B96 /* FloatingPoint+Extensions.swift */; };
 		0F56F7032430F2AA002A2EBA /* OuterDepthShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F7022430F2AA002A2EBA /* OuterDepthShadow.swift */; };
 		0F56F7052430F536002A2EBA /* InnerDepthShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F7042430F536002A2EBA /* InnerDepthShadow.swift */; };
 		0F56F70C24312017002A2EBA /* CoreEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F70B24312017002A2EBA /* CoreEntry.swift */; };
@@ -61,6 +63,7 @@
 		0FA934FD2473172400D939F1 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FC2473172400D939F1 /* AppDependencies.swift */; };
 		0FA93500247319C700D939F1 /* ExerciseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FF247319C700D939F1 /* ExerciseStorage.swift */; };
 		0FA9350224731BA200D939F1 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9350124731BA200D939F1 /* Exercise.swift */; };
+		0FAB583B260BDF4400E9A5EE /* UIResetValueDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAB583A260BDF4400E9A5EE /* UIResetValueDrawer.swift */; };
 		0FAECC66252A37DD00693A8A /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAECC65252A37DD00693A8A /* PlannerView.swift */; };
 		0FAECC72252A37ED00693A8A /* PlannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */; };
 		0FB4D4A024425278004E244D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D49F24425278004E244D /* RootView.swift */; };
@@ -177,6 +180,8 @@
 		0F33B64B25227BE000B44EAA /* PublisherListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherListener.swift; sourceTree = "<group>"; };
 		0F33B6582522817E00B44EAA /* PlaceholderClosures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderClosures.swift; sourceTree = "<group>"; };
 		0F33B6642522844C00B44EAA /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
+		0F4BBCF32610F03100486B96 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
+		0F4BBCF526112B5E00486B96 /* FloatingPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloatingPoint+Extensions.swift"; sourceTree = "<group>"; };
 		0F56F7022430F2AA002A2EBA /* OuterDepthShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuterDepthShadow.swift; sourceTree = "<group>"; };
 		0F56F7042430F536002A2EBA /* InnerDepthShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerDepthShadow.swift; sourceTree = "<group>"; };
 		0F56F70B24312017002A2EBA /* CoreEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreEntry.swift; sourceTree = "<group>"; };
@@ -213,6 +218,7 @@
 		0FA934FC2473172400D939F1 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		0FA934FF247319C700D939F1 /* ExerciseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorage.swift; sourceTree = "<group>"; };
 		0FA9350124731BA200D939F1 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		0FAB583A260BDF4400E9A5EE /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
 		0FAECC65252A37DD00693A8A /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewModel.swift; sourceTree = "<group>"; };
 		0FB4D49F24425278004E244D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -394,6 +400,8 @@
 			children = (
 				0F99873024F2ED4A00366D0B /* View+Debug.swift */,
 				0F0F9AC9259B758A00AC4B9B /* UIFont+Rounded.swift */,
+				0F4BBCF32610F03100486B96 /* CGFloat+Extensions.swift */,
+				0F4BBCF526112B5E00486B96 /* FloatingPoint+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -606,6 +614,7 @@
 			children = (
 				0FCDC4EA259A9D9B00CC1D22 /* UIPickerTextField.swift */,
 				0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */,
+				0FAB583A260BDF4400E9A5EE /* UIResetValueDrawer.swift */,
 			);
 			path = PickerTextField;
 			sourceTree = "<group>";
@@ -962,11 +971,13 @@
 				0F56F7032430F2AA002A2EBA /* OuterDepthShadow.swift in Sources */,
 				0F76E9012546056C00D1B2F1 /* ParameterGauge.swift in Sources */,
 				0F76E90F254605DE00D1B2F1 /* Pace.swift in Sources */,
+				0F4BBCF42610F03100486B96 /* CGFloat+Extensions.swift in Sources */,
 				0F7110E3254F6B2400AD74E3 /* ExerciseSetsAndRepsPicker.swift in Sources */,
 				0F56F70F24312A3A002A2EBA /* ExerciseCreationView.swift in Sources */,
 				0F33B6652522844C00B44EAA /* ExerciseCellViewModel.swift in Sources */,
 				0F6E72E4245EE80F0052BAEC /* Exercise.swift in Sources */,
 				0FAECC66252A37DD00693A8A /* PlannerView.swift in Sources */,
+				0F4BBCF626112B5E00486B96 /* FloatingPoint+Extensions.swift in Sources */,
 				0F56F70C24312017002A2EBA /* CoreEntry.swift in Sources */,
 				0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */,
 				0F051DD42558584600B8C590 /* ParameterField.swift in Sources */,
@@ -976,6 +987,7 @@
 				0F7EE5C3243013550015951B /* Colors.swift in Sources */,
 				0FB4D4A224425328004E244D /* RootViewModel.swift in Sources */,
 				0F08333D24426C10003665EB /* ExerciseCreationViewModel.swift in Sources */,
+				0FAB583B260BDF4400E9A5EE /* UIResetValueDrawer.swift in Sources */,
 				0F76E922254630B300D1B2F1 /* CellPreview.swift in Sources */,
 				0FB4D4A424425B1D004E244D /* ExercisesListView.swift in Sources */,
 				0FB4D4A024425278004E244D /* RootView.swift in Sources */,

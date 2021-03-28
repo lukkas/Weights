@@ -41,7 +41,9 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         didSet { adjustBorder() }
     }
     private var editor: Editing!
+    private var resettingDrawerProgress: CGFloat = 0
     private let label = UILabel()
+    private let resettingDrawer = UIResetValueDrawer()
     
     lazy var themeColor: UIColor = tintColor {
         didSet { layer.borderColor = themeColor.cgColor }
@@ -85,10 +87,22 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     
     override func layoutSubviews() {
         label.frame = bounds
+        resettingDrawer.frame = calculateDrawerFrame(forProgress: resettingDrawerProgress)
+    }
+    
+    private func calculateDrawerFrame(forProgress progress: CGFloat) -> CGRect {
+        let offsetProgress = max(0.9 - progress, 0)
+            .scaled(from: 0 ..< 0.9, to: 0 ..< 1)
+        let insetProgress = max(progress - 0.9, 0)
+        let offset = offsetProgress * bounds.width
+        let inset = insetProgress.scaled(from: 0 ..< 0.1, to: 0 ..< 3, invert: true)
+        return bounds
+            .insetBy(dx: inset, dy: inset)
+            .offsetBy(dx: offset, dy: 0)
     }
     
     private func adjustBorder() {
-        let shouldHighlightBorder = isBeingEdited || panningState != nil
+        let shouldHighlightBorder = isBeingEdited || panningState is ValueSteppingPanner
         UIView.animateKeyframes(
             withDuration: 0.15,
             delay: 0,
@@ -166,6 +180,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         configureAutolayoutPriorities()
         applyStyling()
         addLabel()
+        addResettingDrawer()
         configureGestures()
     }
     
@@ -188,6 +203,12 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         addSubview(label)
         label.textAlignment = .center
         label.font = UIFont.rounded(ofSize: 18, weight: .semibold)
+    }
+    
+    private func addResettingDrawer() {
+        addSubview(resettingDrawer)
+        resettingDrawer.layer.cornerRadius = 6
+        resettingDrawer.layer.masksToBounds = true
     }
     
     private let tap = metaUITapGestureRecognizer.init()
@@ -259,15 +280,29 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private func tryToCreatePanner(for pan: UIPanGestureRecognizer) -> Panning? {
         let translation = pan.translation(in: self)
         if abs(translation.y) > abs(translation.x) {
-            return ValueSteppingPanner(
-                editor: editor,
-                jumpInterval: jumpInterval!,
-                onValueUpdated: {
-                    self.updateLabel()
-                }
-            )
+            return newValueSteppingPanner()
+        }
+        if abs(translation.x) > abs(translation.y) {
+            return newValueResettingPanner()
         }
         return nil
+    }
+    
+    private func newValueSteppingPanner() -> Panning {
+        ValueSteppingPanner(
+            editor: editor,
+            jumpInterval: jumpInterval!,
+            onValueUpdated: {
+                self.updateLabel()
+            }
+        )
+    }
+    
+    private func newValueResettingPanner() -> Panning {
+        ValueResettingPanner(onValueUpdated: { [weak self] value in
+            self?.resettingDrawerProgress = value
+            self?.setNeedsLayout()
+        })
     }
 }
 
@@ -382,21 +417,35 @@ private struct ValueSteppingPanner: Panning {
 }
 
 private struct ValueResettingPanner: Panning {
+    private let onValueUpdated: (CGFloat) -> Void
+    private let translationToComplete = 50 as CGFloat
+    private var currentValue: CGFloat = 0
+    
+    init(onValueUpdated: @escaping (CGFloat) -> Void) {
+        self.onValueUpdated = onValueUpdated
+    }
+    
     mutating func consume(
         _ pan: UIPanGestureRecognizer,
         relativelyTo view: UIView,
         onValueChanged: () -> Void,
         onWallHit: () -> Void
     ) {
-        
+        let translation = pan.translation(in: view)
+        let fractionCompleted = (-translation.x / translationToComplete)
+            .clamped(to: 0 ... 1)
+        if currentValue != fractionCompleted {
+            currentValue = fractionCompleted
+            onValueUpdated(fractionCompleted)
+        }
     }
     
     func cancel() {
-        
+        onValueUpdated(0)
     }
     
     func commit(onValueChanged: () -> Void) {
-        
+        onValueUpdated(0)
     }
 }
 
