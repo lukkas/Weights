@@ -259,16 +259,9 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             if panningState == nil {
                 panningState = tryToCreatePanner(for: sender)
             }
-            panningState?.consume(
-                pan,
-                relativelyTo: self,
-                onValueChanged: { haptics.selection() },
-                onWallHit: { haptics.wallHit() }
-            )
+            panningState?.consume(pan, relativelyTo: self)
         case .ended:
-            panningState?.commit {
-                self.sendActions(for: .valueChanged)
-            }
+            panningState?.commit()
             panningState = nil
         case .cancelled:
             panningState?.cancel()
@@ -294,6 +287,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             jumpInterval: jumpInterval!,
             onValueUpdated: {
                 self.updateLabel()
+                self.haptics.selection()
+            },
+            onWallHit: {
+                self.haptics.wallHit()
+            },
+            onValueCommited: {
+                self.sendActions(for: .valueChanged)
             }
         )
     }
@@ -338,17 +338,17 @@ private struct Haptics {
 private protocol Panning {
     mutating func consume(
         _ pan: UIPanGestureRecognizer,
-        relativelyTo view: UIView,
-        onValueChanged: () -> Void,
-        onWallHit: () -> Void
+        relativelyTo view: UIView
     )
     func cancel()
-    func commit(onValueChanged: () -> Void)
+    func commit()
 }
 
 private struct ValueSteppingPanner: Panning {
     private let editor: Editing
-    private let update: () -> Void
+    private let onValueUpdated: () -> Void
+    private let onValueCommited: () -> Void
+    private let onWallHit: () -> Void
     private let jumpInterval: Double
     private let originalValue: Double?
     private(set) var jumps: Double = 0
@@ -357,19 +357,21 @@ private struct ValueSteppingPanner: Panning {
     init(
         editor: Editing,
         jumpInterval: Double,
-        onValueUpdated: @escaping () -> Void
+        onValueUpdated: @escaping () -> Void,
+        onWallHit: @escaping () -> Void,
+        onValueCommited: @escaping () -> Void
     ) {
         self.editor = editor
-        self.update = onValueUpdated
         self.jumpInterval = jumpInterval
         self.originalValue = editor.value
+        self.onValueUpdated = onValueUpdated
+        self.onWallHit = onWallHit
+        self.onValueCommited = onValueCommited
     }
     
     mutating func consume(
         _ pan: UIPanGestureRecognizer,
-        relativelyTo view: UIView,
-        onValueChanged: () -> Void,
-        onWallHit: () -> Void
+        relativelyTo view: UIView
     ) {
         let translation = pan.translation(in: view)
         let singleJumpThreshold = 7 as Double
@@ -377,10 +379,10 @@ private struct ValueSteppingPanner: Panning {
         let offsetNumberOfJumps = numberOfJumps - unconsumedJumps
         let valueChange = offsetNumberOfJumps * jumpInterval
         do {
-            try mutateValue((originalValue ?? 0) + valueChange)
+            try editor.setValue((originalValue ?? 0) + valueChange, allowReachingLimit: true)
             let didUpdate = update(withConsumedJumps: numberOfJumps)
             if didUpdate {
-                onValueChanged()
+                onValueUpdated()
             }
         } catch {
             update(withUnconsumedJumps: numberOfJumps)
@@ -389,19 +391,14 @@ private struct ValueSteppingPanner: Panning {
     }
     
     func cancel() {
-        try? mutateValue(originalValue)
+        try? editor.setValue(originalValue, allowReachingLimit: true)
     }
     
-    func commit(onValueChanged: () -> Void) {
+    func commit() {
         let valueWasChanged = editor.value != originalValue
         if valueWasChanged {
-            onValueChanged()
+            onValueCommited()
         }
-    }
-    
-    private func mutateValue(_ newValue: Double?) throws {
-        try editor.setValue(newValue, allowReachingLimit: true)
-        update()
     }
     
     private mutating func update(withConsumedJumps newJumps: Double) -> Bool {
@@ -427,9 +424,7 @@ private struct ValueResettingPanner: Panning {
     
     mutating func consume(
         _ pan: UIPanGestureRecognizer,
-        relativelyTo view: UIView,
-        onValueChanged: () -> Void,
-        onWallHit: () -> Void
+        relativelyTo view: UIView
     ) {
         let translation = pan.translation(in: view)
         let fractionCompleted = (-translation.x / translationToComplete)
@@ -444,7 +439,7 @@ private struct ValueResettingPanner: Panning {
         onValueUpdated(0)
     }
     
-    func commit(onValueChanged: () -> Void) {
+    func commit() {
         onValueUpdated(0)
     }
 }
