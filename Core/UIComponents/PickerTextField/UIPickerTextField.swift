@@ -90,6 +90,32 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         resettingDrawer.frame = calculateDrawerFrame(forProgress: resettingDrawerProgress)
     }
     
+    private enum DrawerAnimationType {
+        case confirm, cancel
+    }
+    private func animateResettingDrawerToNeutralPosition(animationType: DrawerAnimationType) {
+        UIView.animate(
+            withDuration: 0.15,
+            delay: 0,
+            options: [.beginFromCurrentState, .curveEaseInOut],
+            animations: { [self] in
+            switch animationType {
+            case .confirm:
+                resettingDrawer.alpha = 0
+            case .cancel:
+                resettingDrawer.frame = calculateDrawerFrame(forProgress: resettingDrawerProgress)
+            }
+            },
+            completion: { [self] _ in
+            switch animationType {
+            case .confirm:
+                resettingDrawer.alpha = 1
+                resettingDrawer.frame = calculateDrawerFrame(forProgress: resettingDrawerProgress)
+            case .cancel: break
+            }
+        })
+    }
+    
     private func calculateDrawerFrame(forProgress progress: CGFloat) -> CGRect {
         let offsetProgress = max(0.9 - progress, 0)
             .scaled(from: 0 ..< 0.9, to: 0 ..< 1)
@@ -275,7 +301,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         if abs(translation.y) > abs(translation.x) {
             return newValueSteppingPanner()
         }
-        if abs(translation.x) > abs(translation.y) {
+        if abs(translation.x) > abs(translation.y) && value != nil {
             return newValueResettingPanner()
         }
         return nil
@@ -299,9 +325,22 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func newValueResettingPanner() -> Panning {
-        ValueResettingPanner(onValueUpdated: { [weak self] value in
-            self?.resettingDrawerProgress = value
-            self?.setNeedsLayout()
+        ValueResettingPanner(onValueUpdated: { [weak self] update in
+            switch update {
+            case let .gradual(drawerProgress):
+                self?.resettingDrawerProgress = drawerProgress
+                if drawerProgress == 1 {
+                    self?.haptics.success()
+                }
+                self?.setNeedsLayout()
+            case .cancel:
+                self?.resettingDrawerProgress = 0
+                self?.animateResettingDrawerToNeutralPosition(animationType: .cancel)
+            case .commit:
+                self?.value = nil
+                self?.resettingDrawerProgress = 0
+                self?.animateResettingDrawerToNeutralPosition(animationType: .confirm)
+            }
         })
     }
 }
@@ -323,6 +362,10 @@ private struct Haptics {
             repeatedErrorsBlockade = false
         }
         selectionHaptics.selectionChanged()
+    }
+    
+    func success() {
+        notificationHaptics.notificationOccurred(.success)
     }
     
     mutating func wallHit(ignoreBlockade: Bool = false) {
@@ -414,11 +457,17 @@ private struct ValueSteppingPanner: Panning {
 }
 
 private struct ValueResettingPanner: Panning {
-    private let onValueUpdated: (CGFloat) -> Void
+    enum ValueUpdate {
+        case gradual(CGFloat)
+        case commit
+        case cancel
+    }
+    
+    private let onValueUpdated: (ValueUpdate) -> Void
     private let translationToComplete = 50 as CGFloat
     private var currentValue: CGFloat = 0
     
-    init(onValueUpdated: @escaping (CGFloat) -> Void) {
+    init(onValueUpdated: @escaping (ValueUpdate) -> Void) {
         self.onValueUpdated = onValueUpdated
     }
     
@@ -431,16 +480,16 @@ private struct ValueResettingPanner: Panning {
             .clamped(to: 0 ... 1)
         if currentValue != fractionCompleted {
             currentValue = fractionCompleted
-            onValueUpdated(fractionCompleted)
+            onValueUpdated(.gradual(fractionCompleted))
         }
     }
     
     func cancel() {
-        onValueUpdated(0)
+        onValueUpdated(.cancel)
     }
     
     func commit() {
-        onValueUpdated(0)
+        onValueUpdated(currentValue == 1 ? .commit : .cancel)
     }
 }
 

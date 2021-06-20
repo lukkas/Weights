@@ -855,6 +855,53 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.layer.borderWidth, 0)
     }
     
+    func test_panningHorizontally_whenPannedRequiredAmountToReset_shoulResetValue() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toReset: 1))
+        pan.endPanning()
+        
+        // then
+        XCTAssertEqual(sut.value, nil)
+    }
+    
+    func test_panningHorizontally_whenUserScrollsAllTheWayLeft_shouldGetHapticFeedback() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toReset: 1))
+        
+        // then
+        try getNotificationHaptics().verify_givenFeedback(.success)
+    }
+    
+    func test_panningHorizontally_whenPannedHalfwayAndReleased_shouldLeaveValueAsIs() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toReset: 0.8))
+        pan.endPanning()
+        
+        // then
+        XCTAssertEqual(sut.value, 5)
+    }
+    
+    func test_panningHorizontally_whenGestureIsCancelled_shouldLeaveValueAsIs() throws {
+        // given
+        let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toReset: 1))
+        pan.cancelPanning()
+        
+        // then
+        XCTAssertEqual(sut.value, 5)
+    }
+    
     private func preconfigure(timeEntered: String...) throws {
         try preconfigure_enteringTime()
         for digit in timeEntered {
@@ -901,7 +948,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     private func panTranslation(toReset resetFractionDone: CGFloat) -> CGPoint {
         return CGPoint(
-            x: resetFractionDone * 50,
+            x: resetFractionDone * -50,
             y: 0
         )
     }
