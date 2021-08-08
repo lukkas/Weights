@@ -16,6 +16,12 @@ struct ParameterField: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            
+            PickerTextField(value: $value, themeColor: themeColor)
+                .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
+                    d[VerticalAlignment.center]
+                })
+            
             Text(label)
                 .foregroundColor(themeColor)
                 .font(.system(
@@ -23,11 +29,6 @@ struct ParameterField: View {
                     weight: .medium,
                     design: .rounded
                 ))
-            
-            PickerTextField(value: $value, themeColor: themeColor)
-                .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
-                    d[VerticalAlignment.center]
-                })
         }
     }
 }

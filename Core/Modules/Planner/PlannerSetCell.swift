@@ -8,65 +8,60 @@
 
 import SwiftUI
 
-struct PlannerSetCellModel {
-    
-}
-
 protocol PlannerSetCellModeling: ObservableObject {
     var reps: Double? { get set }
-//    var
+    var weight: Double? { get set }
 }
 
-struct PlannerSetCell: View {
-    @State var reps: Double? = 12
-    @State var kilograms: Double? = 80
-    @State var rpe: Double? = 8
+struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
+    @Binding var model: Model
     
     var body: some View {
         HStack(alignment: .parameterFieldAlignment) {
             ParameterField(
-                label: "reps",
+                label: L10n.Common.reps,
                 themeColor: .weightYellow,
-                value: $reps
+                value: $model.reps
             )
             Text("x")
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
             ParameterField(
-                label: "kg",
+                label: L10n.Common.reps,
                 themeColor: .weightBlue,
-                value: $kilograms
-            )
-            Text("|")
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-            ParameterField(
-                label: "RPE",
-                themeColor: .weightRed,
-                value: $rpe
+                value: $model.weight
             )
             Spacer()
-            
-            Button(action: {}, label: {
-                Image(systemName: "plus")
-                    .font(.system(
-                        size: 20,
-                        weight: .semibold
-                    ))
-                    .accentColor(.theme)
-                    .frame(width: 44, height: 44)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .foregroundColor(.secondaryBackground)
-                    )
-                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
-            })
+            Button(
+                action: {},
+                label: {
+                    Image(systemName: "plus")
+                        .alignmentGuide(.parameterFieldAlignment) {
+                            $0[VerticalAlignment.center]
+                        }
+                })
+                .buttonStyle(.bordered)
+                .controlSize(.regular)
         }
         .background(Color.background)
     }
 }
 
 struct PlannerSetCell_Previews: PreviewProvider {
+    class Model: PlannerSetCellModeling {
+        @Published var reps: Double? = 0
+        @Published var weight: Double? = 0
+    }
+    
+    struct Wrapper: View {
+        @State var model = Model()
+        
+        var body: some View {
+            PlannerSetCell(model: $model)
+        }
+    }
+    
     static var previews: some View {
-        PlannerSetCell()
+        Wrapper()
             .cellPreview()
     }
 }

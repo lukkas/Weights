@@ -20,7 +20,7 @@ struct PlannerView: View {
                     ScrollView {
                         ForEach(0 ..< 10) { _ in
                             Button(action: {}, label: {
-                                Text(verbatim: L10n.Planner.addDay)
+                                Text(L10n.Planner.addDay)
                                     .foregroundColor(.contrastLabel)
                             })
                             .padding(.vertical, 12)
@@ -34,7 +34,7 @@ struct PlannerView: View {
                     }
                     
                     Button(action: {}, label: {
-                        Text(verbatim: L10n.Planner.addDay)
+                        Text(L10n.Planner.addDay)
                     })
                     .padding(.vertical, 12)
                     .frame(maxWidth: 800)

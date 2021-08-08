@@ -939,7 +939,7 @@ class UIPickerTextFieldTests: XCTestCase {
     }
     
     private func panTranslation(toIncreaseValueBy factor: CGFloat) -> CGPoint {
-        let threshold = 7 as CGFloat
+        let threshold = 10 as CGFloat
         return CGPoint(
             x: 0,
             y: -factor * threshold

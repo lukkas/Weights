@@ -8,6 +8,9 @@
 
 "common.cancel" = "Cancel";
 
+"common.kg" = "kg";
+"common.reps" = "reps";
+
 "root.tab.home" = "Home";
 "root.tab.plan" = "Plan";
 "root.tab.exercises" = "Exercises";

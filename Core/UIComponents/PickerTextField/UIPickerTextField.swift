@@ -218,7 +218,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func applyStyling() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = .secondarySystemFill
         layer.cornerRadius = 8
         layer.masksToBounds = true
         layer.borderWidth = 0
@@ -417,7 +417,7 @@ private struct ValueSteppingPanner: Panning {
         relativelyTo view: UIView
     ) {
         let translation = pan.translation(in: view)
-        let singleJumpThreshold = 7 as Double
+        let singleJumpThreshold = 10 as Double
         let numberOfJumps = floor(Double(-translation.y) / singleJumpThreshold)
         let offsetNumberOfJumps = numberOfJumps - unconsumedJumps
         let valueChange = offsetNumberOfJumps * jumpInterval
