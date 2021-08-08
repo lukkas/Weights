@@ -44,7 +44,6 @@
 		0F6E730C245EF73E0052BAEC /* Weights.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E730A245EF73E0052BAEC /* Weights.xcdatamodeld */; };
 		0F6E730F245EFE8C0052BAEC /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E730E245EFE8C0052BAEC /* Exercise.swift */; };
 		0F6E7311245F13C30052BAEC /* DatabaseStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E7310245F13C30052BAEC /* DatabaseStack.swift */; };
-		0F7110E3254F6B2400AD74E3 /* ExerciseSetsAndRepsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7110E2254F6B2400AD74E3 /* ExerciseSetsAndRepsPicker.swift */; };
 		0F76E9012546056C00D1B2F1 /* ParameterGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76E9002546056C00D1B2F1 /* ParameterGauge.swift */; };
 		0F76E908254605D300D1B2F1 /* RPE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76E907254605D300D1B2F1 /* RPE.swift */; };
 		0F76E90F254605DE00D1B2F1 /* Pace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76E90E254605DE00D1B2F1 /* Pace.swift */; };
@@ -59,6 +58,8 @@
 		0F7EE5C0243011070015951B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F7EE5BF243011070015951B /* Colors.xcassets */; };
 		0F7EE5C3243013550015951B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EE5C2243013550015951B /* Colors.swift */; };
 		0F86D9C8259A76C50060BAE3 /* RPEPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */; };
+		0F927D6126C05A3100500E64 /* AggregatePlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6026C05A3100500E64 /* AggregatePlannerSetCell.swift */; };
+		0F927D6326C05AF300500E64 /* FrozenParameterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6226C05AF300500E64 /* FrozenParameterField.swift */; };
 		0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99873024F2ED4A00366D0B /* View+Debug.swift */; };
 		0FA934FD2473172400D939F1 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FC2473172400D939F1 /* AppDependencies.swift */; };
 		0FA93500247319C700D939F1 /* ExerciseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FF247319C700D939F1 /* ExerciseStorage.swift */; };
@@ -198,7 +199,6 @@
 		0F6E730B245EF73E0052BAEC /* Weights.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Weights.xcdatamodel; sourceTree = "<group>"; };
 		0F6E730E245EFE8C0052BAEC /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		0F6E7310245F13C30052BAEC /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
-		0F7110E2254F6B2400AD74E3 /* ExerciseSetsAndRepsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSetsAndRepsPicker.swift; sourceTree = "<group>"; };
 		0F76E9002546056C00D1B2F1 /* ParameterGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterGauge.swift; sourceTree = "<group>"; };
 		0F76E907254605D300D1B2F1 /* RPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPE.swift; sourceTree = "<group>"; };
 		0F76E90E254605DE00D1B2F1 /* Pace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pace.swift; sourceTree = "<group>"; };
@@ -214,6 +214,8 @@
 		0F7EE5BF243011070015951B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		0F7EE5C2243013550015951B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPEPicker.swift; sourceTree = "<group>"; };
+		0F927D6026C05A3100500E64 /* AggregatePlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatePlannerSetCell.swift; sourceTree = "<group>"; };
+		0F927D6226C05AF300500E64 /* FrozenParameterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenParameterField.swift; sourceTree = "<group>"; };
 		0F99873024F2ED4A00366D0B /* View+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Debug.swift"; sourceTree = "<group>"; };
 		0FA934FC2473172400D939F1 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		0FA934FF247319C700D939F1 /* ExerciseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorage.swift; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 				0F56F7012430F290002A2EBA /* Modifiers */,
 				0F76E9002546056C00D1B2F1 /* ParameterGauge.swift */,
 				0F051DD32558584600B8C590 /* ParameterField.swift */,
+				0F927D6226C05AF300500E64 /* FrozenParameterField.swift */,
 				0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */,
 			);
 			path = UIComponents;
@@ -553,8 +556,8 @@
 				0FAECC65252A37DD00693A8A /* PlannerView.swift */,
 				0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */,
 				0F167152253388E3000C5E79 /* PlannerExerciseView.swift */,
-				0F7110E2254F6B2400AD74E3 /* ExerciseSetsAndRepsPicker.swift */,
 				0FE1DF3125520A5800CE7A93 /* PlannerSetCell.swift */,
+				0F927D6026C05A3100500E64 /* AggregatePlannerSetCell.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -972,7 +975,6 @@
 				0F76E9012546056C00D1B2F1 /* ParameterGauge.swift in Sources */,
 				0F76E90F254605DE00D1B2F1 /* Pace.swift in Sources */,
 				0F4BBCF42610F03100486B96 /* CGFloat+Extensions.swift in Sources */,
-				0F7110E3254F6B2400AD74E3 /* ExerciseSetsAndRepsPicker.swift in Sources */,
 				0F56F70F24312A3A002A2EBA /* ExerciseCreationView.swift in Sources */,
 				0F33B6652522844C00B44EAA /* ExerciseCellViewModel.swift in Sources */,
 				0F6E72E4245EE80F0052BAEC /* Exercise.swift in Sources */,
@@ -990,6 +992,8 @@
 				0FAB583B260BDF4400E9A5EE /* UIResetValueDrawer.swift in Sources */,
 				0F76E922254630B300D1B2F1 /* CellPreview.swift in Sources */,
 				0FB4D4A424425B1D004E244D /* ExercisesListView.swift in Sources */,
+				0F927D6126C05A3100500E64 /* AggregatePlannerSetCell.swift in Sources */,
+				0F927D6326C05AF300500E64 /* FrozenParameterField.swift in Sources */,
 				0FB4D4A024425278004E244D /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
