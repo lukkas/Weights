@@ -20,14 +20,14 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
         HStack(alignment: .parameterFieldAlignment) {
             ParameterField(
                 label: L10n.Common.reps,
-                themeColor: .weightYellow,
+                themeColor: .repsMarker,
                 value: $model.reps
             )
             Text("x")
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
             ParameterField(
                 label: L10n.Common.reps,
-                themeColor: .weightBlue,
+                themeColor: .weightMarker,
                 value: $model.weight
             )
             Spacer()

@@ -60,6 +60,7 @@
 		0F86D9C8259A76C50060BAE3 /* RPEPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */; };
 		0F927D6126C05A3100500E64 /* AggregatePlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6026C05A3100500E64 /* AggregatePlannerSetCell.swift */; };
 		0F927D6326C05AF300500E64 /* FrozenParameterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6226C05AF300500E64 /* FrozenParameterField.swift */; };
+		0F927D6626C066E100500E64 /* Colors+UseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6526C066E100500E64 /* Colors+UseCases.swift */; };
 		0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99873024F2ED4A00366D0B /* View+Debug.swift */; };
 		0FA934FD2473172400D939F1 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FC2473172400D939F1 /* AppDependencies.swift */; };
 		0FA93500247319C700D939F1 /* ExerciseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FF247319C700D939F1 /* ExerciseStorage.swift */; };
@@ -216,6 +217,7 @@
 		0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPEPicker.swift; sourceTree = "<group>"; };
 		0F927D6026C05A3100500E64 /* AggregatePlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatePlannerSetCell.swift; sourceTree = "<group>"; };
 		0F927D6226C05AF300500E64 /* FrozenParameterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenParameterField.swift; sourceTree = "<group>"; };
+		0F927D6526C066E100500E64 /* Colors+UseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+UseCases.swift"; sourceTree = "<group>"; };
 		0F99873024F2ED4A00366D0B /* View+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Debug.swift"; sourceTree = "<group>"; };
 		0FA934FC2473172400D939F1 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		0FA934FF247319C700D939F1 /* ExerciseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorage.swift; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 		0F7EE5BB243010BC0015951B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				0F927D6426C066CE00500E64 /* Styling */,
 				0F0F9AF625A09A2300AC4B9B /* Metatypes */,
 				0FCDC4FB259A9FE700CC1D22 /* PickerTextField */,
 				0F33B6572522816800B44EAA /* PreviewHelpers */,
@@ -539,6 +542,14 @@
 				0F56F71524313AB2002A2EBA /* Localizable.strings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		0F927D6426C066CE00500E64 /* Styling */ = {
+			isa = PBXGroup;
+			children = (
+				0F927D6526C066E100500E64 /* Colors+UseCases.swift */,
+			);
+			path = Styling;
 			sourceTree = "<group>";
 		};
 		0FA934FE247319AC00D939F1 /* Adapters */ = {
@@ -979,6 +990,7 @@
 				0F33B6652522844C00B44EAA /* ExerciseCellViewModel.swift in Sources */,
 				0F6E72E4245EE80F0052BAEC /* Exercise.swift in Sources */,
 				0FAECC66252A37DD00693A8A /* PlannerView.swift in Sources */,
+				0F927D6626C066E100500E64 /* Colors+UseCases.swift in Sources */,
 				0F4BBCF626112B5E00486B96 /* FloatingPoint+Extensions.swift in Sources */,
 				0F56F70C24312017002A2EBA /* CoreEntry.swift in Sources */,
 				0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */,
