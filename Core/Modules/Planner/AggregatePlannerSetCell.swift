@@ -36,6 +36,9 @@ struct AggregatePlannerSetCell<Model: AggregatePlannerSetCellModeling>: View {
                 value: String(model.reps),
                 themeColor: .repsMarker
             )
+                .alignmentGuide(.repsAlignment, computeValue: { d in
+                    d[HorizontalAlignment.center]
+                })
             Text("x")
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
             FrozenParameterField(
@@ -43,6 +46,9 @@ struct AggregatePlannerSetCell<Model: AggregatePlannerSetCellModeling>: View {
                 value: String(model.weight),
                 themeColor: .weightMarker
             )
+                .alignmentGuide(.weightAlignment, computeValue: { d in
+                    d[HorizontalAlignment.center]
+                })
             Spacer()
             Button(
                 action: {

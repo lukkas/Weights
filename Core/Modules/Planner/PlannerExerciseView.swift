@@ -10,6 +10,8 @@ import SwiftUI
 
 protocol PlannerExerciseViewModeling: ObservableObject {
     var name: String { get }
+    var addedSets: [AggregatePlannerSetCellModel] { get set }
+    var adder: PlannerSetCellModel { get set }
 }
 
 struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
@@ -20,8 +22,18 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
             HStack {
                 Text(model.name)
                 Spacer()
-                ParameterGauge(value: "RPE", themeColor: .weightGreen)
-                ParameterGauge(value: "Pace", themeColor: .weightBlue)
+                Button("Pace") {
+                    
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.weightGreen)
+            }
+            VStack(alignment: .repsAlignment) {
+                ForEach($model.addedSets) { sets in
+                    AggregatePlannerSetCell(model: sets)
+                }
+//                Divider()
+                PlannerSetCell(model: $model.adder)
             }
         }
         .padding(10)
@@ -33,6 +45,13 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
 struct PlannerExerciseView_Previews: PreviewProvider {
     class PreviewModel: PlannerExerciseViewModeling {
         let name: String = "Squat"
+        var addedSets: [AggregatePlannerSetCellModel] = [
+            AggregatePlannerSetCellModel(
+                reps: 5,
+                weight: 5
+            )
+        ]
+        var adder = PlannerSetCellModel()
     }
     
     static var previews: some View {

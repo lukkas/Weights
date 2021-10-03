@@ -23,13 +23,21 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
                 themeColor: .repsMarker,
                 value: $model.reps
             )
+                .alignmentGuide(
+                    .repsAlignment,
+                    computeValue: { $0[HorizontalAlignment.center]
+                    }
+                )
             Text("x")
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
             ParameterField(
-                label: L10n.Common.reps,
+                label: L10n.Common.kg,
                 themeColor: .weightMarker,
                 value: $model.weight
             )
+                .alignmentGuide(.weightAlignment, computeValue: { d in
+                    d[HorizontalAlignment.center]
+                })
             Spacer()
             Button(
                 action: {},
