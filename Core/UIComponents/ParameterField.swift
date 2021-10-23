@@ -15,21 +15,10 @@ struct ParameterField: View {
     @Binding var value: Double?
     
     var body: some View {
-        VStack(spacing: 0) {
-            
-            PickerTextField(value: $value, themeColor: themeColor)
-                .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
-                    d[VerticalAlignment.center]
-                })
-            
-            Text(label)
-                .foregroundColor(themeColor)
-                .font(.system(
-                    size: 11,
-                    weight: .medium,
-                    design: .rounded
-                ))
-        }
+        PickerTextField(value: $value, themeColor: themeColor)
+            .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
+                d[VerticalAlignment.lastTextBaseline] - 10
+            })
     }
 }
 

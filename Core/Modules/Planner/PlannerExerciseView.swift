@@ -28,7 +28,7 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.weightGreen)
             }
-            VStack(alignment: .repsAlignment) {
+            VStack {
                 ForEach($model.addedSets) { sets in
                     AggregatePlannerSetCell(model: sets)
                 }

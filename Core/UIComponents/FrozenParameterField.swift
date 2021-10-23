@@ -14,30 +14,20 @@ struct FrozenParameterField: View {
     let themeColor: Color
     
     var body: some View {
-        VStack(spacing: 0) {
-            Text(value)
-                .font(.system(
-                    size: 18,
-                    weight: .semibold,
-                    design: .rounded
-                ))
-                .frame(minWidth: 50, minHeight: 36)
-                .background {
-                    RoundedRectangle(cornerRadius: 8)
-                        .foregroundColor(.secondaryFill)
-                }
-                .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
-                    d[VerticalAlignment.center]
-                })
-            
-            Text(label)
-                .foregroundColor(themeColor)
-                .font(.system(
-                    size: 11,
-                    weight: .medium,
-                    design: .rounded
-                ))
-        }
+        Text(value)
+            .font(.system(
+                size: 18,
+                weight: .semibold,
+                design: .rounded
+            ))
+            .frame(minWidth: 50, minHeight: 36)
+            .background {
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundColor(.secondaryFill)
+            }
+            .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
+                d[VerticalAlignment.lastTextBaseline]
+            })
     }
 }
 

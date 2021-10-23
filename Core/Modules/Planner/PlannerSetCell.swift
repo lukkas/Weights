@@ -17,7 +17,7 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
     @Binding var model: Model
     
     var body: some View {
-        HStack(alignment: .parameterFieldAlignment) {
+        HStack(alignment: .parameterFieldAlignment, spacing: 4) {
             ParameterField(
                 label: L10n.Common.reps,
                 themeColor: .repsMarker,
@@ -28,8 +28,10 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
                     computeValue: { $0[HorizontalAlignment.center]
                     }
                 )
-            Text("x")
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
+            Text("reps")
+                .font(.caption)
+                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
+                }
             ParameterField(
                 label: L10n.Common.kg,
                 themeColor: .weightMarker,
@@ -38,13 +40,23 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
                 .alignmentGuide(.weightAlignment, computeValue: { d in
                     d[HorizontalAlignment.center]
                 })
+            Text("kg")
+                .font(.caption)
+                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
+                }
             Spacer()
             Button(
                 action: {},
                 label: {
                     Image(systemName: "plus")
+                        .font(.system(
+                            size: 14,
+                            weight: .semibold,
+                            design: .rounded
+                        ))
+                        .frame(minHeight: 24)
                         .alignmentGuide(.parameterFieldAlignment) {
-                            $0[VerticalAlignment.center]
+                            $0[VerticalAlignment.lastTextBaseline]
                         }
                 })
                 .buttonStyle(.bordered)

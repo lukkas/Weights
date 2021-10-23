@@ -20,16 +20,16 @@ struct AggregatePlannerSetCell<Model: AggregatePlannerSetCellModeling>: View {
     @Binding var model: Model
     
     var body: some View {
-        HStack(alignment: .parameterFieldAlignment) {
+        HStack(alignment: .parameterFieldAlignment, spacing: 4) {
             Text(String(model.numberOfSets))
                 .font(.system(
                     size: 18,
                     weight: .semibold,
                     design: .rounded
                 ))
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
+                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline] }
             Text("x")
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
+                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline] }
             
             FrozenParameterField(
                 label: L10n.Common.reps,
@@ -39,8 +39,10 @@ struct AggregatePlannerSetCell<Model: AggregatePlannerSetCellModeling>: View {
                 .alignmentGuide(.repsAlignment, computeValue: { d in
                     d[HorizontalAlignment.center]
                 })
-            Text("x")
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.center] }
+            Text("reps")
+                .font(.caption)
+                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
+                }
             FrozenParameterField(
                 label: L10n.Common.kg,
                 value: String(model.weight),
@@ -49,6 +51,10 @@ struct AggregatePlannerSetCell<Model: AggregatePlannerSetCellModeling>: View {
                 .alignmentGuide(.weightAlignment, computeValue: { d in
                     d[HorizontalAlignment.center]
                 })
+            Text("kg")
+                .font(.caption)
+                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
+                }
             Spacer()
             Button(
                 action: {
@@ -61,14 +67,15 @@ struct AggregatePlannerSetCell<Model: AggregatePlannerSetCellModeling>: View {
                             weight: .semibold,
                             design: .rounded
                         ))
+                        .frame(minHeight: 24)
                         .alignmentGuide(.parameterFieldAlignment) {
-                            $0[VerticalAlignment.center]
+                            $0[VerticalAlignment.lastTextBaseline]
                         }
                 })
                 .frame(minHeight: 36)
                 .tint(.red)
                 .buttonStyle(.bordered)
-                .controlSize(.large)
+                .controlSize(.regular)
         }
         .background(Color.background)
     }

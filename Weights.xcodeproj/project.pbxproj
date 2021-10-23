@@ -51,6 +51,8 @@
 		0F76E90F254605DE00D1B2F1 /* Pace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76E90E254605DE00D1B2F1 /* Pace.swift */; };
 		0F76E91B25460C6D00D1B2F1 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76E91A25460C6D00D1B2F1 /* ColorPreviews.swift */; };
 		0F76E922254630B300D1B2F1 /* CellPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76E921254630B300D1B2F1 /* CellPreview.swift */; };
+		0F77C214271CB04700491744 /* SetCounterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F77C213271CB04700491744 /* SetCounterField.swift */; };
+		0F77C216271CB2CA00491744 /* FieldHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F77C215271CB2CA00491744 /* FieldHighlight.swift */; };
 		0F7A1DF5250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */; };
 		0F7EC99A25A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EC99925A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift */; };
 		0F7EE5A5243010970015951B /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; };
@@ -209,6 +211,8 @@
 		0F76E90E254605DE00D1B2F1 /* Pace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pace.swift; sourceTree = "<group>"; };
 		0F76E91A25460C6D00D1B2F1 /* ColorPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviews.swift; sourceTree = "<group>"; };
 		0F76E921254630B300D1B2F1 /* CellPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPreview.swift; sourceTree = "<group>"; };
+		0F77C213271CB04700491744 /* SetCounterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCounterField.swift; sourceTree = "<group>"; };
+		0F77C215271CB2CA00491744 /* FieldHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldHighlight.swift; sourceTree = "<group>"; };
 		0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModelTests.swift; sourceTree = "<group>"; };
 		0F7EC99925A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINotificationFeedbackGeneratorMock.swift; sourceTree = "<group>"; };
 		0F7EE59C243010970015951B /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -399,6 +403,7 @@
 			children = (
 				0F56F7022430F2AA002A2EBA /* OuterDepthShadow.swift */,
 				0F56F7042430F536002A2EBA /* InnerDepthShadow.swift */,
+				0F77C215271CB2CA00491744 /* FieldHighlight.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -534,6 +539,7 @@
 				0F051DD32558584600B8C590 /* ParameterField.swift */,
 				0F927D6226C05AF300500E64 /* FrozenParameterField.swift */,
 				0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */,
+				0F77C213271CB04700491744 /* SetCounterField.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -998,6 +1004,7 @@
 				0F6E72E4245EE80F0052BAEC /* Exercise.swift in Sources */,
 				0FAECC66252A37DD00693A8A /* PlannerView.swift in Sources */,
 				0F927D6626C066E100500E64 /* Colors+UseCases.swift in Sources */,
+				0F77C216271CB2CA00491744 /* FieldHighlight.swift in Sources */,
 				0F4BBCF626112B5E00486B96 /* FloatingPoint+Extensions.swift in Sources */,
 				0F56F70C24312017002A2EBA /* CoreEntry.swift in Sources */,
 				0F64F22626C84D030094E683 /* PlannerExerciseViewModel.swift in Sources */,
@@ -1015,6 +1022,7 @@
 				0F927D6126C05A3100500E64 /* AggregatePlannerSetCell.swift in Sources */,
 				0F927D6326C05AF300500E64 /* FrozenParameterField.swift in Sources */,
 				0FB4D4A024425278004E244D /* RootView.swift in Sources */,
+				0F77C214271CB04700491744 /* SetCounterField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
