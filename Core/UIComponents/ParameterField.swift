@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ParameterField: View {
-    let label: String
     let themeColor: Color
     //    let increment: Float = 1
     @Binding var value: Double?
@@ -37,7 +36,6 @@ struct ParameterField_Previews: PreviewProvider {
         
         var body: some View {
             ParameterField(
-                label: "reps",
                 themeColor: .weightGreen,
                 value: $value
             )

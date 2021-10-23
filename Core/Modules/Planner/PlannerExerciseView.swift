@@ -28,12 +28,21 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.weightGreen)
             }
+            Divider()
             VStack {
-                ForEach($model.addedSets) { sets in
-                    AggregatePlannerSetCell(model: sets)
-                }
+//                ForEach($model.addedSets) { sets in
+//                    AggregatePlannerSetCell(model: sets)
+//                }
 //                Divider()
                 PlannerSetCell(model: $model.adder)
+                Button {
+                    
+                } label: {
+                    Text("Add variation")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.regular)
             }
         }
         .padding(10)

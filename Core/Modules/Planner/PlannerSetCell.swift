@@ -19,7 +19,23 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
     var body: some View {
         HStack(alignment: .parameterFieldAlignment, spacing: 4) {
             ParameterField(
-                label: L10n.Common.reps,
+                themeColor: .repsMarker,
+                value: $model.reps
+            )
+                .alignmentGuide(
+                    .repsAlignment,
+                    computeValue: { $0[HorizontalAlignment.center]
+                    }
+                )
+            Text("x")
+                .font(.system(
+                    size: 18,
+                    weight: .semibold,
+                    design: .rounded
+                ))
+                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
+                }
+            ParameterField(
                 themeColor: .repsMarker,
                 value: $model.reps
             )
@@ -33,7 +49,6 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
                 }
             ParameterField(
-                label: L10n.Common.kg,
                 themeColor: .weightMarker,
                 value: $model.weight
             )
@@ -45,22 +60,6 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
                 }
             Spacer()
-            Button(
-                action: {},
-                label: {
-                    Image(systemName: "plus")
-                        .font(.system(
-                            size: 14,
-                            weight: .semibold,
-                            design: .rounded
-                        ))
-                        .frame(minHeight: 24)
-                        .alignmentGuide(.parameterFieldAlignment) {
-                            $0[VerticalAlignment.lastTextBaseline]
-                        }
-                })
-                .buttonStyle(.bordered)
-                .controlSize(.regular)
         }
         .background(Color.background)
     }
