@@ -10,12 +10,12 @@ import SwiftUI
 
 protocol PlannerExerciseViewModeling: ObservableObject {
     var name: String { get }
-    var addedSets: [AggregatePlannerSetCellModel] { get set }
-    var adder: PlannerSetCellModel { get set }
+    var variations: [PlannerSetCellModel] { get set }
+    func addVariationTapped()
 }
 
 struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
-    @ObservedObject var model: Model
+    @StateObject var model: Model
     
     var body: some View {
         VStack {
@@ -23,48 +23,55 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
                 Text(model.name)
                 Spacer()
                 Button("Pace") {
-                    
+
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.weightGreen)
             }
             Divider()
-            VStack {
-//                ForEach($model.addedSets) { sets in
-//                    AggregatePlannerSetCell(model: sets)
-//                }
-//                Divider()
-                PlannerSetCell(model: $model.adder)
-                Button {
-                    
-                } label: {
-                    Text("Add variation")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.regular)
+            ForEach($model.variations) { variation in
+                PlannerSetCell(model: variation)
             }
+            Button {
+                withAnimation {
+                    model.addVariationTapped()
+                }
+            } label: {
+                Text("Add variation")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.regular)
+            .tint(.theme)
         }
         .padding(10)
-        .background(Color.background)
-        .cornerRadius(10)
+        .background {
+            Color.background
+                .cornerRadius(10)
+        }
     }
 }
 
 struct PlannerExerciseView_Previews: PreviewProvider {
-    class PreviewModel: PlannerExerciseViewModeling {
+    class Model: PlannerExerciseViewModeling {
         let name: String = "Squat"
-        var addedSets: [AggregatePlannerSetCellModel] = [
-            AggregatePlannerSetCellModel(
-                reps: 5,
-                weight: 5
-            )
-        ]
-        var adder = PlannerSetCellModel()
+        @Published var variations: [PlannerSetCellModel] = [PlannerSetCellModel()]
+        
+        func addVariationTapped() {
+            variations.append(PlannerSetCellModel())
+        }
     }
     
+//    struct Wrapper: View {
+//        @State var model = Model()
+//
+//        var body: some View {
+//            PlannerExerciseView(model: model)
+//        }
+//    }
+
     static var previews: some View {
-        PlannerExerciseView(model: PreviewModel())
+        PlannerExerciseView(model: Model())
             .cellPreview()
     }
 }

@@ -13,10 +13,16 @@ import UIKit
 struct PickerTextField: UIViewRepresentable {
     @Binding var value: Double?
     let themeColor: Color
+    let mode: UIPickerTextField.Mode
+    let jumpInterval: Double?
+    let minMaxRange: ClosedRange<Double>?
     
     func makeUIView(context: Context) -> UIPickerTextField {
         let field = UIPickerTextField()
         field.themeColor = UIColor(themeColor)
+        field.mode = mode
+        field.jumpInterval = jumpInterval
+        field.minMaxRange = minMaxRange
         field.addTarget(
             context.coordinator,
             action: #selector(Coordinator.updateValue(sender:)),

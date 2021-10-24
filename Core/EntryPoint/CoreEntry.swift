@@ -49,7 +49,9 @@ struct ParameterFieldWrapper: View {
     @State var doubleValue: Double? = nil
     
     var body: some View {
-        PickerTextField(value: $doubleValue, themeColor: .weightBlue)
-//        ParameterField(label: "reps", themeColor: .weightRed, value: $value)
+//        EmptyView()
+        PlannerExerciseView(model: PlannerExerciseView_Previews.Model())
+//        PlannerExerciseView()
+//        ParameterField(themeColor: .weightBlue, kind: .reps, value: $doubleValue)
     }
 }

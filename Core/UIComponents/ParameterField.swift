@@ -9,15 +9,51 @@
 import SwiftUI
 
 struct ParameterField: View {
+    enum Kind {
+        case reps, weight, time, setsCount
+    }
+    
     let themeColor: Color
-    //    let increment: Float = 1
+    let kind: Kind
     @Binding var value: Double?
     
     var body: some View {
-        PickerTextField(value: $value, themeColor: themeColor)
+        PickerTextField(
+            value: $value,
+            themeColor: themeColor,
+            mode: kind.fieldMode,
+            jumpInterval: kind.jumpInterval,
+            minMaxRange: kind.valueRange
+        )
             .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
                 d[VerticalAlignment.lastTextBaseline] - 10
             })
+    }
+}
+
+private extension ParameterField.Kind {
+    var fieldMode: UIPickerTextField.Mode {
+        switch self {
+        case .reps, .setsCount: return .wholes
+        case .time: return .time
+        case .weight: return .floatingPoint
+        }
+    }
+    
+    var jumpInterval: Double? {
+        switch self {
+        case .reps, .setsCount: return 1
+        case .time: return 5
+        case .weight: return 0.25
+        }
+    }
+    
+    var valueRange: ClosedRange<Double>? {
+        switch self {
+        case .reps, .setsCount: return 0 ... 100
+        case .time: return 0 ... 3600
+        case .weight: return 0 ... 10000
+        }
     }
 }
 
@@ -37,6 +73,7 @@ struct ParameterField_Previews: PreviewProvider {
         var body: some View {
             ParameterField(
                 themeColor: .weightGreen,
+                kind: .reps,
                 value: $value
             )
         }

@@ -8,19 +8,23 @@
 
 import SwiftUI
 
-protocol PlannerSetCellModeling: ObservableObject {
-    var reps: Double? { get set }
-    var weight: Double? { get set }
+struct PlannerSetCellModel: Identifiable {
+    let id = UUID()
+    
+    var reps: Double?
+    var weight: Double?
+    var numerOfSets: Double?
 }
 
-struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
-    @Binding var model: Model
+struct PlannerSetCell: View {
+    @Binding var model: PlannerSetCellModel
     
     var body: some View {
         HStack(alignment: .parameterFieldAlignment, spacing: 4) {
             ParameterField(
                 themeColor: .repsMarker,
-                value: $model.reps
+                kind: .setsCount,
+                value: $model.numerOfSets
             )
                 .alignmentGuide(
                     .repsAlignment,
@@ -37,6 +41,7 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
                 }
             ParameterField(
                 themeColor: .repsMarker,
+                kind: .reps,
                 value: $model.reps
             )
                 .alignmentGuide(
@@ -50,6 +55,7 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
                 }
             ParameterField(
                 themeColor: .weightMarker,
+                kind: .weight,
                 value: $model.weight
             )
                 .alignmentGuide(.weightAlignment, computeValue: { d in
@@ -66,13 +72,8 @@ struct PlannerSetCell<Model: PlannerSetCellModeling>: View {
 }
 
 struct PlannerSetCell_Previews: PreviewProvider {
-    class Model: PlannerSetCellModeling {
-        @Published var reps: Double? = 0
-        @Published var weight: Double? = 0
-    }
-    
     struct Wrapper: View {
-        @State var model = Model()
+        @State var model = PlannerSetCellModel()
         
         var body: some View {
             PlannerSetCell(model: $model)

@@ -8,15 +8,15 @@
 
 import Foundation
 
-class PlannerExerciseViewModel: PlannerExerciseViewModeling {
-    let name: String
-    @Published var addedSets: [AggregatePlannerSetCellModel] = []
-    @Published var adder = PlannerSetCellModel()
-    
-    init(name: String) {
-        self.name = name
-    }
-}
+//class PlannerExerciseViewModel: PlannerExerciseViewModeling {
+//    let name: String
+//    @Published var adder = PlannerSetCellModel()
+//    @Published var variations: [PlannerSetCellModel] = []
+//    
+//    init(name: String) {
+//        self.name = name
+//    }
+//}
 
 class AggregatePlannerSetCellModel: AggregatePlannerSetCellModeling, Identifiable {
     @Published private(set) var numberOfSets: Int
@@ -32,9 +32,4 @@ class AggregatePlannerSetCellModel: AggregatePlannerSetCellModeling, Identifiabl
     func handleRemoveSetTapped() {
         
     }
-}
-
-class PlannerSetCellModel: PlannerSetCellModeling {
-    @Published var reps: Double?
-    @Published var weight: Double?
 }
