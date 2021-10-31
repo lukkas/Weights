@@ -9,11 +9,20 @@
 import SwiftUI
 
 struct PlannerSetCellModel: Identifiable {
-    let id = UUID()
+    enum Metric {
+        case reps, time
+    }
     
+    let id = UUID()
+    let metric: Metric
+    
+    var numerOfSets: Double?
     var reps: Double?
     var weight: Double?
-    var numerOfSets: Double?
+}
+
+private extension PlannerSetCellModel {
+//    var 
 }
 
 struct PlannerSetCell: View {
@@ -73,7 +82,7 @@ struct PlannerSetCell: View {
 
 struct PlannerSetCell_Previews: PreviewProvider {
     struct Wrapper: View {
-        @State var model = PlannerSetCellModel()
+        @State var model = PlannerSetCellModel(metric: .reps)
         
         var body: some View {
             PlannerSetCell(model: $model)
