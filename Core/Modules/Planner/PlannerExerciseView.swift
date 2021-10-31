@@ -55,10 +55,12 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
 struct PlannerExerciseView_Previews: PreviewProvider {
     class Model: PlannerExerciseViewModeling {
         let name: String = "Squat"
-        @Published var variations: [PlannerSetCellModel] = [PlannerSetCellModel()]
+        @Published var variations: [PlannerSetCellModel] = [
+            PlannerSetCellModel(metric: .reps)
+        ]
         
         func addVariationTapped() {
-            variations.append(PlannerSetCellModel())
+            variations.append(PlannerSetCellModel(metric: .reps))
         }
     }
     

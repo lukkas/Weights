@@ -16,6 +16,8 @@ internal enum L10n {
     internal static let cancel = L10n.tr("Localizable", "common.cancel")
     /// kg
     internal static let kg = L10n.tr("Localizable", "common.kg")
+    /// mins
+    internal static let minutes = L10n.tr("Localizable", "common.minutes")
     /// reps
     internal static let reps = L10n.tr("Localizable", "common.reps")
   }
@@ -28,7 +30,10 @@ internal enum L10n {
     internal enum LateralitySelector {
       /// Bilateral
       internal static let bilateral = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.bilateral")
-      /// Laterality is about how work is distributed in any given exercise among left and right side of your body.\n* bilateral - left and right side work together i.e. bench press,\n* unilateral (both sides at once) - each side works individually, but on the same time i.e. dumbbell bench press,\n* unilateral (one side after another) - each body side works individually and you exercise second side of your body only after you finish first i.e. side plank.
+      /// Laterality is about how work is distributed in any given exercise among left and right side of your body.
+      /// * bilateral - left and right side work together i.e. bench press,
+      /// * unilateral (both sides at once) - each side works individually, but on the same time i.e. dumbbell bench press,
+      /// * unilateral (one side after another) - each body side works individually and you exercise second side of your body only after you finish first i.e. side plank.
       internal static let comment = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.comment")
       /// Laterality
       internal static let title = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.title")
@@ -38,7 +43,8 @@ internal enum L10n {
       internal static let unilateralSingle = L10n.tr("Localizable", "exerciseCreation.lateralitySelector.unilateralSingle")
     }
     internal enum MetricSelector {
-      /// Metric is how volume of exercise is measured.\nFor exercises with duration metric you'll be able to use Weights as timer indicating when your set is over.
+      /// Metric is how volume of exercise is measured.
+      /// For exercises with duration metric you'll be able to use Weights as timer indicating when your set is over.
       internal static let comment = L10n.tr("Localizable", "exerciseCreation.metricSelector.comment")
       /// Duration
       internal static let duration = L10n.tr("Localizable", "exerciseCreation.metricSelector.duration")

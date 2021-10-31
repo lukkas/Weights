@@ -10,6 +10,7 @@
 
 "common.kg" = "kg";
 "common.reps" = "reps";
+"common.minutes" = "mins";
 
 "root.tab.home" = "Home";
 "root.tab.plan" = "Plan";

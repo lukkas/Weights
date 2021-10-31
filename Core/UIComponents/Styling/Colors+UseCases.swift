@@ -12,6 +12,7 @@ import SwiftUI
 extension Color {
     static var theme: Color { Color(UIColor.systemPink) }
     static var repsMarker: Color { .weightYellow }
+    static var durationMarker: Color { .weightYellow }
     static var weightMarker: Color { .weightBlue }
 }
 

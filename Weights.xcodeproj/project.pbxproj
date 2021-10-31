@@ -61,6 +61,7 @@
 		0F7EE5B2243010970015951B /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0F7EE5C0243011070015951B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F7EE5BF243011070015951B /* Colors.xcassets */; };
 		0F7EE5C3243013550015951B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EE5C2243013550015951B /* Colors.swift */; };
+		0F81F4BA272F39E4006D8EB9 /* ExerciseMetric+Displaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81F4B9272F39E4006D8EB9 /* ExerciseMetric+Displaying.swift */; };
 		0F86D9C8259A76C50060BAE3 /* RPEPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */; };
 		0F927D6126C05A3100500E64 /* AggregatePlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6026C05A3100500E64 /* AggregatePlannerSetCell.swift */; };
 		0F927D6326C05AF300500E64 /* FrozenParameterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6226C05AF300500E64 /* FrozenParameterField.swift */; };
@@ -222,6 +223,7 @@
 		0F7EE5AD243010970015951B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F7EE5BF243011070015951B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		0F7EE5C2243013550015951B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0F81F4B9272F39E4006D8EB9 /* ExerciseMetric+Displaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseMetric+Displaying.swift"; sourceTree = "<group>"; };
 		0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPEPicker.swift; sourceTree = "<group>"; };
 		0F927D6026C05A3100500E64 /* AggregatePlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatePlannerSetCell.swift; sourceTree = "<group>"; };
 		0F927D6226C05AF300500E64 /* FrozenParameterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenParameterField.swift; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 			isa = PBXGroup;
 			children = (
 				0F927D6526C066E100500E64 /* Colors+UseCases.swift */,
+				0F81F4B9272F39E4006D8EB9 /* ExerciseMetric+Displaying.swift */,
 			);
 			path = Styling;
 			sourceTree = "<group>";
@@ -831,7 +834,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = "Łukasz Kasperek";
 				TargetAttributes = {
 					0F30989022B4518000DCDD5E = {
@@ -1021,6 +1024,7 @@
 				0FB4D4A424425B1D004E244D /* ExercisesListView.swift in Sources */,
 				0F927D6126C05A3100500E64 /* AggregatePlannerSetCell.swift in Sources */,
 				0F927D6326C05AF300500E64 /* FrozenParameterField.swift in Sources */,
+				0F81F4BA272F39E4006D8EB9 /* ExerciseMetric+Displaying.swift in Sources */,
 				0FB4D4A024425278004E244D /* RootView.swift in Sources */,
 				0F77C214271CB04700491744 /* SetCounterField.swift in Sources */,
 			);
@@ -1131,6 +1135,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1191,6 +1196,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

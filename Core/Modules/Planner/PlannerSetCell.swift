@@ -9,20 +9,12 @@
 import SwiftUI
 
 struct PlannerSetCellModel: Identifiable {
-    enum Metric {
-        case reps, time
-    }
-    
     let id = UUID()
-    let metric: Metric
+    let metric: Exercise.Metric
     
     var numerOfSets: Double?
-    var reps: Double?
+    var metricValue: Double?
     var weight: Double?
-}
-
-private extension PlannerSetCellModel {
-//    var 
 }
 
 struct PlannerSetCell: View {
@@ -49,16 +41,16 @@ struct PlannerSetCell: View {
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
                 }
             ParameterField(
-                themeColor: .repsMarker,
-                kind: .reps,
-                value: $model.reps
+                themeColor: model.metric.color,
+                kind: model.metric.parameterFieldMode,
+                value: $model.metricValue
             )
                 .alignmentGuide(
                     .repsAlignment,
                     computeValue: { $0[HorizontalAlignment.center]
                     }
                 )
-            Text("reps")
+            Text(model.metric.label)
                 .font(.caption)
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
                 }
@@ -70,7 +62,7 @@ struct PlannerSetCell: View {
                 .alignmentGuide(.weightAlignment, computeValue: { d in
                     d[HorizontalAlignment.center]
                 })
-            Text("kg")
+            Text(L10n.Common.kg)
                 .font(.caption)
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
                 }
@@ -82,7 +74,11 @@ struct PlannerSetCell: View {
 
 struct PlannerSetCell_Previews: PreviewProvider {
     struct Wrapper: View {
-        @State var model = PlannerSetCellModel(metric: .reps)
+        @State var model: PlannerSetCellModel
+        
+        init(metric: Exercise.Metric) {
+            _model = State(initialValue: PlannerSetCellModel(metric: metric))
+        }
         
         var body: some View {
             PlannerSetCell(model: $model)
@@ -90,7 +86,10 @@ struct PlannerSetCell_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        Wrapper()
+        Wrapper(metric: .reps)
+            .cellPreview()
+        
+        Wrapper(metric: .duration)
             .cellPreview()
     }
 }
