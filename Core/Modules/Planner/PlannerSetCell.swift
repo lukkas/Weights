@@ -27,11 +27,6 @@ struct PlannerSetCell: View {
                 kind: .setsCount,
                 value: $model.numerOfSets
             )
-                .alignmentGuide(
-                    .repsAlignment,
-                    computeValue: { $0[HorizontalAlignment.center]
-                    }
-                )
             Text("x")
                 .font(.system(
                     size: 18,
@@ -45,11 +40,6 @@ struct PlannerSetCell: View {
                 kind: model.metric.parameterFieldMode,
                 value: $model.metricValue
             )
-                .alignmentGuide(
-                    .repsAlignment,
-                    computeValue: { $0[HorizontalAlignment.center]
-                    }
-                )
             Text(model.metric.label)
                 .font(.caption)
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
@@ -59,9 +49,6 @@ struct PlannerSetCell: View {
                 kind: .weight,
                 value: $model.weight
             )
-                .alignmentGuide(.weightAlignment, computeValue: { d in
-                    d[HorizontalAlignment.center]
-                })
             Text(L10n.Common.kg)
                 .font(.caption)
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]

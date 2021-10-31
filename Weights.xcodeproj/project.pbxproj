@@ -36,7 +36,6 @@
 		0F56F71324313AB2002A2EBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F56F71524313AB2002A2EBA /* Localizable.strings */; };
 		0F56F71824313C72002A2EBA /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F71724313C72002A2EBA /* Localizable.swift */; };
 		0F64F22626C84D030094E683 /* PlannerExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F64F22526C84D030094E683 /* PlannerExerciseViewModel.swift */; };
-		0F64F22826C862820094E683 /* Alignments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F64F22726C862820094E683 /* Alignments.swift */; };
 		0F6E72E4245EE80F0052BAEC /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E72E3245EE80F0052BAEC /* Exercise.swift */; };
 		0F6E72F3245EF6F10052BAEC /* Services.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6E72EA245EF6F10052BAEC /* Services.framework */; };
 		0F6E72FC245EF6F20052BAEC /* Services.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F6E72EC245EF6F10052BAEC /* Services.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -195,7 +194,6 @@
 		0F56F71424313AB2002A2EBA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0F56F71724313C72002A2EBA /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		0F64F22526C84D030094E683 /* PlannerExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel.swift; sourceTree = "<group>"; };
-		0F64F22726C862820094E683 /* Alignments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alignments.swift; sourceTree = "<group>"; };
 		0F6E72E3245EE80F0052BAEC /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		0F6E72EA245EF6F10052BAEC /* Services.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Services.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F6E72EC245EF6F10052BAEC /* Services.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Services.h; sourceTree = "<group>"; };
@@ -580,7 +578,6 @@
 				0F167152253388E3000C5E79 /* PlannerExerciseView.swift */,
 				0F64F22526C84D030094E683 /* PlannerExerciseViewModel.swift */,
 				0FE1DF3125520A5800CE7A93 /* PlannerSetCell.swift */,
-				0F64F22726C862820094E683 /* Alignments.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -986,7 +983,6 @@
 				0FE6008F245F56710052539C /* ExerciseStoring.swift in Sources */,
 				0FE1DF3225520A5800CE7A93 /* PlannerSetCell.swift in Sources */,
 				0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */,
-				0F64F22826C862820094E683 /* Alignments.swift in Sources */,
 				0F76E91B25460C6D00D1B2F1 /* ColorPreviews.swift in Sources */,
 				0FCDC4FD259A9FF900CC1D22 /* PickerTextField.swift in Sources */,
 				0F0F9AF825A09A4200AC4B9B /* Metatypes.swift in Sources */,
