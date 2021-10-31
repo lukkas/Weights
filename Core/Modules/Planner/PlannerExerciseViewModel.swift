@@ -17,19 +17,3 @@ import Foundation
 //        self.name = name
 //    }
 //}
-
-class AggregatePlannerSetCellModel: AggregatePlannerSetCellModeling, Identifiable {
-    @Published private(set) var numberOfSets: Int
-    @Published private(set) var reps: Double
-    @Published private(set) var weight: Double
-    
-    init(reps: Double, weight: Double) {
-        self.reps = reps
-        self.weight = weight
-        self.numberOfSets = 1
-    }
-    
-    func handleRemoveSetTapped() {
-        
-    }
-}
