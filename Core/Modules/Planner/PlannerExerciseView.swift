@@ -37,10 +37,15 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
                     model.addVariationTapped()
                 }
             } label: {
-                Text("Add variation")
+                Text(L10n.Planner.Exercise.add)
+                    .font(.system(
+                        size: 16,
+                        weight: .medium,
+                        design: .rounded
+                    ))
                     .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.bordered)
             .controlSize(.regular)
             .tint(.theme)
         }

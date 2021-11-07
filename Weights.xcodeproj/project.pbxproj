@@ -20,6 +20,7 @@
 		0F0F9B1725A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9B1625A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift */; };
 		0F0F9B2325A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0F9B2225A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift */; };
 		0F167153253388E3000C5E79 /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F167152253388E3000C5E79 /* PlannerExerciseView.swift */; };
+		0F2E6BE2273806A6001941BA /* PlannerExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E6BE1273806A6001941BA /* PlannerExerciseViewModel.swift */; };
 		0F30989E22B4518200DCDD5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F30989D22B4518200DCDD5E /* Assets.xcassets */; };
 		0F3098A122B4518200DCDD5E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F3098A022B4518200DCDD5E /* Preview Assets.xcassets */; };
 		0F3098A422B4518200DCDD5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F3098A222B4518200DCDD5E /* LaunchScreen.storyboard */; };
@@ -35,7 +36,6 @@
 		0F56F70F24312A3A002A2EBA /* ExerciseCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F70E24312A3A002A2EBA /* ExerciseCreationView.swift */; };
 		0F56F71324313AB2002A2EBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F56F71524313AB2002A2EBA /* Localizable.strings */; };
 		0F56F71824313C72002A2EBA /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56F71724313C72002A2EBA /* Localizable.swift */; };
-		0F64F22626C84D030094E683 /* PlannerExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F64F22526C84D030094E683 /* PlannerExerciseViewModel.swift */; };
 		0F6E72E4245EE80F0052BAEC /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E72E3245EE80F0052BAEC /* Exercise.swift */; };
 		0F6E72F3245EF6F10052BAEC /* Services.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6E72EA245EF6F10052BAEC /* Services.framework */; };
 		0F6E72FC245EF6F20052BAEC /* Services.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F6E72EC245EF6F10052BAEC /* Services.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -91,6 +91,7 @@
 		0FE60097245F6D5D0052539C /* XCTestCase+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60096245F6D5D0052539C /* XCTestCase+Combine.swift */; };
 		0FE60099245F70690052539C /* ExercisesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60098245F70690052539C /* ExercisesRepositoryTests.swift */; };
 		0FE667BD24B26D3E005F9B9B /* WeightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE667BC24B26D3E005F9B9B /* WeightsApp.swift */; };
+		0FE9486F2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9486E2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +175,7 @@
 		0F0F9B1625A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISelectionFeedbackGeneratorMock.swift; sourceTree = "<group>"; };
 		0F0F9B2225A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImpactFeedbackGeneratorMock.swift; sourceTree = "<group>"; };
 		0F167152253388E3000C5E79 /* PlannerExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseView.swift; sourceTree = "<group>"; };
+		0F2E6BE1273806A6001941BA /* PlannerExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel.swift; sourceTree = "<group>"; };
 		0F30989122B4518000DCDD5E /* Weights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F30989D22B4518200DCDD5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F3098A022B4518200DCDD5E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -193,7 +195,6 @@
 		0F56F70E24312A3A002A2EBA /* ExerciseCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationView.swift; sourceTree = "<group>"; };
 		0F56F71424313AB2002A2EBA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0F56F71724313C72002A2EBA /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
-		0F64F22526C84D030094E683 /* PlannerExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel.swift; sourceTree = "<group>"; };
 		0F6E72E3245EE80F0052BAEC /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		0F6E72EA245EF6F10052BAEC /* Services.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Services.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F6E72EC245EF6F10052BAEC /* Services.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Services.h; sourceTree = "<group>"; };
@@ -251,6 +252,7 @@
 		0FE60096245F6D5D0052539C /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
 		0FE60098245F70690052539C /* ExercisesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesRepositoryTests.swift; sourceTree = "<group>"; };
 		0FE667BC24B26D3E005F9B9B /* WeightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsApp.swift; sourceTree = "<group>"; };
+		0FE9486E2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel_tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -576,7 +578,8 @@
 				0FAECC65252A37DD00693A8A /* PlannerView.swift */,
 				0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */,
 				0F167152253388E3000C5E79 /* PlannerExerciseView.swift */,
-				0F64F22526C84D030094E683 /* PlannerExerciseViewModel.swift */,
+				0F2E6BE1273806A6001941BA /* PlannerExerciseViewModel.swift */,
+				0FE9486E2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift */,
 				0FE1DF3125520A5800CE7A93 /* PlannerSetCell.swift */,
 			);
 			path = Planner;
@@ -979,6 +982,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F0F9ACA259B758A00AC4B9B /* UIFont+Rounded.swift in Sources */,
+				0F2E6BE2273806A6001941BA /* PlannerExerciseViewModel.swift in Sources */,
 				0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */,
 				0FE6008F245F56710052539C /* ExerciseStoring.swift in Sources */,
 				0FE1DF3225520A5800CE7A93 /* PlannerSetCell.swift in Sources */,
@@ -1003,7 +1007,6 @@
 				0F77C216271CB2CA00491744 /* FieldHighlight.swift in Sources */,
 				0F4BBCF626112B5E00486B96 /* FloatingPoint+Extensions.swift in Sources */,
 				0F56F70C24312017002A2EBA /* CoreEntry.swift in Sources */,
-				0F64F22626C84D030094E683 /* PlannerExerciseViewModel.swift in Sources */,
 				0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */,
 				0F051DD42558584600B8C590 /* ParameterField.swift in Sources */,
 				0F56F71824313C72002A2EBA /* Localizable.swift in Sources */,
@@ -1028,6 +1031,7 @@
 			files = (
 				0F0F9B0425A09C6600AC4B9B /* UIPanGestureRecognizerMock.swift in Sources */,
 				0F0F9B2325A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift in Sources */,
+				0FE9486F2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift in Sources */,
 				0F0F9AF025A0987000AC4B9B /* MetatypeInjector.swift in Sources */,
 				0F7EC99A25A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift in Sources */,
 				0F0F9AD2259B790A00AC4B9B /* UIPickerTextFieldTests.swift in Sources */,

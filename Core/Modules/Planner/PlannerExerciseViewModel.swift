@@ -1,19 +1,48 @@
 //
 //  PlannerExerciseViewModel.swift
-//  PlannerExerciseViewModel
+//  Core
 //
-//  Created by Łukasz Kasperek on 14/08/2021.
+//  Created by Łukasz Kasperek on 07/11/2021.
 //  Copyright © 2021 Łukasz Kasperek. All rights reserved.
 //
 
 import Foundation
 
-//class PlannerExerciseViewModel: PlannerExerciseViewModeling {
-//    let name: String
-//    @Published var adder = PlannerSetCellModel()
-//    @Published var variations: [PlannerSetCellModel] = []
-//    
-//    init(name: String) {
-//        self.name = name
-//    }
-//}
+class PlannerExerciseViewModel: PlannerExerciseViewModeling {
+    var name: String { exercise.name }
+    @Published var variations: [PlannerSetCellModel] = [] {
+        didSet {
+            performPostVariationsModificationCheck()
+        }
+    }
+    
+    private let exercise: Exercise
+    
+    init(exercise: Exercise) {
+        self.exercise = exercise
+        prepareInitialVariationsState()
+    }
+    
+    private func prepareInitialVariationsState() {
+        variations = [baseVariation()]
+    }
+    
+    private func baseVariation() -> PlannerSetCellModel {
+        PlannerSetCellModel(
+            metric: exercise.metric,
+            numerOfSets: 1,
+            metricValue: nil,
+            weight: nil
+        )
+    }
+    
+    private func performPostVariationsModificationCheck() {
+        if let index = variations.lastIndex(where: { $0.numerOfSets == 0 }) {
+            variations.remove(at: index)
+        }
+    }
+    
+    func addVariationTapped() {
+        variations.append(baseVariation())
+    }
+}

@@ -49,9 +49,20 @@ struct ParameterFieldWrapper: View {
     @State var doubleValue: Double? = nil
     
     var body: some View {
+        PlannerExerciseView(model: PlannerExerciseViewModel(exercise: .stubbed()))
 //        EmptyView()
-        PlannerExerciseView(model: PlannerExerciseView_Previews.Model())
 //        PlannerExerciseView()
 //        ParameterField(themeColor: .weightBlue, kind: .reps, value: $doubleValue)
+    }
+}
+
+private extension Exercise {
+    static func stubbed() -> Exercise {
+        return Exercise(
+            id: UUID(),
+            name: "Squat",
+            metric: .reps,
+            laterality: .bilateral
+        )
     }
 }

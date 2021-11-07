@@ -19,6 +19,8 @@
 "planner.title" = "Planner";
 "planner.addDay" = "Add training day";
 
+"planner.exercise.add" = "Add";
+
 "exercisesList.navBar.home" = "Home";
 "exercisesList.navBar.plan" = "Plan";
 "exercisesList.navBar.exercises" = "Exercises";
