@@ -9,10 +9,6 @@
 import Foundation
 import Combine
 
-protocol PlannerViewModeling: ObservableObject {
-    
-}
-
 //class PlannerViewModel: PlannerViewModeling {
 //    
 //}

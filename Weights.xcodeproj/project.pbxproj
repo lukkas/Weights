@@ -82,6 +82,8 @@
 		0FCDC4FD259A9FF900CC1D22 /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */; };
 		0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */; };
 		0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DD2471B045007D638E /* CoreDependencies.swift */; };
+		0FD8B45C273D8C9A0052DDE1 /* TrainingBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD8B45B273D8C9A0052DDE1 /* TrainingBottomBar.swift */; };
+		0FD8B45E273D8D3D0052DDE1 /* CardDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD8B45D273D8D3D0052DDE1 /* CardDesign.swift */; };
 		0FE1DF3225520A5800CE7A93 /* PlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1DF3125520A5800CE7A93 /* PlannerSetCell.swift */; };
 		0FE60086245F29F70052539C /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60085245F29F70052539C /* Managed.swift */; };
 		0FE60088245F2AF10052539C /* NSManagedObjectContext+Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60087245F2AF10052539C /* NSManagedObjectContext+Managed.swift */; };
@@ -92,6 +94,7 @@
 		0FE60099245F70690052539C /* ExercisesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60098245F70690052539C /* ExercisesRepositoryTests.swift */; };
 		0FE667BD24B26D3E005F9B9B /* WeightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE667BC24B26D3E005F9B9B /* WeightsApp.swift */; };
 		0FE9486F2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9486E2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift */; };
+		0FE9487127384F820013F5E4 /* PlannerViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9487027384F820013F5E4 /* PlannerViewModeling.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -243,6 +246,8 @@
 		0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
 		0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListViewModel.swift; sourceTree = "<group>"; };
 		0FD751DD2471B045007D638E /* CoreDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDependencies.swift; sourceTree = "<group>"; };
+		0FD8B45B273D8C9A0052DDE1 /* TrainingBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingBottomBar.swift; sourceTree = "<group>"; };
+		0FD8B45D273D8D3D0052DDE1 /* CardDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDesign.swift; sourceTree = "<group>"; };
 		0FE1DF3125520A5800CE7A93 /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
 		0FE60085245F29F70052539C /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		0FE60087245F2AF10052539C /* NSManagedObjectContext+Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Managed.swift"; sourceTree = "<group>"; };
@@ -253,6 +258,7 @@
 		0FE60098245F70690052539C /* ExercisesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesRepositoryTests.swift; sourceTree = "<group>"; };
 		0FE667BC24B26D3E005F9B9B /* WeightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsApp.swift; sourceTree = "<group>"; };
 		0FE9486E2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel_tests.swift; sourceTree = "<group>"; };
+		0FE9487027384F820013F5E4 /* PlannerViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewModeling.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -404,6 +410,7 @@
 				0F56F7022430F2AA002A2EBA /* OuterDepthShadow.swift */,
 				0F56F7042430F536002A2EBA /* InnerDepthShadow.swift */,
 				0F77C215271CB2CA00491744 /* FieldHighlight.swift */,
+				0FD8B45D273D8D3D0052DDE1 /* CardDesign.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -577,10 +584,12 @@
 			children = (
 				0FAECC65252A37DD00693A8A /* PlannerView.swift */,
 				0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */,
+				0FE9487027384F820013F5E4 /* PlannerViewModeling.swift */,
 				0F167152253388E3000C5E79 /* PlannerExerciseView.swift */,
 				0F2E6BE1273806A6001941BA /* PlannerExerciseViewModel.swift */,
 				0FE9486E2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift */,
 				0FE1DF3125520A5800CE7A93 /* PlannerSetCell.swift */,
+				0FD8B45B273D8C9A0052DDE1 /* TrainingBottomBar.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -986,6 +995,7 @@
 				0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */,
 				0FE6008F245F56710052539C /* ExerciseStoring.swift in Sources */,
 				0FE1DF3225520A5800CE7A93 /* PlannerSetCell.swift in Sources */,
+				0FD8B45C273D8C9A0052DDE1 /* TrainingBottomBar.swift in Sources */,
 				0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */,
 				0F76E91B25460C6D00D1B2F1 /* ColorPreviews.swift in Sources */,
 				0FCDC4FD259A9FF900CC1D22 /* PickerTextField.swift in Sources */,
@@ -997,6 +1007,7 @@
 				0F56F7052430F536002A2EBA /* InnerDepthShadow.swift in Sources */,
 				0F56F7032430F2AA002A2EBA /* OuterDepthShadow.swift in Sources */,
 				0F76E9012546056C00D1B2F1 /* ParameterGauge.swift in Sources */,
+				0FE9487127384F820013F5E4 /* PlannerViewModeling.swift in Sources */,
 				0F76E90F254605DE00D1B2F1 /* Pace.swift in Sources */,
 				0F4BBCF42610F03100486B96 /* CGFloat+Extensions.swift in Sources */,
 				0F56F70F24312A3A002A2EBA /* ExerciseCreationView.swift in Sources */,
@@ -1022,6 +1033,7 @@
 				0F81F4BA272F39E4006D8EB9 /* ExerciseMetric+Displaying.swift in Sources */,
 				0FB4D4A024425278004E244D /* RootView.swift in Sources */,
 				0F77C214271CB04700491744 /* SetCounterField.swift in Sources */,
+				0FD8B45E273D8D3D0052DDE1 /* CardDesign.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

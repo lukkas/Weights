@@ -50,9 +50,7 @@ struct ParameterFieldWrapper: View {
     
     var body: some View {
         PlannerExerciseView(model: PlannerExerciseViewModel(exercise: .stubbed()))
-//        EmptyView()
-//        PlannerExerciseView()
-//        ParameterField(themeColor: .weightBlue, kind: .reps, value: $doubleValue)
+//        PlannerView()
     }
 }
 

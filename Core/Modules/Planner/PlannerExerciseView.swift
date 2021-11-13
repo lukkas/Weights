@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-protocol PlannerExerciseViewModeling: ObservableObject {
+protocol PlannerExerciseViewModeling: ObservableObject, Identifiable {
     var name: String { get }
     var variations: [PlannerSetCellModel] { get set }
     func addVariationTapped()
 }
 
 struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
-    @StateObject var model: Model
+    @ObservedObject var model: Model
     
     var body: some View {
         VStack {
@@ -50,25 +50,22 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
             .tint(.theme)
         }
         .padding(10)
-        .background {
-            Color.background
-                .cornerRadius(10)
-        }
+        .cardDesign()
+    }
+}
+
+class Preview_PlannerExerciseViewModel: PlannerExerciseViewModeling {
+    let name: String = "Squat"
+    @Published var variations: [PlannerSetCellModel] = [
+        PlannerSetCellModel(metric: .reps)
+    ]
+    
+    func addVariationTapped() {
+        variations.append(PlannerSetCellModel(metric: .reps))
     }
 }
 
 struct PlannerExerciseView_Previews: PreviewProvider {
-    class Model: PlannerExerciseViewModeling {
-        let name: String = "Squat"
-        @Published var variations: [PlannerSetCellModel] = [
-            PlannerSetCellModel(metric: .reps)
-        ]
-        
-        func addVariationTapped() {
-            variations.append(PlannerSetCellModel(metric: .reps))
-        }
-    }
-    
 //    struct Wrapper: View {
 //        @State var model = Model()
 //
@@ -78,7 +75,7 @@ struct PlannerExerciseView_Previews: PreviewProvider {
 //    }
 
     static var previews: some View {
-        PlannerExerciseView(model: Model())
+        PlannerExerciseView(model: Preview_PlannerExerciseViewModel())
             .cellPreview()
     }
 }
