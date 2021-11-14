@@ -9,6 +9,40 @@
 import Foundation
 import Combine
 
-//class PlannerViewModel: PlannerViewModeling {
-//    
-//}
+class PlannerViewModel: PlannerViewModeling {
+    typealias ExerciseViewModelType = PlannerExerciseViewModel
+    
+    @Published var trainingUnits: [TrainingUnitModel<PlannerExerciseViewModel>] = []
+    @Published var visibleUnit: Int = 0
+    var currentUnitName: String {
+        get {
+            trainingUnits[visibleUnit].name
+        }
+        set {
+            trainingUnits[visibleUnit].name = newValue
+        }
+    }
+    
+    init() {
+        trainingUnits = [makeTemplateUnitModel()]
+    }
+    
+    private func makeTemplateUnitModel() -> TrainingUnitModel<PlannerExerciseViewModel> {
+        return TrainingUnitModel(
+            name: "A1",
+            exercises: []
+        )
+    }
+    
+    func leftArrowTapped() {
+        
+    }
+    
+    func rightArrowTapped() {
+        
+    }
+    
+    func plusTapped() {
+        
+    }
+}

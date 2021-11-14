@@ -49,8 +49,8 @@ struct ParameterFieldWrapper: View {
     @State var doubleValue: Double? = nil
     
     var body: some View {
-        PlannerExerciseView(model: PlannerExerciseViewModel(exercise: .stubbed()))
-//        PlannerView()
+//        PlannerExerciseView(model: PlannerExerciseViewModel(exercise: .stubbed()))
+        PlannerView(model: PlannerViewModel())
     }
 }
 

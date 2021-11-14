@@ -16,12 +16,20 @@ struct PlannerView<Model: PlannerViewModeling>: View {
             ForEach(model.trainingUnits) { unit in
                 VStack {
                     ScrollView {
-                        LazyVStack {
+                        Color.clear
+                        LazyVStack(spacing: 16) {
                             ForEach(unit.exercises) { exercise in
                                 PlannerExerciseView(model: exercise)
-                                    .padding()
+                                    .padding(.horizontal, 16)
+
+                            }
+                            Button {
+                                
+                            } label: {
+                                Text("Add exercise")
                             }
                         }
+                        Color.clear
                     }
                     TrainingBottomBar(
                         workoutName: $model.currentUnitName,
@@ -52,7 +60,7 @@ protocol PlannerViewModeling: ObservableObject {
 
 struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiable {
     let id = UUID()
-    let name: String
+    var name: String
     let exercises: [ExerciseModel]
 }
 
