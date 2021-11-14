@@ -17,9 +17,9 @@ public class CoreEntry {
     }
     
     public func makeInitialView() -> some View {
-//        return makeRootView()
+        return makeRootView()
 //        return PlannerView()
-        return ParameterFieldWrapper()
+//        return ParameterFieldWrapper()
     }
     
     private func makeRootView() -> some View {
@@ -45,12 +45,21 @@ public class CoreEntry {
 }
 
 struct ParameterFieldWrapper: View {
-    @State var value = "0"
-    @State var doubleValue: Double? = nil
+    @State var isShowingPlanner = false
     
     var body: some View {
+        Button {
+            isShowingPlanner.toggle()
+        } label: {
+            Text("Show planner")
+        }
+        .sheet(
+            isPresented: $isShowingPlanner,
+            content: {
+                PlannerView(model: PlannerViewModel())
+            }
+        )
 //        PlannerExerciseView(model: PlannerExerciseViewModel(exercise: .stubbed()))
-        PlannerView(model: PlannerViewModel())
     }
 }
 

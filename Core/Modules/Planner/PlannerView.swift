@@ -24,7 +24,7 @@ struct PlannerView<Model: PlannerViewModeling>: View {
 
                             }
                             Button {
-                                
+                                model.addExerciseTapped()
                             } label: {
                                 Text("Add exercise")
                             }
@@ -53,6 +53,7 @@ protocol PlannerViewModeling: ObservableObject {
     var visibleUnit: Int { get set }
     var currentUnitName: String { get set }
     
+    func addExerciseTapped()
     func leftArrowTapped()
     func rightArrowTapped()
     func plusTapped()
@@ -116,6 +117,10 @@ class DTPlannerViewModel: PlannerViewModeling {
     ]
     @Published var visibleUnit: Int = 0
     @Published var currentUnitName: String = "Upper A"
+    
+    func addExerciseTapped() {
+        
+    }
     
     func leftArrowTapped() {
         

@@ -34,6 +34,10 @@ class PlannerViewModel: PlannerViewModeling {
         )
     }
     
+    func addExerciseTapped() {
+        
+    }
+    
     func leftArrowTapped() {
         
     }

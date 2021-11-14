@@ -49,7 +49,7 @@ struct TrainingBottomBar: View {
         ))
         .padding(10)
         .frame(maxWidth: .infinity, minHeight: 56)
-        .cardDesign()
+        .background(Color.background)
     }
 }
 

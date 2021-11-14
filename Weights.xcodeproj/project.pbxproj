@@ -64,6 +64,7 @@
 		0F86D9C8259A76C50060BAE3 /* RPEPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */; };
 		0F927D6326C05AF300500E64 /* FrozenParameterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6226C05AF300500E64 /* FrozenParameterField.swift */; };
 		0F927D6626C066E100500E64 /* Colors+UseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6526C066E100500E64 /* Colors+UseCases.swift */; };
+		0F93111F2741B19200228B93 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93111E2741B19200228B93 /* SceneDelegate.swift */; };
 		0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99873024F2ED4A00366D0B /* View+Debug.swift */; };
 		0FA934FD2473172400D939F1 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FC2473172400D939F1 /* AppDependencies.swift */; };
 		0FA93500247319C700D939F1 /* ExerciseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FF247319C700D939F1 /* ExerciseStorage.swift */; };
@@ -227,6 +228,7 @@
 		0F86D9C7259A76C50060BAE3 /* RPEPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPEPicker.swift; sourceTree = "<group>"; };
 		0F927D6226C05AF300500E64 /* FrozenParameterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenParameterField.swift; sourceTree = "<group>"; };
 		0F927D6526C066E100500E64 /* Colors+UseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+UseCases.swift"; sourceTree = "<group>"; };
+		0F93111E2741B19200228B93 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0F99873024F2ED4A00366D0B /* View+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Debug.swift"; sourceTree = "<group>"; };
 		0FA934FC2473172400D939F1 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		0FA934FF247319C700D939F1 /* ExerciseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorage.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				0F3098A222B4518200DCDD5E /* LaunchScreen.storyboard */,
 				0F3098A522B4518200DCDD5E /* Info.plist */,
 				0F30989F22B4518200DCDD5E /* Preview Content */,
+				0F93111E2741B19200228B93 /* SceneDelegate.swift */,
 			);
 			path = Weights;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F93111F2741B19200228B93 /* SceneDelegate.swift in Sources */,
 				0FA934FD2473172400D939F1 /* AppDependencies.swift in Sources */,
 				0FE667BD24B26D3E005F9B9B /* WeightsApp.swift in Sources */,
 				0FA93500247319C700D939F1 /* ExerciseStorage.swift in Sources */,

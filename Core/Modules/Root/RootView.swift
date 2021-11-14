@@ -21,10 +21,10 @@ struct RootView<Model: RootViewModeling>: View {
                 .tabItem {
                     Text(L10n.Root.Tab.plan)
                 }
-            ExercisesListView(model: model.routes.exercisesList())
-                .tabItem {
-                    Text(L10n.Root.Tab.exercises)
-                }
+//            ExercisesListView(model: model.routes.exercisesList())
+//                .tabItem {
+//                    Text(L10n.Root.Tab.exercises)
+//                }
         }
     }
 }
