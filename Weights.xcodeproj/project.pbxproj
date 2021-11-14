@@ -94,7 +94,6 @@
 		0FE60099245F70690052539C /* ExercisesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE60098245F70690052539C /* ExercisesRepositoryTests.swift */; };
 		0FE667BD24B26D3E005F9B9B /* WeightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE667BC24B26D3E005F9B9B /* WeightsApp.swift */; };
 		0FE9486F2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9486E2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift */; };
-		0FE9487127384F820013F5E4 /* PlannerViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE9487027384F820013F5E4 /* PlannerViewModeling.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,7 +257,6 @@
 		0FE60098245F70690052539C /* ExercisesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesRepositoryTests.swift; sourceTree = "<group>"; };
 		0FE667BC24B26D3E005F9B9B /* WeightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsApp.swift; sourceTree = "<group>"; };
 		0FE9486E2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel_tests.swift; sourceTree = "<group>"; };
-		0FE9487027384F820013F5E4 /* PlannerViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewModeling.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -584,7 +582,6 @@
 			children = (
 				0FAECC65252A37DD00693A8A /* PlannerView.swift */,
 				0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */,
-				0FE9487027384F820013F5E4 /* PlannerViewModeling.swift */,
 				0F167152253388E3000C5E79 /* PlannerExerciseView.swift */,
 				0F2E6BE1273806A6001941BA /* PlannerExerciseViewModel.swift */,
 				0FE9486E2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift */,
@@ -1007,7 +1004,6 @@
 				0F56F7052430F536002A2EBA /* InnerDepthShadow.swift in Sources */,
 				0F56F7032430F2AA002A2EBA /* OuterDepthShadow.swift in Sources */,
 				0F76E9012546056C00D1B2F1 /* ParameterGauge.swift in Sources */,
-				0FE9487127384F820013F5E4 /* PlannerViewModeling.swift in Sources */,
 				0F76E90F254605DE00D1B2F1 /* Pace.swift in Sources */,
 				0F4BBCF42610F03100486B96 /* CGFloat+Extensions.swift in Sources */,
 				0F56F70F24312A3A002A2EBA /* ExerciseCreationView.swift in Sources */,

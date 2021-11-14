@@ -51,7 +51,7 @@ struct ExercisesListView<Model: ExerciseListViewModeling>: View {
     }
 }
 
-class ExercisesListPreviewModel: ExerciseListViewModeling {
+class DTExerciseListViewModel: ExerciseListViewModeling {
     var routes: ExercisesListViewModel.Routes {
         return .init(createExercise: placeholderClosure)
     }
@@ -66,6 +66,6 @@ class ExercisesListPreviewModel: ExerciseListViewModeling {
 
 struct ExercisesListView_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisesListView(model: ExercisesListPreviewModel())
+        ExercisesListView(model: DTExerciseListViewModel())
     }
 }

@@ -23,10 +23,10 @@ public class CoreEntry {
     }
     
     private func makeRootView() -> some View {
-        let rootRoutes = RootViewModel.Routes(
+        let rootRoutes = RootRoutes(
             exercisesList: makeExercisesList
         )
-        return RootView(viewModel: RootViewModel(routes: rootRoutes))
+        return RootView(model: RootViewModel(routes: rootRoutes))
     }
     
     private func makeExercisesList() -> ExercisesListViewModel {

@@ -8,27 +8,10 @@
 
 import Foundation
 
-class RootViewModel: ObservableObject {
-    struct Routes {
-        let exercisesList: () -> ExercisesListViewModel
-    }
+class RootViewModel: RootViewModeling {
+    let routes: RootRoutes<ExercisesListViewModel>
     
-    struct Tab: Identifiable {
-        let id = UUID()
-        let title: String
-    }
-    
-    @Published var tabs: [Tab]
-    let routes: Routes
-    
-    init(routes: Routes) {
+    init(routes: RootRoutes<ExercisesListViewModel>) {
         self.routes = routes
-        tabs = Self.buildTabs()
-    }
-}
-
-private extension RootViewModel {
-    static func buildTabs() -> [Tab] {
-        return []
     }
 }

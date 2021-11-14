@@ -105,13 +105,13 @@ struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiab
 //    }
 //}
 
-class Preview_PlannerViewModel: PlannerViewModeling {
-    typealias ExerciseViewModelType = Preview_PlannerExerciseViewModel
+class DTPlannerViewModel: PlannerViewModeling {
+    typealias ExerciseViewModelType = DTPlannerExerciseViewModel
     
-    let trainingUnits: [TrainingUnitModel<Preview_PlannerExerciseViewModel>] = [
+    let trainingUnits: [TrainingUnitModel<DTPlannerExerciseViewModel>] = [
         TrainingUnitModel(name: "A1", exercises: [
-            Preview_PlannerExerciseViewModel(),
-            Preview_PlannerExerciseViewModel()
+            DTPlannerExerciseViewModel(),
+            DTPlannerExerciseViewModel()
         ])
     ]
     @Published var visibleUnit: Int = 0
@@ -136,6 +136,6 @@ struct PlannerView_Previews: PreviewProvider {
 //    }
     
     static var previews: some View {
-        PlannerView(model: Preview_PlannerViewModel())
+        PlannerView(model: DTPlannerViewModel())
     }
 }

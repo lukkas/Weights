@@ -54,7 +54,7 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
     }
 }
 
-class Preview_PlannerExerciseViewModel: PlannerExerciseViewModeling {
+class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
     let name: String = "Squat"
     @Published var variations: [PlannerSetCellModel] = [
         PlannerSetCellModel(metric: .reps)
@@ -75,7 +75,7 @@ struct PlannerExerciseView_Previews: PreviewProvider {
 //    }
 
     static var previews: some View {
-        PlannerExerciseView(model: Preview_PlannerExerciseViewModel())
+        PlannerExerciseView(model: DTPlannerExerciseViewModel())
             .cellPreview()
     }
 }
