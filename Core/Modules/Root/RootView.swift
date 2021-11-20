@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RootView<Model: RootViewModeling>: View {
-    @StateObject var model: Model
+    @ObservedObject var model: Model
     
     var body: some View {
         TabView {

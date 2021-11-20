@@ -26,7 +26,7 @@
 "exercisesList.navBar.plan" = "Plan";
 "exercisesList.navBar.exercises" = "Exercises";
 "exercisesList.placeholder.title" = "No exercises yet";
-"exercisesList.placeholder.subtitle" = "Tap add to add first exercise";
+"exercisesList.placeholder.subtitle" = "Tap plus to add first exercise";
 
 "exerciseCreation.title" = "Add Exercise";
 "exerciseCreation.add" = "Add";
