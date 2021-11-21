@@ -11,6 +11,7 @@ import SwiftUI
 struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     @ObservedObject var model: Model
     let router: Router
+    @State var isPresentingExerciseList = false
     
     var body: some View {
         TabView(selection: $model.visibleUnit) {

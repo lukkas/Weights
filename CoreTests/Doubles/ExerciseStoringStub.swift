@@ -11,10 +11,13 @@ import Foundation
 import XCTest
 
 class ExerciseStoringStub: ExerciseStoring {
+    private var exercises: [Exercise] = []
+    
     var insertCallsCount: Int { insertedExercises.count }
     private var insertedExercises: [Exercise] = []
     func insert(_ exercise: Exercise) {
         insertedExercises.append(exercise)
+        exercises.append(exercise)
     }
     
     func verify_insertedExercise(
@@ -29,6 +32,10 @@ class ExerciseStoringStub: ExerciseStoring {
     }
     
     func fetchExercises() -> [Exercise] {
-        return []
+        return exercises
+    }
+    
+    func preconfigure_populate(with exercises: [Exercise]) {
+        self.exercises = exercises
     }
 }

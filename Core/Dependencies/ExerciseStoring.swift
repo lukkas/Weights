@@ -13,6 +13,7 @@ public protocol ExerciseStoring {
     func fetchExercises() -> [Exercise]
 }
 
+#if DEBUG
 class PlaceholderExerciseStorage: ExerciseStoring {
     var exercises = [Exercise]()
     
@@ -24,3 +25,4 @@ class PlaceholderExerciseStorage: ExerciseStoring {
         return exercises
     }
 }
+#endif

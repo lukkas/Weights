@@ -66,10 +66,7 @@ protocol ExerciseListViewRouting {
 
 class DTExerciseListViewModel: ExerciseListViewModeling {
     var cellViewModels: [ExerciseCellViewModel] {
-        return [
-            .init(id: UUID(), exerciseName: "Squat"),
-            .init(id: UUID(), exerciseName: "Bench Press")
-        ]
+        return ExerciseCellViewModel.make(count: 2)
     }
 }
 

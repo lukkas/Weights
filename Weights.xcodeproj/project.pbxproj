@@ -52,7 +52,6 @@
 		0F76E922254630B300D1B2F1 /* CellPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76E921254630B300D1B2F1 /* CellPreview.swift */; };
 		0F77C214271CB04700491744 /* SetCounterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F77C213271CB04700491744 /* SetCounterField.swift */; };
 		0F77C216271CB2CA00491744 /* FieldHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F77C215271CB2CA00491744 /* FieldHighlight.swift */; };
-		0F7A1DF5250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */; };
 		0F7EC99A25A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EC99925A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift */; };
 		0F7EE5A5243010970015951B /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F7EE59C243010970015951B /* Core.framework */; };
 		0F7EE5AE243010970015951B /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7EE59E243010970015951B /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,6 +65,11 @@
 		0F927D6626C066E100500E64 /* Colors+UseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6526C066E100500E64 /* Colors+UseCases.swift */; };
 		0F93111F2741B19200228B93 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93111E2741B19200228B93 /* SceneDelegate.swift */; };
 		0F931122274AB89100228B93 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F931121274AB89100228B93 /* PlanView.swift */; };
+		0F931125274AC81500228B93 /* ExercisePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F931124274AC81500228B93 /* ExercisePickerView.swift */; };
+		0F931127274ACD7300228B93 /* ExercisePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F931126274ACD7300228B93 /* ExercisePickerViewModel.swift */; };
+		0F93112A274ADF6F00228B93 /* ExercisePickerViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F931129274ADF6F00228B93 /* ExercisePickerViewModel_tests.swift */; };
+		0F93112C274AE21D00228B93 /* ExerciseCreationViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModel_tests.swift */; };
+		0F93112E274AEE9D00228B93 /* ArrayMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93112D274AEE9D00228B93 /* ArrayMatching.swift */; };
 		0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99873024F2ED4A00366D0B /* View+Debug.swift */; };
 		0FA934FD2473172400D939F1 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FC2473172400D939F1 /* AppDependencies.swift */; };
 		0FA93500247319C700D939F1 /* ExerciseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FF247319C700D939F1 /* ExerciseStorage.swift */; };
@@ -78,7 +82,7 @@
 		0FC7FB8F246852C9006BFBA4 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB8E246852C9006BFBA4 /* NSManagedObject+Extensions.swift */; };
 		0FC7FB9124689187006BFBA4 /* DateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9024689187006BFBA4 /* DateProvider.swift */; };
 		0FC7FB9724689CFC006BFBA4 /* ExerciseStoringStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9624689CFC006BFBA4 /* ExerciseStoringStub.swift */; };
-		0FC7FB9924689DAF006BFBA4 /* ExerciseDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */; };
+		0FC7FB9924689DAF006BFBA4 /* ExerciseFakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9824689DAF006BFBA4 /* ExerciseFakes.swift */; };
 		0FCDC4EB259A9D9B00CC1D22 /* UIPickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCDC4EA259A9D9B00CC1D22 /* UIPickerTextField.swift */; };
 		0FCDC4FD259A9FF900CC1D22 /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */; };
 		0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */; };
@@ -215,7 +219,7 @@
 		0F76E921254630B300D1B2F1 /* CellPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPreview.swift; sourceTree = "<group>"; };
 		0F77C213271CB04700491744 /* SetCounterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCounterField.swift; sourceTree = "<group>"; };
 		0F77C215271CB2CA00491744 /* FieldHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldHighlight.swift; sourceTree = "<group>"; };
-		0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModelTests.swift; sourceTree = "<group>"; };
+		0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModel_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModel_tests.swift; sourceTree = "<group>"; };
 		0F7EC99925A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINotificationFeedbackGeneratorMock.swift; sourceTree = "<group>"; };
 		0F7EE59C243010970015951B /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7EE59E243010970015951B /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
@@ -230,6 +234,10 @@
 		0F927D6526C066E100500E64 /* Colors+UseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+UseCases.swift"; sourceTree = "<group>"; };
 		0F93111E2741B19200228B93 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0F931121274AB89100228B93 /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
+		0F931124274AC81500228B93 /* ExercisePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePickerView.swift; sourceTree = "<group>"; };
+		0F931126274ACD7300228B93 /* ExercisePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePickerViewModel.swift; sourceTree = "<group>"; };
+		0F931129274ADF6F00228B93 /* ExercisePickerViewModel_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePickerViewModel_tests.swift; sourceTree = "<group>"; };
+		0F93112D274AEE9D00228B93 /* ArrayMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayMatching.swift; sourceTree = "<group>"; };
 		0F99873024F2ED4A00366D0B /* View+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Debug.swift"; sourceTree = "<group>"; };
 		0FA934FC2473172400D939F1 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		0FA934FF247319C700D939F1 /* ExerciseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorage.swift; sourceTree = "<group>"; };
@@ -242,7 +250,7 @@
 		0FC7FB8E246852C9006BFBA4 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		0FC7FB9024689187006BFBA4 /* DateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
 		0FC7FB9624689CFC006BFBA4 /* ExerciseStoringStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStoringStub.swift; sourceTree = "<group>"; };
-		0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDummy.swift; sourceTree = "<group>"; };
+		0FC7FB9824689DAF006BFBA4 /* ExerciseFakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseFakes.swift; sourceTree = "<group>"; };
 		0FCDC4EA259A9D9B00CC1D22 /* UIPickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerTextField.swift; sourceTree = "<group>"; };
 		0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
 		0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListViewModel.swift; sourceTree = "<group>"; };
@@ -391,6 +399,7 @@
 				0F33B64B25227BE000B44EAA /* PublisherListener.swift */,
 				0F0F9ADD259FEDAF00AC4B9B /* TestFailure.swift */,
 				0F0F9AEF25A0987000AC4B9B /* MetatypeInjector.swift */,
+				0F93112D274AEE9D00228B93 /* ArrayMatching.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -438,10 +447,12 @@
 		0F56F70D24312A21002A2EBA /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0F931128274ACE8F00228B93 /* Common */,
 				0FB4D49E24425269004E244D /* Root */,
 				0FB4D4A524425B22004E244D /* ExercisesList */,
 				0F931120274AB87D00228B93 /* Plan */,
 				0FAECC64252A37CB00693A8A /* Planner */,
+				0F931123274AC80200228B93 /* ExercisePicker */,
 				0FB4D49D24425255004E244D /* ExerciseCreation */,
 			);
 			path = Modules;
@@ -580,6 +591,24 @@
 			path = Plan;
 			sourceTree = "<group>";
 		};
+		0F931123274AC80200228B93 /* ExercisePicker */ = {
+			isa = PBXGroup;
+			children = (
+				0F931124274AC81500228B93 /* ExercisePickerView.swift */,
+				0F931126274ACD7300228B93 /* ExercisePickerViewModel.swift */,
+				0F931129274ADF6F00228B93 /* ExercisePickerViewModel_tests.swift */,
+			);
+			path = ExercisePicker;
+			sourceTree = "<group>";
+		};
+		0F931128274ACE8F00228B93 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0F33B6642522844C00B44EAA /* ExerciseCellViewModel.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		0FA934FE247319AC00D939F1 /* Adapters */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +637,7 @@
 			children = (
 				0F56F70E24312A3A002A2EBA /* ExerciseCreationView.swift */,
 				0F08333C24426C10003665EB /* ExerciseCreationViewModel.swift */,
+				0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModel_tests.swift */,
 			);
 			path = ExerciseCreation;
 			sourceTree = "<group>";
@@ -625,7 +655,6 @@
 			children = (
 				0FB4D4A324425B1D004E244D /* ExercisesListView.swift */,
 				0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */,
-				0F33B6642522844C00B44EAA /* ExerciseCellViewModel.swift */,
 			);
 			path = ExercisesList;
 			sourceTree = "<group>";
@@ -633,7 +662,6 @@
 		0FC7FB9224689CA3006BFBA4 /* ExerciseCreation */ = {
 			isa = PBXGroup;
 			children = (
-				0F7A1DF4250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift */,
 			);
 			path = ExerciseCreation;
 			sourceTree = "<group>";
@@ -642,7 +670,7 @@
 			isa = PBXGroup;
 			children = (
 				0FC7FB9624689CFC006BFBA4 /* ExerciseStoringStub.swift */,
-				0FC7FB9824689DAF006BFBA4 /* ExerciseDummy.swift */,
+				0FC7FB9824689DAF006BFBA4 /* ExerciseFakes.swift */,
 				0F0F9B0325A09C6600AC4B9B /* UIPanGestureRecognizerMock.swift */,
 				0F0F9B0A25A0A56500AC4B9B /* UITapGestureRecognizerMock.swift */,
 				0F0F9B1625A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift */,
@@ -1003,6 +1031,7 @@
 				0F2E6BE2273806A6001941BA /* PlannerExerciseViewModel.swift in Sources */,
 				0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */,
 				0FE6008F245F56710052539C /* ExerciseStoring.swift in Sources */,
+				0F931127274ACD7300228B93 /* ExercisePickerViewModel.swift in Sources */,
 				0FE1DF3225520A5800CE7A93 /* PlannerSetCell.swift in Sources */,
 				0FD8B45C273D8C9A0052DDE1 /* TrainingBottomBar.swift in Sources */,
 				0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */,
@@ -1015,6 +1044,7 @@
 				0F167153253388E3000C5E79 /* PlannerExerciseView.swift in Sources */,
 				0FAECC72252A37ED00693A8A /* PlannerViewModel.swift in Sources */,
 				0F56F7052430F536002A2EBA /* InnerDepthShadow.swift in Sources */,
+				0F931125274AC81500228B93 /* ExercisePickerView.swift in Sources */,
 				0F56F7032430F2AA002A2EBA /* OuterDepthShadow.swift in Sources */,
 				0F76E9012546056C00D1B2F1 /* ParameterGauge.swift in Sources */,
 				0F76E90F254605DE00D1B2F1 /* Pace.swift in Sources */,
@@ -1051,17 +1081,19 @@
 			files = (
 				0F0F9B0425A09C6600AC4B9B /* UIPanGestureRecognizerMock.swift in Sources */,
 				0F0F9B2325A0D66400AC4B9B /* UIImpactFeedbackGeneratorMock.swift in Sources */,
+				0F93112A274ADF6F00228B93 /* ExercisePickerViewModel_tests.swift in Sources */,
 				0FE9486F2738087B0013F5E4 /* PlannerExerciseViewModel_tests.swift in Sources */,
 				0F0F9AF025A0987000AC4B9B /* MetatypeInjector.swift in Sources */,
+				0F93112C274AE21D00228B93 /* ExerciseCreationViewModel_tests.swift in Sources */,
 				0F7EC99A25A2605600FA9C7B /* UINotificationFeedbackGeneratorMock.swift in Sources */,
 				0F0F9AD2259B790A00AC4B9B /* UIPickerTextFieldTests.swift in Sources */,
 				0FC7FB9724689CFC006BFBA4 /* ExerciseStoringStub.swift in Sources */,
-				0FC7FB9924689DAF006BFBA4 /* ExerciseDummy.swift in Sources */,
+				0FC7FB9924689DAF006BFBA4 /* ExerciseFakes.swift in Sources */,
 				0F0F9B1725A0D63A00AC4B9B /* UISelectionFeedbackGeneratorMock.swift in Sources */,
 				0F33B64C25227BE000B44EAA /* PublisherListener.swift in Sources */,
 				0F0F9ADE259FEDAF00AC4B9B /* TestFailure.swift in Sources */,
 				0F0F9B0B25A0A56500AC4B9B /* UITapGestureRecognizerMock.swift in Sources */,
-				0F7A1DF5250E9CF600A104C1 /* ExerciseCreationViewModelTests.swift in Sources */,
+				0F93112E274AEE9D00228B93 /* ArrayMatching.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
