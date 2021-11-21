@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-public class CoreEntry: RootRouting, ExerciseListViewRouting {
+public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, PlannerRouting {
     private let dependencies: CoreDependencies
     
     public init(dependencies: CoreDependencies) {
@@ -27,6 +27,10 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting {
     }
     
     // MARK: - RootRouting
+    
+    @ViewBuilder func plan() -> some View {
+        PlanView(router: self)
+    }
     
     @ViewBuilder func exerciseList() -> some View {
         let model = ExercisesListViewModel(exerciseStorage: dependencies.exerciseStorage)
@@ -47,14 +51,11 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting {
         )
     }
     
-    private func makeExercisesList() -> ExercisesListViewModel {
-        return ExercisesListViewModel(
-            exerciseStorage: dependencies.exerciseStorage
-        )
-    }
+    // MARK: - PlanRouting
     
-    private func makeExerciseCreation() -> ExerciseCreationViewModel {
-        return ExerciseCreationViewModel(exerciseStorage: dependencies.exerciseStorage)
+    @ViewBuilder func planner(isPresented: Binding<Bool>) -> some View {
+        let model = PlannerViewModel()
+        PlannerView(model: model, router: self)
     }
 }
 

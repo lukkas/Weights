@@ -65,6 +65,7 @@
 		0F927D6326C05AF300500E64 /* FrozenParameterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6226C05AF300500E64 /* FrozenParameterField.swift */; };
 		0F927D6626C066E100500E64 /* Colors+UseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F927D6526C066E100500E64 /* Colors+UseCases.swift */; };
 		0F93111F2741B19200228B93 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93111E2741B19200228B93 /* SceneDelegate.swift */; };
+		0F931122274AB89100228B93 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F931121274AB89100228B93 /* PlanView.swift */; };
 		0F99873124F2ED4A00366D0B /* View+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99873024F2ED4A00366D0B /* View+Debug.swift */; };
 		0FA934FD2473172400D939F1 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FC2473172400D939F1 /* AppDependencies.swift */; };
 		0FA93500247319C700D939F1 /* ExerciseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA934FF247319C700D939F1 /* ExerciseStorage.swift */; };
@@ -228,6 +229,7 @@
 		0F927D6226C05AF300500E64 /* FrozenParameterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenParameterField.swift; sourceTree = "<group>"; };
 		0F927D6526C066E100500E64 /* Colors+UseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+UseCases.swift"; sourceTree = "<group>"; };
 		0F93111E2741B19200228B93 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		0F931121274AB89100228B93 /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		0F99873024F2ED4A00366D0B /* View+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Debug.swift"; sourceTree = "<group>"; };
 		0FA934FC2473172400D939F1 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		0FA934FF247319C700D939F1 /* ExerciseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorage.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 			children = (
 				0FB4D49E24425269004E244D /* Root */,
 				0FB4D4A524425B22004E244D /* ExercisesList */,
+				0F931120274AB87D00228B93 /* Plan */,
 				0FAECC64252A37CB00693A8A /* Planner */,
 				0FB4D49D24425255004E244D /* ExerciseCreation */,
 			);
@@ -567,6 +570,14 @@
 				0F81F4B9272F39E4006D8EB9 /* ExerciseMetric+Displaying.swift */,
 			);
 			path = Styling;
+			sourceTree = "<group>";
+		};
+		0F931120274AB87D00228B93 /* Plan */ = {
+			isa = PBXGroup;
+			children = (
+				0F931121274AB89100228B93 /* PlanView.swift */,
+			);
+			path = Plan;
 			sourceTree = "<group>";
 		};
 		0FA934FE247319AC00D939F1 /* Adapters */ = {
@@ -1000,6 +1011,7 @@
 				0F0F9AF825A09A4200AC4B9B /* Metatypes.swift in Sources */,
 				0FCDC4EB259A9D9B00CC1D22 /* UIPickerTextField.swift in Sources */,
 				0F33B6592522817E00B44EAA /* PlaceholderClosures.swift in Sources */,
+				0F931122274AB89100228B93 /* PlanView.swift in Sources */,
 				0F167153253388E3000C5E79 /* PlannerExerciseView.swift in Sources */,
 				0FAECC72252A37ED00693A8A /* PlannerViewModel.swift in Sources */,
 				0F56F7052430F536002A2EBA /* InnerDepthShadow.swift in Sources */,

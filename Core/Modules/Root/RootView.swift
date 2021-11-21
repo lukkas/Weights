@@ -17,7 +17,7 @@ struct RootView<Router: RootRouting>: View {
                 .tabItem {
                     Text(L10n.Root.Tab.home)
                 }
-            Text("2")
+            router.plan()
                 .tabItem {
                     Text(L10n.Root.Tab.plan)
                 }
@@ -30,14 +30,20 @@ struct RootView<Router: RootRouting>: View {
 }
 
 protocol RootRouting {
+    associatedtype PlanViewType: View
     associatedtype ExerciseListViewType: View
     
+    func plan() -> PlanViewType
     func exerciseList() -> ExerciseListViewType
 }
 
 // MARK: - Design time
 
 class DTRootRouter: RootRouting {
+    @ViewBuilder func plan() -> some View {
+        EmptyView()
+    }
+    
     @ViewBuilder func exerciseList() -> some View {
         EmptyView()
     }
