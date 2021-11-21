@@ -73,7 +73,6 @@
 		0FAECC66252A37DD00693A8A /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAECC65252A37DD00693A8A /* PlannerView.swift */; };
 		0FAECC72252A37ED00693A8A /* PlannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */; };
 		0FB4D4A024425278004E244D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D49F24425278004E244D /* RootView.swift */; };
-		0FB4D4A224425328004E244D /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D4A124425328004E244D /* RootViewModel.swift */; };
 		0FB4D4A424425B1D004E244D /* ExercisesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB4D4A324425B1D004E244D /* ExercisesListView.swift */; };
 		0FC7FB8F246852C9006BFBA4 /* NSManagedObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB8E246852C9006BFBA4 /* NSManagedObject+Extensions.swift */; };
 		0FC7FB9124689187006BFBA4 /* DateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9024689187006BFBA4 /* DateProvider.swift */; };
@@ -237,7 +236,6 @@
 		0FAECC65252A37DD00693A8A /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		0FAECC71252A37ED00693A8A /* PlannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewModel.swift; sourceTree = "<group>"; };
 		0FB4D49F24425278004E244D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		0FB4D4A124425328004E244D /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		0FB4D4A324425B1D004E244D /* ExercisesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListView.swift; sourceTree = "<group>"; };
 		0FC7FB8E246852C9006BFBA4 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
 		0FC7FB9024689187006BFBA4 /* DateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
@@ -607,7 +605,6 @@
 			isa = PBXGroup;
 			children = (
 				0FB4D49F24425278004E244D /* RootView.swift */,
-				0FB4D4A124425328004E244D /* RootViewModel.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -1024,7 +1021,6 @@
 				0F76E908254605D300D1B2F1 /* RPE.swift in Sources */,
 				0F86D9C8259A76C50060BAE3 /* RPEPicker.swift in Sources */,
 				0F7EE5C3243013550015951B /* Colors.swift in Sources */,
-				0FB4D4A224425328004E244D /* RootViewModel.swift in Sources */,
 				0F08333D24426C10003665EB /* ExerciseCreationViewModel.swift in Sources */,
 				0FAB583B260BDF4400E9A5EE /* UIResetValueDrawer.swift in Sources */,
 				0F76E922254630B300D1B2F1 /* CellPreview.swift in Sources */,

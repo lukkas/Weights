@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-public class CoreEntry {
+public class CoreEntry: RootRouting, ExerciseListViewRouting {
     private let dependencies: CoreDependencies
     
     public init(dependencies: CoreDependencies) {
@@ -22,20 +22,34 @@ public class CoreEntry {
 //        return ParameterFieldWrapper()
     }
     
-    private func makeRootView() -> some View {
-        let rootRoutes = RootRoutes(
-            exercisesList: makeExercisesList
+    @ViewBuilder private func makeRootView() -> some View {
+        RootView(router: self)
+    }
+    
+    // MARK: - RootRouting
+    
+    @ViewBuilder func exerciseList() -> some View {
+        let model = ExercisesListViewModel(exerciseStorage: dependencies.exerciseStorage)
+        let router = DTExerciseListViewRouter()
+        ExercisesListView(
+            model: model,
+            router: router
         )
-        return RootView(model: RootViewModel(routes: rootRoutes))
+    }
+    
+    // MARK: - ExerciseListViewRouting
+    
+    @ViewBuilder func exerciseCreation(isPresented: Binding<Bool>) -> some View {
+        let model = ExerciseCreationViewModel(exerciseStorage: dependencies.exerciseStorage)
+        ExerciseCreationView(
+            model: model,
+            isPresented: isPresented
+        )
     }
     
     private func makeExercisesList() -> ExercisesListViewModel {
-        let routes = ExercisesListViewModel.Routes(
-            createExercise: makeExerciseCreation
-        )
         return ExercisesListViewModel(
-            exerciseStorage: dependencies.exerciseStorage,
-            routes: routes
+            exerciseStorage: dependencies.exerciseStorage
         )
     }
     

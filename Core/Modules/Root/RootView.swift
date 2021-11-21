@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct RootView<Model: RootViewModeling>: View {
-    @ObservedObject var model: Model
+struct RootView<Router: RootRouting>: View {
+    let router: Router
     
     var body: some View {
         TabView {
@@ -21,36 +21,30 @@ struct RootView<Model: RootViewModeling>: View {
                 .tabItem {
                     Text(L10n.Root.Tab.plan)
                 }
-//            ExercisesListView(model: model.routes.exercisesList())
-//                .tabItem {
-//                    Text(L10n.Root.Tab.exercises)
-//                }
+            router.exerciseList()
+                .tabItem {
+                    Text(L10n.Root.Tab.exercises)
+                }
         }
     }
 }
 
-// MARK: - Model
-
-struct RootRoutes<ExerciseListViewModelType: ExerciseListViewModeling> {
-    let exercisesList: () -> ExerciseListViewModelType
-}
-
-protocol RootViewModeling: ObservableObject {
-    associatedtype ExerciseListViewModelType: ExerciseListViewModeling
+protocol RootRouting {
+    associatedtype ExerciseListViewType: View
     
-    var routes: RootRoutes<ExerciseListViewModelType> { get }
+    func exerciseList() -> ExerciseListViewType
 }
 
 // MARK: - Design time
 
-class DTRootViewModel: RootViewModeling {
-    var routes: RootRoutes<DTExerciseListViewModel> = .init(
-        exercisesList: { DTExerciseListViewModel() }
-    )
+class DTRootRouter: RootRouting {
+    @ViewBuilder func exerciseList() -> some View {
+        EmptyView()
+    }
 }
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView(model: DTRootViewModel())
+        RootView(router: DTRootRouter())
     }
 }

@@ -8,10 +8,14 @@
 
 import SwiftUI
 
-struct ExercisesListView<Model: ExerciseListViewModeling>: View {
+struct ExercisesListView<
+    Model: ExerciseListViewModeling,
+    Router: ExerciseListViewRouting
+>: View {
     @State private var isPresenting = false
     @State private var selectedExercise: ExerciseCellViewModel?
     @StateObject var model: Model
+    let router: Router
     
     var body: some View {
         NavigationView {
@@ -43,19 +47,24 @@ struct ExercisesListView<Model: ExerciseListViewModeling>: View {
             )
         }
         .sheet(isPresented: $isPresenting) {
-            ExerciseCreationView(
-                model: self.model.routes.createExercise(),
-                isPresented: self.$isPresenting
-            )
+            router.exerciseCreation(isPresented: $isPresenting)
         }
     }
 }
 
-class DTExerciseListViewModel: ExerciseListViewModeling {
-    var routes: ExercisesListViewModel.Routes {
-        return .init(createExercise: placeholderClosure)
-    }
+protocol ExerciseListViewModeling: ObservableObject {
+    var cellViewModels: [ExerciseCellViewModel] { get }
+}
+
+protocol ExerciseListViewRouting {
+    associatedtype ExerciseCreationViewType: View
     
+    func exerciseCreation(isPresented: Binding<Bool>) -> ExerciseCreationViewType
+}
+
+// MARK: - Design time
+
+class DTExerciseListViewModel: ExerciseListViewModeling {
     var cellViewModels: [ExerciseCellViewModel] {
         return [
             .init(id: UUID(), exerciseName: "Squat"),
@@ -64,8 +73,17 @@ class DTExerciseListViewModel: ExerciseListViewModeling {
     }
 }
 
+class DTExerciseListViewRouter: ExerciseListViewRouting {
+    @ViewBuilder func exerciseCreation(isPresented: Binding<Bool>) -> some View {
+        EmptyView()
+    }
+}
+
 struct ExercisesListView_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisesListView(model: DTExerciseListViewModel())
+        ExercisesListView(
+            model: DTExerciseListViewModel(),
+            router: DTExerciseListViewRouter()
+        )
     }
 }
