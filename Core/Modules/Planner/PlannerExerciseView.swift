@@ -8,12 +8,6 @@
 
 import SwiftUI
 
-protocol PlannerExerciseViewModeling: ObservableObject, Identifiable {
-    var name: String { get }
-    var variations: [PlannerSetCellModel] { get set }
-    func addVariationTapped()
-}
-
 struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
     @ObservedObject var model: Model
     
@@ -53,6 +47,14 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
         .cardDesign()
     }
 }
+
+protocol PlannerExerciseViewModeling: ObservableObject, Identifiable {
+    var name: String { get }
+    var variations: [PlannerSetCellModel] { get set }
+    func addVariationTapped()
+}
+
+// MARK: - Design time
 
 class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
     let name: String = "Squat"

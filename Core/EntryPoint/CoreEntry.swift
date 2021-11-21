@@ -70,7 +70,7 @@ struct ParameterFieldWrapper: View {
         .sheet(
             isPresented: $isShowingPlanner,
             content: {
-                PlannerView(model: PlannerViewModel())
+                PlannerView(model: PlannerViewModel(), router: DTPlannerRouter())
             }
         )
 //        PlannerExerciseView(model: PlannerExerciseViewModel(exercise: .stubbed()))

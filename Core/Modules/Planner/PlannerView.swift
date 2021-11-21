@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct PlannerView<Model: PlannerViewModeling>: View {
+struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     @ObservedObject var model: Model
+    let router: Router
     
     var body: some View {
         TabView(selection: $model.visibleUnit) {
@@ -64,6 +65,14 @@ struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiab
     var name: String
     let exercises: [ExerciseModel]
 }
+
+protocol PlannerRouting {
+    associatedtype ExerciseCreationViewType = View
+    
+    func exerciseCreation(isPresented: Binding<Bool>) -> ExerciseCreationViewType
+}
+
+// MARK: - Design time
 
 //struct PlannerView: View {
 //    var body: some View {
@@ -135,12 +144,14 @@ class DTPlannerViewModel: PlannerViewModeling {
     }
 }
 
-struct PlannerView_Previews: PreviewProvider {
-//    fileprivate class PreviewModel: PlannerViewModeling {
-//        
-//    }
-    
+struct DTPlannerRouter: PlannerRouting {
+    @ViewBuilder func exerciseCreation(isPresented: Binding<Bool>) -> some View {
+        EmptyView()
+    }
+}
+
+struct PlannerView_Previews: PreviewProvider {    
     static var previews: some View {
-        PlannerView(model: DTPlannerViewModel())
+        PlannerView(model: DTPlannerViewModel(), router: DTPlannerRouter())
     }
 }
