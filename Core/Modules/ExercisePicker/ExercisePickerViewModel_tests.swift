@@ -37,5 +37,7 @@ class ExercisePickerViewModel_tests: XCTestCase {
         }
     }
     
-    
+    func test_exercisePicked_shouldPopulatePickedExercisesArray() {
+        
+    }
 }
