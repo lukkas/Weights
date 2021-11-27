@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, PlannerRouting {
+public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, PlannerRouting {    
     private let dependencies: CoreDependencies
     
     public init(dependencies: CoreDependencies) {
@@ -56,6 +56,12 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, Plann
     @ViewBuilder func planner(isPresented: Binding<Bool>) -> some View {
         let model = PlannerViewModel()
         PlannerView(model: model, router: self)
+    }
+    
+    // MARK: - PlannerRouting
+    
+    @ViewBuilder func exercisePicker(relay: ExercisePickerRelay) -> some View {
+        EmptyView()
     }
 }
 

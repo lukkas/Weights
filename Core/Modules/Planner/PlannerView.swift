@@ -45,6 +45,12 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .automatic))
         .navigationBarTitle(L10n.Planner.title)
+        .sheet(
+            item: $model.exercisePickerRelay,
+            onDismiss: nil
+        ) { pickerRelay in
+                
+        }
     }
 }
 
@@ -54,6 +60,7 @@ protocol PlannerViewModeling: ObservableObject {
     var trainingUnits: [TrainingUnitModel<ExerciseViewModelType>] { get }
     var visibleUnit: Int { get set }
     var currentUnitName: String { get set }
+    var exercisePickerRelay: ExercisePickerRelay? { get set }
     
     func addExerciseTapped()
     func leftArrowTapped()
@@ -68,9 +75,9 @@ struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiab
 }
 
 protocol PlannerRouting {
-    associatedtype ExerciseCreationViewType = View
+    associatedtype ExercisePickerViewType = View
     
-    func exerciseCreation(isPresented: Binding<Bool>) -> ExerciseCreationViewType
+    func exercisePicker(relay: ExercisePickerRelay) -> ExercisePickerViewType
 }
 
 // MARK: - Design time
@@ -127,6 +134,7 @@ class DTPlannerViewModel: PlannerViewModeling {
     ]
     @Published var visibleUnit: Int = 0
     @Published var currentUnitName: String = "Upper A"
+    @Published var exercisePickerRelay: ExercisePickerRelay?
     
     func addExerciseTapped() {
         
@@ -146,7 +154,7 @@ class DTPlannerViewModel: PlannerViewModeling {
 }
 
 struct DTPlannerRouter: PlannerRouting {
-    @ViewBuilder func exerciseCreation(isPresented: Binding<Bool>) -> some View {
+    @ViewBuilder func exercisePicker(relay: ExercisePickerRelay) -> some View {
         EmptyView()
     }
 }
