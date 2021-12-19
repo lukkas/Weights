@@ -49,7 +49,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
             item: $model.exercisePickerRelay,
             onDismiss: nil
         ) { pickerRelay in
-                
+            router.exercisePicker(relay: pickerRelay)
         }
     }
 }
@@ -75,7 +75,7 @@ struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiab
 }
 
 protocol PlannerRouting {
-    associatedtype ExercisePickerViewType = View
+    associatedtype ExercisePickerViewType: View
     
     func exercisePicker(relay: ExercisePickerRelay) -> ExercisePickerViewType
 }

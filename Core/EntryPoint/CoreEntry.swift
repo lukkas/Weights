@@ -34,10 +34,9 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, Plann
     
     @ViewBuilder func exerciseList() -> some View {
         let model = ExercisesListViewModel(exerciseStorage: dependencies.exerciseStorage)
-        let router = DTExerciseListViewRouter()
         ExercisesListView(
             model: model,
-            router: router
+            router: self
         )
     }
     
@@ -61,7 +60,11 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, Plann
     // MARK: - PlannerRouting
     
     @ViewBuilder func exercisePicker(relay: ExercisePickerRelay) -> some View {
-        EmptyView()
+        let model = ExercisePickerViewModel(
+            exerciseStorage: dependencies.exerciseStorage,
+            pickedRelay: relay
+        )
+        ExercisePickerView(model: model)
     }
 }
 

@@ -10,10 +10,34 @@ import SwiftUI
 
 struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
     @ObservedObject var model: Model
+    @State var searchText = ""
     
     var body: some View {
-        List(model.exercises, selection: $model.selection) { exercise in
-            Text(exercise.exerciseName)
+        NavigationView {
+            VStack(spacing: 0) {
+                List(model.exercises) { exercise in
+                    Button {
+                        model.pick(exercise)
+                    } label: {
+                        Text(exercise.exerciseName)
+                    }
+                    .tint(.label)
+                }
+                .searchable(text: $searchText)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        Color.clear
+                        ForEach(model.pickedExercises) { exercise in
+                            PickedExerciseCell(exercise: exercise) {
+                                
+                            }
+                        }
+                        Color.clear
+                    }
+                }
+                .background(Color.secondaryBackground)
+                .frame(height: 100)
+            }
         }
         .onAppear(perform: model.handleViewAppeared)
     }
@@ -21,24 +45,23 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
 
 protocol ExercisePickerViewModeling: ObservableObject {
     var exercises: [ExerciseCellViewModel] { get }
-    var selection: Set<ExerciseCellViewModel> { get set }
     var pickedExercises: [ExerciseCellViewModel] { get }
     
     func handleViewAppeared()
+    func pick(_ exercise: ExerciseCellViewModel)
 }
 
 // MARK: - Design time
 
 class DTExercisePickerViewModel: ExercisePickerViewModeling {
-    @Published var exercises: [ExerciseCellViewModel] = ExerciseCellViewModel.make(count: 3)
-    @Published var selection: Set<ExerciseCellViewModel> = [] {
-        didSet {
-            pickedExercises = Array(selection)
-        }
-    }
-    @Published var pickedExercises: [ExerciseCellViewModel] = []
+    @Published var exercises: [ExerciseCellViewModel] = ExerciseCellViewModel.make(count: 20)
+    @Published var pickedExercises: [ExerciseCellViewModel] = ExerciseCellViewModel.make(count: 3)
     
     func handleViewAppeared() {
+        
+    }
+    
+    func pick(_ exercise: ExerciseCellViewModel) {
         
     }
 }

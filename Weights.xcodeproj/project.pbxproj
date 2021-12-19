@@ -85,6 +85,7 @@
 		0FC7FB9924689DAF006BFBA4 /* ExerciseFakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC7FB9824689DAF006BFBA4 /* ExerciseFakes.swift */; };
 		0FCDC4EB259A9D9B00CC1D22 /* UIPickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCDC4EA259A9D9B00CC1D22 /* UIPickerTextField.swift */; };
 		0FCDC4FD259A9FF900CC1D22 /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */; };
+		0FD523F02758179B0057E5A5 /* PickedExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD523EF2758179B0057E5A5 /* PickedExerciseCell.swift */; };
 		0FD751DC2471A8BB007D638E /* ExercisesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */; };
 		0FD751DE2471B045007D638E /* CoreDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD751DD2471B045007D638E /* CoreDependencies.swift */; };
 		0FD8B45C273D8C9A0052DDE1 /* TrainingBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD8B45B273D8C9A0052DDE1 /* TrainingBottomBar.swift */; };
@@ -253,6 +254,7 @@
 		0FC7FB9824689DAF006BFBA4 /* ExerciseFakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseFakes.swift; sourceTree = "<group>"; };
 		0FCDC4EA259A9D9B00CC1D22 /* UIPickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerTextField.swift; sourceTree = "<group>"; };
 		0FCDC4FC259A9FF900CC1D22 /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
+		0FD523EF2758179B0057E5A5 /* PickedExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedExerciseCell.swift; sourceTree = "<group>"; };
 		0FD751DB2471A8BB007D638E /* ExercisesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesListViewModel.swift; sourceTree = "<group>"; };
 		0FD751DD2471B045007D638E /* CoreDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDependencies.swift; sourceTree = "<group>"; };
 		0FD8B45B273D8C9A0052DDE1 /* TrainingBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingBottomBar.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 				0F931124274AC81500228B93 /* ExercisePickerView.swift */,
 				0F931126274ACD7300228B93 /* ExercisePickerViewModel.swift */,
 				0F931129274ADF6F00228B93 /* ExercisePickerViewModel_tests.swift */,
+				0FD523EF2758179B0057E5A5 /* PickedExerciseCell.swift */,
 			);
 			path = ExercisePicker;
 			sourceTree = "<group>";
@@ -1064,6 +1067,7 @@
 				0F86D9C8259A76C50060BAE3 /* RPEPicker.swift in Sources */,
 				0F7EE5C3243013550015951B /* Colors.swift in Sources */,
 				0F08333D24426C10003665EB /* ExerciseCreationViewModel.swift in Sources */,
+				0FD523F02758179B0057E5A5 /* PickedExerciseCell.swift in Sources */,
 				0FAB583B260BDF4400E9A5EE /* UIResetValueDrawer.swift in Sources */,
 				0F76E922254630B300D1B2F1 /* CellPreview.swift in Sources */,
 				0FB4D4A424425B1D004E244D /* ExercisesListView.swift in Sources */,

@@ -13,12 +13,12 @@ struct OuterDepthShadow: ViewModifier {
     func body(content: Content) -> some View {
         content
             .shadow(
-                color: Color.black.opacity(0.2),
-                radius: 10, x: 10, y: 10
+                color: Color.black.opacity(0.1),
+                radius: 8, x: 4, y: 4
             )
             .shadow(
                 color: Color.white.opacity(0.7),
-                radius: 10, x: -5, y: -5
+                radius: 8, x: -2, y: -2
             )
 //            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 2, y: 2)
     }

@@ -22,8 +22,9 @@ extension ExerciseCellViewModel {
             "Squat", "Bench press", "Deadlift", "Sumo deadlift", "Seal row",
             "Biecep curl", "Tricep extension", "Farmer walk"
         ]
-        return names.prefix(count).map { name in
-            ExerciseCellViewModel(id: UUID(), exerciseName: name)
+        return (0 ..< count).map { index in
+            let name = names[index % names.count]
+            return ExerciseCellViewModel(id: UUID(), exerciseName: name)
         }
     }
 }

@@ -11,16 +11,13 @@ import Foundation
 class ExercisePickerViewModel: ExercisePickerViewModeling {
     @Published private(set) var exercises: [ExerciseCellViewModel] = []
     @Published private(set) var pickedExercises: [ExerciseCellViewModel] = []
-    @Published var selection: Set<ExerciseCellViewModel> = [] {
-        didSet {
-            
-        }
-    }
     
     private let exerciseStorage: ExerciseStoring
+    private let pickedRelay: ExercisePickerRelay
     
-    init(exerciseStorage: ExerciseStoring) {
+    init(exerciseStorage: ExerciseStoring, pickedRelay: ExercisePickerRelay) {
         self.exerciseStorage = exerciseStorage
+        self.pickedRelay = pickedRelay
     }
     
     func handleViewAppeared() {
@@ -34,6 +31,6 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
     }
     
     func pick(_ exercise: ExerciseCellViewModel) {
-        
+        exercises.removeAll(where: { $0.id == exercise.id })
     }
 }

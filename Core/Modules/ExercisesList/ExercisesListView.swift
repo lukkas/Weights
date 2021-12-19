@@ -42,7 +42,11 @@ struct ExercisesListView<
             .navigationBarItems(trailing:
                 Button(action: { self.isPresenting.toggle() }, label: {
                     Image(systemName: "plus")
-                        .font(.system(size: 24))
+                    .font(.system(
+                        size: 18,
+                        weight: .semibold,
+                        design: .rounded
+                    ))
                 })
             )
         }

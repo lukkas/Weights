@@ -15,7 +15,11 @@ class ExercisePickerViewModel_tests: XCTestCase {
 
     override func setUpWithError() throws {
         exerciseStorage = ExerciseStoringStub()
-        sut = ExercisePickerViewModel(exerciseStorage: exerciseStorage)
+        let pickerRelay = ExercisePickerRelay(onPicked: { _ in })
+        sut = ExercisePickerViewModel(
+            exerciseStorage: exerciseStorage,
+            pickedRelay: pickerRelay
+        )
     }
 
     override func tearDownWithError() throws {
