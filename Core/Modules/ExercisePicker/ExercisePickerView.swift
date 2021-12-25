@@ -23,19 +23,34 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                     }
                     .tint(.label)
                 }
+                .listStyle(.plain)
                 .searchable(text: $searchText)
+                .mask(alignment: .bottom, {
+                    VStack(spacing: 0) {
+                        Color.black
+                        LinearGradient(gradient:
+                           Gradient(
+                               colors: [Color.black, Color.black.opacity(0)]),
+                               startPoint: .top, endPoint: .bottom
+                           )
+                            .frame(height: 50)
+                    }
+                })
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         Color.clear
                         ForEach(model.pickedExercises) { exercise in
-                            PickedExerciseCell(exercise: exercise) {
-                                
-                            }
+                            PickedExerciseCell(
+                                exercise: exercise,
+                                onRemoveTapped: {
+                                    model.remove(exercise)
+                                }
+                            )
                         }
                         Color.clear
                     }
                 }
-                .background(Color.secondaryBackground)
+                .background(Color.background)
                 .frame(height: 100)
             }
         }
@@ -49,6 +64,7 @@ protocol ExercisePickerViewModeling: ObservableObject {
     
     func handleViewAppeared()
     func pick(_ exercise: ExerciseCellViewModel)
+    func remove(_ exercise: ExerciseCellViewModel)
 }
 
 // MARK: - Design time
@@ -62,6 +78,10 @@ class DTExercisePickerViewModel: ExercisePickerViewModeling {
     }
     
     func pick(_ exercise: ExerciseCellViewModel) {
+        
+    }
+    
+    func remove(_ exercise: ExerciseCellViewModel) {
         
     }
 }
