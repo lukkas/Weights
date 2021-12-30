@@ -31,6 +31,7 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
     }
     
     func pick(_ exercise: ExerciseCellViewModel) {
+        pickedExercises.append(exercise)
         exercises.removeAll(where: { $0.id == exercise.id })
     }
     

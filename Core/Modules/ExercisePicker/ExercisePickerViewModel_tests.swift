@@ -9,52 +9,61 @@
 import XCTest
 @testable import Core
 import Nimble
+import Quick
 
-class ExercisePickerViewModel_tests: XCTestCase {
-    var sut: ExercisePickerViewModel!
-    var exerciseStorage: ExerciseStoringStub!
-    var exercises: [Exercise]!
-
-    override func setUpWithError() throws {
-        exerciseStorage = ExerciseStoringStub()
-        let pickerRelay = ExercisePickerRelay(onPicked: { _ in })
-        sut = ExercisePickerViewModel(
-            exerciseStorage: exerciseStorage,
-            pickedRelay: pickerRelay
-        )
-    }
-
-    override func tearDownWithError() throws {
-        sut = nil
-        exerciseStorage = nil
-        exercises = nil
-    }
-    
-    func test_populatingWithData() {
-        // given
-        let exercises = Exercise.make(count: 3)
-        exerciseStorage.preconfigure_populate(with: exercises)
-        
-        // when
-        sut.handleViewAppeared()
-        
-        // then
-        XCTAssertMatches(exercises, sut.exercises) { exercise, cellViewModel in
-            XCTAssertEqual(exercise.name, cellViewModel.exerciseName)
+class ExercisePickerViewModelSpec: QuickSpec {
+    override func spec() {
+        describe("exercise picker view model") {
+            var sut: ExercisePickerViewModel!
+            var exerciseStorage: ExerciseStoringStub!
+            
+            beforeEach {
+                exerciseStorage = ExerciseStoringStub()
+                let pickerRelay = ExercisePickerRelay(onPicked: { _ in })
+                sut = ExercisePickerViewModel(
+                    exerciseStorage: exerciseStorage,
+                    pickedRelay: pickerRelay
+                )
+            }
+            
+            afterEach {
+                exerciseStorage = nil
+                sut = nil
+            }
+            
+            context("given populated storage") {
+                let exercises = Exercise.make(count: 3)
+                
+                beforeEach {
+                    exerciseStorage.preconfigure_populate(with: exercises)
+                    sut.handleViewAppeared()
+                }
+                
+                it("has cell view models matching exercises") {
+                    expect(sut.exercises).to(elementsEqual(exercises, by: { cellViewModel, exercise in
+                        cellViewModel.exerciseName == exercise.name
+                    }))
+                }
+                
+                context("when exercise picked") {
+                    let pickedExercise = exercises.first!
+                    let pickedCellModel = ExerciseCellViewModel(
+                        id: pickedExercise.id,
+                        exerciseName: pickedExercise.name
+                    )
+                    beforeEach {
+                        sut.pick(pickedCellModel)
+                    }
+                    
+                    it("will remove exercise from exercises") {
+                        expect(sut.exercises).toNot(contain(pickedCellModel))
+                    }
+                    
+                    it("will populate picked exercises array") {
+                        expect(sut.pickedExercises).to(contain(pickedCellModel))
+                    }
+                }
+            }
         }
     }
-    
-    func test_exercisePicked_shouldPopulatePickedExercisesArray() {
-        // given
-        let exercises = Exercise.make(count: 3)
-        exerciseStorage.preconfigure_populate(with: exercises)
-        sut.handleViewAppeared()
-        
-        // when
-        expect(2).to(equal(2))
-//        let cellViewModel = ExerciseCellViewModel(id: <#T##UUID#>, exerciseName: <#T##String#>)
-//        sut.pick(<#T##exercise: ExerciseCellViewModel##ExerciseCellViewModel#>)
-    }
-    
-//    private func
 }
