@@ -11,6 +11,8 @@ import Foundation
 class ExercisePickerViewModel: ExercisePickerViewModeling {
     @Published private(set) var exercises: [ExerciseCellViewModel] = []
     @Published private(set) var pickedExercises: [ExerciseCellViewModel] = []
+    private var pickedIds: [UUID] = []
+    private var exerciseModels = [Exercise]()
     
     private let exerciseStorage: ExerciseStoring
     private let pickedRelay: ExercisePickerRelay
@@ -21,21 +23,34 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
     }
     
     func handleViewAppeared() {
-        exercises = exerciseStorage.fetchExercises()
-            .map({ exercise in
-                ExerciseCellViewModel(
-                    id: exercise.id,
-                    exerciseName: exercise.name
-                )
-            })
+        exerciseModels = exerciseStorage.fetchExercises()
+        applyCellViewModels()
     }
     
     func pick(_ exercise: ExerciseCellViewModel) {
-        pickedExercises.append(exercise)
-        exercises.removeAll(where: { $0.id == exercise.id })
+        pickedIds.append(exercise.id)
+        applyCellViewModels()
     }
     
     func remove(_ exercise: ExerciseCellViewModel) {
-        
+        pickedIds.removeAll(where: { $0 == exercise.id })
+        applyCellViewModels()
+    }
+    
+    private func applyCellViewModels() {
+        let mapping: (Exercise) -> ExerciseCellViewModel = { exercise in
+            ExerciseCellViewModel(
+                id: exercise.id,
+                exerciseName: exercise.name
+            )
+        }
+        exercises = exerciseModels
+            .filter({ !pickedIds.contains($0.id) })
+            .map(mapping)
+        pickedExercises = pickedIds
+            .map({ id in
+                exerciseModels.first(where: { $0.id == id })!
+            })
+            .map(mapping)
     }
 }

@@ -46,7 +46,8 @@ class ExercisePickerViewModelSpec: QuickSpec {
                 }
                 
                 context("when exercise picked") {
-                    let pickedExercise = exercises.first!
+                    let pickedIndex = 1
+                    let pickedExercise = exercises[pickedIndex]
                     let pickedCellModel = ExerciseCellViewModel(
                         id: pickedExercise.id,
                         exerciseName: pickedExercise.name
@@ -61,6 +62,24 @@ class ExercisePickerViewModelSpec: QuickSpec {
                     
                     it("will populate picked exercises array") {
                         expect(sut.pickedExercises).to(contain(pickedCellModel))
+                    }
+                    
+                    context("when removed back") {
+                        beforeEach {
+                            sut.remove(pickedCellModel)
+                        }
+                        
+                        it("will remove from picked exercises") {
+                            expect(sut.pickedExercises).toNot(contain(pickedCellModel))
+                        }
+                        
+                        it("will add back to exercises") {
+                            expect(sut.exercises).to(contain(pickedCellModel))
+                        }
+                        
+                        it("will keep original exercise order") {
+                            expect(sut.exercises[pickedIndex]).to(equal(pickedCellModel))
+                        }
                     }
                 }
             }
