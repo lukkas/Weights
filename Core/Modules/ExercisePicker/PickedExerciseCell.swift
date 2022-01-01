@@ -37,7 +37,7 @@ struct PickedExerciseCell: View {
             .padding(.trailing, 4)
         }
         .background {
-            Color.fill
+            Color.background
                 .cornerRadius(16)
         }
         .outerDepthShadow()

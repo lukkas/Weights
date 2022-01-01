@@ -35,7 +35,7 @@ struct ExercisesListView<
                             Text(cellViewModel.exerciseName)
                         }
                     )
-                    .listStyle(InsetGroupedListStyle())
+                    .listStyle(.insetGrouped)
                 }
             }
             .navigationBarTitle(L10n.ExercisesList.NavBar.exercises)

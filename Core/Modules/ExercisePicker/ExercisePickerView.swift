@@ -23,7 +23,7 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                     }
                     .tint(.label)
                 }
-                .listStyle(.plain)
+                .listStyle(.grouped)
                 .searchable(text: $searchText)
                 .mask(alignment: .bottom, {
                     VStack(spacing: 0) {
@@ -53,6 +53,7 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                 .background(Color.background)
                 .frame(height: 100)
             }
+            .navigationTitle("Pick exercises")
         }
         .onAppear(perform: model.handleViewAppeared)
     }
