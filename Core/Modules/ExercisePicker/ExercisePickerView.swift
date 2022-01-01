@@ -20,6 +20,7 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                         model.pick(exercise)
                     } label: {
                         Text(exercise.exerciseName)
+                            .textStyle(.listItem)
                     }
                     .tint(.label)
                 }

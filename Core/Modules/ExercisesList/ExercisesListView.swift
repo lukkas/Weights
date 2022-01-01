@@ -33,14 +33,15 @@ struct ExercisesListView<
                         selection: $selectedExercise,
                         rowContent: { cellViewModel in
                             Text(cellViewModel.exerciseName)
+                                .textStyle(.listItem)
                         }
                     )
-                    .listStyle(.insetGrouped)
+                    .listStyle(.inset)
                 }
             }
             .navigationBarTitle(L10n.ExercisesList.NavBar.exercises)
             .navigationBarItems(trailing:
-                Button(action: { self.isPresenting.toggle() }, label: {
+                Button(action: { isPresenting.toggle() }, label: {
                     Image(systemName: "plus")
                     .font(.system(
                         size: 18,
