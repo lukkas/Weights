@@ -54,11 +54,15 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
         exercises = exerciseModels
             .filter({ !pickedIds.contains($0.id) })
             .map(mapping)
-        pickedExercises = pickedIds
+        pickedExercises = pickedExerciseModels
+            .map(mapping)
+    }
+    
+    private var pickedExerciseModels: [Exercise] {
+        return pickedIds
             .map({ id in
                 exerciseModels.first(where: { $0.id == id })!
             })
-            .map(mapping)
     }
     
     private func updateAddButtonDisabledState() {
@@ -66,7 +70,8 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
     }
     
     func handleAddTapped() {
-        
+        assert(!pickedIds.isEmpty, "add button should be disabled when empty")
+        pickedRelay.pick(pickedExerciseModels)
     }
     
     func handleCancelTapped() {

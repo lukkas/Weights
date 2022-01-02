@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Exercise {
+public struct Exercise: Equatable {
     public enum Metric: CaseIterable {
         case reps, duration
     }

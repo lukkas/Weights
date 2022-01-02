@@ -16,13 +16,14 @@ class ExercisePickerViewModelSpec: QuickSpec {
         describe("exercise picker view model") {
             var sut: ExercisePickerViewModel!
             var exerciseStorage: ExerciseStoringStub!
+            var pickerRelayReader: ExercisePickerRelayReader!
             
             beforeEach {
                 exerciseStorage = ExerciseStoringStub()
-                let pickerRelay = ExercisePickerRelay(onPicked: { _ in })
+                pickerRelayReader = ExercisePickerRelayReader()
                 sut = ExercisePickerViewModel(
                     exerciseStorage: exerciseStorage,
-                    pickedRelay: pickerRelay
+                    pickedRelay: pickerRelayReader.relay
                 )
             }
             
@@ -93,8 +94,29 @@ class ExercisePickerViewModelSpec: QuickSpec {
                             expect(sut.addButtonDisabled).to(beTrue())
                         }
                     }
+                    
+                    context("when add tapped") {
+                        beforeEach {
+                            sut.handleAddTapped()
+                        }
+                        
+                        it("will call relay with picked exercise") {
+                            expect(pickerRelayReader.pickedExercises).to(equal([pickedExercise]))
+                        }
+                    }
                 }
             }
         }
+    }
+}
+
+private class ExercisePickerRelayReader {
+    private(set) var relay: ExercisePickerRelay!
+    private(set) var pickedExercises: [Exercise]?
+    
+    init() {
+        relay = ExercisePickerRelay(onPicked: { [weak self] pickedExercises in
+            self?.pickedExercises = pickedExercises
+        })
     }
 }
