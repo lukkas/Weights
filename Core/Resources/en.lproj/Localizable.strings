@@ -22,6 +22,9 @@
 
 "planner.exercise.add" = "Add";
 
+"exercisePicker.navBar.add" = "Add";
+"exercisePicker.navBar.pickExercises" = "Pick exercises";
+
 "exercisesList.navBar.home" = "Home";
 "exercisesList.navBar.plan" = "Plan";
 "exercisesList.navBar.exercises" = "Exercises";

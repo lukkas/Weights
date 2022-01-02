@@ -24,7 +24,7 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                     }
                     .tint(.label)
                 }
-                .listStyle(.grouped)
+                .listStyle(.insetGrouped)
                 .searchable(text: $searchText)
                 .mask(alignment: .bottom, {
                     VStack(spacing: 0) {
@@ -37,6 +37,7 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                             .frame(height: 50)
                     }
                 })
+                
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         Color.clear
@@ -51,10 +52,23 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                         Color.clear
                     }
                 }
-                .background(Color.background)
                 .frame(height: 100)
             }
-            .navigationTitle("Pick exercises")
+            .background(Color.secondaryBackground)
+            .navigationTitle(L10n.ExercisePicker.NavBar.pickExercises)
+            .toolbar(content: {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(L10n.Common.cancel) {
+                        model.handleCancelTapped()
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(L10n.ExercisePicker.NavBar.add) {
+                        model.handleAddTapped()
+                    }
+                    .disabled(model.addButtonDisabled)
+                }
+            })
         }
         .onAppear(perform: model.handleViewAppeared)
     }
@@ -63,10 +77,13 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
 protocol ExercisePickerViewModeling: ObservableObject {
     var exercises: [ExerciseCellViewModel] { get }
     var pickedExercises: [ExerciseCellViewModel] { get }
+    var addButtonDisabled: Bool { get }
     
     func handleViewAppeared()
     func pick(_ exercise: ExerciseCellViewModel)
     func remove(_ exercise: ExerciseCellViewModel)
+    func handleAddTapped()
+    func handleCancelTapped()
 }
 
 // MARK: - Design time
@@ -74,6 +91,7 @@ protocol ExercisePickerViewModeling: ObservableObject {
 class DTExercisePickerViewModel: ExercisePickerViewModeling {
     @Published var exercises: [ExerciseCellViewModel] = ExerciseCellViewModel.make(count: 20)
     @Published var pickedExercises: [ExerciseCellViewModel] = ExerciseCellViewModel.make(count: 3)
+    var addButtonDisabled: Bool = false
     
     func handleViewAppeared() {
         
@@ -84,6 +102,14 @@ class DTExercisePickerViewModel: ExercisePickerViewModeling {
     }
     
     func remove(_ exercise: ExerciseCellViewModel) {
+        
+    }
+    
+    func handleAddTapped() {
+        
+    }
+    
+    func handleCancelTapped() {
         
     }
 }

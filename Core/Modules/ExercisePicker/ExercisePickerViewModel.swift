@@ -7,17 +7,22 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ExercisePickerViewModel: ExercisePickerViewModeling {
     @Published private(set) var exercises: [ExerciseCellViewModel] = []
     @Published private(set) var pickedExercises: [ExerciseCellViewModel] = []
+    @Published private(set) var addButtonDisabled: Bool = true
     private var pickedIds: [UUID] = []
     private var exerciseModels = [Exercise]()
     
     private let exerciseStorage: ExerciseStoring
     private let pickedRelay: ExercisePickerRelay
     
-    init(exerciseStorage: ExerciseStoring, pickedRelay: ExercisePickerRelay) {
+    init(
+        exerciseStorage: ExerciseStoring,
+        pickedRelay: ExercisePickerRelay
+    ) {
         self.exerciseStorage = exerciseStorage
         self.pickedRelay = pickedRelay
     }
@@ -30,11 +35,13 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
     func pick(_ exercise: ExerciseCellViewModel) {
         pickedIds.append(exercise.id)
         applyCellViewModels()
+        updateAddButtonDisabledState()
     }
     
     func remove(_ exercise: ExerciseCellViewModel) {
         pickedIds.removeAll(where: { $0 == exercise.id })
         applyCellViewModels()
+        updateAddButtonDisabledState()
     }
     
     private func applyCellViewModels() {
@@ -52,5 +59,17 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
                 exerciseModels.first(where: { $0.id == id })!
             })
             .map(mapping)
+    }
+    
+    private func updateAddButtonDisabledState() {
+        addButtonDisabled = pickedIds.isEmpty
+    }
+    
+    func handleAddTapped() {
+        
+    }
+    
+    func handleCancelTapped() {
+        pickedRelay.pick([])
     }
 }

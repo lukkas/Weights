@@ -45,6 +45,10 @@ class ExercisePickerViewModelSpec: QuickSpec {
                     }))
                 }
                 
+                it("has add button disabled") {
+                    expect(sut.addButtonDisabled).to(beTrue())
+                }
+                
                 context("when exercise picked") {
                     let pickedIndex = 1
                     let pickedExercise = exercises[pickedIndex]
@@ -64,6 +68,10 @@ class ExercisePickerViewModelSpec: QuickSpec {
                         expect(sut.pickedExercises).to(contain(pickedCellModel))
                     }
                     
+                    it("will enable add button") {
+                        expect(sut.addButtonDisabled).to(beFalse())
+                    }
+                    
                     context("when removed back") {
                         beforeEach {
                             sut.remove(pickedCellModel)
@@ -79,6 +87,10 @@ class ExercisePickerViewModelSpec: QuickSpec {
                         
                         it("will keep original exercise order") {
                             expect(sut.exercises[pickedIndex]).to(equal(pickedCellModel))
+                        }
+                        
+                        it("will disable add button") {
+                            expect(sut.addButtonDisabled).to(beTrue())
                         }
                     }
                 }

@@ -16,6 +16,10 @@ struct ExercisePickerRelay: Identifiable {
     init(onPicked: @escaping ([Exercise]) -> Void) {
         self.onPicked = onPicked
     }
+    
+    func pick(_ exercises: [Exercise]) {
+        onPicked(exercises)
+    }
 }
 
 class PlannerViewModel: PlannerViewModeling {
