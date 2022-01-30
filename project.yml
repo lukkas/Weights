@@ -69,3 +69,5 @@ targets:
           - "**/*_tests.swift"
     dependencies:
       - target: Services
+      - package: Quick
+      - package: Nimble

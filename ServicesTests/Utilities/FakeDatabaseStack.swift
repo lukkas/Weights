@@ -11,21 +11,18 @@ import CoreData
 import Foundation
 @testable import Services
 
-func makeInMemoryPeristentContainer() -> AnyPublisher<NSPersistentContainer, Error> {
-    return Future { promise in
-        let container = NSPersistentContainer(
-            name: "Weights",
-            managedObjectModel: DatabaseModelVersion.version1.managedObjectModel()
+extension NSManagedObjectContext {
+    static func testInMemoryContext() -> NSManagedObjectContext {
+        let model = DatabaseModelVersion.version1.managedObjectModel()
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+        try! coordinator.addPersistentStore(
+            ofType: NSInMemoryStoreType,
+            configurationName: nil,
+            at: nil,
+            options: nil
         )
-        let description = NSPersistentStoreDescription()
-        description.type = NSInMemoryStoreType
-        container.persistentStoreDescriptions = [description]
-        container.loadPersistentStores { _, error in
-            if let error = error {
-                promise(.failure(error))
-            } else {
-                promise(.success(container))
-            }
-        }
-    }.eraseToAnyPublisher()
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.persistentStoreCoordinator = coordinator
+        return context
+    }
 }

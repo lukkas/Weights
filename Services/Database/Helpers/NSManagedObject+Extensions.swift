@@ -14,8 +14,8 @@ extension NSManagedObjectContext {
     
     func performSaveOrRollback() {
         let perform = Self.synchronousMode
-            ? self.perform
-            : self.performAndWait
+            ? self.performAndWait
+            : self.perform
         perform {
             _ = self.saveOrRollback()
         }

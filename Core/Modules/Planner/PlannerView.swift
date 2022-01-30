@@ -14,37 +14,39 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     @State var isPresentingExerciseList = false
     
     var body: some View {
-        TabView(selection: $model.visibleUnit) {
-            ForEach(model.trainingUnits) { unit in
-                VStack {
-                    ScrollView {
-                        Color.clear
-                        LazyVStack(spacing: 16) {
-                            ForEach(unit.exercises) { exercise in
-                                PlannerExerciseView(model: exercise)
-                                    .padding(.horizontal, 16)
+        NavigationView {
+            TabView(selection: $model.visibleUnit) {
+                ForEach(model.trainingUnits) { unit in
+                    VStack {
+                        ScrollView {
+                            Color.clear
+                            LazyVStack(spacing: 16) {
+                                ForEach(unit.exercises) { exercise in
+                                    PlannerExerciseView(model: exercise)
+                                        .padding(.horizontal, 16)
 
+                                }
+                                Button {
+                                    model.addExerciseTapped()
+                                } label: {
+                                    Text("Add exercise")
+                                }
                             }
-                            Button {
-                                model.addExerciseTapped()
-                            } label: {
-                                Text("Add exercise")
-                            }
+                            Color.clear
                         }
-                        Color.clear
+                        TrainingBottomBar(
+                            workoutName: $model.currentUnitName,
+                            onLeftTapped: model.leftArrowTapped,
+                            onRightTapped: model.rightArrowTapped,
+                            onPlusTapped: model.plusTapped
+                        )
                     }
-                    TrainingBottomBar(
-                        workoutName: $model.currentUnitName,
-                        onLeftTapped: model.leftArrowTapped,
-                        onRightTapped: model.rightArrowTapped,
-                        onPlusTapped: model.plusTapped
-                    )
+                    .background(Color.secondaryBackground)
                 }
-                .background(Color.secondaryBackground)
             }
+            .tabViewStyle(.page(indexDisplayMode: .automatic))
+            .navigationBarTitle(L10n.Planner.title)
         }
-        .tabViewStyle(.page(indexDisplayMode: .automatic))
-        .navigationBarTitle(L10n.Planner.title)
         .sheet(
             item: $model.exercisePickerRelay,
             onDismiss: nil
