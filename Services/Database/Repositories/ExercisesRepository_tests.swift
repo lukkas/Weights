@@ -49,6 +49,7 @@ class ExerciseRepositorySpec: QuickSpec {
                 
                 context("when exercise added") {
                     let id = UUID()
+                    let exerciseName = "Squat"
                     let currentDate = Date.stubbed(3, 2, 2022)
                     var accumulator: PublisherAccumulator<[Exercise], Never>!
                     
@@ -57,7 +58,7 @@ class ExerciseRepositorySpec: QuickSpec {
                         dateProvider.currentDate = currentDate
                         sut.insertExercise(
                             id: id,
-                            name: "Squat",
+                            name: exerciseName,
                             metric: .reps,
                             laterality: .bilateral
                         )
@@ -71,6 +72,16 @@ class ExerciseRepositorySpec: QuickSpec {
                         expect(accumulator.updates).to(haveCount(2))
                         expect(accumulator.update(at: 0)).to(haveCount(3))
                         expect(accumulator.update(at: 1)).to(haveCount(4))
+                    }
+                    
+                    it("will contain added exercies") {
+                        let predicate: (Exercise) -> Bool = {
+                            return $0.id == id
+                            && $0.addedAt == currentDate
+                            && $0.name == exerciseName
+                        }
+                        expect(accumulator.update(at: 0)).toNot(containElementSatisfying(predicate))
+                        expect(accumulator.update(at: 1)).to(containElementSatisfying(predicate))
                     }
                 }
             }
@@ -89,76 +100,5 @@ private extension NSManagedObjectContext {
             exercise.addedAt = .stubbed(1, 1, 2022)
         }
         performSaveOrRollback()
-    }
-}
-
-//class ExercisesRepositoryTests: XCTestCase {
-//    var sut: ExercisesRepository!
-//    var dateProvider: DateProvider!
-//
-//    override func setUpWithError() throws {
-//        NSManagedObjectContext.synchronousMode = true
-//        let container = try awaitValue(makeInMemoryPeristentContainer())
-//        dateProvider = DateProvider()
-//        sut = ExercisesRepository(
-//            context: container.viewContext,
-//            notificationCenter: <#T##NotificationCenter#>
-//            currentDate: dateProvider.getDate
-//        )
-//    }
-//
-//    override func tearDownWithError() throws {
-//        sut = nil
-//        dateProvider = nil
-//        NSManagedObjectContext.synchronousMode = true
-//    }
-//
-//    func test_addingExercise_whenRetrieved_shouldBeSameAsAdded() {
-//        // given
-//        let id = UUID()
-//        let currentDate = Date()
-//        dateProvider.currentDate = currentDate
-//        // when
-//
-//        sut.insertExercise(
-//            id: id,
-//            name: "Squat",
-//            metric: .reps,
-//            laterality: .bilateral
-//        )
-//
-//        // then
-//        let result = sut.fetchExercises()
-//        result.verify_hasOneExercise(
-//            withId: id,
-//            name: "Squat",
-//            metric: .reps,
-//            laterlaity: .bilateral,
-//            addedAt: currentDate
-//        )
-//    }
-//
-//    func test_exercisesSubscription_shouldReturnAllExercisesAfterSubscription() {
-//
-//    }
-//}
-
-private extension Array where Element == Exercise {
-    func verify_hasOneExercise(
-        withId id: UUID,
-        name: String,
-        metric: Exercise.Metric,
-        laterlaity: Exercise.Laterality,
-        addedAt: Date,
-        file: StaticString = #filePath,
-        line: UInt = #line
-    ) {
-        XCTAssertEqual(count, 1, file: file, line: line)
-        let exercise = self[0]
-        XCTAssertEqual(exercise.id, id, file: file, line: line)
-        XCTAssertEqual(exercise.name, name, file: file, line: line)
-        XCTAssertEqual(exercise.metric, metric, file: file, line: line)
-        XCTAssertEqual(exercise.laterality, laterlaity, file: file, line: line)
-        XCTAssertEqual(exercise.addedAt, addedAt, file: file, line: line)
     }
 }
