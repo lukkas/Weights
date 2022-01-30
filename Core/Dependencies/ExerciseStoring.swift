@@ -11,7 +11,6 @@ import Foundation
 
 public protocol ExerciseStoring {
     func insert(_ exercise: Exercise)
-    func fetchExercises() -> [Exercise]
     func exercises() -> AnyPublisher<[Exercise], Never>
 }
 
@@ -21,10 +20,6 @@ class PlaceholderExerciseStorage: ExerciseStoring {
     
     func insert(_ exercise: Exercise) {
         storedExercises.append(exercise)
-    }
-    
-    func fetchExercises() -> [Exercise] {
-        return storedExercises
     }
     
     func exercises() -> AnyPublisher<[Exercise], Never> {

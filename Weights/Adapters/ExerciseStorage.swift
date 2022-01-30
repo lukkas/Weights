@@ -21,11 +21,6 @@ extension ExercisesRepository: ExerciseStoring {
         )
     }
     
-    public func fetchExercises() -> [Core.Exercise] {
-        return self.fetchExercises()
-            .map({ $0.toCore() })
-    }
-    
     public func exercises() -> AnyPublisher<[Core.Exercise], Never> {
         return self.exercises()
             .map({ $0.map({ $0.toCore() }) })

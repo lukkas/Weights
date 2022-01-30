@@ -36,10 +36,6 @@ class ExerciseStoringStub: ExerciseStoring {
         return exercisesSubject.eraseToAnyPublisher()
     }
     
-    func fetchExercises() -> [Exercise] {
-        return exercisesSubject.value
-    }
-    
     func preconfigure_populate(with exercises: [Exercise]) {
         exercisesSubject.value = exercises
     }
