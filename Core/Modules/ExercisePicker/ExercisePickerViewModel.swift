@@ -6,6 +6,7 @@
 //  Copyright © 2021 Łukasz Kasperek. All rights reserved.
 //
 
+import Combine
 import Foundation
 import SwiftUI
 
@@ -18,6 +19,7 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
     
     private let exerciseStorage: ExerciseStoring
     private let pickedRelay: ExercisePickerRelay
+    private var cancellables: Set<AnyCancellable> = []
     
     init(
         exerciseStorage: ExerciseStoring,
@@ -25,11 +27,20 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
     ) {
         self.exerciseStorage = exerciseStorage
         self.pickedRelay = pickedRelay
+        subscribeToExercisesUpdates()
+    }
+    
+    private func subscribeToExercisesUpdates() {
+        exerciseStorage.exercises()
+            .sink { [weak self] exercises in
+                self?.exerciseModels = exercises
+                self?.applyCellViewModels()
+            }
+            .store(in: &cancellables)
     }
     
     func handleViewAppeared() {
-        exerciseModels = exerciseStorage.fetchExercises()
-        applyCellViewModels()
+        
     }
     
     func pick(_ exercise: ExerciseCellViewModel) {

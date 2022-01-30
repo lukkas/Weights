@@ -6,18 +6,19 @@
 //  Copyright © 2020 Łukasz Kasperek. All rights reserved.
 //
 
+import Combine
 @testable import Core
 import Foundation
 import XCTest
 
 class ExerciseStoringStub: ExerciseStoring {
-    private var exercises: [Exercise] = []
+    private let exercisesSubject = CurrentValueSubject<[Exercise], Never>([])
     
     var insertCallsCount: Int { insertedExercises.count }
     private var insertedExercises: [Exercise] = []
     func insert(_ exercise: Exercise) {
         insertedExercises.append(exercise)
-        exercises.append(exercise)
+        exercisesSubject.value.append(exercise)
     }
     
     func verify_insertedExercise(
@@ -31,11 +32,15 @@ class ExerciseStoringStub: ExerciseStoring {
         asserts(insertedExercises[index])
     }
     
+    func exercises() -> AnyPublisher<[Exercise], Never> {
+        return exercisesSubject.eraseToAnyPublisher()
+    }
+    
     func fetchExercises() -> [Exercise] {
-        return exercises
+        return exercisesSubject.value
     }
     
     func preconfigure_populate(with exercises: [Exercise]) {
-        self.exercises = exercises
+        exercisesSubject.value = exercises
     }
 }
