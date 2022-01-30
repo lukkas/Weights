@@ -6,23 +6,29 @@
 //  Copyright © 2020 Łukasz Kasperek. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 public protocol ExerciseStoring {
     func insert(_ exercise: Exercise)
     func fetchExercises() -> [Exercise]
+    func exercises() -> AnyPublisher<[Exercise], Never>
 }
 
 #if DEBUG
 class PlaceholderExerciseStorage: ExerciseStoring {
-    var exercises = [Exercise]()
+    var storedExercises = [Exercise]()
     
     func insert(_ exercise: Exercise) {
-        exercises.append(exercise)
+        storedExercises.append(exercise)
     }
     
     func fetchExercises() -> [Exercise] {
-        return exercises
+        return storedExercises
+    }
+    
+    func exercises() -> AnyPublisher<[Exercise], Never> {
+        return Just(storedExercises).eraseToAnyPublisher()
     }
 }
 #endif
