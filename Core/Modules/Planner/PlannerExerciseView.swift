@@ -38,10 +38,12 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
                         design: .rounded
                     ))
                     .frame(maxWidth: .infinity)
+//                Spacer()
             }
             .buttonStyle(.bordered)
             .controlSize(.regular)
-            .tint(.theme)
+//            .accentColo
+//            .tint(.theme)
         }
         .padding(10)
         .cardDesign()

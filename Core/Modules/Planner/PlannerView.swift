@@ -31,6 +31,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                                 } label: {
                                     Text("Add exercise")
                                 }
+                                .buttonStyle(.bordered)
                             }
                             Color.clear
                         }

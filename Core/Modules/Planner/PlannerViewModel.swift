@@ -50,8 +50,13 @@ class PlannerViewModel: PlannerViewModeling {
     
     func addExerciseTapped() {
         exercisePickerRelay = ExercisePickerRelay(onPicked: { [weak self] exercises in
+            self?.handleExercisesPicked(exercises)
             self?.exercisePickerRelay = nil
         })
+    }
+    
+    private func handleExercisesPicked(_ exercises: [Exercise])  {
+        
     }
     
     func leftArrowTapped() {

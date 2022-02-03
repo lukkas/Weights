@@ -21,6 +21,7 @@ targets:
     platform: iOS
     settings:
       TARGETED_DEVICE_FAMILY: 1
+      ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: accent_color
     sources:
       - path: Weights
     dependencies:

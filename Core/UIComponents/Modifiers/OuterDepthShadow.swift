@@ -37,7 +37,7 @@ struct OuterDepthShadow_Previews: PreviewProvider {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16.0)
-                    .foregroundColor(.theme)
+                    .foregroundColor(.accentColor)
             )
             .outerDepthShadow()
             .frame(width: 200, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)

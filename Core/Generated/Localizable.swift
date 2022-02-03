@@ -97,7 +97,7 @@ internal enum L10n {
       }
     }
     internal enum Exercise {
-      /// Add
+      /// Add next...
       internal static let add = L10n.tr("Localizable", "planner.exercise.add")
     }
   }

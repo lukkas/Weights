@@ -68,16 +68,16 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
             HStack {
                 Image(systemName: metric.imageName)
                     .foregroundColor(
-                        model.metric == metric ? .theme : .label
+                        model.metric == metric ? .accentColor : .label
                     )
                 Text(metric.title)
                     .foregroundColor(
-                        model.metric == metric ? .theme : .label
+                        model.metric == metric ? .accentColor : .label
                     )
                 if model.metric == metric {
                     Spacer()
                     Image(systemName: "checkmark")
-                        .foregroundColor(.theme)
+                        .foregroundColor(.accentColor)
                 }
             }
         })
@@ -90,12 +90,12 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
             HStack {
                 Text(laterality.title)
                     .foregroundColor(
-                        model.laterality == laterality ? .theme : .label
+                        model.laterality == laterality ? .accentColor : .label
                     )
                 if model.laterality == laterality {
                     Spacer()
                     Image(systemName: "checkmark")
-                        .foregroundColor(.theme)
+                        .foregroundColor(.accentColor)
                 }
             }
         })
