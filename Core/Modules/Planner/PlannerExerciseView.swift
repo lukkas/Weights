@@ -26,24 +26,24 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
             ForEach($model.variations) { variation in
                 PlannerSetCell(model: variation)
             }
-            Button {
-                withAnimation {
-                    model.addVariationTapped()
+            HStack {
+                Button {
+                    withAnimation {
+                        model.addVariationTapped()
+                    }
+                } label: {
+                    Text(L10n.Planner.Exercise.add)
+                        .font(.system(
+                            size: 16,
+                            weight: .medium,
+                            design: .rounded
+                        ))
                 }
-            } label: {
-                Text(L10n.Planner.Exercise.add)
-                    .font(.system(
-                        size: 16,
-                        weight: .medium,
-                        design: .rounded
-                    ))
-                    .frame(maxWidth: .infinity)
-//                Spacer()
+                .buttonStyle(.bordered)
+                .controlSize(.regular)
+                
+                Spacer()
             }
-            .buttonStyle(.bordered)
-            .controlSize(.regular)
-//            .accentColo
-//            .tint(.theme)
         }
         .padding(10)
         .cardDesign()
