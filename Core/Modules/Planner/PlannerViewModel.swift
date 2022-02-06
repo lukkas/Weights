@@ -65,14 +65,17 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     func leftArrowTapped() {
-        
+        guard visibleUnit > 0 else { return }
+        visibleUnit -= 1
     }
     
     func rightArrowTapped() {
-        
+        guard visibleUnit < trainingUnits.indices.last! else { return }
+        visibleUnit += 1
     }
     
     func plusTapped() {
         trainingUnits.append(makeTemplateUnitModel())
+        visibleUnit = trainingUnits.indices.last!
     }
 }
