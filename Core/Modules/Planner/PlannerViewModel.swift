@@ -56,7 +56,12 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     private func handleExercisesPicked(_ exercises: [Exercise])  {
-        
+        var unit = trainingUnits[visibleUnit]
+        let exerciseModels = exercises.map {
+            PlannerExerciseViewModel(exercise: $0)
+        }
+        unit.addExercises(exerciseModels)
+        trainingUnits[visibleUnit] = unit
     }
     
     func leftArrowTapped() {
@@ -68,6 +73,6 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     func plusTapped() {
-        
+        trainingUnits.append(makeTemplateUnitModel())
     }
 }

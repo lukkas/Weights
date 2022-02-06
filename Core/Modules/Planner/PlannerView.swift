@@ -82,7 +82,11 @@ protocol PlannerViewModeling: ObservableObject {
 struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiable {
     let id = UUID()
     var name: String
-    let exercises: [ExerciseModel]
+    private(set) var exercises: [ExerciseModel]
+    
+    mutating func addExercises(_ models: [ExerciseModel]) {
+        exercises.append(contentsOf: models)
+    }
 }
 
 protocol PlannerRouting {
