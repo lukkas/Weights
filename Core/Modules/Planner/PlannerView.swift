@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
-    @ObservedObject var model: Model
+struct PlannerView<Router: PlannerRouting>: View {
+    @StateObject var model: PlannerViewModel
+    @State var index: Int = 0
     let router: Router
     @State var isPresentingExerciseList = false
     
@@ -17,34 +18,17 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
         NavigationView {
             VStack {
                 TabView(selection: $model.visibleUnit) {
-                    ForEach(model.trainingUnits) { unit in
-                        ScrollView {
-                            Color.clear
-                            LazyVStack(spacing: 16) {
-                                ForEach(unit.exercises) { exercise in
-                                    PlannerExerciseView(model: exercise)
-                                        .padding(.horizontal, 16)
-                                    
-                                }
-                                Button {
-                                    model.addExerciseTapped()
-                                } label: {
-                                    Text("Add exercise")
-                                        .font(.system(
-                                            size: 18,
-                                            weight: .medium,
-                                            design: .rounded
-                                        ))
-                                        .frame(maxWidth: .infinity)
-                                }
-                                .padding(.horizontal, 16)
-                                .buttonStyle(.borderedProminent)
-                            }
-                            Color.clear
-                        }
+                    ForEach(0 ..< model.trainingUnits.endIndex) { index in
+                        PlannerPageView(
+                            model: model.trainingUnits[index],
+                            addExerciseTapped: {
+                                model.addExerciseTapped()
+                            })
+                            .tag(index)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .automatic))
+                .id(model.trainingUnits)
                 
                 TrainingBottomBar(
                     workoutName: $model.currentUnitName,
@@ -65,6 +49,37 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     }
 }
 
+struct PlannerPageView: View {
+    let model: TrainingUnitModel<PlannerExerciseViewModel>
+    let addExerciseTapped: () -> Void
+    
+    var body: some View {
+        ScrollView {
+            Color.clear
+            LazyVStack(spacing: 16) {
+                ForEach(model.exercises) { exercise in
+                    PlannerExerciseView(model: exercise)
+                        .padding(.horizontal, 16)
+                }
+                Button {
+                    addExerciseTapped()
+                } label: {
+                    Text("Add exercise")
+                        .font(.system(
+                            size: 18,
+                            weight: .medium,
+                            design: .rounded
+                        ))
+                        .frame(maxWidth: .infinity)
+                }
+                .padding(.horizontal, 16)
+                .buttonStyle(.borderedProminent)
+            }
+            Color.clear
+        }
+    }
+}
+
 protocol PlannerViewModeling: ObservableObject {
     associatedtype ExerciseViewModelType: PlannerExerciseViewModeling
     
@@ -79,13 +94,27 @@ protocol PlannerViewModeling: ObservableObject {
     func plusTapped()
 }
 
-struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiable {
+class TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiable, Hashable {
     let id = UUID()
     var name: String
     private(set) var exercises: [ExerciseModel]
     
-    mutating func addExercises(_ models: [ExerciseModel]) {
+    init(name: String, exercises: [ExerciseModel] = []) {
+        self.name = name
+        self.exercises = exercises
+    }
+    
+    func addExercises(_ models: [ExerciseModel]) {
         exercises.append(contentsOf: models)
+    }
+    
+    static func == (_ lhs: TrainingUnitModel<ExerciseModel>, _ rhs: TrainingUnitModel<ExerciseModel>) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
     }
 }
 
@@ -174,8 +203,8 @@ struct DTPlannerRouter: PlannerRouting {
     }
 }
 
-struct PlannerView_Previews: PreviewProvider {    
-    static var previews: some View {
-        PlannerView(model: DTPlannerViewModel(), router: DTPlannerRouter())
-    }
-}
+//struct PlannerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlannerView(model: DTPlannerViewModel(), router: DTPlannerRouter())
+//    }
+//}

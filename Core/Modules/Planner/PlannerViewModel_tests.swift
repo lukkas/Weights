@@ -44,42 +44,42 @@ class PlannerViewModelSpec: QuickSpec {
                     expect(sut.trainingUnits).to(haveCount(2))
                     expect(sut.trainingUnits[1].exercises).to(haveCount(0))
                 }
-                it("will move to newly added unit") {
-                    expect(sut.visibleUnit).to(equal(1))
-                }
-                context("when left arrow is tapped") {
-                    beforeEach {
-                        sut.leftArrowTapped()
-                    }
-                    it("will go back to first page") {
-                        expect(sut.visibleUnit).to(equal(0))
-                    }
-                    context("when tapped again") {
-                        beforeEach {
-                            sut.leftArrowTapped()
-                        }
-                        it("will stay at leftmost page") {
-                            expect(sut.visibleUnit).to(equal(0))
-                        }
-                    }
-                    context("when right arrow tapped") {
-                        beforeEach {
-                            sut.rightArrowTapped()
-                        }
-                        it("will move to second page again") {
-                            expect(sut.visibleUnit).to(equal(1))
-                        }
-                    }
-                }
-                
-                context("when right arrow is tapped") {
-                    beforeEach {
-                        sut.rightArrowTapped()
-                    }
-                    it("will stay on rightmost page") {
-                        expect(sut.visibleUnit).to(equal(1))
-                    }
-                }
+//                it("will move to newly added unit") {
+//                    expect(sut.visibleUnit).to(equal(1))
+//                }
+//                context("when left arrow is tapped") {
+//                    beforeEach {
+//                        sut.leftArrowTapped()
+//                    }
+//                    it("will go back to first page") {
+//                        expect(sut.visibleUnit).to(equal(0))
+//                    }
+//                    context("when tapped again") {
+//                        beforeEach {
+//                            sut.leftArrowTapped()
+//                        }
+//                        it("will stay at leftmost page") {
+//                            expect(sut.visibleUnit).to(equal(0))
+//                        }
+//                    }
+//                    context("when right arrow tapped") {
+//                        beforeEach {
+//                            sut.rightArrowTapped()
+//                        }
+//                        it("will move to second page again") {
+//                            expect(sut.visibleUnit).to(equal(1))
+//                        }
+//                    }
+//                }
+//                
+//                context("when right arrow is tapped") {
+//                    beforeEach {
+//                        sut.rightArrowTapped()
+//                    }
+//                    it("will stay on rightmost page") {
+//                        expect(sut.visibleUnit).to(equal(1))
+//                    }
+//                }
             }
         }
     }

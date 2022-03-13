@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 struct ExercisePickerRelay: Identifiable {
     let id = UUID()
@@ -22,7 +23,7 @@ struct ExercisePickerRelay: Identifiable {
     }
 }
 
-class PlannerViewModel: PlannerViewModeling {
+class PlannerViewModel: ObservableObject {
     typealias ExerciseViewModelType = PlannerExerciseViewModel
     
     @Published var trainingUnits: [TrainingUnitModel<PlannerExerciseViewModel>] = []
@@ -42,10 +43,7 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     private func makeTemplateUnitModel() -> TrainingUnitModel<PlannerExerciseViewModel> {
-        return TrainingUnitModel(
-            name: "A1",
-            exercises: []
-        )
+        return TrainingUnitModel(name: "A1")
     }
     
     func addExerciseTapped() {
@@ -56,21 +54,21 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     private func handleExercisesPicked(_ exercises: [Exercise])  {
-        var unit = trainingUnits[visibleUnit]
+//        guard let unit = visibleUnit else { return }
+        let unit = trainingUnits[visibleUnit]
         let exerciseModels = exercises.map {
             PlannerExerciseViewModel(exercise: $0)
         }
         unit.addExercises(exerciseModels)
-        trainingUnits[visibleUnit] = unit
     }
     
     func leftArrowTapped() {
-        guard visibleUnit > 0 else { return }
+//        guard visibleUnit > 0 else { return }
         visibleUnit -= 1
     }
     
     func rightArrowTapped() {
-        guard visibleUnit < trainingUnits.indices.last! else { return }
+//        guard visibleUnit < trainingUnits.indices.last! else { return }
         visibleUnit += 1
     }
     
