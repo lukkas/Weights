@@ -50,12 +50,24 @@ class PlannerViewModelSpec: QuickSpec {
                 it("will move to newly added unit") {
                     expect(sut.visibleUnit).to(equal(1))
                 }
+                it("will enable left arrow") {
+                    expect(sut.leftArrowDisabled).to(beFalse())
+                }
+                it("will keep right arrow disabled") {
+                    expect(sut.rightArrowDisabled).to(beTrue())
+                }
                 context("when left arrow is tapped") {
                     beforeEach {
                         sut.leftArrowTapped()
                     }
                     it("will go back to first page") {
                         expect(sut.visibleUnit).to(equal(0))
+                    }
+                    it("will disable left arrow") {
+                        expect(sut.leftArrowDisabled).to(beTrue())
+                    }
+                    it("will enable right arrow") {
+                        expect(sut.rightArrowDisabled).to(beFalse())
                     }
                     context("when tapped again") {
                         beforeEach {

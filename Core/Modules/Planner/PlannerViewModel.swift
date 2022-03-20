@@ -28,8 +28,12 @@ class PlannerViewModel: PlannerViewModeling {
     
     @Published var trainingUnits: [TrainingUnitModel<PlannerExerciseViewModel>] = []
     @Published var visibleUnit: Int = 0
-    @Published private(set) var leftArrowDisabled: Bool = true
-    @Published private(set) var rightArrowDisabled: Bool = true
+    var leftArrowDisabled: Bool {
+        return visibleUnit == 0
+    }
+    var rightArrowDisabled: Bool {
+        return visibleUnit == trainingUnits.indices.last
+    }
     var currentUnitName: String {
         get {
             trainingUnits[visibleUnit].name
@@ -65,12 +69,12 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     func leftArrowTapped() {
-        guard visibleUnit > 0 else { return }
+        if leftArrowDisabled { return }
         visibleUnit -= 1
     }
     
     func rightArrowTapped() {
-        guard visibleUnit < trainingUnits.indices.last! else { return }
+        if rightArrowDisabled { return }
         visibleUnit += 1
     }
     
