@@ -18,13 +18,12 @@ struct PlannerView<Router: PlannerRouting>: View {
         NavigationView {
             VStack {
                 TabView(selection: $model.visibleUnit) {
-                    ForEach(0 ..< model.trainingUnits.endIndex) { index in
+                    ForEach(model.trainingUnits.indices) { index in
                         PlannerPageView(
                             model: model.trainingUnits[index],
                             addExerciseTapped: {
                                 model.addExerciseTapped()
                             })
-                            .tag(index)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .automatic))

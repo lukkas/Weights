@@ -54,7 +54,6 @@ class PlannerViewModel: ObservableObject {
     }
     
     private func handleExercisesPicked(_ exercises: [Exercise])  {
-//        guard let unit = visibleUnit else { return }
         let unit = trainingUnits[visibleUnit]
         let exerciseModels = exercises.map {
             PlannerExerciseViewModel(exercise: $0)
@@ -63,12 +62,12 @@ class PlannerViewModel: ObservableObject {
     }
     
     func leftArrowTapped() {
-//        guard visibleUnit > 0 else { return }
+        guard visibleUnit > 0 else { return }
         visibleUnit -= 1
     }
     
     func rightArrowTapped() {
-//        guard visibleUnit < trainingUnits.indices.last! else { return }
+        guard visibleUnit < trainingUnits.indices.last! else { return }
         visibleUnit += 1
     }
     
