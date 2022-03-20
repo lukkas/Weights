@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct PlannerView<Router: PlannerRouting>: View {
-    @StateObject var model: PlannerViewModel
+struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
+    @StateObject var model: Model
     @State var index: Int = 0
     let router: Router
     @State var isPresentingExerciseList = false
@@ -48,8 +48,8 @@ struct PlannerView<Router: PlannerRouting>: View {
     }
 }
 
-struct PlannerPageView: View {
-    let model: TrainingUnitModel<PlannerExerciseViewModel>
+struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
+    let model: TrainingUnitModel<ExerciseViewModel>
     let addExerciseTapped: () -> Void
     
     var body: some View {
@@ -86,6 +86,7 @@ protocol PlannerViewModeling: ObservableObject {
     var visibleUnit: Int { get set }
     var currentUnitName: String { get set }
     var exercisePickerRelay: ExercisePickerRelay? { get set }
+    var leftArrowEnabled: Bool { get }
     
     func addExerciseTapped()
     func leftArrowTapped()
@@ -169,6 +170,7 @@ class DTPlannerViewModel: PlannerViewModeling {
     @Published var visibleUnit: Int = 0
     @Published var currentUnitName: String = "Upper A"
     @Published var exercisePickerRelay: ExercisePickerRelay?
+    var leftArrowEnabled: Bool { true }
     
     func addExerciseTapped() {
         

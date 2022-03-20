@@ -23,11 +23,12 @@ struct ExercisePickerRelay: Identifiable {
     }
 }
 
-class PlannerViewModel: ObservableObject {
+class PlannerViewModel: PlannerViewModeling {
     typealias ExerciseViewModelType = PlannerExerciseViewModel
     
     @Published var trainingUnits: [TrainingUnitModel<PlannerExerciseViewModel>] = []
     @Published var visibleUnit: Int = 0
+    @Published private(set) var leftArrowEnabled: Bool = false
     var currentUnitName: String {
         get {
             trainingUnits[visibleUnit].name
