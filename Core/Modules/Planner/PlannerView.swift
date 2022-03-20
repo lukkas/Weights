@@ -60,6 +60,9 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
             LazyVStack(spacing: 16) {
                 ForEach(model.exercises) { exercise in
                     PlannerExerciseView(model: exercise)
+                        .onDrag({
+                            NSItemProvider(object: URL(string: "http://apple.com")! as NSURL)
+                        })
                         .padding(.horizontal, 16)
                 }
                 Button {
