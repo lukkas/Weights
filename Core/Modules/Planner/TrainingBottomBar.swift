@@ -10,6 +10,8 @@ import SwiftUI
 
 struct TrainingBottomBar: View {
     @Binding var workoutName: String
+    let leftArrowDisabled: Bool
+    let rightArrowDisabled: Bool
     let onLeftTapped: () -> Void
     let onRightTapped: () -> Void
     let onPlusTapped: () -> Void
@@ -21,6 +23,7 @@ struct TrainingBottomBar: View {
             } label: {
                 Image(systemName: "arrow.left")
             }
+            .disabled(leftArrowDisabled)
             .frame(width: 44)
             Spacer()
             TextField(
@@ -40,6 +43,7 @@ struct TrainingBottomBar: View {
             } label: {
                 Image(systemName: "arrow.right")
             }
+            .disabled(rightArrowDisabled)
             .frame(width: 44)
         }
         .font(.system(
@@ -57,6 +61,8 @@ struct TrainingBottomBar_Previews: PreviewProvider {
     static var previews: some View {
         TrainingBottomBar(
             workoutName: .constant("A1"),
+            leftArrowDisabled: false,
+            rightArrowDisabled: true,
             onLeftTapped: {},
             onRightTapped: {},
             onPlusTapped: {}

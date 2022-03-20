@@ -31,6 +31,8 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                 
                 TrainingBottomBar(
                     workoutName: $model.currentUnitName,
+                    leftArrowDisabled: model.leftArrowDisabled,
+                    rightArrowDisabled: model.rightArrowDisabled,
                     onLeftTapped: model.leftArrowTapped,
                     onRightTapped: model.rightArrowTapped,
                     onPlusTapped: model.plusTapped
@@ -86,7 +88,8 @@ protocol PlannerViewModeling: ObservableObject {
     var visibleUnit: Int { get set }
     var currentUnitName: String { get set }
     var exercisePickerRelay: ExercisePickerRelay? { get set }
-    var leftArrowEnabled: Bool { get }
+    var leftArrowDisabled: Bool { get }
+    var rightArrowDisabled: Bool { get }
     
     func addExerciseTapped()
     func leftArrowTapped()
@@ -170,7 +173,8 @@ class DTPlannerViewModel: PlannerViewModeling {
     @Published var visibleUnit: Int = 0
     @Published var currentUnitName: String = "Upper A"
     @Published var exercisePickerRelay: ExercisePickerRelay?
-    var leftArrowEnabled: Bool { true }
+    var leftArrowDisabled: Bool { false }
+    var rightArrowDisabled: Bool { false }
     
     func addExerciseTapped() {
         

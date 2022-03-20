@@ -28,7 +28,8 @@ class PlannerViewModel: PlannerViewModeling {
     
     @Published var trainingUnits: [TrainingUnitModel<PlannerExerciseViewModel>] = []
     @Published var visibleUnit: Int = 0
-    @Published private(set) var leftArrowEnabled: Bool = false
+    @Published private(set) var leftArrowDisabled: Bool = true
+    @Published private(set) var rightArrowDisabled: Bool = true
     var currentUnitName: String {
         get {
             trainingUnits[visibleUnit].name

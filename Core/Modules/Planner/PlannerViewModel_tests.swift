@@ -23,6 +23,10 @@ class PlannerViewModelSpec: QuickSpec {
                 expect(sut.trainingUnits).to(haveCount(1))
                 expect(sut.trainingUnits.first?.exercises).to(haveCount(0))
             }
+            it("will start with disabled arrows") {
+                expect(sut.leftArrowDisabled).to(beTrue())
+                expect(sut.rightArrowDisabled).to(beTrue())
+            }
             context("when add exercises is tapped") {
                 let exercises = Exercise.make(count: 3)
                 beforeEach {
@@ -35,7 +39,6 @@ class PlannerViewModelSpec: QuickSpec {
                     }))
                 }
             }
-            
             context("when plus is tapped") {
                 beforeEach {
                     sut.plusTapped()
