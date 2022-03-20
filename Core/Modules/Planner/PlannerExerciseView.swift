@@ -50,10 +50,25 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
     }
 }
 
-protocol PlannerExerciseViewModeling: ObservableObject, Identifiable {
+protocol PlannerExerciseViewModeling: ObservableObject, Identifiable, Hashable {
     var name: String { get }
     var variations: [PlannerSetCellModel] { get set }
     func addVariationTapped()
+}
+
+extension PlannerExerciseViewModeling {
+    static func == (
+        lhs: Self,
+        rhs: Self
+    ) -> Bool {
+        return lhs.name == rhs.name
+            && lhs.variations == rhs.variations
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(variations)
+    }
 }
 
 // MARK: - Design time

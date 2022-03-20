@@ -54,7 +54,8 @@ class PlannerViewModel: ObservableObject {
     }
     
     private func handleExercisesPicked(_ exercises: [Exercise])  {
-        let unit = trainingUnits[visibleUnit]
+        var unit = trainingUnits[visibleUnit]
+        defer { trainingUnits[visibleUnit] = unit }
         let exerciseModels = exercises.map {
             PlannerExerciseViewModel(exercise: $0)
         }

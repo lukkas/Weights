@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PlannerSetCellModel: Equatable, Identifiable {
+struct PlannerSetCellModel: Equatable, Identifiable, Hashable {
     let id = UUID()
     let metric: Exercise.Metric
     
