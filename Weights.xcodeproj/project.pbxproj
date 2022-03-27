@@ -14,6 +14,7 @@
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
 		0F579E1527F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */; };
 		0F579E1727F0D4810004D6F4 /* PlannerDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */; };
+		0F579E1A27F102DA0004D6F4 /* PlannerExerciseViewModelArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1927F102DA0004D6F4 /* PlannerExerciseViewModelArchive.swift */; };
 		104E0D87144B332C9621ADFB /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD62C2FCE97AEB0BB2DEE5A7 /* PlanView.swift */; };
 		12E90A6C57E6A509D9A1B475 /* ExerciseStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C608592A30DC1A44169979 /* ExerciseStoring.swift */; };
 		143308342A80D6456FE2FCD4 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5D4262D258C3BCDE6B6D2E /* CGFloat+Extensions.swift */; };
@@ -202,6 +203,7 @@
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
 		0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseDraggable.swift; sourceTree = "<group>"; };
 		0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerDropController.swift; sourceTree = "<group>"; };
+		0F579E1927F102DA0004D6F4 /* PlannerExerciseViewModelArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModelArchive.swift; sourceTree = "<group>"; };
 		0FFCBE909CFDD602034E48C6 /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
 		1493F1191ECC36E4A7A8C309 /* Date+TestConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TestConvenience.swift"; sourceTree = "<group>"; };
 		14B03E68A6C67A4F4A52CBAC /* DateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 			children = (
 				0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */,
 				0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */,
+				0F579E1927F102DA0004D6F4 /* PlannerExerciseViewModelArchive.swift */,
 			);
 			path = "Drag&Drop";
 			sourceTree = "<group>";
@@ -1012,6 +1015,7 @@
 			files = (
 				143308342A80D6456FE2FCD4 /* CGFloat+Extensions.swift in Sources */,
 				325D71DB27E58A43ABF14DD1 /* CardDesign.swift in Sources */,
+				0F579E1A27F102DA0004D6F4 /* PlannerExerciseViewModelArchive.swift in Sources */,
 				C7DE215C131424B6A9685668 /* CellPreview.swift in Sources */,
 				0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */,
 				4C5CD11DA8F8C39EB3329108 /* Colors+UseCases.swift in Sources */,

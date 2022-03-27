@@ -61,7 +61,7 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
                 ForEach(model.exercises) { exercise in
                     PlannerExerciseView(model: exercise)
                         .onDrag({
-                            PlannerExerciseDraggable.itemProvider
+                            NSItemProvider(object: exercise.draggingArchive())
                         })
                         .padding(.horizontal, 16)
                 }
@@ -122,47 +122,6 @@ protocol PlannerRouting {
 }
 
 // MARK: - Design time
-
-//struct PlannerView: View {
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                HStack {
-//                    Text("Kutas")
-//                }
-//
-//                TabView {
-//                    ScrollView {
-//                        ForEach(0 ..< 10) { _ in
-//                            Button(action: {}, label: {
-//                                Text(L10n.Planner.addDay)
-//                                    .foregroundColor(.contrastLabel)
-//                            })
-//                            .padding(.vertical, 12)
-//                            .frame(maxWidth: 800)
-//                            .background(Color.red.cornerRadius(8))
-//                            .padding()
-//                            .onDrag({
-//                                NSItemProvider(object: URL(string: "http://apple.com")! as NSURL)
-//                            })
-//                        }
-//                    }
-//
-//                    Button(action: {}, label: {
-//                        Text(L10n.Planner.addDay)
-//                    })
-//                    .padding(.vertical, 12)
-//                    .frame(maxWidth: 800)
-//                    .background(Color.theme.cornerRadius(8))
-//                    .padding()
-//                }
-//                .tabViewStyle(PageTabViewStyle())
-//                .background(Color(.tertiarySystemBackground))
-//            }
-//            .navigationBarTitle(L10n.Planner.title)
-//        }
-//    }
-//}
 
 class DTPlannerViewModel: PlannerViewModeling {
     typealias ExerciseViewModelType = DTPlannerExerciseViewModel

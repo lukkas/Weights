@@ -51,9 +51,11 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
 }
 
 protocol PlannerExerciseViewModeling: ObservableObject, Identifiable, Hashable {
+    init(archive: PlannerExerciseViewModelArchive)
     var name: String { get }
     var variations: [PlannerSetCellModel] { get set }
     func addVariationTapped()
+    func draggingArchive() -> PlannerExerciseViewModelArchive
 }
 
 extension PlannerExerciseViewModeling {
@@ -74,6 +76,14 @@ extension PlannerExerciseViewModeling {
 // MARK: - Design time
 
 class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
+    required init(archive: PlannerExerciseViewModelArchive) {
+        
+    }
+    
+    init() {
+        
+    }
+    
     let name: String = "Squat"
     @Published var variations: [PlannerSetCellModel] = [
         PlannerSetCellModel(metric: .reps)
@@ -81,6 +91,10 @@ class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
     
     func addVariationTapped() {
         variations.append(PlannerSetCellModel(metric: .reps))
+    }
+    
+    func draggingArchive() -> PlannerExerciseViewModelArchive {
+        fatalError()
     }
 }
 
