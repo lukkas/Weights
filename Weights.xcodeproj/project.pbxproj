@@ -12,6 +12,7 @@
 		042D77AFA5DA3EBE4DAE3E30 /* PlannerViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90843FCB8C011482CA2D573F /* PlannerViewModel_tests.swift */; };
 		05B2F5426E6798B889B7FE9D /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC910D9256ECC76C0EC71473 /* Exercise.swift */; };
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
+		0F579E1527F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */; };
 		104E0D87144B332C9621ADFB /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD62C2FCE97AEB0BB2DEE5A7 /* PlanView.swift */; };
 		12E90A6C57E6A509D9A1B475 /* ExerciseStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C608592A30DC1A44169979 /* ExerciseStoring.swift */; };
 		143308342A80D6456FE2FCD4 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5D4262D258C3BCDE6B6D2E /* CGFloat+Extensions.swift */; };
@@ -198,6 +199,7 @@
 		0DA9DF359FEB0332F44519D4 /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
 		0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
+		0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseDraggable.swift; sourceTree = "<group>"; };
 		0FFCBE909CFDD602034E48C6 /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
 		1493F1191ECC36E4A7A8C309 /* Date+TestConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TestConvenience.swift"; sourceTree = "<group>"; };
 		14B03E68A6C67A4F4A52CBAC /* DateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				90843FCB8C011482CA2D573F /* PlannerViewModel_tests.swift */,
 				864A1F926C2A78430D8ED46C /* PlannerViewModel.swift */,
 				3A619C874E8471CE23892E1D /* TrainingBottomBar.swift */,
+				0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -1006,6 +1009,7 @@
 				E579E729A57101B997F65550 /* CoreEntry.swift in Sources */,
 				3B4AA9B8FB668858D0788CFF /* Exercise.swift in Sources */,
 				6AD64777EBF45B9D0AFE4851 /* ExerciseCellViewModel.swift in Sources */,
+				0F579E1527F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift in Sources */,
 				152E601168999FC8D0E1C33A /* ExerciseCreationView.swift in Sources */,
 				ACD881C01824CA2C10612B75 /* ExerciseCreationViewModel.swift in Sources */,
 				26086ED282292ABF09DF89F1 /* ExerciseMetric+Displaying.swift in Sources */,
