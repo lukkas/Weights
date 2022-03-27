@@ -61,7 +61,7 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
                 ForEach(model.exercises) { exercise in
                     PlannerExerciseView(model: exercise)
                         .onDrag({
-                            NSItemProvider(object: URL(string: "http://apple.com")! as NSURL)
+                            PlannerExerciseDraggable.itemProvider
                         })
                         .padding(.horizontal, 16)
                 }
