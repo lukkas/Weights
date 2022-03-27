@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct Exercise: Equatable {
-    public enum Metric: CaseIterable {
+public struct Exercise: Equatable, Codable {
+    public enum Metric: CaseIterable, Codable {
         case reps, duration
     }
     
-    public enum Laterality: CaseIterable {
+    public enum Laterality: CaseIterable, Codable {
         case bilateral, unilateralSingle, unilateralIndividual
     }
     

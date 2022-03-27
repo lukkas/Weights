@@ -357,9 +357,19 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		0F579E1827F0FB410004D6F4 /* Drag&Drop */ = {
+			isa = PBXGroup;
+			children = (
+				0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */,
+				0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */,
+			);
+			path = "Drag&Drop";
+			sourceTree = "<group>";
+		};
 		1237001ECA2FEE9C77F958CA /* Planner */ = {
 			isa = PBXGroup;
 			children = (
+				0F579E1827F0FB410004D6F4 /* Drag&Drop */,
 				03AEDBD65BF68A257ACEA645 /* PlannerExerciseView.swift */,
 				8818C2845A87918FA49DE335 /* PlannerExerciseViewModel_tests.swift */,
 				794719391E1ADACE1587AA6E /* PlannerExerciseViewModel.swift */,
@@ -368,8 +378,6 @@
 				90843FCB8C011482CA2D573F /* PlannerViewModel_tests.swift */,
 				864A1F926C2A78430D8ED46C /* PlannerViewModel.swift */,
 				3A619C874E8471CE23892E1D /* TrainingBottomBar.swift */,
-				0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */,
-				0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
