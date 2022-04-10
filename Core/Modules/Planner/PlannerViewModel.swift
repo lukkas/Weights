@@ -24,7 +24,7 @@ struct ExercisePickerRelay: Identifiable {
 }
 
 class PlannerViewModel: PlannerViewModeling {
-    typealias ExerciseViewModelType = PlannerExerciseViewModel
+    typealias ExerciseViewModel = PlannerExerciseViewModel
     
     @Published var trainingUnits: [TrainingUnitModel<PlannerExerciseViewModel>] = []
     @Published var visibleUnit: Int = 0
@@ -43,6 +43,7 @@ class PlannerViewModel: PlannerViewModeling {
         }
     }
     @Published var exercisePickerRelay: ExercisePickerRelay?
+    private var currentlyDraggedItem: PlannerExerciseViewModel?
     
     init() {
         trainingUnits = [makeTemplateUnitModel()]
@@ -81,5 +82,62 @@ class PlannerViewModel: PlannerViewModeling {
     func plusTapped() {
         trainingUnits.append(makeTemplateUnitModel())
         visibleUnit = trainingUnits.indices.last!
+    }
+    
+    func startDragging(of item: PlannerExerciseViewModel) {
+        currentlyDraggedItem = item
+    }
+    
+    func currentlyDraggedItem(wasDraggedOver item: PlannerExerciseViewModel) {
+        guard let currentlyDraggedItem = currentlyDraggedItem else {
+            return
+        }
+        guard let draggedItemIP = indexPathOfTrainingUnit(containing: currentlyDraggedItem) else {
+            return
+        }
+        guard let draggedOverItemIP = indexPathOfTrainingUnit(containing: item) else {
+            return
+        }
+        guard draggedItemIP != draggedOverItemIP else {
+            return
+        }
+        swapItems(sourceIndexPath: draggedItemIP, targetIndexPath: draggedOverItemIP)
+    }
+    
+    private func indexPathOfTrainingUnit(
+        containing item: PlannerExerciseViewModel
+    ) -> IndexPath? {
+        for (unitIndex, unit) in trainingUnits.enumerated() {
+            for (exerciseIndex, exercise) in unit.exercises.enumerated() where exercise == item {
+                return IndexPath(item: exerciseIndex, section: unitIndex)
+            }
+        }
+        return nil
+    }
+    
+    private func swapItems(
+        sourceIndexPath: IndexPath,
+        targetIndexPath: IndexPath
+    ) {
+        var unitsCopy = trainingUnits
+        if sourceIndexPath.section == targetIndexPath.section {
+            var unit = unitsCopy[sourceIndexPath.section]
+            let sourceExercise = unit.exercises[sourceIndexPath.item]
+            let targetExercise = unit.exercises[targetIndexPath.item]
+            unit.replaceExercise(at: sourceIndexPath.item, with: targetExercise)
+            unit.replaceExercise(at: targetIndexPath.item, with: sourceExercise)
+            unitsCopy[sourceIndexPath.section] = unit
+            trainingUnits = unitsCopy
+        } else {
+            var sourceUnit = unitsCopy[sourceIndexPath.section]
+            var targetUnit = unitsCopy[targetIndexPath.section]
+            let sourceExercise = sourceUnit.exercises[sourceIndexPath.item]
+            let targetExercise = targetUnit.exercises[targetIndexPath.item]
+            sourceUnit.replaceExercise(at: sourceIndexPath.item, with: targetExercise)
+            targetUnit.replaceExercise(at: targetIndexPath.item, with: sourceExercise)
+            unitsCopy[sourceIndexPath.section] = sourceUnit
+            unitsCopy[targetIndexPath.section] = targetUnit
+            trainingUnits = unitsCopy
+        }
     }
 }

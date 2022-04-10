@@ -21,8 +21,12 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                     ForEach(model.trainingUnits.indices) { index in
                         PlannerPageView(
                             model: model.trainingUnits[index],
+                            draggingDelegate: model,
                             addExerciseTapped: {
                                 model.addExerciseTapped()
+                            },
+                            draggingStarted: { exercise in
+                                model.startDragging(of: exercise)
                             })
                     }
                 }
@@ -50,9 +54,14 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     }
 }
 
-struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
+struct PlannerPageView<
+    ExerciseViewModel,
+    Delegate: PlannerDropControllerDelegate
+>: View where Delegate.ExerciseViewModel == ExerciseViewModel {
     let model: TrainingUnitModel<ExerciseViewModel>
+    let draggingDelegate: Delegate
     let addExerciseTapped: () -> Void
+    let draggingStarted: (ExerciseViewModel) -> Void
     
     var body: some View {
         ScrollView {
@@ -61,8 +70,14 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
                 ForEach(model.exercises) { exercise in
                     PlannerExerciseView(model: exercise)
                         .onDrag({
-                            NSItemProvider(object: exercise.draggingArchive())
+                            draggingStarted(exercise)
+                            return NSItemProvider(object: exercise.draggingArchive())
                         })
+                        .onDrop(
+                            of: [PlannerExerciseDraggable.uti],
+                            delegate: PlannerDropController(
+                                exercise: exercise, delegate: draggingDelegate)
+                        )
                         .padding(.horizontal, 16)
                 }
                 Button {
@@ -84,10 +99,8 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
     }
 }
 
-protocol PlannerViewModeling: ObservableObject {
-    associatedtype ExerciseViewModelType: PlannerExerciseViewModeling
-    
-    var trainingUnits: [TrainingUnitModel<ExerciseViewModelType>] { get }
+protocol PlannerViewModeling: ObservableObject, PlannerDropControllerDelegate {
+    var trainingUnits: [TrainingUnitModel<ExerciseViewModel>] { get }
     var visibleUnit: Int { get set }
     var currentUnitName: String { get set }
     var exercisePickerRelay: ExercisePickerRelay? { get set }
@@ -98,6 +111,7 @@ protocol PlannerViewModeling: ObservableObject {
     func leftArrowTapped()
     func rightArrowTapped()
     func plusTapped()
+    func startDragging(of item: ExerciseViewModel)
 }
 
 struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiable, Hashable {
@@ -113,6 +127,10 @@ struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiab
     mutating func addExercises(_ models: [ExerciseModel]) {
         exercises.append(contentsOf: models)
     }
+    
+    mutating func replaceExercise(at index: Int, with newModel: ExerciseModel) {
+        exercises[index] = newModel
+    }
 }
 
 protocol PlannerRouting {
@@ -124,6 +142,7 @@ protocol PlannerRouting {
 // MARK: - Design time
 
 class DTPlannerViewModel: PlannerViewModeling {
+    typealias ExerciseViewModel = DTPlannerExerciseViewModel
     typealias ExerciseViewModelType = DTPlannerExerciseViewModel
     
     let trainingUnits: [TrainingUnitModel<DTPlannerExerciseViewModel>] = [
@@ -151,6 +170,14 @@ class DTPlannerViewModel: PlannerViewModeling {
     }
     
     func plusTapped() {
+        
+    }
+    
+    func startDragging(of item: DTPlannerExerciseViewModel) {
+        
+    }
+    
+    func currentlyDraggedItem(wasDraggedOver item: DTPlannerExerciseViewModel) {
         
     }
 }

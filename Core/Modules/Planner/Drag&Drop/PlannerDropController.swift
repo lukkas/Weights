@@ -8,11 +8,22 @@
 import Foundation
 import SwiftUI
 
-class PlannerDropController<ExerciseViewModel: PlannerExerciseViewModeling>: DropDelegate {
-    private let exercise: ExerciseViewModel
+protocol PlannerDropControllerDelegate: AnyObject {
+    associatedtype ExerciseViewModel: PlannerExerciseViewModeling
     
-    init(exercise: ExerciseViewModel) {
+    func currentlyDraggedItem(wasDraggedOver item: ExerciseViewModel)
+}
+
+class PlannerDropController<
+    ExerciseViewModel, Delegate: PlannerDropControllerDelegate
+>: DropDelegate where ExerciseViewModel == Delegate.ExerciseViewModel {
+    
+    private let exercise: ExerciseViewModel
+    private unowned let delegate: Delegate
+    
+    init(exercise: ExerciseViewModel, delegate: Delegate) {
         self.exercise = exercise
+        self.delegate = delegate
     }
     
     func performDrop(info: DropInfo) -> Bool {
@@ -20,7 +31,15 @@ class PlannerDropController<ExerciseViewModel: PlannerExerciseViewModeling>: Dro
     }
     
     func dropEntered(info: DropInfo) {
-        
+        withAnimation {
+            delegate.currentlyDraggedItem(wasDraggedOver: exercise)
+        }
+//        guard let draggedItem = info.itemProviders(for: [PlannerExerciseDraggable.uti]).first else {
+//            return
+//        }
+//        draggedItem.loadObject(ofClass: PlannerExerciseViewModelArchive.self) { archive, error in
+//
+//        }
     }
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
