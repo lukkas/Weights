@@ -61,8 +61,7 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     private func handleExercisesPicked(_ exercises: [Exercise])  {
-        var unit = trainingUnits[visibleUnit]
-        defer { trainingUnits[visibleUnit] = unit }
+        let unit = trainingUnits[visibleUnit]
         let exerciseModels = exercises.map {
             PlannerExerciseViewModel(exercise: $0)
         }
@@ -119,25 +118,19 @@ class PlannerViewModel: PlannerViewModeling {
         sourceIndexPath: IndexPath,
         targetIndexPath: IndexPath
     ) {
-        var unitsCopy = trainingUnits
         if sourceIndexPath.section == targetIndexPath.section {
-            var unit = unitsCopy[sourceIndexPath.section]
-            let sourceExercise = unit.exercises[sourceIndexPath.item]
-            let targetExercise = unit.exercises[targetIndexPath.item]
-            unit.replaceExercise(at: sourceIndexPath.item, with: targetExercise)
-            unit.replaceExercise(at: targetIndexPath.item, with: sourceExercise)
-            unitsCopy[sourceIndexPath.section] = unit
-            trainingUnits = unitsCopy
+            let unit = trainingUnits[sourceIndexPath.section]
+            let to = targetIndexPath.item > sourceIndexPath.item
+            ? targetIndexPath.item + 1
+            : targetIndexPath.item
+            unit.move(fromOffsets: IndexSet(integer: sourceIndexPath.item), to: to)
         } else {
-            var sourceUnit = unitsCopy[sourceIndexPath.section]
-            var targetUnit = unitsCopy[targetIndexPath.section]
+            let sourceUnit = trainingUnits[sourceIndexPath.section]
+            let targetUnit = trainingUnits[targetIndexPath.section]
             let sourceExercise = sourceUnit.exercises[sourceIndexPath.item]
             let targetExercise = targetUnit.exercises[targetIndexPath.item]
             sourceUnit.replaceExercise(at: sourceIndexPath.item, with: targetExercise)
             targetUnit.replaceExercise(at: targetIndexPath.item, with: sourceExercise)
-            unitsCopy[sourceIndexPath.section] = sourceUnit
-            unitsCopy[targetIndexPath.section] = targetUnit
-            trainingUnits = unitsCopy
         }
     }
 }

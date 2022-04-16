@@ -58,7 +58,7 @@ struct PlannerPageView<
     ExerciseViewModel,
     Delegate: PlannerDropControllerDelegate
 >: View where Delegate.ExerciseViewModel == ExerciseViewModel {
-    let model: TrainingUnitModel<ExerciseViewModel>
+    @ObservedObject var model: TrainingUnitModel<ExerciseViewModel>
     let draggingDelegate: Delegate
     let addExerciseTapped: () -> Void
     let draggingStarted: (ExerciseViewModel) -> Void
@@ -114,22 +114,38 @@ protocol PlannerViewModeling: ObservableObject, PlannerDropControllerDelegate {
     func startDragging(of item: ExerciseViewModel)
 }
 
-struct TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: Identifiable, Hashable {
+class TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: ObservableObject, Identifiable, Hashable {
     let id = UUID()
     var name: String
-    private(set) var exercises: [ExerciseModel]
+    @Published private(set) var exercises: [ExerciseModel]
     
     init(name: String, exercises: [ExerciseModel] = []) {
         self.name = name
         self.exercises = exercises
     }
     
-    mutating func addExercises(_ models: [ExerciseModel]) {
+    func addExercises(_ models: [ExerciseModel]) {
         exercises.append(contentsOf: models)
     }
     
-    mutating func replaceExercise(at index: Int, with newModel: ExerciseModel) {
+    func move(fromOffsets offsets: IndexSet, to offset: Int) {
+        exercises.move(fromOffsets: offsets, toOffset: offset)
+    }
+    
+    func replaceExercise(at index: Int, with newModel: ExerciseModel) {
         exercises[index] = newModel
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
+        hasher.combine(exercises)
+    }
+    
+    static func == (lhs: TrainingUnitModel<ExerciseModel>, rhs: TrainingUnitModel<ExerciseModel>) -> Bool {
+        return lhs.id == rhs.id
+        && lhs.name == rhs.name
+        && lhs.exercises == rhs.exercises
     }
 }
 
