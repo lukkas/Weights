@@ -39,6 +39,7 @@ class PlannerViewModel: PlannerViewModeling {
             pages[visiblePage].name
         }
         set {
+            objectWillChange.send()
             pages[visiblePage].name = newValue
         }
     }
