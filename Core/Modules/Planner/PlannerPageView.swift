@@ -103,10 +103,6 @@ class PlannerPageViewModel<ExerciseModel: PlannerExerciseViewModeling>: Observab
         exercises.move(fromOffsets: offsets, toOffset: offset)
     }
     
-    func replaceExercise(at index: Int, with newModel: ExerciseModel) {
-        exercises[index] = newModel
-    }
-    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(name)

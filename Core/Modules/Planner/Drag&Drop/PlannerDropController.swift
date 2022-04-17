@@ -52,29 +52,21 @@ class PlannerDropController<
     
     // public for testing purposes
     func dropEntered() {
-        guard let currentlyDraggedItem = currentlyDragged else {
-            return
-        }
-        guard let draggedItemIP = indexPathOfTrainingUnit(containing: currentlyDraggedItem) else {
-            return
-        }
+        guard let currentlyDragged = currentlyDragged else { return }
+        guard let draggedItemIP = indexPath(of: currentlyDragged) else { return }
         switch target {
         case let .exercise(item):
-            guard let draggedOverItemIP = indexPathOfTrainingUnit(containing: item) else {
-                return
-            }
-            guard draggedItemIP != draggedOverItemIP else {
-                return
-            }
+            guard let draggedOverItemIP = indexPath(of: item) else { return }
+            guard draggedItemIP != draggedOverItemIP else { return }
             swapItems(sourceIndexPath: draggedItemIP, targetIndexPath: draggedOverItemIP)
         case let .emptyPage(page):
-            page.addExercises([currentlyDraggedItem])
+            page.addExercises([currentlyDragged])
             pages[draggedItemIP.section].removeExercise(at: draggedItemIP.item)
         }
     }
     
-    private func indexPathOfTrainingUnit(
-        containing item: ExerciseViewModel
+    private func indexPath(
+        of item: ExerciseViewModel
     ) -> IndexPath? {
         for (unitIndex, unit) in pages.enumerated() {
             for (exerciseIndex, exercise) in unit.exercises.enumerated() where exercise == item {
@@ -89,17 +81,17 @@ class PlannerDropController<
         targetIndexPath: IndexPath
     ) {
         if sourceIndexPath.section == targetIndexPath.section {
-            let unit = pages[sourceIndexPath.section]
+            let page = pages[sourceIndexPath.section]
             let to = targetIndexPath.item > sourceIndexPath.item
             ? targetIndexPath.item + 1
             : targetIndexPath.item
-            unit.move(fromOffsets: IndexSet(integer: sourceIndexPath.item), to: to)
+            page.move(fromOffsets: IndexSet(integer: sourceIndexPath.item), to: to)
         } else {
-            let sourceUnit = pages[sourceIndexPath.section]
-            let targetUnit = pages[targetIndexPath.section]
-            let sourceExercise = sourceUnit.exercises[sourceIndexPath.item]
-            sourceUnit.removeExercise(at: sourceIndexPath.item)
-            targetUnit.insertExercise(sourceExercise, at: targetIndexPath.item)
+            let sourcePage = pages[sourceIndexPath.section]
+            let targetPage = pages[targetIndexPath.section]
+            let sourceExercise = sourcePage.exercises[sourceIndexPath.item]
+            sourcePage.removeExercise(at: sourceIndexPath.item)
+            targetPage.insertExercise(sourceExercise, at: targetIndexPath.item)
         }
     }
 }
