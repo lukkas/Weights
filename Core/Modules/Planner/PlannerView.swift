@@ -22,13 +22,8 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                             model: model.pages[index],
                             currentlyDragged: $currentlyDragged,
                             allPages: $model.pages,
-                            draggingDelegate: model,
                             addExerciseTapped: {
                                 model.addExerciseTapped()
-                            },
-                            draggingStarted: { exercise in
-                                currentlyDragged = exercise
-                                model.startDragging(of: exercise)
                             })
                     }
                 }
@@ -56,7 +51,9 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     }
 }
 
-protocol PlannerViewModeling: ObservableObject, PlannerDropControllerDelegate {
+protocol PlannerViewModeling: ObservableObject {
+    associatedtype ExerciseViewModel: PlannerExerciseViewModeling
+    
     var pages: [PlannerPageViewModel<ExerciseViewModel>] { get set }
     var visiblePage: Int { get set }
     var currentUnitName: String { get set }
@@ -68,7 +65,6 @@ protocol PlannerViewModeling: ObservableObject, PlannerDropControllerDelegate {
     func leftArrowTapped()
     func rightArrowTapped()
     func plusTapped()
-    func startDragging(of item: ExerciseViewModel)
 }
 
 protocol PlannerRouting {
@@ -80,9 +76,6 @@ protocol PlannerRouting {
 // MARK: - Design time
 
 class DTPlannerViewModel: PlannerViewModeling {
-    typealias ExerciseViewModel = DTPlannerExerciseViewModel
-    typealias ExerciseViewModelType = DTPlannerExerciseViewModel
-    
     var pages: [PlannerPageViewModel<DTPlannerExerciseViewModel>] = [
         PlannerPageViewModel(name: "A1", exercises: [
             DTPlannerExerciseViewModel(),
@@ -108,14 +101,6 @@ class DTPlannerViewModel: PlannerViewModeling {
     }
     
     func plusTapped() {
-        
-    }
-    
-    func startDragging(of item: DTPlannerExerciseViewModel) {
-        
-    }
-    
-    func currentlyDraggedItem(wasDraggedOver target: PlannerDraggingTarget<DTPlannerExerciseViewModel>) {
         
     }
 }

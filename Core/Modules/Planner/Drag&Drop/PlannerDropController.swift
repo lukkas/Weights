@@ -20,23 +20,20 @@ protocol PlannerDropControllerDelegate: AnyObject {
 }
 
 class PlannerDropController<
-    ExerciseViewModel, Delegate: PlannerDropControllerDelegate
->: DropDelegate where ExerciseViewModel == Delegate.ExerciseViewModel {
+    ExerciseViewModel: PlannerExerciseViewModeling
+>: DropDelegate {
     private let target: PlannerDraggingTarget<ExerciseViewModel>
     @Binding private var currentlyDragged: ExerciseViewModel?
     @Binding private var pages: [PlannerPageViewModel<ExerciseViewModel>]
-    private unowned let delegate: Delegate
     
     init(
         target: PlannerDraggingTarget<ExerciseViewModel>,
         currentlyDragged: Binding<ExerciseViewModel?>,
-        pages: Binding<[PlannerPageViewModel<ExerciseViewModel>]>,
-        delegate: Delegate
+        pages: Binding<[PlannerPageViewModel<ExerciseViewModel>]>
     ) {
         self.target = target
         self._currentlyDragged = currentlyDragged
         self._pages = pages
-        self.delegate = delegate
     }
     
     func performDrop(info: DropInfo) -> Bool {

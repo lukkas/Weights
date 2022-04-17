@@ -7,16 +7,11 @@
 
 import SwiftUI
 
-struct PlannerPageView<
-    ExerciseViewModel,
-    Delegate: PlannerDropControllerDelegate
->: View where Delegate.ExerciseViewModel == ExerciseViewModel {
+struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
     @ObservedObject var model: PlannerPageViewModel<ExerciseViewModel>
     @Binding var currentlyDragged: ExerciseViewModel?
     @Binding var allPages: [PlannerPageViewModel<ExerciseViewModel>]
-    let draggingDelegate: Delegate
     let addExerciseTapped: () -> Void
-    let draggingStarted: (ExerciseViewModel) -> Void
     
     var body: some View {
         ScrollView {
@@ -37,7 +32,7 @@ struct PlannerPageView<
     @ViewBuilder private func exerciseView(_ exercise: ExerciseViewModel) -> some View {
         PlannerExerciseView(model: exercise)
             .onDrag({
-                draggingStarted(exercise)
+                currentlyDragged = exercise
                 return NSItemProvider(object: exercise.draggingArchive())
             })
             .onDrop(
@@ -45,8 +40,7 @@ struct PlannerPageView<
                 delegate: PlannerDropController(
                     target: .exercise(exercise),
                     currentlyDragged: $currentlyDragged,
-                    pages: $allPages,
-                    delegate: draggingDelegate
+                    pages: $allPages
                 )
             )
             .padding(.horizontal, 16)
@@ -77,8 +71,7 @@ struct PlannerPageView<
                 delegate: PlannerDropController(
                     target: .emptyPage(model),
                     currentlyDragged: $currentlyDragged,
-                    pages: $allPages,
-                    delegate: draggingDelegate
+                    pages: $allPages
                 )
             )
     }
