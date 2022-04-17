@@ -33,7 +33,7 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
         PlannerExerciseView(model: exercise)
             .onDrag({
                 currentlyDragged = exercise
-                return NSItemProvider(object: exercise.draggingArchive())
+                return PlannerExerciseDraggable.itemProvider
             })
             .onDrop(
                 of: [PlannerExerciseDraggable.uti],

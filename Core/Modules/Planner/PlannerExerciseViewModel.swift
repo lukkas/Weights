@@ -23,12 +23,6 @@ class PlannerExerciseViewModel: PlannerExerciseViewModeling {
         prepareInitialVariationsState()
     }
     
-    required init(archive: PlannerExerciseViewModelArchive) {
-        let container = archive.dataContainer
-        self.exercise = container.exercise
-        self.variations = container.cells
-    }
-    
     private func prepareInitialVariationsState() {
         variations = [baseVariation()]
     }
@@ -50,12 +44,5 @@ class PlannerExerciseViewModel: PlannerExerciseViewModeling {
     
     func addVariationTapped() {
         variations.append(baseVariation())
-    }
-    
-    func draggingArchive() -> PlannerExerciseViewModelArchive {
-        return PlannerExerciseViewModelArchive(
-            exercise: exercise,
-            cells: variations
-        )
     }
 }
