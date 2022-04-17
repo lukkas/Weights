@@ -24,32 +24,32 @@ struct ExercisePickerRelay: Identifiable {
 }
 
 class PlannerViewModel: PlannerViewModeling {
-    typealias ExerciseViewModelType = PlannerExerciseViewModel
+    typealias ExerciseViewModel = PlannerExerciseViewModel
     
-    @Published var trainingUnits: [TrainingUnitModel<PlannerExerciseViewModel>] = []
-    @Published var visibleUnit: Int = 0
+    @Published var pages: [PlannerPageViewModel<PlannerExerciseViewModel>] = []
+    @Published var visiblePage: Int = 0
     var leftArrowDisabled: Bool {
-        return visibleUnit == 0
+        return visiblePage == 0
     }
     var rightArrowDisabled: Bool {
-        return visibleUnit == trainingUnits.indices.last
+        return visiblePage == pages.indices.last
     }
     var currentUnitName: String {
         get {
-            trainingUnits[visibleUnit].name
+            pages[visiblePage].name
         }
         set {
-            trainingUnits[visibleUnit].name = newValue
+            pages[visiblePage].name = newValue
         }
     }
     @Published var exercisePickerRelay: ExercisePickerRelay?
     
     init() {
-        trainingUnits = [makeTemplateUnitModel()]
+        pages = [makeTemplateUnitModel()]
     }
     
-    private func makeTemplateUnitModel() -> TrainingUnitModel<PlannerExerciseViewModel> {
-        return TrainingUnitModel(name: "A1")
+    private func makeTemplateUnitModel() -> PlannerPageViewModel<PlannerExerciseViewModel> {
+        return PlannerPageViewModel(name: "A1")
     }
     
     func addExerciseTapped() {
@@ -60,8 +60,7 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     private func handleExercisesPicked(_ exercises: [Exercise])  {
-        var unit = trainingUnits[visibleUnit]
-        defer { trainingUnits[visibleUnit] = unit }
+        let unit = pages[visiblePage]
         let exerciseModels = exercises.map {
             PlannerExerciseViewModel(exercise: $0)
         }
@@ -70,16 +69,16 @@ class PlannerViewModel: PlannerViewModeling {
     
     func leftArrowTapped() {
         if leftArrowDisabled { return }
-        visibleUnit -= 1
+        visiblePage -= 1
     }
     
     func rightArrowTapped() {
         if rightArrowDisabled { return }
-        visibleUnit += 1
+        visiblePage += 1
     }
     
     func plusTapped() {
-        trainingUnits.append(makeTemplateUnitModel())
-        visibleUnit = trainingUnits.indices.last!
+        pages.append(makeTemplateUnitModel())
+        visiblePage = pages.indices.last!
     }
 }

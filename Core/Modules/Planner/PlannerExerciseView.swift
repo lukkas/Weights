@@ -61,11 +61,14 @@ extension PlannerExerciseViewModeling {
         lhs: Self,
         rhs: Self
     ) -> Bool {
-        return lhs.name == rhs.name
+        return
+            lhs.id == rhs.id
+            && lhs.name == rhs.name
             && lhs.variations == rhs.variations
     }
     
     func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
         hasher.combine(name)
         hasher.combine(variations)
     }
@@ -74,6 +77,10 @@ extension PlannerExerciseViewModeling {
 // MARK: - Design time
 
 class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
+    init() {
+        
+    }
+    
     let name: String = "Squat"
     @Published var variations: [PlannerSetCellModel] = [
         PlannerSetCellModel(metric: .reps)

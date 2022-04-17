@@ -20,8 +20,8 @@ class PlannerViewModelSpec: QuickSpec {
                 sut = nil
             }
             it("will start with empty single unit template") {
-                expect(sut.trainingUnits).to(haveCount(1))
-                expect(sut.trainingUnits.first?.exercises).to(haveCount(0))
+                expect(sut.pages).to(haveCount(1))
+                expect(sut.pages.first?.exercises).to(haveCount(0))
             }
             it("will start with disabled arrows") {
                 expect(sut.leftArrowDisabled).to(beTrue())
@@ -34,7 +34,7 @@ class PlannerViewModelSpec: QuickSpec {
                     sut.exercisePickerRelay?.pick(exercises)
                 }
                 it("will add them to plan") {
-                    expect(sut.trainingUnits.first?.exercises).to(elementsEqual(exercises, by: { exerciseUnit, exercise in
+                    expect(sut.pages.first?.exercises).to(elementsEqual(exercises, by: { exerciseUnit, exercise in
                         exerciseUnit.name == exercise.name
                     }))
                 }
@@ -44,11 +44,11 @@ class PlannerViewModelSpec: QuickSpec {
                     sut.plusTapped()
                 }
                 it("will add empty training unit") {
-                    expect(sut.trainingUnits).to(haveCount(2))
-                    expect(sut.trainingUnits[1].exercises).to(haveCount(0))
+                    expect(sut.pages).to(haveCount(2))
+                    expect(sut.pages[1].exercises).to(haveCount(0))
                 }
                 it("will move to newly added unit") {
-                    expect(sut.visibleUnit).to(equal(1))
+                    expect(sut.visiblePage).to(equal(1))
                 }
                 it("will enable left arrow") {
                     expect(sut.leftArrowDisabled).to(beFalse())
@@ -61,7 +61,7 @@ class PlannerViewModelSpec: QuickSpec {
                         sut.leftArrowTapped()
                     }
                     it("will go back to first page") {
-                        expect(sut.visibleUnit).to(equal(0))
+                        expect(sut.visiblePage).to(equal(0))
                     }
                     it("will disable left arrow") {
                         expect(sut.leftArrowDisabled).to(beTrue())
@@ -74,7 +74,7 @@ class PlannerViewModelSpec: QuickSpec {
                             sut.leftArrowTapped()
                         }
                         it("will stay at leftmost page") {
-                            expect(sut.visibleUnit).to(equal(0))
+                            expect(sut.visiblePage).to(equal(0))
                         }
                     }
                     context("when right arrow tapped") {
@@ -82,7 +82,7 @@ class PlannerViewModelSpec: QuickSpec {
                             sut.rightArrowTapped()
                         }
                         it("will move to second page again") {
-                            expect(sut.visibleUnit).to(equal(1))
+                            expect(sut.visiblePage).to(equal(1))
                         }
                     }
                 }
@@ -92,7 +92,7 @@ class PlannerViewModelSpec: QuickSpec {
                         sut.rightArrowTapped()
                     }
                     it("will stay on rightmost page") {
-                        expect(sut.visibleUnit).to(equal(1))
+                        expect(sut.visiblePage).to(equal(1))
                     }
                 }
             }

@@ -8,13 +8,24 @@
 
 import SwiftUI
 
-struct PlannerSetCellModel: Equatable, Identifiable, Hashable {
-    let id = UUID()
+struct PlannerSetCellModel: Equatable, Identifiable, Hashable, Codable {
+    let id: UUID
     let metric: Exercise.Metric
     
     var numerOfSets: Double?
     var metricValue: Double?
     var weight: Double?
+    
+    init(
+        metric: Exercise.Metric,
+        numerOfSets: Double? = nil,
+        metricValue: Double? = nil,
+        weight: Double? = nil
+    ) {
+        self.id = UUID()
+        self.metric = metric
+        self.numerOfSets = numerOfSets
+    }
 }
 
 struct PlannerSetCell: View {
