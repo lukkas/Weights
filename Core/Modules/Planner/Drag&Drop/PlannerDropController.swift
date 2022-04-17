@@ -40,17 +40,18 @@ class PlannerDropController<
         return true
     }
     
-    func dropEntered(info: DropInfo) {
-        withAnimation {
-            currentlyDraggedItem()
-        }
-    }
-    
     func dropUpdated(info: DropInfo) -> DropProposal? {
         return DropProposal(operation: .move)
     }
     
-    private func currentlyDraggedItem() {
+    func dropEntered(info: DropInfo) {
+        withAnimation {
+            dropEntered()
+        }
+    }
+    
+    // public for testing purposes
+    func dropEntered() {
         guard let currentlyDraggedItem = currentlyDragged else {
             return
         }
