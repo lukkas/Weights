@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     @StateObject var model: Model
+    @State private var currentlyDragged: Model.ExerciseViewModel?
     let router: Router
     
     var body: some View {
@@ -19,11 +20,14 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                     ForEach(model.pages.indices) { index in
                         PlannerPageView(
                             model: model.pages[index],
+                            currentlyDragged: $currentlyDragged,
+                            allPages: $model.pages,
                             draggingDelegate: model,
                             addExerciseTapped: {
                                 model.addExerciseTapped()
                             },
                             draggingStarted: { exercise in
+                                currentlyDragged = exercise
                                 model.startDragging(of: exercise)
                             })
                     }
@@ -53,7 +57,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
 }
 
 protocol PlannerViewModeling: ObservableObject, PlannerDropControllerDelegate {
-    var pages: [PlannerPageViewModel<ExerciseViewModel>] { get }
+    var pages: [PlannerPageViewModel<ExerciseViewModel>] { get set }
     var visiblePage: Int { get set }
     var currentUnitName: String { get set }
     var exercisePickerRelay: ExercisePickerRelay? { get set }
@@ -79,7 +83,7 @@ class DTPlannerViewModel: PlannerViewModeling {
     typealias ExerciseViewModel = DTPlannerExerciseViewModel
     typealias ExerciseViewModelType = DTPlannerExerciseViewModel
     
-    let pages: [PlannerPageViewModel<DTPlannerExerciseViewModel>] = [
+    var pages: [PlannerPageViewModel<DTPlannerExerciseViewModel>] = [
         PlannerPageViewModel(name: "A1", exercises: [
             DTPlannerExerciseViewModel(),
             DTPlannerExerciseViewModel()

@@ -12,6 +12,8 @@ struct PlannerPageView<
     Delegate: PlannerDropControllerDelegate
 >: View where Delegate.ExerciseViewModel == ExerciseViewModel {
     @ObservedObject var model: PlannerPageViewModel<ExerciseViewModel>
+    @Binding var currentlyDragged: ExerciseViewModel?
+    @Binding var allPages: [PlannerPageViewModel<ExerciseViewModel>]
     let draggingDelegate: Delegate
     let addExerciseTapped: () -> Void
     let draggingStarted: (ExerciseViewModel) -> Void
@@ -42,6 +44,8 @@ struct PlannerPageView<
                 of: [PlannerExerciseDraggable.uti],
                 delegate: PlannerDropController(
                     target: .exercise(exercise),
+                    currentlyDragged: $currentlyDragged,
+                    pages: $allPages,
                     delegate: draggingDelegate
                 )
             )
@@ -72,6 +76,8 @@ struct PlannerPageView<
                 of: [PlannerExerciseDraggable.uti],
                 delegate: PlannerDropController(
                     target: .emptyPage(model),
+                    currentlyDragged: $currentlyDragged,
+                    pages: $allPages,
                     delegate: draggingDelegate
                 )
             )
