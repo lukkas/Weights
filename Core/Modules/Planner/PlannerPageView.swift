@@ -21,43 +21,38 @@ struct PlannerPageView<
             Color.clear
             LazyVStack(spacing: 16) {
                 ForEach(model.exercises) { exercise in
-                    PlannerExerciseView(model: exercise)
-                        .onDrag({
-                            draggingStarted(exercise)
-                            return NSItemProvider(object: exercise.draggingArchive())
-                        })
-                        .onDrop(
-                            of: [PlannerExerciseDraggable.uti],
-                            delegate: PlannerDropController(
-                                target: .exercise(exercise),
-                                delegate: draggingDelegate
-                            )
-                        )
-                        .padding(.horizontal, 16)
+                    exerciseView(exercise)
                 }
                 addExerciseButton()
                 if model.exercises.isEmpty {
-                    Color.clear
-                        .contentShape(Rectangle())
-                        .frame(maxWidth: .infinity, minHeight: 300)
-                        .onDrop(
-                            of: [PlannerExerciseDraggable.uti],
-                            delegate: PlannerDropController(
-                                target: .emptyPage(model),
-                                delegate: draggingDelegate
-                            )
-                        )
+                    emptyDropArea()
                 }
             }
             Color.clear
         }
     }
     
+    @ViewBuilder private func exerciseView(_ exercise: ExerciseViewModel) -> some View {
+        PlannerExerciseView(model: exercise)
+            .onDrag({
+                draggingStarted(exercise)
+                return NSItemProvider(object: exercise.draggingArchive())
+            })
+            .onDrop(
+                of: [PlannerExerciseDraggable.uti],
+                delegate: PlannerDropController(
+                    target: .exercise(exercise),
+                    delegate: draggingDelegate
+                )
+            )
+            .padding(.horizontal, 16)
+    }
+    
     @ViewBuilder private func addExerciseButton() -> some View {
         Button {
             addExerciseTapped()
         } label: {
-            Text("Add exercise")
+            Text(L10n.Planner.addExercise)
                 .font(.system(
                     size: 18,
                     weight: .medium,
@@ -67,6 +62,19 @@ struct PlannerPageView<
         }
         .buttonStyle(.borderedProminent)
         .padding(.horizontal, 16)
+    }
+    
+    @ViewBuilder private func emptyDropArea() -> some View {
+        Color.clear
+            .contentShape(Rectangle())
+            .frame(maxWidth: .infinity, minHeight: 300)
+            .onDrop(
+                of: [PlannerExerciseDraggable.uti],
+                delegate: PlannerDropController(
+                    target: .emptyPage(model),
+                    delegate: draggingDelegate
+                )
+            )
     }
 }
 
