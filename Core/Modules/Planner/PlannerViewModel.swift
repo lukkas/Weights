@@ -87,20 +87,26 @@ class PlannerViewModel: PlannerViewModeling {
         currentlyDraggedItem = item
     }
     
-    func currentlyDraggedItem(wasDraggedOver item: PlannerExerciseViewModel) {
+    func currentlyDraggedItem(wasDraggedOver target: PlannerDraggingTarget<PlannerExerciseViewModel>) {
         guard let currentlyDraggedItem = currentlyDraggedItem else {
             return
         }
         guard let draggedItemIP = indexPathOfTrainingUnit(containing: currentlyDraggedItem) else {
             return
         }
-        guard let draggedOverItemIP = indexPathOfTrainingUnit(containing: item) else {
-            return
+        switch target {
+        case let .exercise(item):
+            guard let draggedOverItemIP = indexPathOfTrainingUnit(containing: item) else {
+                return
+            }
+            guard draggedItemIP != draggedOverItemIP else {
+                return
+            }
+            swapItems(sourceIndexPath: draggedItemIP, targetIndexPath: draggedOverItemIP)
+        case let .emptyPage(page):
+            page.addExercises([currentlyDraggedItem])
+            trainingUnits[draggedItemIP.section].removeExercise(at: draggedItemIP.item)
         }
-        guard draggedItemIP != draggedOverItemIP else {
-            return
-        }
-        swapItems(sourceIndexPath: draggedItemIP, targetIndexPath: draggedOverItemIP)
     }
     
     private func indexPathOfTrainingUnit(
@@ -128,9 +134,8 @@ class PlannerViewModel: PlannerViewModeling {
             let sourceUnit = trainingUnits[sourceIndexPath.section]
             let targetUnit = trainingUnits[targetIndexPath.section]
             let sourceExercise = sourceUnit.exercises[sourceIndexPath.item]
-            let targetExercise = targetUnit.exercises[targetIndexPath.item]
-            sourceUnit.replaceExercise(at: sourceIndexPath.item, with: targetExercise)
-            targetUnit.replaceExercise(at: targetIndexPath.item, with: sourceExercise)
+            sourceUnit.removeExercise(at: sourceIndexPath.item)
+            targetUnit.insertExercise(sourceExercise, at: targetIndexPath.item)
         }
     }
 }

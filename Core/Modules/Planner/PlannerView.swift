@@ -76,26 +76,49 @@ struct PlannerPageView<
                         .onDrop(
                             of: [PlannerExerciseDraggable.uti],
                             delegate: PlannerDropController(
-                                exercise: exercise, delegate: draggingDelegate)
+                                target: .exercise(exercise),
+                                delegate: draggingDelegate
+                            )
                         )
                         .padding(.horizontal, 16)
                 }
-                Button {
-                    addExerciseTapped()
-                } label: {
-                    Text("Add exercise")
-                        .font(.system(
-                            size: 18,
-                            weight: .medium,
-                            design: .rounded
-                        ))
-                        .frame(maxWidth: .infinity)
+                addExerciseButton()
+                if model.exercises.isEmpty {
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .frame(maxWidth: .infinity, minHeight: 300)
+                        .onDrop(
+                            of: [PlannerExerciseDraggable.uti],
+                            delegate: PlannerDropController(
+                                target: .emptyPage(model),
+                                delegate: draggingDelegate
+                            )
+                        )
                 }
-                .padding(.horizontal, 16)
-                .buttonStyle(.borderedProminent)
+//                if model.exercises.isEmpty {
+//                    Rectangle()
+//                        .frame(maxWidth: .infinity, minHeight: 800)
+//
+//                }
             }
             Color.clear
         }
+    }
+    
+    @ViewBuilder private func addExerciseButton() -> some View {
+        Button {
+            addExerciseTapped()
+        } label: {
+            Text("Add exercise")
+                .font(.system(
+                    size: 18,
+                    weight: .medium,
+                    design: .rounded
+                ))
+                .frame(maxWidth: .infinity, minHeight: 44)
+        }
+        .buttonStyle(.borderedProminent)
+        .padding(.horizontal, 16)
     }
 }
 
@@ -126,6 +149,14 @@ class TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: ObservableO
     
     func addExercises(_ models: [ExerciseModel]) {
         exercises.append(contentsOf: models)
+    }
+    
+    func removeExercise(at index: Int) {
+        exercises.remove(at: index)
+    }
+    
+    func insertExercise(_ exercise: ExerciseModel, at index: Int) {
+        exercises.insert(exercise, at: index)
     }
     
     func move(fromOffsets offsets: IndexSet, to offset: Int) {
@@ -193,7 +224,7 @@ class DTPlannerViewModel: PlannerViewModeling {
         
     }
     
-    func currentlyDraggedItem(wasDraggedOver item: DTPlannerExerciseViewModel) {
+    func currentlyDraggedItem(wasDraggedOver target: PlannerDraggingTarget<DTPlannerExerciseViewModel>) {
         
     }
 }
