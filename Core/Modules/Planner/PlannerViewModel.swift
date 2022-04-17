@@ -26,31 +26,31 @@ struct ExercisePickerRelay: Identifiable {
 class PlannerViewModel: PlannerViewModeling {
     typealias ExerciseViewModel = PlannerExerciseViewModel
     
-    @Published var trainingUnits: [TrainingUnitModel<PlannerExerciseViewModel>] = []
+    @Published var pages: [PlannerPageViewModel<PlannerExerciseViewModel>] = []
     @Published var visibleUnit: Int = 0
     var leftArrowDisabled: Bool {
         return visibleUnit == 0
     }
     var rightArrowDisabled: Bool {
-        return visibleUnit == trainingUnits.indices.last
+        return visibleUnit == pages.indices.last
     }
     var currentUnitName: String {
         get {
-            trainingUnits[visibleUnit].name
+            pages[visibleUnit].name
         }
         set {
-            trainingUnits[visibleUnit].name = newValue
+            pages[visibleUnit].name = newValue
         }
     }
     @Published var exercisePickerRelay: ExercisePickerRelay?
     private var currentlyDraggedItem: PlannerExerciseViewModel?
     
     init() {
-        trainingUnits = [makeTemplateUnitModel()]
+        pages = [makeTemplateUnitModel()]
     }
     
-    private func makeTemplateUnitModel() -> TrainingUnitModel<PlannerExerciseViewModel> {
-        return TrainingUnitModel(name: "A1")
+    private func makeTemplateUnitModel() -> PlannerPageViewModel<PlannerExerciseViewModel> {
+        return PlannerPageViewModel(name: "A1")
     }
     
     func addExerciseTapped() {
@@ -61,7 +61,7 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     private func handleExercisesPicked(_ exercises: [Exercise])  {
-        let unit = trainingUnits[visibleUnit]
+        let unit = pages[visibleUnit]
         let exerciseModels = exercises.map {
             PlannerExerciseViewModel(exercise: $0)
         }
@@ -79,8 +79,8 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     func plusTapped() {
-        trainingUnits.append(makeTemplateUnitModel())
-        visibleUnit = trainingUnits.indices.last!
+        pages.append(makeTemplateUnitModel())
+        visibleUnit = pages.indices.last!
     }
     
     func startDragging(of item: PlannerExerciseViewModel) {
@@ -105,14 +105,14 @@ class PlannerViewModel: PlannerViewModeling {
             swapItems(sourceIndexPath: draggedItemIP, targetIndexPath: draggedOverItemIP)
         case let .emptyPage(page):
             page.addExercises([currentlyDraggedItem])
-            trainingUnits[draggedItemIP.section].removeExercise(at: draggedItemIP.item)
+            pages[draggedItemIP.section].removeExercise(at: draggedItemIP.item)
         }
     }
     
     private func indexPathOfTrainingUnit(
         containing item: PlannerExerciseViewModel
     ) -> IndexPath? {
-        for (unitIndex, unit) in trainingUnits.enumerated() {
+        for (unitIndex, unit) in pages.enumerated() {
             for (exerciseIndex, exercise) in unit.exercises.enumerated() where exercise == item {
                 return IndexPath(item: exerciseIndex, section: unitIndex)
             }
@@ -125,14 +125,14 @@ class PlannerViewModel: PlannerViewModeling {
         targetIndexPath: IndexPath
     ) {
         if sourceIndexPath.section == targetIndexPath.section {
-            let unit = trainingUnits[sourceIndexPath.section]
+            let unit = pages[sourceIndexPath.section]
             let to = targetIndexPath.item > sourceIndexPath.item
             ? targetIndexPath.item + 1
             : targetIndexPath.item
             unit.move(fromOffsets: IndexSet(integer: sourceIndexPath.item), to: to)
         } else {
-            let sourceUnit = trainingUnits[sourceIndexPath.section]
-            let targetUnit = trainingUnits[targetIndexPath.section]
+            let sourceUnit = pages[sourceIndexPath.section]
+            let targetUnit = pages[targetIndexPath.section]
             let sourceExercise = sourceUnit.exercises[sourceIndexPath.item]
             sourceUnit.removeExercise(at: sourceIndexPath.item)
             targetUnit.insertExercise(sourceExercise, at: targetIndexPath.item)

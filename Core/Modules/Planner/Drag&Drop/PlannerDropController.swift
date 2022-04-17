@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 enum PlannerDraggingTarget<ExerciseViewModel: PlannerExerciseViewModeling> {
-    case emptyPage(TrainingUnitModel<ExerciseViewModel>)
+    case emptyPage(PlannerPageViewModel<ExerciseViewModel>)
     case exercise(ExerciseViewModel)
 }
 

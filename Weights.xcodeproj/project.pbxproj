@@ -12,6 +12,7 @@
 		042D77AFA5DA3EBE4DAE3E30 /* PlannerViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90843FCB8C011482CA2D573F /* PlannerViewModel_tests.swift */; };
 		05B2F5426E6798B889B7FE9D /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC910D9256ECC76C0EC71473 /* Exercise.swift */; };
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
+		0F53C320280C54C7003B190C /* PlannerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F53C31F280C54C7003B190C /* PlannerPageView.swift */; };
 		0F579E1527F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */; };
 		0F579E1727F0D4810004D6F4 /* PlannerDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */; };
 		0F579E1A27F102DA0004D6F4 /* PlannerExerciseViewModelArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1927F102DA0004D6F4 /* PlannerExerciseViewModelArchive.swift */; };
@@ -201,6 +202,7 @@
 		0DA9DF359FEB0332F44519D4 /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
 		0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
+		0F53C31F280C54C7003B190C /* PlannerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPageView.swift; sourceTree = "<group>"; };
 		0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseDraggable.swift; sourceTree = "<group>"; };
 		0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerDropController.swift; sourceTree = "<group>"; };
 		0F579E1927F102DA0004D6F4 /* PlannerExerciseViewModelArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModelArchive.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				794719391E1ADACE1587AA6E /* PlannerExerciseViewModel.swift */,
 				0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */,
 				A7D9BA9B292EBBD2B8C035B5 /* PlannerView.swift */,
+				0F53C31F280C54C7003B190C /* PlannerPageView.swift */,
 				90843FCB8C011482CA2D573F /* PlannerViewModel_tests.swift */,
 				864A1F926C2A78430D8ED46C /* PlannerViewModel.swift */,
 				3A619C874E8471CE23892E1D /* TrainingBottomBar.swift */,
@@ -1013,6 +1016,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F53C320280C54C7003B190C /* PlannerPageView.swift in Sources */,
 				143308342A80D6456FE2FCD4 /* CGFloat+Extensions.swift in Sources */,
 				325D71DB27E58A43ABF14DD1 /* CardDesign.swift in Sources */,
 				0F579E1A27F102DA0004D6F4 /* PlannerExerciseViewModelArchive.swift in Sources */,

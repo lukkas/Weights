@@ -10,17 +10,15 @@ import SwiftUI
 
 struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     @StateObject var model: Model
-    @State var index: Int = 0
     let router: Router
-    @State var isPresentingExerciseList = false
     
     var body: some View {
         NavigationView {
             VStack {
                 TabView(selection: $model.visibleUnit) {
-                    ForEach(model.trainingUnits.indices) { index in
+                    ForEach(model.pages.indices) { index in
                         PlannerPageView(
-                            model: model.trainingUnits[index],
+                            model: model.pages[index],
                             draggingDelegate: model,
                             addExerciseTapped: {
                                 model.addExerciseTapped()
@@ -31,7 +29,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .automatic))
-                .id(model.trainingUnits)
+                .id(model.pages)
                 
                 TrainingBottomBar(
                     workoutName: $model.currentUnitName,
@@ -54,76 +52,8 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     }
 }
 
-struct PlannerPageView<
-    ExerciseViewModel,
-    Delegate: PlannerDropControllerDelegate
->: View where Delegate.ExerciseViewModel == ExerciseViewModel {
-    @ObservedObject var model: TrainingUnitModel<ExerciseViewModel>
-    let draggingDelegate: Delegate
-    let addExerciseTapped: () -> Void
-    let draggingStarted: (ExerciseViewModel) -> Void
-    
-    var body: some View {
-        ScrollView {
-            Color.clear
-            LazyVStack(spacing: 16) {
-                ForEach(model.exercises) { exercise in
-                    PlannerExerciseView(model: exercise)
-                        .onDrag({
-                            draggingStarted(exercise)
-                            return NSItemProvider(object: exercise.draggingArchive())
-                        })
-                        .onDrop(
-                            of: [PlannerExerciseDraggable.uti],
-                            delegate: PlannerDropController(
-                                target: .exercise(exercise),
-                                delegate: draggingDelegate
-                            )
-                        )
-                        .padding(.horizontal, 16)
-                }
-                addExerciseButton()
-                if model.exercises.isEmpty {
-                    Color.clear
-                        .contentShape(Rectangle())
-                        .frame(maxWidth: .infinity, minHeight: 300)
-                        .onDrop(
-                            of: [PlannerExerciseDraggable.uti],
-                            delegate: PlannerDropController(
-                                target: .emptyPage(model),
-                                delegate: draggingDelegate
-                            )
-                        )
-                }
-//                if model.exercises.isEmpty {
-//                    Rectangle()
-//                        .frame(maxWidth: .infinity, minHeight: 800)
-//
-//                }
-            }
-            Color.clear
-        }
-    }
-    
-    @ViewBuilder private func addExerciseButton() -> some View {
-        Button {
-            addExerciseTapped()
-        } label: {
-            Text("Add exercise")
-                .font(.system(
-                    size: 18,
-                    weight: .medium,
-                    design: .rounded
-                ))
-                .frame(maxWidth: .infinity, minHeight: 44)
-        }
-        .buttonStyle(.borderedProminent)
-        .padding(.horizontal, 16)
-    }
-}
-
 protocol PlannerViewModeling: ObservableObject, PlannerDropControllerDelegate {
-    var trainingUnits: [TrainingUnitModel<ExerciseViewModel>] { get }
+    var pages: [PlannerPageViewModel<ExerciseViewModel>] { get }
     var visibleUnit: Int { get set }
     var currentUnitName: String { get set }
     var exercisePickerRelay: ExercisePickerRelay? { get set }
@@ -135,49 +65,6 @@ protocol PlannerViewModeling: ObservableObject, PlannerDropControllerDelegate {
     func rightArrowTapped()
     func plusTapped()
     func startDragging(of item: ExerciseViewModel)
-}
-
-class TrainingUnitModel<ExerciseModel: PlannerExerciseViewModeling>: ObservableObject, Identifiable, Hashable {
-    let id = UUID()
-    var name: String
-    @Published private(set) var exercises: [ExerciseModel]
-    
-    init(name: String, exercises: [ExerciseModel] = []) {
-        self.name = name
-        self.exercises = exercises
-    }
-    
-    func addExercises(_ models: [ExerciseModel]) {
-        exercises.append(contentsOf: models)
-    }
-    
-    func removeExercise(at index: Int) {
-        exercises.remove(at: index)
-    }
-    
-    func insertExercise(_ exercise: ExerciseModel, at index: Int) {
-        exercises.insert(exercise, at: index)
-    }
-    
-    func move(fromOffsets offsets: IndexSet, to offset: Int) {
-        exercises.move(fromOffsets: offsets, toOffset: offset)
-    }
-    
-    func replaceExercise(at index: Int, with newModel: ExerciseModel) {
-        exercises[index] = newModel
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(name)
-        hasher.combine(exercises)
-    }
-    
-    static func == (lhs: TrainingUnitModel<ExerciseModel>, rhs: TrainingUnitModel<ExerciseModel>) -> Bool {
-        return lhs.id == rhs.id
-        && lhs.name == rhs.name
-        && lhs.exercises == rhs.exercises
-    }
 }
 
 protocol PlannerRouting {
@@ -192,8 +79,8 @@ class DTPlannerViewModel: PlannerViewModeling {
     typealias ExerciseViewModel = DTPlannerExerciseViewModel
     typealias ExerciseViewModelType = DTPlannerExerciseViewModel
     
-    let trainingUnits: [TrainingUnitModel<DTPlannerExerciseViewModel>] = [
-        TrainingUnitModel(name: "A1", exercises: [
+    let pages: [PlannerPageViewModel<DTPlannerExerciseViewModel>] = [
+        PlannerPageViewModel(name: "A1", exercises: [
             DTPlannerExerciseViewModel(),
             DTPlannerExerciseViewModel()
         ])
