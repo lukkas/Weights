@@ -15,7 +15,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     var body: some View {
         NavigationView {
             VStack {
-                TabView(selection: $model.visibleUnit) {
+                TabView(selection: $model.visiblePage) {
                     ForEach(model.pages.indices) { index in
                         PlannerPageView(
                             model: model.pages[index],
@@ -54,7 +54,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
 
 protocol PlannerViewModeling: ObservableObject, PlannerDropControllerDelegate {
     var pages: [PlannerPageViewModel<ExerciseViewModel>] { get }
-    var visibleUnit: Int { get set }
+    var visiblePage: Int { get set }
     var currentUnitName: String { get set }
     var exercisePickerRelay: ExercisePickerRelay? { get set }
     var leftArrowDisabled: Bool { get }
@@ -85,7 +85,7 @@ class DTPlannerViewModel: PlannerViewModeling {
             DTPlannerExerciseViewModel()
         ])
     ]
-    @Published var visibleUnit: Int = 0
+    @Published var visiblePage: Int = 0
     @Published var currentUnitName: String = "Upper A"
     @Published var exercisePickerRelay: ExercisePickerRelay?
     var leftArrowDisabled: Bool { false }

@@ -27,19 +27,19 @@ class PlannerViewModel: PlannerViewModeling {
     typealias ExerciseViewModel = PlannerExerciseViewModel
     
     @Published var pages: [PlannerPageViewModel<PlannerExerciseViewModel>] = []
-    @Published var visibleUnit: Int = 0
+    @Published var visiblePage: Int = 0
     var leftArrowDisabled: Bool {
-        return visibleUnit == 0
+        return visiblePage == 0
     }
     var rightArrowDisabled: Bool {
-        return visibleUnit == pages.indices.last
+        return visiblePage == pages.indices.last
     }
     var currentUnitName: String {
         get {
-            pages[visibleUnit].name
+            pages[visiblePage].name
         }
         set {
-            pages[visibleUnit].name = newValue
+            pages[visiblePage].name = newValue
         }
     }
     @Published var exercisePickerRelay: ExercisePickerRelay?
@@ -61,7 +61,7 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     private func handleExercisesPicked(_ exercises: [Exercise])  {
-        let unit = pages[visibleUnit]
+        let unit = pages[visiblePage]
         let exerciseModels = exercises.map {
             PlannerExerciseViewModel(exercise: $0)
         }
@@ -70,17 +70,17 @@ class PlannerViewModel: PlannerViewModeling {
     
     func leftArrowTapped() {
         if leftArrowDisabled { return }
-        visibleUnit -= 1
+        visiblePage -= 1
     }
     
     func rightArrowTapped() {
         if rightArrowDisabled { return }
-        visibleUnit += 1
+        visiblePage += 1
     }
     
     func plusTapped() {
         pages.append(makeTemplateUnitModel())
-        visibleUnit = pages.indices.last!
+        visiblePage = pages.indices.last!
     }
     
     func startDragging(of item: PlannerExerciseViewModel) {
