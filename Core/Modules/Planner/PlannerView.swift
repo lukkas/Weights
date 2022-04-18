@@ -111,8 +111,8 @@ struct DTPlannerRouter: PlannerRouting {
     }
 }
 
-//struct PlannerView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlannerView(model: DTPlannerViewModel(), router: DTPlannerRouter())
-//    }
-//}
+struct PlannerView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlannerView(model: DTPlannerViewModel(), router: DTPlannerRouter())
+    }
+}
