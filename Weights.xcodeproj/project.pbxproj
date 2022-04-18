@@ -12,6 +12,9 @@
 		042D77AFA5DA3EBE4DAE3E30 /* PlannerViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90843FCB8C011482CA2D573F /* PlannerViewModel_tests.swift */; };
 		05B2F5426E6798B889B7FE9D /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC910D9256ECC76C0EC71473 /* Exercise.swift */; };
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
+		0F2782E9280DAF4500BB4228 /* UIPacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2782E8280DAF4500BB4228 /* UIPacePicker.swift */; };
+		0F2782EB280DB3BB00BB4228 /* UIPickerTextField_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E9420A33576D48A123DB4 /* UIPickerTextField_tests.swift */; };
+		0F2782ED280DB40C00BB4228 /* UIPacePicker_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2782EC280DB40C00BB4228 /* UIPacePicker_tests.swift */; };
 		0F53C320280C54C7003B190C /* PlannerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F53C31F280C54C7003B190C /* PlannerPageView.swift */; };
 		0F579E1527F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */; };
 		0F579E1727F0D4810004D6F4 /* PlannerDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */; };
@@ -71,7 +74,6 @@
 		A3DBE5B7000BA4F0CBD0048C /* FloatingPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89929007B8BB3E45CB60F3B6 /* FloatingPoint+Extensions.swift */; };
 		A56FF804F9E4F0AEAFD0E7C2 /* ExercisePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706D2CFFD3F744B19E7E7543 /* ExercisePickerView.swift */; };
 		A61FF0FBE2D5F759BD979563 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17D64C4F24BA3A01D80983F /* Managed.swift */; };
-		A6E244AA96DC8EA8C74936E9 /* UIPickerTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E9420A33576D48A123DB4 /* UIPickerTextFieldTests.swift */; };
 		A7AF731FF80E0C0659C92EA7 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0425CE5073D697BA27425F /* Exercise.swift */; };
 		ACD881C01824CA2C10612B75 /* ExerciseCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE669A0AE8C4F68E61A264 /* ExerciseCreationViewModel.swift */; };
 		AE0958B5F5518FFDCB007AA4 /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF5AE31EA0CB1B05F67F21 /* PickerTextField.swift */; };
@@ -200,6 +202,8 @@
 		0CB074F5EFF4D9ACB8418888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0DA9DF359FEB0332F44519D4 /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
 		0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
+		0F2782E8280DAF4500BB4228 /* UIPacePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPacePicker.swift; sourceTree = "<group>"; };
+		0F2782EC280DB40C00BB4228 /* UIPacePicker_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPacePicker_tests.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
 		0F53C31F280C54C7003B190C /* PlannerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPageView.swift; sourceTree = "<group>"; };
 		0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseDraggable.swift; sourceTree = "<group>"; };
@@ -262,7 +266,7 @@
 		93C4DD1D1F1072537A4EDD3C /* WeightsTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WeightsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94CAA04C204FD27D250B60B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9A32BED01FDB7AD7105E1B0B /* ExerciseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorage.swift; sourceTree = "<group>"; };
-		A70E9420A33576D48A123DB4 /* UIPickerTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerTextFieldTests.swift; sourceTree = "<group>"; };
+		A70E9420A33576D48A123DB4 /* UIPickerTextField_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerTextField_tests.swift; sourceTree = "<group>"; };
 		A7D9BA9B292EBBD2B8C035B5 /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		A99659F86B2B880AEEF9D4A2 /* PlaceholderClosures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderClosures.swift; sourceTree = "<group>"; };
 		AE5D4262D258C3BCDE6B6D2E /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
@@ -338,6 +342,7 @@
 				D9AF5AE31EA0CB1B05F67F21 /* PickerTextField.swift */,
 				1D63836D6F650D96858995F6 /* UIPickerTextField.swift */,
 				0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */,
+				A70E9420A33576D48A123DB4 /* UIPickerTextField_tests.swift */,
 			);
 			path = PickerTextField;
 			sourceTree = "<group>";
@@ -357,6 +362,15 @@
 				D32359950A7B8135694151E7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0F2782E7280DAF2C00BB4228 /* PacePicker */ = {
+			isa = PBXGroup;
+			children = (
+				0F2782E8280DAF4500BB4228 /* UIPacePicker.swift */,
+				0F2782EC280DB40C00BB4228 /* UIPacePicker_tests.swift */,
+			);
+			path = PacePicker;
 			sourceTree = "<group>";
 		};
 		0F579E1827F0FB410004D6F4 /* Drag&Drop */ = {
@@ -624,14 +638,6 @@
 			path = EntryPoint;
 			sourceTree = "<group>";
 		};
-		96DEFDBBBFB018039AC4567B /* UIComponents */ = {
-			isa = PBXGroup;
-			children = (
-				A70E9420A33576D48A123DB4 /* UIPickerTextFieldTests.swift */,
-			);
-			path = UIComponents;
-			sourceTree = "<group>";
-		};
 		98EE0D6805952C413AFE6F69 /* PreviewHelpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,6 +684,7 @@
 				2FA78DEAD562AE7F43C686FA /* Helpers */,
 				6E5D9D6314288EC0D6B07E1E /* Metatypes */,
 				3A7C21CECF584604879D214C /* Modifiers */,
+				0F2782E7280DAF2C00BB4228 /* PacePicker */,
 				060FFDC6BD2B71E73DEE4A13 /* PickerTextField */,
 				98EE0D6805952C413AFE6F69 /* PreviewHelpers */,
 				7B8CA20D92DC983B7C3E76AC /* Styling */,
@@ -703,7 +710,6 @@
 			children = (
 				F3812857E26D13964D1DF335 /* Doubles */,
 				B8196B53558FECD103E57D0A /* Helpers */,
-				96DEFDBBBFB018039AC4567B /* UIComponents */,
 				94CAA04C204FD27D250B60B2 /* Info.plist */,
 			);
 			path = CoreTests;
@@ -988,9 +994,10 @@
 				505D1BDFA4EA3F465C206DB3 /* UIImpactFeedbackGeneratorMock.swift in Sources */,
 				E2C9A1F54A294CD275FB36B5 /* UINotificationFeedbackGeneratorMock.swift in Sources */,
 				5ED4B07F3E850E9F49D53DEE /* UIPanGestureRecognizerMock.swift in Sources */,
-				A6E244AA96DC8EA8C74936E9 /* UIPickerTextFieldTests.swift in Sources */,
 				F3B60F016CA893B1F0F14D53 /* UISelectionFeedbackGeneratorMock.swift in Sources */,
+				0F2782ED280DB40C00BB4228 /* UIPacePicker_tests.swift in Sources */,
 				6358AE852DE013CAEC3938FA /* UITapGestureRecognizerMock.swift in Sources */,
+				0F2782EB280DB3BB00BB4228 /* UIPickerTextField_tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1038,6 +1045,7 @@
 				A3DBE5B7000BA4F0CBD0048C /* FloatingPoint+Extensions.swift in Sources */,
 				0F579E1727F0D4810004D6F4 /* PlannerDropController.swift in Sources */,
 				4B0BE9764F2DB3A0AF4509C0 /* FrozenParameterField.swift in Sources */,
+				0F2782E9280DAF4500BB4228 /* UIPacePicker.swift in Sources */,
 				D6E874988EE82A6996B09A0B /* InnerDepthShadow.swift in Sources */,
 				6066448E9A7CF8ACAEA054F1 /* Localizable.swift in Sources */,
 				BD2366EBCECEE10B075DAC6F /* Metatypes.swift in Sources */,
