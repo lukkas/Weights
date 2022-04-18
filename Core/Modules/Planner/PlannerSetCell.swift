@@ -12,7 +12,7 @@ struct PlannerSetCellModel: Equatable, Identifiable, Hashable, Codable {
     let id: UUID
     let metric: Exercise.Metric
     
-    var numerOfSets: Double?
+    var numberOfSets: Double?
     var metricValue: Double?
     var weight: Double?
     
@@ -24,7 +24,7 @@ struct PlannerSetCellModel: Equatable, Identifiable, Hashable, Codable {
     ) {
         self.id = UUID()
         self.metric = metric
-        self.numerOfSets = numerOfSets
+        self.numberOfSets = numerOfSets
     }
 }
 
@@ -36,7 +36,7 @@ struct PlannerSetCell: View {
             ParameterField(
                 themeColor: .repsMarker,
                 kind: .setsCount,
-                value: $model.numerOfSets
+                value: $model.numberOfSets
             )
             Text("x")
                 .font(.system(

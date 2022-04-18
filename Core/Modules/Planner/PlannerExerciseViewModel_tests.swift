@@ -31,7 +31,7 @@ class PlannerExerciseViewModel_tests: XCTestCase {
     func test_initialVariations() {
         XCTAssertEqual(sut.variations.count, 1)
         XCTAssertEqual(sut.variations.first?.metric, .reps)
-        XCTAssertEqual(sut.variations.first?.numerOfSets, 1)
+        XCTAssertEqual(sut.variations.first?.numberOfSets, 1)
     }
     
     func test_addVariationTapped_shouldAddVariationWithSingleSet() {
@@ -40,7 +40,7 @@ class PlannerExerciseViewModel_tests: XCTestCase {
         
         // then
         XCTAssertEqual(sut.variations.count, 2)
-        XCTAssertEqual(sut.variations.first?.numerOfSets, 1)
+        XCTAssertEqual(sut.variations.first?.numberOfSets, 1)
     }
     
     func test_removingVariation_whenNumerOfSetsIsSetToZero_shouldRemoveVariation() {
@@ -49,7 +49,7 @@ class PlannerExerciseViewModel_tests: XCTestCase {
         let variations = sut.variations
         
         // when
-        sut.variations[1].numerOfSets = 0
+        sut.variations[1].numberOfSets = 0
         
         // then
         XCTAssertEqual(sut.variations, variations.dropLast())

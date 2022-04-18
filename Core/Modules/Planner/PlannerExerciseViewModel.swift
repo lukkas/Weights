@@ -37,7 +37,7 @@ class PlannerExerciseViewModel: PlannerExerciseViewModeling {
     }
     
     private func performPostVariationsModificationCheck() {
-        if let index = variations.lastIndex(where: { $0.numerOfSets == 0 }) {
+        if let index = variations.lastIndex(where: { $0.numberOfSets == 0 }) {
             variations.remove(at: index)
         }
     }
