@@ -25,6 +25,8 @@ struct PlannerSetCellModel: Equatable, Identifiable, Hashable, Codable {
         self.id = UUID()
         self.metric = metric
         self.numberOfSets = numerOfSets
+        self.metricValue = metricValue
+        self.weight = weight
     }
 }
 

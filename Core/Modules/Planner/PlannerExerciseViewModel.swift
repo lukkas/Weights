@@ -31,8 +31,8 @@ class PlannerExerciseViewModel: PlannerExerciseViewModeling {
         PlannerSetCellModel(
             metric: exercise.metric,
             numerOfSets: 1,
-            metricValue: nil,
-            weight: nil
+            metricValue: 0,
+            weight: 0
         )
     }
     
