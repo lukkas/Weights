@@ -24,7 +24,7 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                     }
                     .tint(.label)
                 }
-                .listStyle(.insetGrouped)
+                .listStyle(.grouped)
                 .searchable(text: $searchText)
                 .mask(alignment: .bottom, {
                     VStack(spacing: 0) {
@@ -117,5 +117,8 @@ class DTExercisePickerViewModel: ExercisePickerViewModeling {
 struct ExercisePickerView_Previews: PreviewProvider {
     static var previews: some View {
         ExercisePickerView(model: DTExercisePickerViewModel())
+        
+        ExercisePickerView(model: DTExercisePickerViewModel())
+            .preferredColorScheme(.dark)
     }
 }

@@ -106,7 +106,6 @@
 		E579E729A57101B997F65550 /* CoreEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36EFE13BE050EB844814A56 /* CoreEntry.swift */; };
 		E90A11CC4EEECB4258303EDD /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AF4197BD4FCF8EFBC541D02E /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EFD7CB129A43CD54DA03489B /* ExercisePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A889544A628A0546BFB7B9F /* ExercisePickerViewModel.swift */; };
-		F0C6E707CD48061FD9E8AA56 /* OuterDepthShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E930DBD0F22249782341BB6 /* OuterDepthShadow.swift */; };
 		F11FAE22673DA842C8567DCA /* UIResetValueDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */; };
 		F3B60F016CA893B1F0F14D53 /* UISelectionFeedbackGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA80DD039CC9EBAE015F2D0 /* UISelectionFeedbackGeneratorMock.swift */; };
 		F4742D36D62175ADB76C8A6A /* XCTestCase+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F87B192D1299E01D18C2658 /* XCTestCase+Combine.swift */; };
@@ -212,7 +211,6 @@
 		15D1B09C169147D6708C5457 /* View+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Debug.swift"; sourceTree = "<group>"; };
 		1CC8407727EAE9B906311FF3 /* UITapGestureRecognizerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecognizerMock.swift; sourceTree = "<group>"; };
 		1D63836D6F650D96858995F6 /* UIPickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerTextField.swift; sourceTree = "<group>"; };
-		1E930DBD0F22249782341BB6 /* OuterDepthShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuterDepthShadow.swift; sourceTree = "<group>"; };
 		21FB86AC764D015053A7E35C /* PublisherListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherListener.swift; sourceTree = "<group>"; };
 		24915E5FBEA793805E5870FD /* FakeDatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDatabaseStack.swift; sourceTree = "<group>"; };
 		2CB053D091E56EACBD779EB9 /* DatabaseModelVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseModelVersion.swift; sourceTree = "<group>"; };
@@ -468,7 +466,6 @@
 				37AE333A7F164757B024D6DF /* CardDesign.swift */,
 				D0B829281E8BD71968F7490E /* FieldHighlight.swift */,
 				3C107174C402320037A98631 /* InnerDepthShadow.swift */,
-				1E930DBD0F22249782341BB6 /* OuterDepthShadow.swift */,
 				F6982566AC3B3A306C015502 /* TextStyle.swift */,
 			);
 			path = Modifiers;
@@ -1044,7 +1041,6 @@
 				D6E874988EE82A6996B09A0B /* InnerDepthShadow.swift in Sources */,
 				6066448E9A7CF8ACAEA054F1 /* Localizable.swift in Sources */,
 				BD2366EBCECEE10B075DAC6F /* Metatypes.swift in Sources */,
-				F0C6E707CD48061FD9E8AA56 /* OuterDepthShadow.swift in Sources */,
 				BED9D70B1221BAB0E38D6405 /* Pace.swift in Sources */,
 				929BFB6FDCF17F91B74DB2C4 /* ParameterField.swift in Sources */,
 				417952FDC77E835D41937022 /* ParameterGauge.swift in Sources */,

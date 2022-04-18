@@ -37,10 +37,9 @@ struct PickedExerciseCell: View {
             .padding(.trailing, 4)
         }
         .background {
-            Color.background
+            Color.tertiaryBackground
                 .cornerRadius(16)
         }
-        .outerDepthShadow()
     }
 }
 
@@ -50,6 +49,13 @@ struct PickedExerciseCell_Previews: PreviewProvider {
             exercise: .make(count: 1).first!,
             onRemoveTapped: {}
         )
-            .cellPreview()
+        .cellPreview()
+        
+        PickedExerciseCell(
+            exercise: .make(count: 1).first!,
+            onRemoveTapped: {}
+        )
+        .cellPreview()
+        .preferredColorScheme(.dark)
     }
 }
