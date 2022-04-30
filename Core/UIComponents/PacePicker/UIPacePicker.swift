@@ -17,6 +17,7 @@ class UIPacePicker: UIControl, UIKeyInput {
     
     var pace = Pace()
     private var cursor: Int = 0
+    private let labels = Array(repeating: UILabel(), count: 4)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,6 +25,14 @@ class UIPacePicker: UIControl, UIKeyInput {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: 80, height: 36)
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     // MARK: - UIKeyInput
@@ -36,6 +45,7 @@ class UIPacePicker: UIControl, UIKeyInput {
     }
     
     func insertText(_ text: String) {
+        guard text.utf16.count == 1 else { return }
         guard let number = Int(text) else { return }
         editPaceBasedOnCursor(number: number)
         cursor += 1

@@ -18,6 +18,7 @@
 		0F53C320280C54C7003B190C /* PlannerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F53C31F280C54C7003B190C /* PlannerPageView.swift */; };
 		0F579E1527F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */; };
 		0F579E1727F0D4810004D6F4 /* PlannerDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */; };
+		0F759E09281DCFBF001B5132 /* PacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F759E08281DCFBF001B5132 /* PacePicker.swift */; };
 		0F79B550280C8D15009010CF /* PlannerDropController_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F79B54F280C8D15009010CF /* PlannerDropController_tests.swift */; };
 		104E0D87144B332C9621ADFB /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD62C2FCE97AEB0BB2DEE5A7 /* PlanView.swift */; };
 		12E90A6C57E6A509D9A1B475 /* ExerciseStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C608592A30DC1A44169979 /* ExerciseStoring.swift */; };
@@ -208,6 +209,7 @@
 		0F53C31F280C54C7003B190C /* PlannerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPageView.swift; sourceTree = "<group>"; };
 		0F579E1427F0C4CC0004D6F4 /* PlannerExerciseDraggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseDraggable.swift; sourceTree = "<group>"; };
 		0F579E1627F0D4810004D6F4 /* PlannerDropController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerDropController.swift; sourceTree = "<group>"; };
+		0F759E08281DCFBF001B5132 /* PacePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacePicker.swift; sourceTree = "<group>"; };
 		0F79B54F280C8D15009010CF /* PlannerDropController_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerDropController_tests.swift; sourceTree = "<group>"; };
 		0FFCBE909CFDD602034E48C6 /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
 		1493F1191ECC36E4A7A8C309 /* Date+TestConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TestConvenience.swift"; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 		0F2782E7280DAF2C00BB4228 /* PacePicker */ = {
 			isa = PBXGroup;
 			children = (
+				0F759E08281DCFBF001B5132 /* PacePicker.swift */,
 				0F2782E8280DAF4500BB4228 /* UIPacePicker.swift */,
 				0F2782EC280DB40C00BB4228 /* UIPacePicker_tests.swift */,
 			);
@@ -1046,6 +1049,7 @@
 				0F579E1727F0D4810004D6F4 /* PlannerDropController.swift in Sources */,
 				4B0BE9764F2DB3A0AF4509C0 /* FrozenParameterField.swift in Sources */,
 				0F2782E9280DAF4500BB4228 /* UIPacePicker.swift in Sources */,
+				0F759E09281DCFBF001B5132 /* PacePicker.swift in Sources */,
 				D6E874988EE82A6996B09A0B /* InnerDepthShadow.swift in Sources */,
 				6066448E9A7CF8ACAEA054F1 /* Localizable.swift in Sources */,
 				BD2366EBCECEE10B075DAC6F /* Metatypes.swift in Sources */,

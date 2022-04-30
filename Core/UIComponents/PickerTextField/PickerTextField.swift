@@ -51,3 +51,23 @@ struct PickerTextField: UIViewRepresentable {
         }
     }
 }
+
+struct PickerTextField_Previews: PreviewProvider {
+    struct Wrapper: View {
+        @State var value: Double? = nil
+        
+        var body: some View {
+            PickerTextField(
+                value: $value,
+                themeColor: .weightRed,
+                mode: .wholes,
+                jumpInterval: 1,
+                minMaxRange: nil
+            )
+        }
+    }
+    
+    static var previews: some View {
+        Wrapper()
+    }
+}
