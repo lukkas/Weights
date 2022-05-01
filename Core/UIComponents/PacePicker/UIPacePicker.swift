@@ -17,10 +17,14 @@ class UIPacePicker: UIControl, UIKeyInput {
     
     var pace = Pace()
     private var cursor: Int = 0
-    private let labels = Array(repeating: UILabel(), count: 4)
+    private var isBeingEdited = false
+    
+    private let labels = [UILabel(), UILabel(), UILabel(), UILabel()]
+    private lazy var stackView = UIStackView(arrangedSubviews: labels)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUp()
     }
     
     required init?(coder: NSCoder) {
@@ -31,9 +35,31 @@ class UIPacePicker: UIControl, UIKeyInput {
         return CGSize(width: 80, height: 36)
     }
     
+    override func layoutSubviews() {
+        stackView.frame = bounds
+    }
+    
     override var canBecomeFirstResponder: Bool {
         return true
     }
+    
+    override func becomeFirstResponder() -> Bool {
+        let hasBecome = super.becomeFirstResponder()
+        if hasBecome {
+            isBeingEdited = true
+        }
+        return hasBecome
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        let didResign = super.resignFirstResponder()
+        if didResign {
+            isBeingEdited = false
+        }
+        return didResign
+    }
+    
+    var keyboardType: UIKeyboardType = .numberPad
     
     // MARK: - UIKeyInput
     
@@ -47,8 +73,10 @@ class UIPacePicker: UIControl, UIKeyInput {
     func insertText(_ text: String) {
         guard text.utf16.count == 1 else { return }
         guard let number = Int(text) else { return }
-        editPaceBasedOnCursor(number: number)
-        cursor += 1
+        editValue {
+            editPaceBasedOnCursor(number: number)
+            cursor += 1
+        }
     }
     
     private func editPaceBasedOnCursor(number: Int?) {
@@ -62,9 +90,85 @@ class UIPacePicker: UIControl, UIKeyInput {
         }
     }
     
+    private func editValue(process: () -> Void) {
+        process()
+        updateLabels()
+        sendActions(for: .valueChanged)
+    }
+    
+    private func updateLabels() {
+        func update(at index: Int, with keyPath: KeyPath<Pace, Int?>) {
+            labels[index].text = pace[keyPath: keyPath].map(String.init)
+        }
+        update(at: 0, with: \.eccentric)
+        update(at: 1, with: \.isometric)
+        update(at: 2, with: \.concentric)
+        update(at: 3, with: \.startingPoint)
+    }
+    
     func deleteBackward() {
         guard cursor > 0 else { return }
-        cursor -= 1
-        editPaceBasedOnCursor(number: nil)
+        editValue {
+            cursor -= 1
+            editPaceBasedOnCursor(number: nil)
+        }
+    }
+    
+    // MARK: - Gesture Handling
+    
+    private let tap = metaUITapGestureRecognizer.init()
+    
+    @objc private func handleTap(sender: UITapGestureRecognizer) {
+        if isFirstResponder {
+            _ = resignFirstResponder()
+        } else {
+            _ = becomeFirstResponder()
+        }
+    }
+    
+    // MARK: - Setup
+    
+    private func setUp() {
+        configureAutolayoutPriorities()
+        configureStackView()
+        applyStyling()
+        styleLabels()
+        configureTap()
+    }
+    
+    private func configureAutolayoutPriorities() {
+        setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        setContentHuggingPriority(.defaultHigh, for: .vertical)
+        setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+    }
+    
+    private func configureStackView() {
+        addSubview(stackView)
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        for label in labels {
+            stackView.addArrangedSubview(label)
+        }
+    }
+    
+    private func applyStyling() {
+        backgroundColor = .secondarySystemFill
+        layer.cornerRadius = 8
+        layer.masksToBounds = true
+        layer.borderWidth = 0
+//        layer.borderColor = themeColor.cgColor
+    }
+    
+    private func styleLabels() {
+        for label in labels {
+            label.textAlignment = .center
+            label.font = UIFont.rounded(ofSize: 18, weight: .semibold)
+        }
+    }
+    
+    private func configureTap() {
+        tap.addTarget(self, action: #selector(handleTap(sender:)))
+        addGestureRecognizer(tap)
     }
 }

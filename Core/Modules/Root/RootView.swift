@@ -10,10 +10,11 @@ import SwiftUI
 
 struct RootView<Router: RootRouting>: View {
     let router: Router
+    @State var pace = UIPacePicker.Pace()
     
     var body: some View {
         TabView {
-            Color.red
+            PacePicker(pace: $pace)
                 .tabItem {
                     Text(L10n.Root.Tab.home)
                 }
