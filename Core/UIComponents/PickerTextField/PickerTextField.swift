@@ -19,7 +19,7 @@ struct PickerTextField: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UIPickerTextField {
         let field = UIPickerTextField()
-        field.themeColor = UIColor(themeColor)
+        field.tintColor = UIColor(themeColor)
         field.mode = mode
         field.jumpInterval = jumpInterval
         field.minMaxRange = minMaxRange

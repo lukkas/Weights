@@ -45,8 +45,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private let label = UILabel()
     private let resettingDrawer = UIResetValueDrawer()
     
-    lazy var themeColor: UIColor = tintColor {
-        didSet { layer.borderColor = themeColor.cgColor }
+    override var tintColor: UIColor! {
+        didSet { layer.borderColor = tintColor.cgColor }
     }
     
     override init(frame: CGRect) {
@@ -222,7 +222,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         layer.cornerRadius = 8
         layer.masksToBounds = true
         layer.borderWidth = 0
-        layer.borderColor = themeColor.cgColor
+        layer.borderColor = tintColor.cgColor
     }
     
     private func addLabel() {
