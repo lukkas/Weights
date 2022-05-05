@@ -16,11 +16,20 @@ class UIPacePicker: UIControl, UIKeyInput {
     }
     
     var pace = Pace()
-    private var cursor: Int = 0
+    private var cursor: Int = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     private var isBeingEdited = false
     
     private let labels = [UILabel(), UILabel(), UILabel(), UILabel()]
     private lazy var stackView = UIStackView(arrangedSubviews: labels)
+    private let cursorView = UIView()
+    
+    override var tintColor: UIColor! {
+        didSet { cursorView.layer.borderColor = tintColor.cgColor }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,11 +41,13 @@ class UIPacePicker: UIControl, UIKeyInput {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 80, height: 36)
+        return CGSize(width: 72, height: 32)
     }
     
     override func layoutSubviews() {
-        stackView.frame = bounds
+        stackView.frame = bounds.insetBy(dx: 8, dy: 0)
+        cursorView.layer.cornerRadius = layer.cornerRadius
+        cursorView.frame = convert(labels[cursor].frame.insetBy(dx: -4, dy: 0), from: stackView)
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -131,8 +142,10 @@ class UIPacePicker: UIControl, UIKeyInput {
     private func setUp() {
         configureAutolayoutPriorities()
         configureStackView()
+        addCursorView()
         applyStyling()
         styleLabels()
+        styleCursor()
         configureTap()
     }
     
@@ -152,12 +165,15 @@ class UIPacePicker: UIControl, UIKeyInput {
         }
     }
     
+    private func addCursorView() {
+        addSubview(cursorView)
+    }
+    
     private func applyStyling() {
         backgroundColor = .secondarySystemFill
         layer.cornerRadius = 8
         layer.masksToBounds = true
         layer.borderWidth = 0
-//        layer.borderColor = themeColor.cgColor
     }
     
     private func styleLabels() {
@@ -165,6 +181,12 @@ class UIPacePicker: UIControl, UIKeyInput {
             label.textAlignment = .center
             label.font = UIFont.rounded(ofSize: 18, weight: .semibold)
         }
+    }
+    
+    private func styleCursor() {
+        cursorView.backgroundColor = .clear
+        cursorView.layer.borderColor = tintColor.cgColor
+        cursorView.layer.borderWidth = 2
     }
     
     private func configureTap() {
