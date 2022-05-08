@@ -21,7 +21,11 @@ class UIPacePicker: UIControl, UIKeyInput {
             setNeedsLayout()
         }
     }
-    private var isBeingEdited = false
+    private var isBeingEdited = false {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     
     private let labels = [UILabel(), UILabel(), UILabel(), UILabel()]
     private let imageViews: [UIImageView] = {
@@ -57,11 +61,23 @@ class UIPacePicker: UIControl, UIKeyInput {
     
     override func layoutSubviews() {
         stackView.frame = bounds.insetBy(dx: 8, dy: 0)
-        cursorView.layer.cornerRadius = layer.cornerRadius
-        cursorView.frame = convert(labels[cursor].frame.insetBy(dx: -4, dy: 0), from: stackView)
+        layoutCursor()
         for (label, imageView) in zip(labels, imageViews) {
             imageView.frame = convert(label.frame, from: stackView)
         }
+    }
+    
+    private func layoutCursor() {
+        let shouldShow = labels.indices.contains(cursor) && isBeingEdited
+        cursorView.isHidden = !shouldShow
+        guard shouldShow else { return }
+        let labelFrame = convert(labels[cursor].frame, from: stackView)
+        cursorView.frame = CGRect(
+            x: labelFrame.minX,
+            y: labelFrame.maxY - 5,
+            width: labelFrame.width,
+            height: 2
+        )
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -214,9 +230,7 @@ class UIPacePicker: UIControl, UIKeyInput {
     }
     
     private func styleCursor() {
-        cursorView.backgroundColor = .clear
-        cursorView.layer.borderColor = tintColor.cgColor
-        cursorView.layer.borderWidth = 2
+        cursorView.backgroundColor = tintColor
     }
     
     private func configureTap() {
