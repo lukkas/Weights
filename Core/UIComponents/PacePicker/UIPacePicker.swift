@@ -24,6 +24,17 @@ class UIPacePicker: UIControl, UIKeyInput {
     private var isBeingEdited = false
     
     private let labels = [UILabel(), UILabel(), UILabel(), UILabel()]
+    private let imageViews: [UIImageView] = {
+        let imageNames = [
+            "arrow.down",
+            "arrow.down.to.line",
+            "arrow.up",
+            "arrow.up.to.line"
+        ]
+        return imageNames.map {
+            UIImageView(image: UIImage(systemName: $0))
+        }
+    }()
     private lazy var stackView = UIStackView(arrangedSubviews: labels)
     private let cursorView = UIView()
     
@@ -48,6 +59,9 @@ class UIPacePicker: UIControl, UIKeyInput {
         stackView.frame = bounds.insetBy(dx: 8, dy: 0)
         cursorView.layer.cornerRadius = layer.cornerRadius
         cursorView.frame = convert(labels[cursor].frame.insetBy(dx: -4, dy: 0), from: stackView)
+        for (label, imageView) in zip(labels, imageViews) {
+            imageView.frame = convert(label.frame, from: stackView)
+        }
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -108,8 +122,13 @@ class UIPacePicker: UIControl, UIKeyInput {
     }
     
     private func updateLabels() {
-        func update(at index: Int, with keyPath: KeyPath<Pace, Int?>) {
-            labels[index].text = pace[keyPath: keyPath].map(String.init)
+        func update(
+            at index: Int,
+            with keyPath: KeyPath<Pace, Int?>
+        ) {
+            let paceString = pace[keyPath: keyPath].map(String.init)
+            labels[index].text = paceString
+            imageViews[index].isHidden = paceString != nil
         }
         update(at: 0, with: \.eccentric)
         update(at: 1, with: \.isometric)
@@ -141,8 +160,9 @@ class UIPacePicker: UIControl, UIKeyInput {
     
     private func setUp() {
         configureAutolayoutPriorities()
+        addSubviews()
         configureStackView()
-        addCursorView()
+        configureImageViews()
         applyStyling()
         styleLabels()
         styleCursor()
@@ -156,17 +176,27 @@ class UIPacePicker: UIControl, UIKeyInput {
         setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
     }
     
-    private func configureStackView() {
+    private func addSubviews() {
         addSubview(stackView)
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        addSubview(cursorView)
         for label in labels {
             stackView.addArrangedSubview(label)
         }
+        for imageView in imageViews {
+            addSubview(imageView)
+        }
     }
     
-    private func addCursorView() {
-        addSubview(cursorView)
+    private func configureStackView() {
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+    }
+    
+    private func configureImageViews() {
+        for imageView in imageViews {
+            imageView.contentMode = .scaleAspectFit
+            imageView.tintColor = .systemFill
+        }
     }
     
     private func applyStyling() {
