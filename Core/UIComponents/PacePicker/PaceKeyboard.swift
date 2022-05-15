@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PaceKeyboard: View {
+    let onKeyTapped: (Pace.Component) -> ()
+    
     private let rows = Array(
         repeating: GridItem(.flexible(), spacing: 16),
         count: 3
@@ -16,23 +18,26 @@ struct PaceKeyboard: View {
     var body: some View {
         LazyVGrid(columns: rows, spacing: 8) {
             Group {
-                ForEach(1 ..< 10) { index in
-                    button("\(index)")
+                ForEach(allKeys) { key in
+                    button(key)
                 }
-                button("X")
-                button("0")
             }
-            .frame(height: 52)
         }
         .padding()
         .background(Color.secondaryBackground)
     }
     
-    @ViewBuilder private func button(_ text: String) -> some View {
-        Button(text) {
-            
-        }.buttonStyle(.keyboard)
+    @ViewBuilder private func button(_ key: Pace.Component) -> some View {
+        Button(key.textRepresentation) {
+            onKeyTapped(key)
+        }
+        .buttonStyle(.keyboard)
     }
+    
+    private let allKeys: [Pace.Component] = {
+        let numbers = (1 ... 9).map({ Pace.Component.number($0) })
+        return numbers + [.explosive, .number(0)]
+    }()
 }
 
 struct KeyboardButtonStyle: ButtonStyle {
@@ -44,6 +49,7 @@ struct KeyboardButtonStyle: ButtonStyle {
                     ? .fill
                     : .background
                 )
+                .frame(height: 52)
             configuration.label
                 .font(
                     .system(
@@ -64,6 +70,6 @@ extension ButtonStyle where Self == KeyboardButtonStyle {
 
 struct PaceKeyboard_Previews: PreviewProvider {
     static var previews: some View {
-        PaceKeyboard()
+        PaceKeyboard(onKeyTapped: { _ in })
     }
 }
