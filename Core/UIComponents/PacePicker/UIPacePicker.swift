@@ -51,6 +51,10 @@ class UIPacePicker: UIControl, UIKeyInput {
         setUp()
     }
     
+    override var inputView: UIView? {
+        return UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 350))
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -9,5 +9,12 @@
 import Foundation
 
 struct Pace {
-    
+    enum Component {
+        case explosive
+        case number(Int)
+    }
+    let eccentric: Component
+    let isometric: Component
+    let concentric: Component
+    let startingPoint: Component
 }
