@@ -25,6 +25,7 @@ struct PaceKeyboard: View {
         }
         .padding()
         .background(Color.secondaryBackground)
+        .frame(idealHeight: 120)
     }
     
     @ViewBuilder private func button(_ key: Pace.Component) -> some View {
