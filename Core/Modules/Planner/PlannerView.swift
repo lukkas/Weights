@@ -17,7 +17,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
         NavigationView {
             VStack {
                 TabView(selection: $model.visiblePage) {
-                    ForEach(model.pages.indices) { index in
+                    ForEach(model.pages.indices, id: \.self) { index in
                         PlannerPageView(
                             model: model.pages[index],
                             currentlyDragged: $currentlyDragged,

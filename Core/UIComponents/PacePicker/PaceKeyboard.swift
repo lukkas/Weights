@@ -11,6 +11,7 @@ struct PaceKeyboard: View {
     static let explosiveSign = "X"
     
     let onKeyTapped: (String) -> ()
+    let onDeleteTapped: () -> ()
     
     private let rows = Array(
         repeating: GridItem(.flexible(), spacing: 16),
@@ -21,19 +22,20 @@ struct PaceKeyboard: View {
         LazyVGrid(columns: rows, spacing: 8) {
             Group {
                 ForEach(allKeys.indices, id: \.self) { index in
-                    button(allKeys[index])
+                    Button(allKeys[index]) {
+                        onKeyTapped(allKeys[index])
+                    }
+                }
+                Button {
+                    onDeleteTapped()
+                } label: {
+                    Image(systemName: "delete.backward")
                 }
             }
+            .buttonStyle(.keyboard)
         }
         .padding()
         .background(Color.secondaryBackground)
-    }
-    
-    @ViewBuilder private func button(_ key: String) -> some View {
-        Button(key) {
-            onKeyTapped(key)
-        }
-        .buttonStyle(.keyboard)
     }
     
     private let allKeys: [String] = {
@@ -72,6 +74,9 @@ extension ButtonStyle where Self == KeyboardButtonStyle {
 
 struct PaceKeyboard_Previews: PreviewProvider {
     static var previews: some View {
-        PaceKeyboard(onKeyTapped: { _ in })
+        PaceKeyboard(
+            onKeyTapped: { _ in },
+            onDeleteTapped: {}
+        )
     }
 }

@@ -119,6 +119,7 @@ class UIPacePicker: UIControl, UIKeyInput {
     func insertText(_ text: String) {
         guard text.utf16.count == 1 else { return }
         guard let number = Int(text) else { return }
+        guard cursor < 4 else { return }
         editValue {
             editPaceBasedOnCursor(number: number)
             cursor += 1

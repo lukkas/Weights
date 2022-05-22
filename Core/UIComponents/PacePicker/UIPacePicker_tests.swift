@@ -55,6 +55,17 @@ class UIPacePickerSpec: QuickSpec {
                             it("will set starting point") {
                                 expect(sut.pace.startingPoint).to(equal(4))
                             }
+                            context("when more text is inserted and then char is deleted") {
+                                beforeEach {
+                                    for _ in 0 ..< 10 {
+                                        sut.insertText("4")
+                                    }
+                                    sut.deleteBackward()
+                                }
+                                it("will remove starting point") {
+                                    expect(sut.pace.startingPoint).to(beNil())
+                                }
+                            }
                         }
                     }
                 }

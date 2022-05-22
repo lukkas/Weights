@@ -9,8 +9,6 @@ import SwiftUI
 import UIKit
 
 class PaceKeyboardController: UIInputViewController {
-    private var onKeyTapped: ((String) -> ())!
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -21,16 +19,12 @@ class PaceKeyboardController: UIInputViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 240)
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 298)
         addHostingControllerAsChild()
     }
     
     private func addHostingControllerAsChild() {
-        onKeyTapped = { [weak self] key in
-            self?.textDocumentProxy.insertText(key)
-        }
-        let keyboard = PaceKeyboard(onKeyTapped: onKeyTapped)
-        let child = UIHostingController(rootView: keyboard)
+        let child = UIHostingController(rootView: makeKeyboardView())
         addChild(child)
         view.addSubview(child.view)
         child.view.translatesAutoresizingMaskIntoConstraints = false
@@ -41,5 +35,17 @@ class PaceKeyboardController: UIInputViewController {
             child.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         child.didMove(toParent: self)
+    }
+    
+    private func makeKeyboardView() -> PaceKeyboard {
+        let keyboard = PaceKeyboard(
+            onKeyTapped: { [weak self] key in
+                self?.textDocumentProxy.insertText(key)
+            },
+            onDeleteTapped: { [weak self] in
+                self?.textDocumentProxy.deleteBackward()
+            }
+        )
+        return keyboard
     }
 }
