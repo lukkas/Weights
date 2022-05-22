@@ -16,14 +16,17 @@ struct RootView<Router: RootRouting>: View {
         TabView {
             PacePicker(pace: $pace)
                 .tabItem {
+                    Image(systemName: "house")
                     Text(L10n.Root.Tab.home)
                 }
             router.plan()
                 .tabItem {
+                    Image(systemName: "calendar")
                     Text(L10n.Root.Tab.plan)
                 }
             router.exerciseList()
                 .tabItem {
+                    Image(systemName: "figure.walk")
                     Text(L10n.Root.Tab.exercises)
                 }
         }
