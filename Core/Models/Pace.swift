@@ -9,7 +9,7 @@
 import Foundation
 
 struct Pace {
-    enum Component: Identifiable {
+    enum Component: Identifiable, Equatable {
         case explosive
         case number(Int)
         
@@ -31,4 +31,10 @@ struct Pace {
     let isometric: Component
     let concentric: Component
     let startingPoint: Component
+}
+
+extension Pace.Component: ExpressibleByIntegerLiteral {
+    init(integerLiteral value: Int) {
+        self = .number(value)
+    }
 }

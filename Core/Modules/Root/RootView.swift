@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RootView<Router: RootRouting>: View {
     let router: Router
-    @State var pace = UIPacePicker.Pace()
+    @State var pace = UIPacePicker.InputState()
     
     var body: some View {
         TabView {

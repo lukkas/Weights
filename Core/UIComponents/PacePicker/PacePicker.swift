@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PacePicker: UIViewRepresentable {
-    @Binding var pace: UIPacePicker.Pace
+    @Binding var pace: UIPacePicker.InputState
     
     func makeUIView(context: Context) -> UIPacePicker {
         let view = UIPacePicker()
@@ -43,7 +43,7 @@ struct PacePicker: UIViewRepresentable {
 
 struct PacePicker_Previews: PreviewProvider {
     struct Wrapper: View {
-        @State var pace = UIPacePicker.Pace()
+        @State var pace = UIPacePicker.InputState()
         
         var body: some View {
             PacePicker(pace: $pace)

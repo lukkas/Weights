@@ -6,16 +6,17 @@
 //
 
 import UIKit
+import SwiftUI
 
 class UIPacePicker: UIControl, UIKeyInput {
-    struct Pace {
-        var eccentric: Int?
-        var isometric: Int?
-        var concentric: Int?
-        var startingPoint: Int?
+    struct InputState {
+        var eccentric: Pace.Component?
+        var isometric: Pace.Component?
+        var concentric: Pace.Component?
+        var startingPoint: Pace.Component?
     }
     
-    var pace = Pace()
+    var pace = InputState()
     private var cursor: Int = 0 {
         didSet {
             setNeedsLayout()
@@ -118,20 +119,23 @@ class UIPacePicker: UIControl, UIKeyInput {
     
     func insertText(_ text: String) {
         guard text.utf16.count == 1 else { return }
-        guard let number = Int(text) else { return }
         guard cursor < 4 else { return }
-        editValue {
-            editPaceBasedOnCursor(number: number)
-            cursor += 1
+        if let number = Int(text) {
+            editValue {
+                editPaceBasedOnCursor(component: .number(number))
+                cursor += 1
+            }
+        } else if text == PaceKeyboard.explosiveSign {
+            
         }
     }
     
-    private func editPaceBasedOnCursor(number: Int?) {
+    private func editPaceBasedOnCursor(component: Pace.Component?) {
         switch cursor {
-        case 0: pace.eccentric = number
-        case 1: pace.isometric = number
-        case 2: pace.concentric = number
-        case 3: pace.startingPoint = number
+        case 0: pace.eccentric = component
+        case 1: pace.isometric = component
+        case 2: pace.concentric = component
+        case 3: pace.startingPoint = component
         default:
             break
         }
@@ -146,9 +150,9 @@ class UIPacePicker: UIControl, UIKeyInput {
     private func updateLabels() {
         func update(
             at index: Int,
-            with keyPath: KeyPath<Pace, Int?>
+            with keyPath: KeyPath<InputState, Pace.Component?>
         ) {
-            let paceString = pace[keyPath: keyPath].map(String.init)
+            let paceString = pace[keyPath: keyPath].map(\.textRepresentation)
             labels[index].text = paceString
             imageViews[index].isHidden = paceString != nil
         }
@@ -162,7 +166,7 @@ class UIPacePicker: UIControl, UIKeyInput {
         guard cursor > 0 else { return }
         editValue {
             cursor -= 1
-            editPaceBasedOnCursor(number: nil)
+            editPaceBasedOnCursor(component: nil)
         }
     }
     
