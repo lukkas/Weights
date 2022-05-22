@@ -12,6 +12,7 @@
 		042D77AFA5DA3EBE4DAE3E30 /* PlannerViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90843FCB8C011482CA2D573F /* PlannerViewModel_tests.swift */; };
 		05B2F5426E6798B889B7FE9D /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC910D9256ECC76C0EC71473 /* Exercise.swift */; };
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
+		0F009508283AB2B000FAC00E /* Pace_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F009506283AB2AA00FAC00E /* Pace_tests.swift */; };
 		0F2782E9280DAF4500BB4228 /* UIPacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2782E8280DAF4500BB4228 /* UIPacePicker.swift */; };
 		0F2782EB280DB3BB00BB4228 /* UIPickerTextField_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70E9420A33576D48A123DB4 /* UIPickerTextField_tests.swift */; };
 		0F2782ED280DB40C00BB4228 /* UIPacePicker_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2782EC280DB40C00BB4228 /* UIPacePicker_tests.swift */; };
@@ -205,6 +206,7 @@
 		0CB074F5EFF4D9ACB8418888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0DA9DF359FEB0332F44519D4 /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
 		0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
+		0F009506283AB2AA00FAC00E /* Pace_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pace_tests.swift; sourceTree = "<group>"; };
 		0F2782E8280DAF4500BB4228 /* UIPacePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPacePicker.swift; sourceTree = "<group>"; };
 		0F2782EC280DB40C00BB4228 /* UIPacePicker_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPacePicker_tests.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 				54646216B886C324B58419B1 /* Exercise.swift */,
 				841260E762FAE286FA9E47AA /* Pace.swift */,
 				360714EB613D4B1B489F40CE /* RPE.swift */,
+				0F009506283AB2AA00FAC00E /* Pace_tests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -998,6 +1001,7 @@
 				0F79B550280C8D15009010CF /* PlannerDropController_tests.swift in Sources */,
 				2E70067F0C3EA009B6F1E747 /* PlannerExerciseViewModel_tests.swift in Sources */,
 				042D77AFA5DA3EBE4DAE3E30 /* PlannerViewModel_tests.swift in Sources */,
+				0F009508283AB2B000FAC00E /* Pace_tests.swift in Sources */,
 				D2A11CD889E069CD0D5BE004 /* PublisherListener.swift in Sources */,
 				414DAD18E85EC399A3D93B2F /* TestFailure.swift in Sources */,
 				505D1BDFA4EA3F465C206DB3 /* UIImpactFeedbackGeneratorMock.swift in Sources */,

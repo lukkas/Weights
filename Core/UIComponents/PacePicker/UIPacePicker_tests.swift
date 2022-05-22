@@ -68,6 +68,25 @@ class UIPacePickerSpec: QuickSpec {
                             }
                         }
                     }
+                    context("when X is insert as 3rd char") {
+                        beforeEach {
+                            sut.insertText("X")
+                        }
+                        it("will set explosive concentric phase") {
+                            expect(sut.pace.concentric).to(equal(.explosive))
+                        }
+                        context("when 4th number is entered") {
+                            beforeEach {
+                                sut.insertText("1")
+                            }
+                            it("will keep concentric phase as explosive") {
+                                expect(sut.pace.concentric).to(equal(.explosive))
+                            }
+                            it("will set 4th number") {
+                                expect(sut.pace.startingPoint).to(equal(1))
+                            }
+                        }
+                    }
                 }
                 context("when backspace entered") {
                     beforeEach {

@@ -120,13 +120,10 @@ class UIPacePicker: UIControl, UIKeyInput {
     func insertText(_ text: String) {
         guard text.utf16.count == 1 else { return }
         guard cursor < 4 else { return }
-        if let number = Int(text) {
-            editValue {
-                editPaceBasedOnCursor(component: .number(number))
-                cursor += 1
-            }
-        } else if text == PaceKeyboard.explosiveSign {
-            
+        guard let component = Pace.Component(textRepresentation: text) else { return }
+        editValue {
+            editPaceBasedOnCursor(component: component)
+            cursor += 1
         }
     }
     
