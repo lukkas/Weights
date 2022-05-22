@@ -10,6 +10,7 @@ import Foundation
 
 class PlannerExerciseViewModel: PlannerExerciseViewModeling {
     var name: String { exercise.name }
+    @Published var pace = UIPacePicker.InputState()
     @Published var variations: [PlannerSetCellModel] = [] {
         didSet {
             performPostVariationsModificationCheck()

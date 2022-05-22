@@ -18,8 +18,6 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, Plann
     
     public func makeInitialView() -> some View {
         return makeRootView()
-//        return PlannerView()
-//        return ParameterFieldWrapper()
     }
     
     @ViewBuilder private func makeRootView() -> some View {

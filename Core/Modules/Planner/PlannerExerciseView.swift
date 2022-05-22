@@ -16,11 +16,7 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
             HStack {
                 Text(model.name)
                 Spacer()
-                Button("Pace") {
-
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.weightGreen)
+                PacePicker(pace: $model.pace)
             }
             Divider()
             ForEach($model.variations) { variation in
@@ -52,6 +48,7 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
 
 protocol PlannerExerciseViewModeling: ObservableObject, Identifiable, Hashable {
     var name: String { get }
+    var pace: UIPacePicker.InputState { get set }
     var variations: [PlannerSetCellModel] { get set }
     func addVariationTapped()
 }
@@ -82,6 +79,7 @@ class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
     }
     
     let name: String = "Squat"
+    @Published var pace = UIPacePicker.InputState()
     @Published var variations: [PlannerSetCellModel] = [
         PlannerSetCellModel(metric: .reps)
     ]
