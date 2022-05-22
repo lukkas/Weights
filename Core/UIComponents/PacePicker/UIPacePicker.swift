@@ -44,7 +44,10 @@ class UIPacePicker: UIControl, UIKeyInput {
     private let cursorView = UIView()
     
     override var tintColor: UIColor! {
-        didSet { cursorView.layer.borderColor = tintColor.cgColor }
+        didSet {
+            layer.borderColor = tintColor.cgColor
+            cursorView.layer.borderColor = tintColor.cgColor
+        }
     }
     
     override init(frame: CGRect) {
@@ -68,6 +71,7 @@ class UIPacePicker: UIControl, UIKeyInput {
     override func layoutSubviews() {
         stackView.frame = bounds.insetBy(dx: 8, dy: 0)
         layoutCursor()
+        layoutFrame()
         for (label, imageView) in zip(labels, imageViews) {
             imageView.frame = convert(label.frame, from: stackView)
         }
@@ -84,6 +88,11 @@ class UIPacePicker: UIControl, UIKeyInput {
             width: labelFrame.width,
             height: 2
         )
+    }
+    
+    private func layoutFrame() {
+        let shouldShow = labels.indices.contains(cursor) == false && isBeingEdited
+        layer.borderWidth = shouldShow ? 2 : 0
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -227,6 +236,7 @@ class UIPacePicker: UIControl, UIKeyInput {
         layer.cornerRadius = 8
         layer.masksToBounds = true
         layer.borderWidth = 0
+        layer.borderColor = tintColor.cgColor
     }
     
     private func styleLabels() {
