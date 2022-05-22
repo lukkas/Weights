@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 class PaceKeyboardController: UIInputViewController {
-    private var onKeyTapped: ((Pace.Component) -> ())!
+    private var onKeyTapped: ((String) -> ())!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -27,12 +27,7 @@ class PaceKeyboardController: UIInputViewController {
     
     private func addHostingControllerAsChild() {
         onKeyTapped = { [weak self] key in
-            switch key {
-            case .explosive:
-                self?.textDocumentProxy.insertText("X")
-            case let .number(number):
-                self?.textDocumentProxy.insertText(String(number))
-            }
+            self?.textDocumentProxy.insertText(key)
         }
         let keyboard = PaceKeyboard(onKeyTapped: onKeyTapped)
         let child = UIHostingController(rootView: keyboard)

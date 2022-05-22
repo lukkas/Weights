@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct PaceKeyboard: View {
-    let onKeyTapped: (Pace.Component) -> ()
+    static let explosiveSign = "X"
+    
+    let onKeyTapped: (String) -> ()
     
     private let rows = Array(
         repeating: GridItem(.flexible(), spacing: 16),
@@ -18,26 +20,25 @@ struct PaceKeyboard: View {
     var body: some View {
         LazyVGrid(columns: rows, spacing: 8) {
             Group {
-                ForEach(allKeys) { key in
-                    button(key)
+                ForEach(allKeys.indices, id: \.self) { index in
+                    button(allKeys[index])
                 }
             }
         }
         .padding()
         .background(Color.secondaryBackground)
-        .frame(idealHeight: 120)
     }
     
-    @ViewBuilder private func button(_ key: Pace.Component) -> some View {
-        Button(key.textRepresentation) {
+    @ViewBuilder private func button(_ key: String) -> some View {
+        Button(key) {
             onKeyTapped(key)
         }
         .buttonStyle(.keyboard)
     }
     
-    private let allKeys: [Pace.Component] = {
-        let numbers = (1 ... 9).map({ Pace.Component.number($0) })
-        return numbers + [.explosive, .number(0)]
+    private let allKeys: [String] = {
+        let numbers = (1 ... 9).map(String.init)
+        return numbers + [Self.explosiveSign, String(0)]
     }()
 }
 
