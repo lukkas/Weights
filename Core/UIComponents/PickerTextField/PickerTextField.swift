@@ -12,17 +12,19 @@ import UIKit
 
 struct PickerTextField: UIViewRepresentable {
     @Binding var value: Double?
-    let themeColor: Color
-    let mode: UIPickerTextField.Mode
-    let jumpInterval: Double?
-    let minMaxRange: ClosedRange<Double>?
+    private var themeColor: Color = .accentColor
+    private var fillColor: Color = .secondaryFill
+    private var mode: UIPickerTextField.Mode = .wholes
+    private var jumpInterval: Double? = 1
+    private var minMaxRange: ClosedRange<Double>? = nil
+    
+    init(value: Binding<Double?>) {
+        _value = value
+    }
     
     func makeUIView(context: Context) -> UIPickerTextField {
         let field = UIPickerTextField()
-        field.tintColor = UIColor(themeColor)
-        field.mode = mode
-        field.jumpInterval = jumpInterval
-        field.minMaxRange = minMaxRange
+        applyModifiers(to: field)
         field.addTarget(
             context.coordinator,
             action: #selector(Coordinator.updateValue(sender:)),
@@ -32,7 +34,15 @@ struct PickerTextField: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIPickerTextField, context: Context) {
+        applyModifiers(to: uiView)
+    }
+    
+    private func applyModifiers(to uiView: UIPickerTextField) {
         uiView.value = value
+        uiView.tintColor = UIColor(themeColor)
+        uiView.backgroundColor = UIColor(fillColor)
+        uiView.mode = mode
+        uiView.minMaxRange = minMaxRange
     }
     
     func makeCoordinator() -> Coordinator {
@@ -52,18 +62,45 @@ struct PickerTextField: UIViewRepresentable {
     }
 }
 
+extension PickerTextField {
+    func themeColor(_ color: Color) -> PickerTextField {
+        var copy = self
+        copy.themeColor = color
+        return copy
+    }
+    
+    func fillColor(_ color: Color) -> PickerTextField {
+        var copy = self
+        copy.fillColor = color
+        return copy
+    }
+    
+    func mode(_ mode: UIPickerTextField.Mode) -> PickerTextField {
+        var copy = self
+        copy.mode = mode
+        return copy
+    }
+    
+    func jumpInterval(_ interval: Double?) -> PickerTextField {
+        var copy = self
+        copy.jumpInterval = interval
+        return copy
+    }
+    
+    func minMaxRange(_ range: ClosedRange<Double>?) -> PickerTextField {
+        var copy = self
+        copy.minMaxRange = range
+        return copy
+    }
+}
+
 struct PickerTextField_Previews: PreviewProvider {
     struct Wrapper: View {
         @State var value: Double? = nil
         
         var body: some View {
-            PickerTextField(
-                value: $value,
-                themeColor: .weightRed,
-                mode: .wholes,
-                jumpInterval: 1,
-                minMaxRange: nil
-            )
+            PickerTextField(value: $value)
+                .fillColor(.fill)
         }
     }
     

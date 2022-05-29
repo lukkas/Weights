@@ -48,24 +48,32 @@ struct PlannerSetCell: View {
                 ))
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
                 }
-            ParameterField(
-                themeColor: model.metric.color,
-                kind: model.metric.parameterFieldMode,
-                value: $model.metricValue
+            HStack {
+                ParameterField(
+                    themeColor: model.metric.color,
+                    kind: model.metric.parameterFieldMode,
+                    value: $model.metricValue
+                )
+                Text(model.metric.label)
+                    .font(.caption)
+                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
+                    }
+                ParameterField(
+                    themeColor: .weightMarker,
+                    kind: .weight,
+                    value: $model.weight
+                )
+                Text(L10n.Common.kg)
+                    .font(.caption)
+                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
+                    }
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundColor(.secondaryBackground)
             )
-            Text(model.metric.label)
-                .font(.caption)
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
-                }
-            ParameterField(
-                themeColor: .weightMarker,
-                kind: .weight,
-                value: $model.weight
-            )
-            Text(L10n.Common.kg)
-                .font(.caption)
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
-                }
             Spacer()
         }
         .background(Color.background)

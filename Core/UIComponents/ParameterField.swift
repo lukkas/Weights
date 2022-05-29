@@ -18,13 +18,11 @@ struct ParameterField: View {
     @Binding var value: Double?
     
     var body: some View {
-        PickerTextField(
-            value: $value,
-            themeColor: themeColor,
-            mode: kind.fieldMode,
-            jumpInterval: kind.jumpInterval,
-            minMaxRange: kind.valueRange
-        )
+        PickerTextField(value: $value)
+            .themeColor(themeColor)
+            .mode(kind.fieldMode)
+            .jumpInterval(kind.jumpInterval)
+            .minMaxRange(kind.valueRange)
             .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
                 d[VerticalAlignment.lastTextBaseline] - 10
             })

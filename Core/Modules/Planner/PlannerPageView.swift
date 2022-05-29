@@ -109,7 +109,10 @@ class PlannerPageViewModel<ExerciseModel: PlannerExerciseViewModeling>: Observab
         hasher.combine(exercises)
     }
     
-    static func == (lhs: PlannerPageViewModel<ExerciseModel>, rhs: PlannerPageViewModel<ExerciseModel>) -> Bool {
+    static func == (
+        lhs: PlannerPageViewModel<ExerciseModel>,
+        rhs: PlannerPageViewModel<ExerciseModel>
+    ) -> Bool {
         return lhs.id == rhs.id
         && lhs.name == rhs.name
         && lhs.exercises == rhs.exercises

@@ -90,14 +90,6 @@ class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
 }
 
 struct PlannerExerciseView_Previews: PreviewProvider {
-//    struct Wrapper: View {
-//        @State var model = Model()
-//
-//        var body: some View {
-//            PlannerExerciseView(model: model)
-//        }
-//    }
-
     static var previews: some View {
         PlannerExerciseView(model: DTPlannerExerciseViewModel())
             .cellPreview()
