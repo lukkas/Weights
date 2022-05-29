@@ -35,11 +35,9 @@ struct PlannerSetCell: View {
     
     var body: some View {
         HStack(alignment: .parameterFieldAlignment, spacing: 4) {
-            ParameterField(
-                themeColor: .repsMarker,
-                kind: .setsCount,
-                value: $model.numberOfSets
-            )
+            PickerTextField(value: $model.numberOfSets)
+                .parameterField(.setsCount)
+                .parameterFieldAligned()
             Text("x")
                 .font(.system(
                     size: 18,
@@ -49,20 +47,16 @@ struct PlannerSetCell: View {
                 .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
                 }
             HStack {
-                ParameterField(
-                    themeColor: model.metric.color,
-                    kind: model.metric.parameterFieldMode,
-                    value: $model.metricValue
-                )
+                PickerTextField(value: $model.metricValue)
+                    .parameterField(model.metric.parameterFieldMode)
+                    .parameterFieldAligned()
                 Text(model.metric.label)
                     .font(.caption)
                     .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
                     }
-                ParameterField(
-                    themeColor: .weightMarker,
-                    kind: .weight,
-                    value: $model.weight
-                )
+                PickerTextField(value: $model.weight)
+                    .parameterField(.weight)
+                    .parameterFieldAligned()
                 Text(L10n.Common.kg)
                     .font(.caption)
                     .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]

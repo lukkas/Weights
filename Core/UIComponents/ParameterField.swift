@@ -8,28 +8,21 @@
 
 import SwiftUI
 
-struct ParameterField: View {
-    enum Kind {
-        case reps, weight, time, setsCount
-    }
-    
-    let themeColor: Color
-    let kind: Kind
-    @Binding var value: Double?
-    
-    var body: some View {
-        PickerTextField(value: $value)
-            .themeColor(themeColor)
+enum ParameterFieldKind {
+    case reps, weight, time, setsCount
+}
+
+extension PickerTextField {
+    func parameterField(_ kind: ParameterFieldKind) -> PickerTextField {
+        return self
+            .themeColor(kind.themeColor)
             .mode(kind.fieldMode)
             .jumpInterval(kind.jumpInterval)
             .minMaxRange(kind.valueRange)
-            .alignmentGuide(.parameterFieldAlignment, computeValue: { d in
-                d[VerticalAlignment.lastTextBaseline] - 10
-            })
     }
 }
 
-private extension ParameterField.Kind {
+private extension ParameterFieldKind {
     var fieldMode: UIPickerTextField.Mode {
         switch self {
         case .reps, .setsCount: return .wholes
@@ -53,6 +46,15 @@ private extension ParameterField.Kind {
         case .weight: return 0 ... 10000
         }
     }
+    
+    var themeColor: Color {
+        switch self {
+        case .reps: return .repsMarker
+        case .weight: return .weightMarker
+        case .setsCount: return .repsMarker
+        case .time: return .durationMarker
+        }
+    }
 }
 
 extension VerticalAlignment {
@@ -64,16 +66,21 @@ extension VerticalAlignment {
     static let parameterFieldAlignment = VerticalAlignment(ParameterFieldAlignment.self)
 }
 
+extension View {
+    func parameterFieldAligned() -> some View {
+        return alignmentGuide(.parameterFieldAlignment, computeValue: { d in
+            d[VerticalAlignment.lastTextBaseline] - 10
+        })
+    }
+}
+
 struct ParameterField_Previews: PreviewProvider {
     struct Wrapper: View {
         @State var value: Double? = nil
         
         var body: some View {
-            ParameterField(
-                themeColor: .weightGreen,
-                kind: .reps,
-                value: $value
-            )
+            PickerTextField(value: $value)
+                .parameterField(.reps)
         }
     }
     

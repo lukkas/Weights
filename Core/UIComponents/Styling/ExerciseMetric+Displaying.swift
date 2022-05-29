@@ -10,13 +10,6 @@ import Foundation
 import SwiftUI
 
 extension Exercise.Metric {
-    var color: Color {
-        switch self {
-        case .reps: return .repsMarker
-        case .duration: return .durationMarker
-        }
-    }
-    
     var label: String {
         switch self {
         case .reps: return L10n.Common.reps
@@ -24,7 +17,7 @@ extension Exercise.Metric {
         }
     }
     
-    var parameterFieldMode: ParameterField.Kind {
+    var parameterFieldMode: ParameterFieldKind {
         switch self {
         case .reps: return .reps
         case .duration: return .time
