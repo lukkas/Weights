@@ -54,10 +54,7 @@ protocol PlannerExerciseViewModeling: ObservableObject, Identifiable, Hashable {
 }
 
 extension PlannerExerciseViewModeling {
-    static func == (
-        lhs: Self,
-        rhs: Self
-    ) -> Bool {
+    static func == (lhs: Self, rhs: Self) -> Bool {
         return
             lhs.id == rhs.id
             && lhs.name == rhs.name

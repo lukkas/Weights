@@ -36,6 +36,7 @@ struct PlannerSetCell: View {
     var body: some View {
         HStack(alignment: .parameterFieldAlignment, spacing: 4) {
             PickerTextField(value: $model.numberOfSets)
+                .fillColor(.background)
                 .parameterField(.setsCount)
                 .parameterFieldAligned()
             Text("x")
@@ -62,8 +63,7 @@ struct PlannerSetCell: View {
                     .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
                     }
             }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
+            .padding(4)
             .background(
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundColor(.secondaryBackground)
