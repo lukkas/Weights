@@ -34,9 +34,10 @@ struct PlannerSetCell: View {
     @Binding var model: PlannerSetCellModel
     
     var body: some View {
-        HStack(alignment: .parameterFieldAlignment, spacing: 4) {
+        HStack(spacing: 4) {
             PickerTextField(value: $model.numberOfSets)
                 .fillColor(.background)
+                .borderColor(.label)
                 .parameterField(.setsCount)
                 .parameterFieldAligned()
             Text("x")
@@ -45,23 +46,15 @@ struct PlannerSetCell: View {
                     weight: .semibold,
                     design: .rounded
                 ))
-                .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
-                }
             HStack {
+                Image(systemName: "clock.arrow.circlepath")
                 PickerTextField(value: $model.metricValue)
                     .parameterField(model.metric.parameterFieldMode)
                     .parameterFieldAligned()
-                Text(model.metric.label)
-                    .font(.caption)
-                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
-                    }
+                Image(systemName: "scalemass")
                 PickerTextField(value: $model.weight)
                     .parameterField(.weight)
                     .parameterFieldAligned()
-                Text(L10n.Common.kg)
-                    .font(.caption)
-                    .alignmentGuide(.parameterFieldAlignment) { $0[VerticalAlignment.lastTextBaseline]
-                    }
             }
             .padding(4)
             .background(

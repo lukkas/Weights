@@ -38,15 +38,17 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     var textValue: String { label.text ?? "" }
     
     private var isBeingEdited = false {
-        didSet { adjustBorder() }
+        didSet { adjustBorder(animated: true) }
     }
     private var editor: Editing!
     private var resettingDrawerProgress: CGFloat = 0
     private let label = UILabel()
     private let resettingDrawer = UIResetValueDrawer()
     
-    override var tintColor: UIColor! {
-        didSet { layer.borderColor = tintColor.cgColor }
+    var borderColor: UIColor? {
+        didSet {
+            adjustBorder(animated: false)
+        }
     }
     
     override init(frame: CGRect) {
@@ -127,17 +129,25 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             .offsetBy(dx: offset, dy: 0)
     }
     
-    private func adjustBorder() {
+    private func adjustBorder(animated: Bool) {
         let shouldHighlightBorder = isBeingEdited || panningState is ValueSteppingPanner
-        UIView.animateKeyframes(
-            withDuration: 0.15,
-            delay: 0,
-            options: [.beginFromCurrentState],
-            animations: {
-                self.layer.borderWidth = shouldHighlightBorder ? 2 : 0
-            },
-            completion: nil
-        )
+        let color = shouldHighlightBorder ? tintColor : borderColor
+        let borderWidth: CGFloat = shouldHighlightBorder || borderColor != nil ? 2 : 0
+        let adjustment = { [layer] in
+            layer.borderColor = color?.cgColor
+            layer.borderWidth = borderWidth
+        }
+        if animated {
+            UIView.animateKeyframes(
+                withDuration: 0.15,
+                delay: 0,
+                options: [.beginFromCurrentState],
+                animations: adjustment,
+                completion: nil
+            )
+        } else {
+            adjustment()
+        }
     }
     
     private func updateLabel() {
@@ -222,7 +232,6 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         layer.cornerRadius = 8
         layer.masksToBounds = true
         layer.borderWidth = 0
-        layer.borderColor = tintColor.cgColor
     }
     
     private func addLabel() {
@@ -270,7 +279,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private var panningState: Panning? {
         didSet {
             if oldValue == nil || panningState == nil {
-                adjustBorder()
+                adjustBorder(animated: true)
             }
         }
     }

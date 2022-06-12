@@ -14,6 +14,7 @@ struct PickerTextField: UIViewRepresentable {
     @Binding var value: Double?
     private var themeColor: Color = .accentColor
     private var fillColor: Color = .secondaryFill
+    private var borderColor: Color? = nil
     private var mode: UIPickerTextField.Mode = .wholes
     private var jumpInterval: Double? = 1
     private var minMaxRange: ClosedRange<Double>? = nil
@@ -41,6 +42,7 @@ struct PickerTextField: UIViewRepresentable {
         uiView.value = value
         uiView.tintColor = UIColor(themeColor)
         uiView.backgroundColor = UIColor(fillColor)
+        uiView.borderColor = borderColor.map(UIColor.init)
         uiView.mode = mode
         uiView.minMaxRange = minMaxRange
     }
@@ -72,6 +74,12 @@ extension PickerTextField {
     func fillColor(_ color: Color) -> PickerTextField {
         var copy = self
         copy.fillColor = color
+        return copy
+    }
+    
+    func borderColor(_ color: Color) -> PickerTextField {
+        var copy = self
+        copy.borderColor = color
         return copy
     }
     
