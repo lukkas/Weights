@@ -13,7 +13,7 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
     @State var searchText = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 List(model.exercises) { exercise in
                     Button {

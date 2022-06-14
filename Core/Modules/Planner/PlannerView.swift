@@ -14,7 +14,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     let router: Router
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 TabView(selection: $model.visiblePage) {
                     ForEach(model.pages.indices, id: \.self) { index in

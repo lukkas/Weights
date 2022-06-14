@@ -18,7 +18,7 @@ struct ExercisesListView<
     let router: Router
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Group {
                 if model.cellViewModels.isEmpty {
                     VStack {

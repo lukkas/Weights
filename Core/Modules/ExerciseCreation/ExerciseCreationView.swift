@@ -14,7 +14,7 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
     @Binding var isPresented: Bool
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 TextField(L10n.ExerciseCreation.NameField.title, text: $model.name)
                 Section(

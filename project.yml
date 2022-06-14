@@ -6,7 +6,7 @@ options:
   groupSortPosition: top
   bundleIdPrefix: "com.lukaszkasperek"
   deploymentTarget:
-    iOS: "15.0"
+    iOS: "16.0"
   xcodeVersion: 1320
 packages:
   Quick:
