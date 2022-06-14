@@ -26,7 +26,7 @@ struct RootView<Router: RootRouting>: View {
                 }
             router.exerciseList()
                 .tabItem {
-                    Image(systemName: "figure.walk")
+                    Image(systemName: "figure.strengthtraining.traditional")
                     Text(L10n.Root.Tab.exercises)
                 }
         }
