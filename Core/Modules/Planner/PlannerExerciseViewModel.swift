@@ -30,8 +30,10 @@ class PlannerExerciseViewModel: PlannerExerciseViewModeling {
     
     private func baseVariation() -> PlannerSetCellModel {
         PlannerSetCellModel(
-            metric: exercise.metric,
-            numerOfSets: 1,
+            metricLabel: exercise.metric.label,
+            metricFieldMode: exercise.metric.parameterFieldMode,
+            weightLabel: L10n.Common.kg,
+            numberOfSets: 1,
             metricValue: 0,
             weight: 0
         )

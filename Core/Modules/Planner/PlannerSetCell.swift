@@ -8,26 +8,15 @@
 
 import SwiftUI
 
-struct PlannerSetCellModel: Equatable, Identifiable, Hashable, Codable {
-    let id: UUID
-    let metric: Exercise.Metric
+struct PlannerSetCellModel: Identifiable, Hashable {
+    let id: UUID = UUID()
+    let metricLabel: String
+    let metricFieldMode: ParameterFieldKind
+    let weightLabel: String
     
-    var numberOfSets: Double?
-    var metricValue: Double?
-    var weight: Double?
-    
-    init(
-        metric: Exercise.Metric,
-        numerOfSets: Double? = nil,
-        metricValue: Double? = nil,
-        weight: Double? = nil
-    ) {
-        self.id = UUID()
-        self.metric = metric
-        self.numberOfSets = numerOfSets
-        self.metricValue = metricValue
-        self.weight = weight
-    }
+    var numberOfSets: Double? = nil
+    var metricValue: Double? = nil
+    var weight: Double? = nil
 }
 
 struct PlannerSetCell: View {
@@ -47,15 +36,16 @@ struct PlannerSetCell: View {
                     design: .rounded
                 ))
             HStack {
-                Image(systemName: "clock.arrow.circlepath")
                 PickerTextField(value: $model.metricValue)
-                    .parameterField(model.metric.parameterFieldMode)
+                    .parameterField(model.metricFieldMode)
                     .parameterFieldAligned()
-                Image(systemName: "scalemass")
+                Text(model.metricLabel)
                 PickerTextField(value: $model.weight)
                     .parameterField(.weight)
                     .parameterFieldAligned()
+                Text(model.weightLabel)
             }
+            .font(.system(size: 15, weight: .medium, design: .rounded))
             .padding(4)
             .background(
                 RoundedRectangle(cornerRadius: 8)
@@ -71,20 +61,34 @@ struct PlannerSetCell_Previews: PreviewProvider {
     struct Wrapper: View {
         @State var model: PlannerSetCellModel
         
-        init(metric: Exercise.Metric) {
-            _model = State(initialValue: PlannerSetCellModel(metric: metric))
-        }
-        
         var body: some View {
             PlannerSetCell(model: $model)
         }
     }
     
     static var previews: some View {
-        Wrapper(metric: .reps)
+        Wrapper(model: .dt_reps)
             .cellPreview()
         
-        Wrapper(metric: .duration)
+        Wrapper(model: .dt_duration)
             .cellPreview()
+    }
+}
+
+extension PlannerSetCellModel {
+    static var dt_reps: PlannerSetCellModel {
+        PlannerSetCellModel(
+            metricLabel: "reps",
+            metricFieldMode: .reps,
+            weightLabel: "kg"
+        )
+    }
+    
+    static var dt_duration: PlannerSetCellModel {
+        PlannerSetCellModel(
+            metricLabel: "mins",
+            metricFieldMode: .time,
+            weightLabel: "kg"
+        )
     }
 }

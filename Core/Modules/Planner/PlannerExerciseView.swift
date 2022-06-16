@@ -12,7 +12,7 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
     @ObservedObject var model: Model
     
     var body: some View {
-        VStack {
+        VStack(spacing: 4) {
             HStack {
                 Text(model.name)
                 Spacer()
@@ -34,9 +34,9 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
                             weight: .medium,
                             design: .rounded
                         ))
+                        .padding(.vertical, 8)
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.regular)
+                .buttonStyle(.borderless)
                 
                 Spacer()
             }
@@ -77,12 +77,10 @@ class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
     
     let name: String = "Squat"
     @Published var pace = UIPacePicker.InputState()
-    @Published var variations: [PlannerSetCellModel] = [
-        PlannerSetCellModel(metric: .reps)
-    ]
+    @Published var variations: [PlannerSetCellModel] = [.dt_reps]
     
     func addVariationTapped() {
-        variations.append(PlannerSetCellModel(metric: .reps))
+        variations.append(.dt_reps)
     }
 }
 
