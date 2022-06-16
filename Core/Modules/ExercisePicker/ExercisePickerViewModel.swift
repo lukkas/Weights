@@ -14,6 +14,11 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
     @Published private(set) var exercises: [ExerciseCellViewModel] = []
     @Published private(set) var pickedExercises: [ExerciseCellViewModel] = []
     @Published private(set) var addButtonDisabled: Bool = true
+    var searchText: String = "" {
+        didSet {
+            applyCellViewModels()
+        }
+    }
     private var pickedIds: [UUID] = []
     private var exerciseModels = [Exercise]()
     
@@ -62,7 +67,12 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
                 exerciseName: exercise.name
             )
         }
+        let searchFiltering: (Exercise) -> Bool = { [searchText] exercise in
+            if searchText.isEmpty { return true }
+            return exercise.name.localizedCaseInsensitiveContains(searchText)
+        }
         exercises = exerciseModels
+            .filter(searchFiltering)
             .filter({ !pickedIds.contains($0.id) })
             .map(mapping)
         pickedExercises = pickedExerciseModels

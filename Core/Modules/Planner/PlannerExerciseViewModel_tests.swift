@@ -30,7 +30,7 @@ class PlannerExerciseViewModel_tests: XCTestCase {
     
     func test_initialVariations() {
         XCTAssertEqual(sut.variations.count, 1)
-        XCTAssertEqual(sut.variations.first?.metric, .reps)
+        XCTAssertEqual(sut.variations.first?.metricLabel, "reps")
         XCTAssertEqual(sut.variations.first?.numberOfSets, 1)
     }
     

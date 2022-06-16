@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
     @ObservedObject var model: Model
-    @State var searchText = ""
     
     var body: some View {
         NavigationStack {
@@ -25,7 +24,7 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                     .tint(.label)
                 }
                 .listStyle(.plain)
-                .searchable(text: $searchText)
+                .searchable(text: $model.searchText)
                 VStack {
                     HStack {
                         Text(L10n.ExercisePicker.PickedSection.title)
@@ -85,6 +84,7 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
 protocol ExercisePickerViewModeling: ObservableObject {
     var exercises: [ExerciseCellViewModel] { get }
     var pickedExercises: [ExerciseCellViewModel] { get }
+    var searchText: String { get set }
     var addButtonDisabled: Bool { get }
     
     func handleViewAppeared()
@@ -99,6 +99,7 @@ protocol ExercisePickerViewModeling: ObservableObject {
 class DTExercisePickerViewModel: ExercisePickerViewModeling {
     @Published var exercises: [ExerciseCellViewModel]
     @Published var pickedExercises: [ExerciseCellViewModel]
+    var searchText: String = ""
     var addButtonDisabled: Bool = false
     
     init(toPickCount: Int, pickedCount: Int) {

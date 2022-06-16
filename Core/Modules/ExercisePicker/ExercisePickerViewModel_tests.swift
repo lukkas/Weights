@@ -50,13 +50,19 @@ class ExercisePickerViewModelSpec: QuickSpec {
                     expect(sut.addButtonDisabled).to(beTrue())
                 }
                 
+                context("when search text is entered") {
+                    beforeEach {
+                        sut.searchText = String(exercises.first!.name.prefix(2))
+                    }
+                    it("will display filtered items") {
+                        expect(sut.exercises).to(equal([self.cellModel(reflecting: exercises.first!)]))
+                    }
+                }
+                
                 context("when exercise picked") {
                     let pickedIndex = 1
                     let pickedExercise = exercises[pickedIndex]
-                    let pickedCellModel = ExerciseCellViewModel(
-                        id: pickedExercise.id,
-                        exerciseName: pickedExercise.name
-                    )
+                    let pickedCellModel = cellModel(reflecting: pickedExercise)
                     beforeEach {
                         sut.pick(pickedCellModel)
                     }
@@ -107,6 +113,13 @@ class ExercisePickerViewModelSpec: QuickSpec {
                 }
             }
         }
+    }
+    
+    private func cellModel(reflecting exercise: Exercise) -> ExerciseCellViewModel {
+        ExerciseCellViewModel(
+            id: exercise.id,
+            exerciseName: exercise.name
+        )
     }
 }
 
