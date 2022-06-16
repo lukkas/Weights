@@ -24,37 +24,45 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                     }
                     .tint(.label)
                 }
-                .listStyle(.grouped)
+                .listStyle(.plain)
                 .searchable(text: $searchText)
-                .mask(alignment: .bottom, {
-                    VStack(spacing: 0) {
-                        Color.black
-                        LinearGradient(gradient:
-                           Gradient(
-                               colors: [Color.black, Color.black.opacity(0)]),
-                               startPoint: .top, endPoint: .bottom
-                           )
-                            .frame(height: 50)
+                VStack {
+                    HStack {
+                        Text(L10n.ExercisePicker.PickedSection.title)
+                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .padding([.top, .leading])
+                        Spacer()
                     }
-                })
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        Color.clear
-                        ForEach(model.pickedExercises) { exercise in
-                            PickedExerciseCell(
-                                exercise: exercise,
-                                onRemoveTapped: {
-                                    model.remove(exercise)
+                    if model.pickedExercises.isEmpty {
+                        Text(L10n.ExercisePicker.PickedSection.emptyPlaceholder)
+                            .font(.system(size: 16))
+                            .foregroundColor(.secondaryLabel)
+                            .frame(maxHeight: .infinity)
+                    } else {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack {
+                                Color.clear
+                                ForEach(model.pickedExercises) { exercise in
+                                    PickedExerciseCell(
+                                        exercise: exercise,
+                                        onRemoveTapped: {
+                                            model.remove(exercise)
+                                        }
+                                    )
+                                    .shadow(color: .black.opacity(0.1), radius: 2)
                                 }
-                            )
+                                Color.clear
+                            }
                         }
-                        Color.clear
                     }
                 }
-                .frame(height: 100)
+                .frame(height: 120)
+                .background(
+                    Color.secondaryBackground
+                        .edgesIgnoringSafeArea(.bottom)
+                        .shadow(color: .black.opacity(0.1), radius: 4, y: -4)
+                )
             }
-            .background(Color.secondaryBackground)
             .navigationTitle(L10n.ExercisePicker.NavBar.pickExercises)
             .toolbar(content: {
                 ToolbarItem(placement: .cancellationAction) {
@@ -89,9 +97,14 @@ protocol ExercisePickerViewModeling: ObservableObject {
 // MARK: - Design time
 
 class DTExercisePickerViewModel: ExercisePickerViewModeling {
-    @Published var exercises: [ExerciseCellViewModel] = ExerciseCellViewModel.make(count: 20)
-    @Published var pickedExercises: [ExerciseCellViewModel] = ExerciseCellViewModel.make(count: 3)
+    @Published var exercises: [ExerciseCellViewModel]
+    @Published var pickedExercises: [ExerciseCellViewModel]
     var addButtonDisabled: Bool = false
+    
+    init(toPickCount: Int, pickedCount: Int) {
+        _exercises = .init(initialValue: .make(count: toPickCount))
+        _pickedExercises = .init(initialValue: .make(count: pickedCount))
+    }
     
     func handleViewAppeared() {
         
@@ -116,9 +129,15 @@ class DTExercisePickerViewModel: ExercisePickerViewModeling {
 
 struct ExercisePickerView_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisePickerView(model: DTExercisePickerViewModel())
-        
-        ExercisePickerView(model: DTExercisePickerViewModel())
-            .preferredColorScheme(.dark)
+        ExercisePickerView(
+            model: DTExercisePickerViewModel(toPickCount: 20, pickedCount: 3)
+        )
+        ExercisePickerView(
+            model: DTExercisePickerViewModel(toPickCount: 0, pickedCount: 0)
+        )
+        ExercisePickerView(
+            model: DTExercisePickerViewModel(toPickCount: 20, pickedCount: 3)
+        )
+        .preferredColorScheme(.dark)
     }
 }

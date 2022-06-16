@@ -25,6 +25,8 @@
 
 "exercisePicker.navBar.add" = "Add";
 "exercisePicker.navBar.pickExercises" = "Pick exercises";
+"exercisePicker.pickedSection.title" = "Picked exercises";
+"exercisePicker.pickedSection.emptyPlaceholder" = "Pick your first exercise";
 
 "exercisesList.navBar.home" = "Home";
 "exercisesList.navBar.plan" = "Plan";

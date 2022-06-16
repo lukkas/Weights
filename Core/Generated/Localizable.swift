@@ -66,6 +66,12 @@ internal enum L10n {
       /// Pick exercises
       internal static let pickExercises = L10n.tr("Localizable", "exercisePicker.navBar.pickExercises")
     }
+    internal enum PickedSection {
+      /// Pick your first exercise
+      internal static let emptyPlaceholder = L10n.tr("Localizable", "exercisePicker.pickedSection.emptyPlaceholder")
+      /// Picked exercises
+      internal static let title = L10n.tr("Localizable", "exercisePicker.pickedSection.title")
+    }
   }
 
   internal enum ExercisesList {

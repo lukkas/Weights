@@ -71,7 +71,7 @@ protocol ExerciseListViewRouting {
 
 class DTExerciseListViewModel: ExerciseListViewModeling {
     var cellViewModels: [ExerciseCellViewModel] {
-        return ExerciseCellViewModel.make(count: 2)
+        return .make(count: 2)
     }
 }
 

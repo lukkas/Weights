@@ -14,31 +14,22 @@ struct PickedExerciseCell: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            Text(exercise.exerciseName)
-                .font(
-                    .system(size: 16,
-                            weight: .medium,
-                            design: .rounded)
-                )
-                .padding(.vertical)
-                .padding(.leading)
             Button {
                 onRemoveTapped()
             } label: {
-                Image(systemName: "xmark")
+                Text(exercise.exerciseName)
                     .font(
-                        .system(size: 18,
-                                weight: .semibold,
-                                design: .rounded)
+                        .system(size: 16,
+                                weight: .regular,
+                                design: .default)
                     )
-                    .tint(.red)
+                    .padding(.vertical, 12)
+                    .padding(.horizontal)
             }
-            .frame(width: 40, height: 40)
-            .padding(.trailing, 4)
         }
         .background {
             Color.tertiaryBackground
-                .cornerRadius(16)
+                .cornerRadius(12)
         }
     }
 }
@@ -46,13 +37,13 @@ struct PickedExerciseCell: View {
 struct PickedExerciseCell_Previews: PreviewProvider {
     static var previews: some View {
         PickedExerciseCell(
-            exercise: .make(count: 1).first!,
+            exercise: .make(),
             onRemoveTapped: {}
         )
         .cellPreview()
         
         PickedExerciseCell(
-            exercise: .make(count: 1).first!,
+            exercise: .make(),
             onRemoveTapped: {}
         )
         .cellPreview()
