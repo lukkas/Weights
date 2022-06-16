@@ -56,9 +56,9 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
                     weight: .medium,
                     design: .rounded
                 ))
-                .frame(maxWidth: .infinity, minHeight: 44)
+                .frame(maxWidth: .infinity, minHeight: 32)
         }
-        .buttonStyle(.borderedProminent)
+        .buttonStyle(.bordered)
         .padding(.horizontal, 16)
     }
     
