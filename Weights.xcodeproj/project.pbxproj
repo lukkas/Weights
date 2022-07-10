@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		042D77AFA5DA3EBE4DAE3E30 /* PlannerViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90843FCB8C011482CA2D573F /* PlannerViewModel_tests.swift */; };
 		05B2F5426E6798B889B7FE9D /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC910D9256ECC76C0EC71473 /* Exercise.swift */; };
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
+		0F5DAA37287B284A00AC0306 /* PlanStoringStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5DAA36287B284A00AC0306 /* PlanStoringStub.swift */; };
 		104E0D87144B332C9621ADFB /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD62C2FCE97AEB0BB2DEE5A7 /* PlanView.swift */; };
 		10684DAACABE0990A7D9170D /* PlannerDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18EB1C8FFED3BE54A535A3 /* PlannerDropController.swift */; };
 		126FF17F976E13D7604C987A /* PlannerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D2A9C4C036BBA331525F7 /* PlannerPageView.swift */; };
@@ -214,6 +215,7 @@
 		0DA9DF359FEB0332F44519D4 /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
 		0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
+		0F5DAA36287B284A00AC0306 /* PlanStoringStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStoringStub.swift; sourceTree = "<group>"; };
 		0FFCBE909CFDD602034E48C6 /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
 		1493F1191ECC36E4A7A8C309 /* Date+TestConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TestConvenience.swift"; sourceTree = "<group>"; };
 		14B03E68A6C67A4F4A52CBAC /* DateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
@@ -781,6 +783,7 @@
 				04F07A9DE4A9C1B6D861C2FC /* UIPanGestureRecognizerMock.swift */,
 				6DA80DD039CC9EBAE015F2D0 /* UISelectionFeedbackGeneratorMock.swift */,
 				1CC8407727EAE9B906311FF3 /* UITapGestureRecognizerMock.swift */,
+				0F5DAA36287B284A00AC0306 /* PlanStoringStub.swift */,
 			);
 			path = Doubles;
 			sourceTree = "<group>";
@@ -936,8 +939,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = C5C264935274812B790E7922 /* Build configuration list for PBXProject "Weights" */;
 			compatibilityVersion = "Xcode 11.0";
@@ -1024,6 +1025,7 @@
 				042D77AFA5DA3EBE4DAE3E30 /* PlannerViewModel_tests.swift in Sources */,
 				D2A11CD889E069CD0D5BE004 /* PublisherListener.swift in Sources */,
 				414DAD18E85EC399A3D93B2F /* TestFailure.swift in Sources */,
+				0F5DAA37287B284A00AC0306 /* PlanStoringStub.swift in Sources */,
 				505D1BDFA4EA3F465C206DB3 /* UIImpactFeedbackGeneratorMock.swift in Sources */,
 				E2C9A1F54A294CD275FB36B5 /* UINotificationFeedbackGeneratorMock.swift in Sources */,
 				8386CD0400BF59A8170F546B /* UIPacePicker_tests.swift in Sources */,

@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct PlannedExercise {
-    struct Variation {
-        let numberOfSets: Int
-        let volume: Int // reps or seconds
-        let weight: Weight
+public struct PlannedExercise {
+    public struct Variation {
+        public let numberOfSets: Int
+        public let volume: Int // reps or seconds
+        public let weight: Weight
     }
     
-    let exercise: Exercise
-    let pace: Pace?
-    let variations: [Variation]
+    public let exercise: Exercise
+    public let pace: Pace?
+    public let variations: [Variation]
 }

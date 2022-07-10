@@ -108,6 +108,10 @@ internal enum L10n {
       /// Add next...
       internal static let add = L10n.tr("Localizable", "planner.exercise.add")
     }
+    internal enum NavigationBar {
+      /// Save
+      internal static let save = L10n.tr("Localizable", "planner.navigationBar.save")
+    }
   }
 
   internal enum Root {

@@ -12,13 +12,13 @@ import Foundation
 import Services
 
 struct AppDependencies: CoreDependencies {
-    var exerciseStorage: ExerciseStoring {
-        return database.getExercisesRepository()
-    }
-    
+    let exerciseStorage: ExerciseStoring
+    let planStorage: PlanStoring
     let database: Database
     
     init() {
         self.database = Database(persistentContainer: makeWeightsPersistentContainer())
+        self.exerciseStorage = database.getExercisesRepository()
+        self.planStorage = DTPlanStorage()
     }
 }

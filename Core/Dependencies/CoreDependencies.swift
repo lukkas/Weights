@@ -10,4 +10,5 @@ import Foundation
 
 public protocol CoreDependencies {
     var exerciseStorage: ExerciseStoring { get }
+    var planStorage: PlanStoring { get }
 }

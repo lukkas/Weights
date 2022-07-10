@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Weight {
-    enum Unit {
+public struct Weight {
+    public enum Unit {
         case kg, lbs
     }
     
-    let value: Double
-    let unit: Unit
+    public let value: Double
+    public let unit: Unit
 }

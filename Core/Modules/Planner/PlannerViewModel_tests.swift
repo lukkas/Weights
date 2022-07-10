@@ -14,8 +14,13 @@ class PlannerViewModelSpec: QuickSpec {
     override func spec() {
         describe("planner view model") {
             var sut: PlannerViewModel!
+            var planStorage: PlanStoringStub!
             beforeEach {
-                sut = PlannerViewModel(isPresented: .constant(true))
+                planStorage = PlanStoringStub()
+                sut = PlannerViewModel(
+                    isPresented: .constant(true),
+                    planStorage: planStorage
+                )
             }
             afterEach {
                 sut = nil

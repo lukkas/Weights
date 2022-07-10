@@ -43,12 +43,12 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
             .navigationBarTitle(L10n.Planner.title)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button("Cancel", role: .cancel) {
+                    Button(L10n.Common.cancel, role: .cancel) {
                         model.cancelNavigationButtonTapped()
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("Save") {
+                    Button(L10n.Planner.NavigationBar.save) {
                         model.saveNavigationButtonTapped()
                     }
                 }

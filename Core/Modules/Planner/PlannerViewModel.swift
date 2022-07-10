@@ -45,9 +45,11 @@ class PlannerViewModel: PlannerViewModeling {
     }
     @Published var exercisePickerRelay: ExercisePickerRelay?
     @Binding private var isPresented: Bool
+    private let planStorage: PlanStoring
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, planStorage: PlanStoring) {
         _isPresented = isPresented
+        self.planStorage = planStorage
         pages = [makeTemplateUnitModel()]
     }
     

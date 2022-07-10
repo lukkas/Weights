@@ -14,9 +14,14 @@ class PlannerDropControllerSpec: QuickSpec {
     override func spec() {
         describe("view model") {
             var viewModel: PlannerViewModel!
+            var planStorage: PlanStoringStub!
             
             beforeEach {
-                viewModel = PlannerViewModel(isPresented: .constant(true))
+                planStorage = PlanStoringStub()
+                viewModel = PlannerViewModel(
+                    isPresented: .constant(true),
+                    planStorage: planStorage
+                )
             }
             
             context("when first page has two items") {

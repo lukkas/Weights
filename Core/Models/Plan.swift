@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Plan {
-    let name: String
-    let days: [PlannedDay]
+public struct Plan {
+    public let name: String
+    public let days: [PlannedDay]
 }

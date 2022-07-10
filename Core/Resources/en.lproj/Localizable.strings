@@ -19,6 +19,7 @@
 "planner.title" = "Planner";
 "planner.addDay" = "Add training day";
 "planner.bottomBar.workoutName.placeholder" = "Workout name";
+"planner.navigationBar.save" = "Save";
 
 "planner.addExercise" = "Add exercise";
 "planner.exercise.add" = "Add next...";

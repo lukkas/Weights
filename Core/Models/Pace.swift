@@ -8,20 +8,20 @@
 
 import Foundation
 
-struct Pace {
-    enum Component: Equatable {
+public struct Pace {
+    public enum Component: Equatable {
         case explosive
         case number(Int)
     }
     
-    let eccentric: Component
-    let isometric: Component
-    let concentric: Component
-    let startingPoint: Component
+    public let eccentric: Component
+    public let isometric: Component
+    public let concentric: Component
+    public let startingPoint: Component
 }
 
 extension Pace.Component: ExpressibleByIntegerLiteral {
-    init(integerLiteral value: Int) {
+    public init(integerLiteral value: Int) {
         self = .number(value)
     }
 }
