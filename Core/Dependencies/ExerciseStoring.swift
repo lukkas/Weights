@@ -11,18 +11,18 @@ import Foundation
 
 public protocol ExerciseStoring {
     func insert(_ exercise: Exercise)
-    func exercises() -> AnyPublisher<[Exercise], Never>
+    func autoupdatingExercises() -> AnyPublisher<[Core.Exercise], Never>
 }
 
 #if DEBUG
-class PlaceholderExerciseStorage: ExerciseStoring {
+class DTExerciseStorage: ExerciseStoring {
     var storedExercises = [Exercise]()
     
     func insert(_ exercise: Exercise) {
         storedExercises.append(exercise)
     }
     
-    func exercises() -> AnyPublisher<[Exercise], Never> {
+    func autoupdatingExercises() -> AnyPublisher<[Core.Exercise], Never> {
         return Just(storedExercises).eraseToAnyPublisher()
     }
 }

@@ -21,7 +21,7 @@ class ExercisesListViewModel: ExerciseListViewModeling {
     }
     
     private func subscribeToExercises() {
-        exerciseStorage.exercises()
+        exerciseStorage.autoupdatingExercises()
             .map { exercises in
                 exercises.map({ exercise in
                     ExerciseCellViewModel(

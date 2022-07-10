@@ -37,7 +37,7 @@ public class ExercisesRepository {
         context.performSaveOrRollback()
     }
     
-    public func exercises() -> AnyPublisher<[Exercise], Never> {
+    public func autoupdatingExercises() -> AnyPublisher<[Exercise], Never> {
         let fetchRequest = Exercise.sortedFetchRequest
         let first = Future<[Exercise], Never> { [context] promise in
             let exercises = try! context.fetch(fetchRequest)

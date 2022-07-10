@@ -32,7 +32,7 @@ class ExerciseStoringStub: ExerciseStoring {
         asserts(insertedExercises[index])
     }
     
-    func exercises() -> AnyPublisher<[Exercise], Never> {
+    func autoupdatingExercises() -> AnyPublisher<[Exercise], Never> {
         return exercisesSubject.eraseToAnyPublisher()
     }
     

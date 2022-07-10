@@ -21,8 +21,8 @@ extension ExercisesRepository: ExerciseStoring {
         )
     }
     
-    public func exercises() -> AnyPublisher<[Core.Exercise], Never> {
-        return self.exercises()
+    public func autoupdatingExercises() -> AnyPublisher<[Core.Exercise], Never> {
+        return self.autoupdatingExercises()
             .map({ $0.map({ $0.toCore() }) })
             .eraseToAnyPublisher()
     }

@@ -36,7 +36,7 @@ class ExercisePickerViewModel: ExercisePickerViewModeling {
     }
     
     private func subscribeToExercisesUpdates() {
-        exerciseStorage.exercises()
+        exerciseStorage.autoupdatingExercises()
             .sink { [weak self] exercises in
                 self?.exerciseModels = exercises
                 self?.applyCellViewModels()
