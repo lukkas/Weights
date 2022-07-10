@@ -43,7 +43,7 @@ class ExerciseRepositorySpec: QuickSpec {
                 }
                 
                 it("sends current exercises on subscription") {
-                    let exercises = try self.awaitPublisher(sut.exercises().prefix(1))
+                    let exercises = try self.awaitPublisher(sut.autoupdatingExercises().prefix(1))
                     expect(exercises).to(haveCount(3))
                 }
                 
@@ -54,7 +54,7 @@ class ExerciseRepositorySpec: QuickSpec {
                     var accumulator: PublisherAccumulator<[Exercise], Never>!
                     
                     beforeEach {
-                        accumulator = PublisherAccumulator(publisher: sut.exercises())
+                        accumulator = PublisherAccumulator(publisher: sut.autoupdatingExercises())
                         dateProvider.currentDate = currentDate
                         sut.insertExercise(
                             id: id,
