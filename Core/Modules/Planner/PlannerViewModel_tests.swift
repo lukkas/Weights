@@ -9,12 +9,13 @@
 import Nimble
 import Quick
 
+@MainActor
 class PlannerViewModelSpec: QuickSpec {
     override func spec() {
         describe("planner view model") {
             var sut: PlannerViewModel!
             beforeEach {
-                sut = PlannerViewModel()
+                sut = PlannerViewModel(isPresented: .constant(true))
             }
             afterEach {
                 sut = nil

@@ -12,9 +12,9 @@ struct TrainingBottomBar: View {
     @Binding var workoutName: String
     let leftArrowDisabled: Bool
     let rightArrowDisabled: Bool
-    let onLeftTapped: @MainActor () -> Void
-    let onRightTapped: @MainActor () -> Void
-    let onPlusTapped: @MainActor () -> Void
+    let onLeftTapped: () -> Void
+    let onRightTapped: () -> Void
+    let onPlusTapped: () -> Void
     
     var body: some View {
         HStack {

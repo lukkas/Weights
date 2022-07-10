@@ -51,7 +51,7 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, Plann
     // MARK: - PlanRouting
     
     @ViewBuilder func planner(isPresented: Binding<Bool>) -> some View {
-        let model = PlannerViewModel()
+        let model = PlannerViewModel(isPresented: isPresented)
         PlannerView(model: model, router: self)
     }
     
@@ -63,35 +63,5 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, Plann
             pickedRelay: relay
         )
         ExercisePickerView(model: model)
-    }
-}
-
-struct ParameterFieldWrapper: View {
-    @State var isShowingPlanner = false
-    
-    var body: some View {
-        Button {
-            isShowingPlanner.toggle()
-        } label: {
-            Text("Show planner")
-        }
-        .sheet(
-            isPresented: $isShowingPlanner,
-            content: {
-                PlannerView(model: PlannerViewModel(), router: DTPlannerRouter())
-            }
-        )
-//        PlannerExerciseView(model: PlannerExerciseViewModel(exercise: .stubbed()))
-    }
-}
-
-private extension Exercise {
-    static func stubbed() -> Exercise {
-        return Exercise(
-            id: UUID(),
-            name: "Squat",
-            metric: .reps,
-            laterality: .bilateral
-        )
     }
 }

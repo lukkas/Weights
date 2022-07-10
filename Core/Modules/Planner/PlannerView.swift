@@ -41,6 +41,18 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
             }
             .background(Color.secondaryBackground)
             .navigationBarTitle(L10n.Planner.title)
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button("Cancel", role: .cancel) {
+                        model.cancelNavigationButtonTapped()
+                    }
+                }
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button("Save") {
+                        model.saveNavigationButtonTapped()
+                    }
+                }
+            }
         }
         .sheet(
             item: $model.exercisePickerRelay,
@@ -51,7 +63,6 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     }
 }
 
-@MainActor
 protocol PlannerViewModeling: ObservableObject {
     associatedtype ExerciseViewModel: PlannerExerciseViewModeling
     
@@ -61,6 +72,9 @@ protocol PlannerViewModeling: ObservableObject {
     var exercisePickerRelay: ExercisePickerRelay? { get set }
     var leftArrowDisabled: Bool { get }
     var rightArrowDisabled: Bool { get }
+    
+    func cancelNavigationButtonTapped()
+    func saveNavigationButtonTapped()
     
     func addExerciseTapped()
     func leftArrowTapped()
@@ -89,6 +103,14 @@ class DTPlannerViewModel: PlannerViewModeling {
     @Published var exercisePickerRelay: ExercisePickerRelay?
     var leftArrowDisabled: Bool { false }
     var rightArrowDisabled: Bool { false }
+    
+    func cancelNavigationButtonTapped() {
+        
+    }
+    
+    func saveNavigationButtonTapped() {
+        
+    }
     
     func addExerciseTapped() {
         

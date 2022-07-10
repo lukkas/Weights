@@ -16,7 +16,7 @@ class PlannerDropControllerSpec: QuickSpec {
             var viewModel: PlannerViewModel!
             
             beforeEach {
-                viewModel = PlannerViewModel()
+                viewModel = PlannerViewModel(isPresented: .constant(true))
             }
             
             context("when first page has two items") {

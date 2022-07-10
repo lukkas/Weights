@@ -44,13 +44,23 @@ class PlannerViewModel: PlannerViewModeling {
         }
     }
     @Published var exercisePickerRelay: ExercisePickerRelay?
+    @Binding private var isPresented: Bool
     
-    init() {
+    init(isPresented: Binding<Bool>) {
+        _isPresented = isPresented
         pages = [makeTemplateUnitModel()]
     }
     
     private func makeTemplateUnitModel() -> PlannerPageViewModel<PlannerExerciseViewModel> {
         return PlannerPageViewModel(name: "A1")
+    }
+    
+    func cancelNavigationButtonTapped() {
+        isPresented = false
+    }
+    
+    func saveNavigationButtonTapped() {
+        isPresented = false
     }
     
     func addExerciseTapped() {
