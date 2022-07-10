@@ -51,6 +51,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     }
 }
 
+@MainActor
 protocol PlannerViewModeling: ObservableObject {
     associatedtype ExerciseViewModel: PlannerExerciseViewModeling
     
@@ -67,6 +68,7 @@ protocol PlannerViewModeling: ObservableObject {
     func plusTapped()
 }
 
+@MainActor
 protocol PlannerRouting {
     associatedtype ExercisePickerViewType: View
     

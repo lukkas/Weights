@@ -33,6 +33,7 @@ struct RootView<Router: RootRouting>: View {
     }
 }
 
+@MainActor
 protocol RootRouting {
     associatedtype PlanViewType: View
     associatedtype ExerciseListViewType: View

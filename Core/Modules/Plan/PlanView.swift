@@ -25,6 +25,7 @@ struct PlanView<Router: PlanRouting>: View {
     }
 }
 
+@MainActor
 protocol PlanRouting {
     associatedtype PlannerViewType: View
     

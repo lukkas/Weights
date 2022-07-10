@@ -61,6 +61,7 @@ protocol ExerciseListViewModeling: ObservableObject {
     var cellViewModels: [ExerciseCellViewModel] { get }
 }
 
+@MainActor
 protocol ExerciseListViewRouting {
     associatedtype ExerciseCreationViewType: View
     
