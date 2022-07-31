@@ -22,3 +22,13 @@ public func makeWeightsPersistentContainer() -> NSPersistentContainer {
     }
     return container
 }
+
+private func registerValueTransformers() {
+    _ = __registerOnce
+}
+
+private let __registerOnce: () = {
+    WeightValueTransformer.register(withName: "WeightValueTransformer")
+    PaceValueTransformer.register(withName: "PaceValueTransformer")
+    SetCollectionValueTransformer.register(withName: "SetCollectionValueTransformer")
+}()

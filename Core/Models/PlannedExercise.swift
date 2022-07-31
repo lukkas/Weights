@@ -10,7 +10,7 @@ import Foundation
 public struct PlannedExercise {
     public struct SetCollection {
         public let numberOfSets: Int
-        public let volume: Int // reps or seconds
+        public let volume: Int // reps/seconds/meters
         public let weight: Weight
     }
     

@@ -8,6 +8,12 @@
 import CoreData
 import Foundation
 
-//public class PlannedExercise: NSManagedObject {
-//    @NSManaged public internal(set) var exercise: Exercise
-//}
+public class PlannedExercise: NSManagedObject {
+    public struct SetCollection: Codable {
+        public let numberOfSets: Int
+        public let volume: Int // reps/seconds/meters
+        public let weight: Weight
+    }
+    
+    @NSManaged public internal(set) var exercise: Exercise
+}

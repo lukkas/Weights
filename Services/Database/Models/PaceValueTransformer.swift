@@ -4,15 +4,7 @@
 
 import Foundation
 
-class PaceValueTransformer: ValueTransformer {
-    static func register() {
-        let transformer = PaceValueTransformer()
-        ValueTransformer.setValueTransformer(
-                transformer,
-                forName: NSValueTransformerName("PaceValueTransformer")
-        )
-    }
-
+class PaceValueTransformer: ValueTransformer, ValueTransformerRegistering {
     override class func allowsReverseTransformation() -> Bool {
         return true
     }
