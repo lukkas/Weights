@@ -8,7 +8,7 @@
 import Foundation
 
 public struct PlannedExercise {
-    public struct Variation {
+    public struct SetCollection {
         public let numberOfSets: Int
         public let volume: Int // reps or seconds
         public let weight: Weight
@@ -16,5 +16,6 @@ public struct PlannedExercise {
     
     public let exercise: Exercise
     public let pace: Pace?
-    public let variations: [Variation]
+    public let variations: [SetCollection]
+    public let createsSupersets: Bool
 }

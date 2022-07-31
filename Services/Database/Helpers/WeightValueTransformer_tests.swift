@@ -10,7 +10,7 @@ import Nimble
 @testable import Services
 import Quick
 
-class WeightValueTransfoermSpec: QuickSpec {
+class WeightValueTransformerSpec: QuickSpec {
     override func spec() {
         describe("transformer") {
             var sut: WeightValueTransformer!
