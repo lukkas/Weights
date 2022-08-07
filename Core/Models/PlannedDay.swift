@@ -9,5 +9,5 @@ import Foundation
 
 public struct PlannedDay {
     public let name: String
-    public let exercises: PlannedExercise
+    public let exercises: [PlannedExercise]
 }

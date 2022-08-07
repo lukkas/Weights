@@ -7,8 +7,8 @@
 
 import Foundation
 
-class SetCollectionValueTransformer:
-    CodableValueTransformer<PlannedExercise.SetCollection>,
+class SetCollectionsValueTransformer:
+    CodableValueTransformer<[PlannedExercise.SetCollection]>,
     ValueTransformerRegistering {
     
 }

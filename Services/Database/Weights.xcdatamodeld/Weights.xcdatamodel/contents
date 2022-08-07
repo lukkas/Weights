@@ -8,7 +8,17 @@
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Plan" representedClassName="Plan" syncable="YES">
-        <attribute name="attribute" optional="YES" attributeType="Transformable"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="days" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="PlannedDay"/>
     </entity>
-    <entity name="PlannedExercise" representedClassName="PlannedExercise" syncable="YES"/>
+    <entity name="PlannedDay" representedClassName="PlannedDay" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="PlannedExercise"/>
+    </entity>
+    <entity name="PlannedExercise" representedClassName="PlannedExercise" syncable="YES">
+        <attribute name="createsSupersets" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="pace" optional="YES" attributeType="Transformable" valueTransformerName="PaceValueTransformer"/>
+        <attribute name="setCollections" optional="YES" attributeType="Transformable" valueTransformerName="SetCollectionsValueTransformer"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercise"/>
+    </entity>
 </model>

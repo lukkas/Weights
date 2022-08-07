@@ -30,5 +30,5 @@ private func registerValueTransformers() {
 private let __registerOnce: () = {
     WeightValueTransformer.register(withName: "WeightValueTransformer")
     PaceValueTransformer.register(withName: "PaceValueTransformer")
-    SetCollectionValueTransformer.register(withName: "SetCollectionValueTransformer")
+    SetCollectionsValueTransformer.register(withName: "SetCollectionsValueTransformer")
 }()

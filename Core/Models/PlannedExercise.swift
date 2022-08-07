@@ -16,6 +16,6 @@ public struct PlannedExercise {
     
     public let exercise: Exercise
     public let pace: Pace?
-    public let variations: [SetCollection]
+    public let setCollections: [SetCollection]
     public let createsSupersets: Bool
 }

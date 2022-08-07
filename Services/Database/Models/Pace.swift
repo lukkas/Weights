@@ -4,6 +4,10 @@
 
 import Foundation
 
-public struct Pace: Equatable {
+public class Pace: NSObject {
     public let components: [Int]
+    
+    public init(components: [Int]) {
+        self.components = components
+    }
 }

@@ -11,10 +11,10 @@ options:
 packages:
   Quick:
     url: https://github.com/Quick/Quick
-    from: 4.0.0
+    from: 5.0.1
   Nimble:
     url: https://github.com/Quick/Nimble
-    from: 9.2.1
+    from: 10.0.0
 targets:
   Weights:
     type: application
