@@ -11,5 +11,4 @@ import Foundation
 public class PlannedDay: NSManagedObject {
     @NSManaged public internal(set) var name: String
     @NSManaged public internal(set) var exercises: [PlannedExercise]
-    
 }
