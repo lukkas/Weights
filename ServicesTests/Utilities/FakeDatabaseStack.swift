@@ -2,27 +2,17 @@
 //  FakeDatabaseStack.swift
 //  ServicesTests
 //
-//  Created by Łukasz Kasperek on 03/05/2020.
-//  Copyright © 2020 Łukasz Kasperek. All rights reserved.
+//  Created by Łukasz Kasperek on 12/08/2022.
 //
 
-import Combine
 import CoreData
 import Foundation
+import TestUtilities
 @testable import Services
 
 extension NSManagedObjectContext {
-    static func testInMemoryContext() -> NSManagedObjectContext {
+    static func weightsTestContext() -> NSManagedObjectContext {
         let model = DatabaseModelVersion.version1.managedObjectModel()
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        try! coordinator.addPersistentStore(
-            ofType: NSInMemoryStoreType,
-            configurationName: nil,
-            at: nil,
-            options: nil
-        )
-        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        context.persistentStoreCoordinator = coordinator
-        return context
+        return testInMemoryContext(model: model)
     }
 }

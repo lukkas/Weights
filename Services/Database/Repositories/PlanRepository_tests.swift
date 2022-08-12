@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 import Nimble
 @testable import Services
+import TestUtilities
 import Quick
 
 class PlanRepositorySpec: QuickSpec {
@@ -18,7 +19,7 @@ class PlanRepositorySpec: QuickSpec {
             var moContext: NSManagedObjectContext!
             beforeEach {
                 NSManagedObjectContext.synchronousMode = true
-                moContext = NSManagedObjectContext.testInMemoryContext()
+                moContext = NSManagedObjectContext.weightsTestContext()
                 sut = PlanRepository(context: moContext)
             }
             afterEach {
@@ -28,10 +29,10 @@ class PlanRepositorySpec: QuickSpec {
             }
             context("when plan is added") {
                 beforeEach {
-                    sut.insertPlan { plan in
-                        plan.name = "Upper-Lower"
-                        plan.days = []
-                    }
+//                    sut.insertPlan { plan in
+//                        plan.name = "Upper-Lower"
+//                        plan.days = []
+//                    }
                 }
                 context("when plans are fetched") {
                     var accumulator: PublisherAccumulator<[Plan], Never>!

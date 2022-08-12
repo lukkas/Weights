@@ -8,14 +8,14 @@
 import Combine
 import Foundation
 
-class PublisherAccumulator<Value, Failure: Error> {
-    private(set) var isCompleted: Bool = false
-    private(set) var publisherFailure: Error?
-    private(set) var updates: [Value] = []
+public class PublisherAccumulator<Value, Failure: Error> {
+    public private(set) var isCompleted: Bool = false
+    public private(set) var publisherFailure: Error?
+    public private(set) var updates: [Value] = []
     
     private var cancellable: AnyCancellable?
     
-    init(publisher: AnyPublisher<Value, Failure>) {
+    public init(publisher: AnyPublisher<Value, Failure>) {
         cancellable = publisher.sink { [weak self] completion in
             if case let .failure(error) = completion {
                 self?.publisherFailure = error
@@ -26,7 +26,7 @@ class PublisherAccumulator<Value, Failure: Error> {
         }
     }
     
-    func update(at index: Int) -> Value? {
+    public func update(at index: Int) -> Value? {
         guard updates.count > index else { return nil }
         return updates[index]
     }

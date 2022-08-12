@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import Nimble
 @testable import Services
+import TestUtilities
 import Quick
 import XCTest
 
@@ -22,7 +23,7 @@ class ExerciseRepositorySpec: QuickSpec {
             
             beforeEach {
                 NSManagedObjectContext.synchronousMode = true
-                moContext = NSManagedObjectContext.testInMemoryContext()
+                moContext = NSManagedObjectContext.weightsTestContext()
                 dateProvider = DateProvider()
                 sut = ExercisesRepository(
                     context: moContext,

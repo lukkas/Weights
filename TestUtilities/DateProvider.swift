@@ -8,9 +8,11 @@
 
 import Foundation
 
-class DateProvider {
-    var currentDate: Date!
-    var getDate: () -> Date {
+public class DateProvider {
+    public init() {}
+    
+    public var currentDate: Date!
+    public var getDate: () -> Date {
         return {
             return self.currentDate
         }

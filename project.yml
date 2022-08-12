@@ -34,6 +34,7 @@ targets:
       - path: WeightsTests
     dependencies:
       - target: Weights
+      - target: TestUtilities
   Core:
     type: framework
     platform: iOS
@@ -51,6 +52,7 @@ targets:
           - "**/*_tests.swift"
     dependencies:
       - target: Core
+      - target: TestUtilities
       - package: Quick
       - package: Nimble
   Services:
@@ -70,5 +72,14 @@ targets:
           - "**/*_tests.swift"
     dependencies:
       - target: Services
+      - target: TestUtilities
       - package: Quick
       - package: Nimble
+  TestUtilities:
+    type: framework
+    settings:
+      base:
+       ENABLE_TESTING_SEARCH_PATHS: YES 
+    platform: iOS
+    sources:
+      - path: TestUtilities

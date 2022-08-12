@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
     static func stubbed(_ day: Int, _ month: Int, _ year: Int) -> Date {
         let components = DateComponents(
             calendar: .current,
