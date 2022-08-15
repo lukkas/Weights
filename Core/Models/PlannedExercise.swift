@@ -19,3 +19,16 @@ public struct PlannedExercise {
     public let setCollections: [SetCollection]
     public let createsSupersets: Bool
 }
+
+#if DEBUG
+extension PlannedExercise {
+    static func make() -> PlannedExercise {
+        return PlannedExercise(
+            exercise: { () -> Exercise in fatalError() }(),
+            pace: nil,
+            setCollections: [],
+            createsSupersets: false
+        )
+    }
+}
+#endif

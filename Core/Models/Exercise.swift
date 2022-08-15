@@ -46,3 +46,38 @@ extension Exercise.Laterality: Identifiable {
         return self
     }
 }
+
+#if DEBUG
+extension Exercise {
+    static var dummy: Exercise {
+        return .init(
+            id: .init(),
+            name: "Squat",
+            metric: .reps,
+            laterality: .bilateral
+        )
+    }
+    
+    static func make() -> Exercise {
+        return make(count: 1).first!
+    }
+    
+    static func make(count: Int) -> [Exercise] {
+        let names = [
+            "Squat", "Bench press", "Deadlift", "Sumo deadlift", "Seal row",
+            "Biecep curl", "Tricep extension", "Farmer walk"
+        ]
+        guard count <= names.count else {
+            preconditionFailure("too little exercises. Do sth!")
+        }
+        return names.prefix(count).map { name in
+            Exercise(
+                id: UUID(),
+                name: name,
+                metric: .reps,
+                laterality: .bilateral
+            )
+        }
+    }
+}
+#endif

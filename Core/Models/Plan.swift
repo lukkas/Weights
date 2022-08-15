@@ -16,3 +16,11 @@ public struct Plan {
         self.days = days
     }
 }
+
+#if DEBUG
+extension Plan {
+    static func make() -> Plan {
+        return Plan(name: "Upper-Lower", days: [])
+    }
+}
+#endif
