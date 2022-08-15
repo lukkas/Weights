@@ -9,30 +9,6 @@ import Combine
 import CoreData
 import Foundation
 
-struct PlannedExerciseInsertion {
-    
-}
-
-struct PlannedDayInsertion {
-    func setName(_ name: String) {
-        
-    }
-    
-    func addExercise() -> PlannedExerciseInsertion {
-        fatalError()
-    }
-}
-
-struct PlanInsertion {
-    func setName(_ name: String) {
-        
-    }
-    
-    func addDay() -> PlannedDayInsertion {
-        fatalError()
-    }
-}
-
 public class PlanRepository {
     private let context: NSManagedObjectContext
     

@@ -38,22 +38,8 @@ public class ExercisesRepository {
     }
     
     public func autoupdatingExercises() -> AnyPublisher<[Exercise], Never> {
-        let fetchRequest = Exercise.sortedFetchRequest
-        let first = Future<[Exercise], Never> { [context] promise in
-            let exercises = try! context.fetch(fetchRequest)
-            promise(.success(exercises))
-        }
-        let updates = NotificationCenter.default
-            .publisher(
-                for: .NSManagedObjectContextObjectsDidChange,
-                object: context
-            )
-            .map { [context] notification in
-                return try! context.fetch(fetchRequest)
-            }
-            .eraseToAnyPublisher()
-        return Publishers
-            .Concatenate(prefix: first, suffix: updates)
+        return context
+            .autoupdatingFetchRequest(with: Exercise.sortedFetchRequest)
             .eraseToAnyPublisher()
     }
     
