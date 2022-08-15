@@ -9,7 +9,20 @@
 import SwiftUI
 import Core
 
-@main
+@main struct WeightsLauncher {
+    static func main() throws {
+        #if DEBUG
+        if NSClassFromString("XCTestCase") == nil {
+            WeightsApp.main()
+        } else {
+            TestAppDummy.main()
+        }
+        #else
+        WeightsApp.main()
+        #endif
+    }
+}
+
 struct WeightsApp: App {
     let dependencies = AppDependencies()
     
@@ -19,3 +32,13 @@ struct WeightsApp: App {
         }
     }
 }
+
+#if DEBUG
+struct TestAppDummy: App {
+    var body: some Scene {
+        WindowGroup {
+            Text("Testing...")
+        }
+    }
+}
+#endif

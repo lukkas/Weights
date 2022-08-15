@@ -18,9 +18,7 @@ public protocol Managed: NSFetchRequestResult {
 
 public extension Managed where Self: NSManagedObject {
     static var entity: NSEntityDescription { entity() }
-    static var entityName: String {
-        entity.name!
-    }
+    static var entityName: String { entity.name! }
     static var defaultSortDescriptors: [NSSortDescriptor] { [] }
     static var defaultPredicate: NSPredicate { NSPredicate(value: true) }
     
