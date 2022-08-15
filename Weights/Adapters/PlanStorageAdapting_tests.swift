@@ -10,16 +10,32 @@ import Foundation
 import CoreData
 import Nimble
 @testable import Services
+import TestUtilities
 import Quick
 @testable import Weights
 
 class PlanStorageAdaptingSpec: QuickSpec {
     override func spec() {
-        context("Plan repository") {
+        describe("plan repository") {
             var sut: PlanRepository!
             beforeEach {
-
-//                sut = PlanRepository(context: <#T##NSManagedObjectContext##CoreData.NSManagedObjectContext#>)
+                NSManagedObjectContext.synchronousMode = true
+                let context = NSManagedObjectContext.weightsTestContext()
+                sut = PlanRepository(context: context)
+            }
+            afterEach {
+                sut = nil
+                NSManagedObjectContext.synchronousMode = false
+            }
+            context("when empty plan inserted") {
+                var plansAccumulator: PublisherAccumulator<[Core.Plan], Never>!
+                beforeEach {
+                    plansAccumulator = PublisherAccumulator(publisher: sut.autoupdatingPlans)
+                    sut.insert(.make())
+                }
+                it("will emit updated plans") {
+                    expect(plansAccumulator.updates.count).to(equal(2))
+                }
             }
         }
     }

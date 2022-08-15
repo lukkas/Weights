@@ -29,7 +29,7 @@ public class Exercise: NSManagedObject {
 }
 
 extension Exercise: Managed {
-    static var defaultSortDescriptors: [NSSortDescriptor] {
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
         let dateSorting = NSSortDescriptor(
             keyPath: \Exercise.addedAt,
             ascending: false

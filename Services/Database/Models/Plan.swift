@@ -14,7 +14,7 @@ public class Plan: NSManagedObject {
 }
 
 extension Plan: Managed {
-    static var defaultSortDescriptors: [NSSortDescriptor] {
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
         let dateSorting = NSSortDescriptor(
             keyPath: \Plan.name,
             ascending: false

@@ -12,7 +12,9 @@ import Services
 
 extension PlanRepository: PlanStoring {
     public func insert(_ plan: Core.Plan) {
-        
+        insertPlan { context in
+            let plan = context.insertObject() as Services.Plan
+        }
     }
     
     public var currentPlan: AnyPublisher<Core.Plan?, Never> {

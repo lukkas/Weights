@@ -9,7 +9,7 @@
 import CoreData
 import Foundation
 
-extension NSManagedObjectContext {
+public extension NSManagedObjectContext {
     func insertObject<A: NSManagedObject>() -> A where A: Managed {
         guard let inserted = NSEntityDescription.insertNewObject(
             forEntityName: A.entityName,

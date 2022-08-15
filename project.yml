@@ -24,6 +24,8 @@ targets:
       ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: accent_color
     sources:
       - path: Weights
+        excludes:
+          - "**/*_tests.swift"
     dependencies:
       - target: Core
       - target: Services
@@ -32,9 +34,14 @@ targets:
     platform: iOS
     sources:
       - path: WeightsTests
+      - path: Weights
+        includes:
+          - "**/*_tests.swift"
     dependencies:
       - target: Weights
       - target: TestUtilities
+      - package: Quick
+      - package: Nimble
   Core:
     type: framework
     platform: iOS

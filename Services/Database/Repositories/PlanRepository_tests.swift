@@ -29,6 +29,9 @@ class PlanRepositorySpec: QuickSpec {
             }
             context("when plan is added") {
                 beforeEach {
+                    sut.insertPlan { context in
+                        let plan = context.insertObject() as Plan
+                    }
 //                    sut.insertPlan { plan in
 //                        plan.name = "Upper-Lower"
 //                        plan.days = []
