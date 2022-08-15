@@ -22,6 +22,8 @@ public class PlanRepository {
     }
     
     public func autoupdatingPlans() -> AnyPublisher<[Plan], Never> {
-        return Just([]).eraseToAnyPublisher()
+        return context
+            .autoupdatingFetchRequest(with: Plan.sortedFetchRequest)
+            .eraseToAnyPublisher()
     }
 }

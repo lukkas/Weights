@@ -9,8 +9,8 @@ import CoreData
 import Foundation
 
 public class Plan: NSManagedObject {
-    @NSManaged public internal(set) var name: String
-    @NSManaged public internal(set) var days: [PlannedDay]
+    @NSManaged public var name: String
+    @NSManaged public var days: [PlannedDay]
 }
 
 extension Plan: Managed {

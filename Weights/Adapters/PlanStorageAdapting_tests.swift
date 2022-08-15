@@ -29,13 +29,21 @@ class PlanStorageAdaptingSpec: QuickSpec {
             }
             context("when empty plan inserted") {
                 var plansAccumulator: PublisherAccumulator<[Core.Plan], Never>!
+                let planToInsert = Core.Plan.make()
                 beforeEach {
                     plansAccumulator = PublisherAccumulator(publisher: sut.autoupdatingPlans)
-                    sut.insert(.make())
+                    sut.insert(planToInsert)
                 }
                 it("will emit updated plans") {
                     expect(plansAccumulator.updates.count).to(equal(2))
+                    expect(plansAccumulator.update(at: 1)).to(haveCount(1))
+                    expect(plansAccumulator.update(at: 1)).to(containElementSatisfying({ insertedPlan in
+                        insertedPlan.name == planToInsert.name
+                    }))
                 }
+            }
+            context("when plan with days is inserted") {
+                
             }
         }
     }

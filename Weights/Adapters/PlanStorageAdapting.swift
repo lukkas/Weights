@@ -13,7 +13,8 @@ import Services
 extension PlanRepository: PlanStoring {
     public func insert(_ plan: Core.Plan) {
         insertPlan { context in
-            let plan = context.insertObject() as Services.Plan
+            let insertedPlan = context.insertObject() as Services.Plan
+            insertedPlan.name = plan.name
         }
     }
     
@@ -22,6 +23,11 @@ extension PlanRepository: PlanStoring {
     }
     
     public var autoupdatingPlans: AnyPublisher<[Core.Plan], Never> {
-        return Just([]).eraseToAnyPublisher()
+        let originalPublisher = autoupdatingPlans() as AnyPublisher<[Services.Plan], _>
+        return originalPublisher
+            .map { databasePlans in
+                databasePlans.map({ $0.toCore() })
+            }
+            .eraseToAnyPublisher()
     }
 }

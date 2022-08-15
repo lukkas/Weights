@@ -15,6 +15,7 @@
 		05BAB1CC3858E06C486F511B /* PlannedDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE86388276C4CC23B878D7 /* PlannedDay.swift */; };
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
 		0F99154B28AA6FEE00701F51 /* NSFetchRequest+Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99154A28AA6FEE00701F51 /* NSFetchRequest+Publishers.swift */; };
+		0F99154D28AA726600701F51 /* Plan+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F99154C28AA726600701F51 /* Plan+ModelAdapting.swift */; };
 		104E0D87144B332C9621ADFB /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD62C2FCE97AEB0BB2DEE5A7 /* PlanView.swift */; };
 		10684DAACABE0990A7D9170D /* PlannerDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18EB1C8FFED3BE54A535A3 /* PlannerDropController.swift */; };
 		11246CED938A686ACC999DCB /* PublisherAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5BCF88EB0872B2FBCF98A /* PublisherAccumulator.swift */; };
@@ -27,7 +28,7 @@
 		168BCD57A88CED1DEEBD4152 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DCE1A1D0B551991157425EE /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		178D7D8086FC1632B8902D74 /* WeightValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6AB7BA6737E8E21030F909 /* WeightValueTransformer.swift */; };
 		199608C68232E69AE830CB78 /* PlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */; };
-		1E30739F7BAF6A3EDB760019 /* ExerciseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A32BED01FDB7AD7105E1B0B /* ExerciseStorage.swift */; };
+		1E30739F7BAF6A3EDB760019 /* ExerciseStorageAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A32BED01FDB7AD7105E1B0B /* ExerciseStorageAdapting.swift */; };
 		1E5A098A0A7776486CD42DD6 /* TrainingBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A619C874E8471CE23892E1D /* TrainingBottomBar.swift */; };
 		1E7A046C57536CBE6BB67495 /* PlanStorageAdapting_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09FB44D458EEF570F97BFE /* PlanStorageAdapting_tests.swift */; };
 		1F776B12EE644B65C3869AEF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3565ED3A0AA4A39F3B6D5 /* SceneDelegate.swift */; };
@@ -98,7 +99,7 @@
 		A553C8F332C7DD320E1E9710 /* Exercise+Fakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6018A20CF24394C09958C0 /* Exercise+Fakes.swift */; };
 		A56FF804F9E4F0AEAFD0E7C2 /* ExercisePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706D2CFFD3F744B19E7E7543 /* ExercisePickerView.swift */; };
 		A61FF0FBE2D5F759BD979563 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17D64C4F24BA3A01D80983F /* Managed.swift */; };
-		A7AF731FF80E0C0659C92EA7 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0425CE5073D697BA27425F /* Exercise.swift */; };
+		A7AF731FF80E0C0659C92EA7 /* Exercise+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0425CE5073D697BA27425F /* Exercise+ModelAdapting.swift */; };
 		A8042A7223A5433912FE5F56 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = CB5CE32A3F2D04EC45901B79 /* Quick */; };
 		ACD881C01824CA2C10612B75 /* ExerciseCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE669A0AE8C4F68E61A264 /* ExerciseCreationViewModel.swift */; };
 		AE0958B5F5518FFDCB007AA4 /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AF5AE31EA0CB1B05F67F21 /* PickerTextField.swift */; };
@@ -281,6 +282,7 @@
 		0EEC462F99EB429D83F58DD0 /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
 		0F99154A28AA6FEE00701F51 /* NSFetchRequest+Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+Publishers.swift"; sourceTree = "<group>"; };
+		0F99154C28AA726600701F51 /* Plan+ModelAdapting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plan+ModelAdapting.swift"; sourceTree = "<group>"; };
 		0FFCBE909CFDD602034E48C6 /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
 		14EE3F53D1BFC117227C5C4D /* WeightValueTransformer_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightValueTransformer_tests.swift; sourceTree = "<group>"; };
 		1584DD3D04A11B5D1CA9D363 /* PlanStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStoring.swift; sourceTree = "<group>"; };
@@ -296,7 +298,7 @@
 		360714EB613D4B1B489F40CE /* RPE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPE.swift; sourceTree = "<group>"; };
 		37AE333A7F164757B024D6DF /* CardDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDesign.swift; sourceTree = "<group>"; };
 		3A619C874E8471CE23892E1D /* TrainingBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingBottomBar.swift; sourceTree = "<group>"; };
-		3B0425CE5073D697BA27425F /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		3B0425CE5073D697BA27425F /* Exercise+ModelAdapting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+ModelAdapting.swift"; sourceTree = "<group>"; };
 		3BB8925E8B1006EFF698FCFD /* PaceKeyboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceKeyboardController.swift; sourceTree = "<group>"; };
 		3C107174C402320037A98631 /* InnerDepthShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerDepthShadow.swift; sourceTree = "<group>"; };
 		3CD083EA2170AE94999B7BAA /* Weights.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Weights.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -360,7 +362,7 @@
 		9350F94AFEAFA8A8C1449F83 /* TestFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFailure.swift; sourceTree = "<group>"; };
 		93C4DD1D1F1072537A4EDD3C /* WeightsTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WeightsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94CAA04C204FD27D250B60B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		9A32BED01FDB7AD7105E1B0B /* ExerciseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorage.swift; sourceTree = "<group>"; };
+		9A32BED01FDB7AD7105E1B0B /* ExerciseStorageAdapting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorageAdapting.swift; sourceTree = "<group>"; };
 		9B86B5ED1E69E4BD55ED561C /* Pace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pace.swift; sourceTree = "<group>"; };
 		9DC460AFB2BCF855F8D7409E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A7D9BA9B292EBBD2B8C035B5 /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
@@ -468,8 +470,9 @@
 		077DED457B6217EF29E83B1E /* Adapters */ = {
 			isa = PBXGroup;
 			children = (
-				3B0425CE5073D697BA27425F /* Exercise.swift */,
-				9A32BED01FDB7AD7105E1B0B /* ExerciseStorage.swift */,
+				3B0425CE5073D697BA27425F /* Exercise+ModelAdapting.swift */,
+				0F99154C28AA726600701F51 /* Plan+ModelAdapting.swift */,
+				9A32BED01FDB7AD7105E1B0B /* ExerciseStorageAdapting.swift */,
 				55F4AB939C4D787BE16202F9 /* PlanStorageAdapting.swift */,
 				3E09FB44D458EEF570F97BFE /* PlanStorageAdapting_tests.swift */,
 			);
@@ -1181,10 +1184,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				57E68713F0BE71CD40839E94 /* AppDependencies.swift in Sources */,
-				A7AF731FF80E0C0659C92EA7 /* Exercise.swift in Sources */,
-				1E30739F7BAF6A3EDB760019 /* ExerciseStorage.swift in Sources */,
+				A7AF731FF80E0C0659C92EA7 /* Exercise+ModelAdapting.swift in Sources */,
+				1E30739F7BAF6A3EDB760019 /* ExerciseStorageAdapting.swift in Sources */,
 				C40F3637930CC2781CF6DAF8 /* PlanStorageAdapting.swift in Sources */,
 				1F776B12EE644B65C3869AEF /* SceneDelegate.swift in Sources */,
+				0F99154D28AA726600701F51 /* Plan+ModelAdapting.swift in Sources */,
 				DFD06561732C196C004999BB /* WeightsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
