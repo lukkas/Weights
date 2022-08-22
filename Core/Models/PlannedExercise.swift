@@ -24,7 +24,7 @@ public struct PlannedExercise {
 extension PlannedExercise {
     static func make() -> PlannedExercise {
         return PlannedExercise(
-            exercise: { () -> Exercise in fatalError() }(),
+            exercise: .make(),
             pace: nil,
             setCollections: [],
             createsSupersets: false
