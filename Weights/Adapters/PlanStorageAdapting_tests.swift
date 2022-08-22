@@ -27,23 +27,42 @@ class PlanStorageAdaptingSpec: QuickSpec {
                 sut = nil
                 NSManagedObjectContext.synchronousMode = false
             }
-            context("when empty plan inserted") {
+            describe("when insertign plans") {
                 var plansAccumulator: PublisherAccumulator<[Core.Plan], Never>!
-                let planToInsert = Core.Plan.make()
-                beforeEach {
-                    plansAccumulator = PublisherAccumulator(publisher: sut.autoupdatingPlans)
-                    sut.insert(planToInsert)
+                var planToInsert: Core.Plan!
+                context("when empty plan inserted") {
+                    beforeEach {
+                        plansAccumulator = PublisherAccumulator(publisher: sut.autoupdatingPlans)
+                        planToInsert = .make()
+                        sut.insert(planToInsert)
+                    }
+                    it("will emit updated plans") {
+                        expect(plansAccumulator.updates.count).to(equal(2))
+                        expect(plansAccumulator.update(at: 1)).to(haveCount(1))
+                        expect(plansAccumulator.update(at: 1)).to(containElementSatisfying({ insertedPlan in
+                            insertedPlan.name == planToInsert.name
+                        }))
+                    }
                 }
-                it("will emit updated plans") {
-                    expect(plansAccumulator.updates.count).to(equal(2))
-                    expect(plansAccumulator.update(at: 1)).to(haveCount(1))
-                    expect(plansAccumulator.update(at: 1)).to(containElementSatisfying({ insertedPlan in
-                        insertedPlan.name == planToInsert.name
-                    }))
+                context("when plan with days is inserted") {
+                    beforeEach {
+                        plansAccumulator = PublisherAccumulator(publisher: sut.autoupdatingPlans)
+                        planToInsert = .make(
+                            Plan.Proto.Day(
+                                .init(.init(1, 3, 10)),
+                                .init(.init(2, 3, 10))
+                            ),
+                            Plan.Proto.Day(
+                                .init(.init(1, 3, 10)),
+                                .init(.init(2, 3, 10))
+                            )
+                        )
+                        sut.insert(planToInsert)
+                    }
+                    it("will emit updated plan") {
+//                        expect(plansAccumulator.update(at: 1)).to(haveCount(1))
+                    }
                 }
-            }
-            context("when plan with days is inserted") {
-                
             }
         }
     }
