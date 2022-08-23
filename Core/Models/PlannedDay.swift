@@ -10,6 +10,11 @@ import Foundation
 public struct PlannedDay: Equatable {
     public let name: String
     public let exercises: [PlannedExercise]
+    
+    public init(name: String, exercises: [PlannedExercise]) {
+        self.name = name
+        self.exercises = exercises
+    }
 }
 
 #if DEBUG

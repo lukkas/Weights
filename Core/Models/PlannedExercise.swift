@@ -12,12 +12,30 @@ public struct PlannedExercise: Equatable {
         public let numberOfSets: Int
         public let volume: Int // reps/seconds/meters
         public let weight: Weight
+        
+        public init(numberOfSets: Int, volume: Int, weight: Weight) {
+            self.numberOfSets = numberOfSets
+            self.volume = volume
+            self.weight = weight
+        }
     }
     
     public let exercise: Exercise
     public let pace: Pace?
     public let setCollections: [SetCollection]
     public let createsSupersets: Bool
+    
+    public init(
+        exercise: Exercise,
+        pace: Pace? = nil,
+        setCollections: [PlannedExercise.SetCollection],
+        createsSupersets: Bool
+    ) {
+        self.exercise = exercise
+        self.pace = pace
+        self.setCollections = setCollections
+        self.createsSupersets = createsSupersets
+    }
 }
 
 #if DEBUG

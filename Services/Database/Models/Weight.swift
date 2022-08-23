@@ -14,4 +14,9 @@ public struct Weight: Codable, Equatable {
     
     public let value: Double
     public let unit: Unit
+    
+    public init(value: Double, unit: Weight.Unit) {
+        self.value = value
+        self.unit = unit
+    }
 }
