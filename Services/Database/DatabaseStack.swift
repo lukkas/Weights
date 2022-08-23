@@ -15,6 +15,7 @@ public func makeWeightsPersistentContainer() -> NSPersistentContainer {
         name: "Weights",
         managedObjectModel: DatabaseModelVersion.version1.managedObjectModel()
     )
+    registerValueTransformers()
     container.loadPersistentStores { _, error in
         if let error = error {
             assertionFailure("Did fail loading peristent store with: \(error)")
