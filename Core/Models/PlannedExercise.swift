@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct PlannedExercise {
-    public struct SetCollection {
+public struct PlannedExercise: Equatable {
+    public struct SetCollection: Equatable {
         public let numberOfSets: Int
         public let volume: Int // reps/seconds/meters
         public let weight: Weight

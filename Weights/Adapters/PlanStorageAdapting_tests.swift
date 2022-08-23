@@ -18,13 +18,15 @@ class PlanStorageAdaptingSpec: QuickSpec {
     override func spec() {
         describe("plan repository") {
             var sut: PlanRepository!
+            var moContext: NSManagedObjectContext!
             beforeEach {
                 NSManagedObjectContext.synchronousMode = true
-                let context = NSManagedObjectContext.weightsTestContext()
-                sut = PlanRepository(context: context)
+                moContext = NSManagedObjectContext.weightsTestContext()
+                sut = PlanRepository(context: moContext)
             }
             afterEach {
                 sut = nil
+                moContext = nil
                 NSManagedObjectContext.synchronousMode = false
             }
             describe("when insertign plans") {
@@ -60,7 +62,10 @@ class PlanStorageAdaptingSpec: QuickSpec {
                         sut.insert(planToInsert)
                     }
                     it("will emit updated plan") {
-//                        expect(plansAccumulator.update(at: 1)).to(haveCount(1))
+                        expect(plansAccumulator.update(at: 1)).to(haveCount(1))
+                        expect(plansAccumulator.update(at: 1)).to(containElementSatisfying({ emittedPlan in
+                            emittedPlan == planToInsert
+                        }))
                     }
                 }
             }

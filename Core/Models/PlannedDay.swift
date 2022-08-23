@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PlannedDay {
+public struct PlannedDay: Equatable {
     public let name: String
     public let exercises: [PlannedExercise]
 }

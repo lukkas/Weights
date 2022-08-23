@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Plan {
+public struct Plan: Equatable {
     public let name: String
     public let days: [PlannedDay]
     

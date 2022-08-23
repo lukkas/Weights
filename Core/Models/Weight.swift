@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Weight {
+public struct Weight: Equatable {
     public enum Unit {
         case kg, lbs
     }
