@@ -23,7 +23,7 @@ class ExerciseRepositorySpec: QuickSpec {
             
             beforeEach {
                 NSManagedObjectContext.synchronousMode = true
-                moContext = NSManagedObjectContext.weightsTestContext()
+                moContext = DatabaseStack.testInMemoryContext()
                 dateProvider = DateProvider()
                 sut = ExercisesRepository(
                     context: moContext,

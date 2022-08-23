@@ -21,7 +21,7 @@ class PlanStorageAdaptingSpec: QuickSpec {
             var moContext: NSManagedObjectContext!
             beforeEach {
                 NSManagedObjectContext.synchronousMode = true
-                moContext = NSManagedObjectContext.weightsTestContext()
+                moContext = DatabaseStack.testInMemoryContext()
                 sut = PlanRepository(context: moContext)
             }
             afterEach {

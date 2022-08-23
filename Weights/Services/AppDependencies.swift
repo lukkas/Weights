@@ -17,7 +17,9 @@ struct AppDependencies: CoreDependencies {
     let database: Database
     
     init() {
-        self.database = Database(persistentContainer: makeWeightsPersistentContainer())
+        self.database = Database(
+            persistentContainer: DatabaseStack.makeWeightsPersistentContainer()
+        )
         self.exerciseStorage = database.getExercisesRepository()
         self.planStorage = DTPlanStorage()
     }
