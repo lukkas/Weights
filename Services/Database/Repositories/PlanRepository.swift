@@ -22,8 +22,10 @@ public class PlanRepository {
     }
     
     public func autoupdatingPlans() -> AnyPublisher<[Plan], Never> {
+        let request = Plan.sortedFetchRequest
+        request.returnsObjectsAsFaults = false
         return context
-            .autoupdatingFetchRequest(with: Plan.sortedFetchRequest)
+            .autoupdatingFetchRequest(with: request)
             .eraseToAnyPublisher()
     }
 }

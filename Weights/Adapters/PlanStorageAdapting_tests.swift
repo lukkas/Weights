@@ -73,8 +73,8 @@ class PlanStorageAdaptingSpec: QuickSpec {
                         sut.insert(planToInsert)
                     }
                     it("will emit updated plan") {
-                        expect(plansAccumulator.update(at: 1)).to(haveCount(1))
-                        expect(plansAccumulator.update(at: 1)).to(containElementSatisfying({ emittedPlan in
+                        expect(plansAccumulator.updates.last).to(haveCount(1))
+                        expect(plansAccumulator.updates.last).to(containElementSatisfying({ emittedPlan in
                             emittedPlan == planToInsert
                         }))
                     }

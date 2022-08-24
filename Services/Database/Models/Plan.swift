@@ -10,7 +10,7 @@ import Foundation
 
 public class Plan: NSManagedObject {
     @NSManaged public var name: String
-    @NSManaged public var days: [PlannedDay]
+    @NSManaged public var days: NSOrderedSet
 }
 
 extension Plan: Managed {

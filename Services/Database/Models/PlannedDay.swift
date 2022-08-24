@@ -10,5 +10,5 @@ import Foundation
 
 public class PlannedDay: NSManagedObject, Managed {
     @NSManaged public var name: String
-    @NSManaged public var exercises: [PlannedExercise]
+    @NSManaged public var exercises: NSOrderedSet
 }

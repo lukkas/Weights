@@ -16,7 +16,7 @@ extension PlanRepository: PlanStoring {
         insertPlan { context in
             let insertedPlan = context.insertObject() as Services.Plan
             insertedPlan.name = plan.name
-            insertedPlan.days = prepareDays(for: plan, in: context)
+            insertedPlan.days = NSOrderedSet(array: prepareDays(for: plan, in: context))
         }
     }
     
@@ -28,7 +28,7 @@ extension PlanRepository: PlanStoring {
         for modelDay in plan.days {
             let day = context.insertObject() as Services.PlannedDay
             day.name = modelDay.name
-            day.exercises = preparePlannedExercises(from: modelDay, in: context)
+            day.exercises = NSOrderedSet(array: preparePlannedExercises(from: modelDay, in: context))
             days.append(day)
         }
         return days

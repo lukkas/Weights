@@ -13,7 +13,7 @@ extension Services.Plan {
     func toCore() -> Core.Plan {
         return Core.Plan(
             name: name,
-            days: days.map({ $0.toCore() })
+            days: days.map({ ($0 as! Services.PlannedDay).toCore() })
         )
     }
 }
@@ -22,7 +22,7 @@ extension Services.PlannedDay {
     func toCore() -> Core.PlannedDay {
         return Core.PlannedDay(
             name: name,
-            exercises: exercises.map({ $0.toCore() })
+            exercises: exercises.map({ ($0 as! Services.PlannedExercise).toCore() })
         )
     }
 }
