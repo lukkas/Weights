@@ -19,6 +19,15 @@ class PlanStorageAdaptingSpec: QuickSpec {
         describe("plan repository") {
             var sut: PlanRepository!
             var moContext: NSManagedObjectContext!
+            func populateContextWithExercises(from plan: Core.Plan) {
+                let allExercises = plan.days
+                    .flatMap(\.exercises)
+                    .map(\.exercise)
+                let exerciseRepository = ExercisesRepository(context: moContext)
+                for exercise in allExercises {
+                    exerciseRepository.insert(exercise)
+                }
+            }
             beforeEach {
                 NSManagedObjectContext.synchronousMode = true
                 moContext = DatabaseStack.testInMemoryContext()
@@ -29,13 +38,14 @@ class PlanStorageAdaptingSpec: QuickSpec {
                 moContext = nil
                 NSManagedObjectContext.synchronousMode = false
             }
-            describe("when insertign plans") {
+            describe("when inserting plans") {
                 var plansAccumulator: PublisherAccumulator<[Core.Plan], Never>!
                 var planToInsert: Core.Plan!
                 context("when empty plan inserted") {
                     beforeEach {
                         plansAccumulator = PublisherAccumulator(publisher: sut.autoupdatingPlans)
                         planToInsert = .make()
+                        populateContextWithExercises(from: planToInsert!)
                         sut.insert(planToInsert)
                     }
                     it("will emit updated plans") {
@@ -59,6 +69,7 @@ class PlanStorageAdaptingSpec: QuickSpec {
                                 .init(.init(2, 3, 10))
                             )
                         )
+                        populateContextWithExercises(from: planToInsert!)
                         sut.insert(planToInsert)
                     }
                     it("will emit updated plan") {

@@ -13,6 +13,12 @@ public class PlannedExercise: NSManagedObject, Managed {
         public let numberOfSets: Int
         public let volume: Int // reps/seconds/meters
         public let weight: Weight
+        
+        public init(numberOfSets: Int, volume: Int, weight: Weight) {
+            self.numberOfSets = numberOfSets
+            self.volume = volume
+            self.weight = weight
+        }
     }
     
     @NSManaged public var exercise: Exercise

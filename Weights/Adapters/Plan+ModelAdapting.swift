@@ -36,13 +36,3 @@ extension Services.PlannedExercise {
         )
     }
 }
-
-extension Services.PlannedExercise.SetCollection {
-    func toCore() -> Core.PlannedExercise.SetCollection {
-        return Core.PlannedExercise.SetCollection(
-            numberOfSets: numberOfSets,
-            volume: volume,
-            weight: weight.toCore()
-        )
-    }
-}

@@ -28,9 +28,36 @@ extension PlanRepository: PlanStoring {
         for modelDay in plan.days {
             let day = context.insertObject() as Services.PlannedDay
             day.name = modelDay.name
+            day.exercises = preparePlannedExercises(from: modelDay, in: context)
             days.append(day)
         }
         return days
+    }
+    
+    private func preparePlannedExercises(
+        from day: Core.PlannedDay,
+        in context: NSManagedObjectContext
+    ) -> [Services.PlannedExercise] {
+        var exercises = [Services.PlannedExercise]()
+        for modelExercise in day.exercises {
+            let exercise = context.insertObject() as Services.PlannedExercise
+            exercise.exercise = findExercise(matching: modelExercise.exercise, in: context)
+            exercise.setCollections = modelExercise.setCollections.map({ $0.toServices() })
+            exercise.createsSupersets = modelExercise.createsSupersets
+            exercises.append(exercise)
+        }
+        return exercises
+    }
+    
+    private func findExercise(
+        matching exerciseToMatch: Core.Exercise,
+        in context: NSManagedObjectContext
+    ) -> Services.Exercise {
+        let request = NSFetchRequest<Services.Exercise>(entityName: Services.Exercise.entityName)
+        request.predicate = NSPredicate(format: "id == %@", exerciseToMatch.id as NSUUID)
+        request.fetchLimit = 1
+        let result = try! context.fetch(request)
+        return result.first!
     }
     
     public var currentPlan: AnyPublisher<Core.Plan?, Never> {
