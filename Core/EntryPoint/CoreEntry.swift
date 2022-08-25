@@ -27,7 +27,8 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, Plann
     // MARK: - RootRouting
     
     @ViewBuilder func plan() -> some View {
-        PlanView(router: self)
+        let model = PlanViewModel(planStorage: dependencies.planStorage)
+        PlanView(model: model, router: self)
     }
     
     @ViewBuilder func exerciseList() -> some View {

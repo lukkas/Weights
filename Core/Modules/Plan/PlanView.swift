@@ -8,8 +8,11 @@
 
 import SwiftUI
 
-struct PlanView<Router: PlanRouting>: View {
+struct PlanView<
+    Model: PlanViewModeling, Router: PlanRouting
+>: View {
     @State var isPresentingPlanner = false
+    @ObservedObject var model: Model
     
     let router: Router
     
@@ -25,6 +28,10 @@ struct PlanView<Router: PlanRouting>: View {
     }
 }
 
+protocol PlanViewModeling: ObservableObject {
+    
+}
+
 @MainActor
 protocol PlanRouting {
     associatedtype PlannerViewType: View
@@ -34,6 +41,10 @@ protocol PlanRouting {
 
 // MARK: - Design time
 
+class DTPlanViewModel: PlanViewModeling {
+    
+}
+
 struct DTPlanRouter: PlanRouting {
     @ViewBuilder func planner(isPresented: Binding<Bool>) -> some View {
         EmptyView()
@@ -42,6 +53,9 @@ struct DTPlanRouter: PlanRouting {
 
 struct PlanView_Previews: PreviewProvider {
     static var previews: some View {
-        PlanView(router: DTPlanRouter())
+        PlanView(
+            model: DTPlanViewModel(),
+            router: DTPlanRouter()
+        )
     }
 }
