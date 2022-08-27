@@ -237,7 +237,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private func addLabel() {
         addSubview(label)
         label.textAlignment = .center
-        label.font = UIFont.rounded(ofSize: 18, weight: .semibold)
+        label.font = .forStyle(.pickerField)
     }
     
     private func addResettingDrawer() {

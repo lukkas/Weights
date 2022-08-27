@@ -23,9 +23,9 @@ struct ExercisesListView<
                 if model.cellViewModels.isEmpty {
                     VStack {
                         Text(L10n.ExercisesList.Placeholder.title)
-                            .font(.title)
+                            .textStyle(.collectionPlaceholderTitle)
                         Text(L10n.ExercisesList.Placeholder.subtitle)
-                            .font(.subheadline)
+                            .textStyle(.collectionPlaceholderSubtitle)
                     }
                 } else {
                     List(
@@ -43,11 +43,7 @@ struct ExercisesListView<
             .navigationBarItems(trailing:
                 Button(action: { isPresenting.toggle() }, label: {
                     Image(systemName: "plus")
-                    .font(.system(
-                        size: 18,
-                        weight: .semibold,
-                        design: .rounded
-                    ))
+                    .textStyle(.largeButton)
                 })
             )
         }
@@ -71,9 +67,11 @@ protocol ExerciseListViewRouting {
 // MARK: - Design time
 
 class DTExerciseListViewModel: ExerciseListViewModeling {
-    var cellViewModels: [ExerciseCellViewModel] {
-        return .make(count: 2)
+    init(itemsCount: Int) {
+        cellViewModels = .make(count: itemsCount)
     }
+    
+    let cellViewModels: [ExerciseCellViewModel]
 }
 
 class DTExerciseListViewRouter: ExerciseListViewRouting {
@@ -85,7 +83,11 @@ class DTExerciseListViewRouter: ExerciseListViewRouting {
 struct ExercisesListView_Previews: PreviewProvider {
     static var previews: some View {
         ExercisesListView(
-            model: DTExerciseListViewModel(),
+            model: DTExerciseListViewModel(itemsCount: 2),
+            router: DTExerciseListViewRouter()
+        )
+        ExercisesListView(
+            model: DTExerciseListViewModel(itemsCount: 0),
             router: DTExerciseListViewRouter()
         )
     }

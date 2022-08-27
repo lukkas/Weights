@@ -242,7 +242,7 @@ class UIPacePicker: UIControl, UIKeyInput {
     private func styleLabels() {
         for label in labels {
             label.textAlignment = .center
-            label.font = UIFont.rounded(ofSize: 18, weight: .semibold)
+            label.font = .forStyle(.pickerField)
         }
     }
     

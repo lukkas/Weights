@@ -51,11 +51,7 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
             addExerciseTapped()
         } label: {
             Text(L10n.Planner.addExercise)
-                .font(.system(
-                    size: 18,
-                    weight: .medium,
-                    design: .rounded
-                ))
+                .textStyle(.largeButton)
                 .frame(maxWidth: .infinity, minHeight: 32)
         }
         .buttonStyle(.bordered)

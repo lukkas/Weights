@@ -25,7 +25,7 @@ struct ActivePlanCell: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(model.name)
-                    .font(.system(size: 24, weight: .semibold, design: .rounded))
+                    .textStyle(.largeSectionTitle)
                 HStack {
                     VStack {
                         ForEach(model.days) { day in

@@ -46,11 +46,7 @@ struct TrainingBottomBar: View {
             .disabled(rightArrowDisabled)
             .frame(width: 44)
         }
-        .font(.system(
-            size: 18,
-            weight: .medium,
-            design: .rounded
-        ))
+        .textStyle(.largeButton)
         .padding(10)
         .frame(maxWidth: .infinity, minHeight: 56)
         .background(Color.background)

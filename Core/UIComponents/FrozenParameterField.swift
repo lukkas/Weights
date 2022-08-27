@@ -15,11 +15,7 @@ struct FrozenParameterField: View {
     
     var body: some View {
         Text(value)
-            .font(.system(
-                size: 18,
-                weight: .semibold,
-                design: .rounded
-            ))
+            .textStyle(.pickerField)
             .frame(minWidth: 50, minHeight: 36)
             .background {
                 RoundedRectangle(cornerRadius: 8)

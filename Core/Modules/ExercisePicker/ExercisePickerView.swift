@@ -28,14 +28,13 @@ struct ExercisePickerView<Model: ExercisePickerViewModeling>: View {
                 VStack {
                     HStack {
                         Text(L10n.ExercisePicker.PickedSection.title)
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .textStyle(.sectionTitle)
                             .padding([.top, .leading])
                         Spacer()
                     }
                     if model.pickedExercises.isEmpty {
                         Text(L10n.ExercisePicker.PickedSection.emptyPlaceholder)
-                            .font(.system(size: 16))
-                            .foregroundColor(.secondaryLabel)
+                            .textStyle(.collectionPlaceholderSubtitle)
                             .frame(maxHeight: .infinity)
                     } else {
                         ScrollView(.horizontal, showsIndicators: false) {

@@ -30,11 +30,7 @@ struct PlannerSetCell: View {
                 .parameterField(.setsCount)
                 .parameterFieldAligned()
             Text("x")
-                .font(.system(
-                    size: 18,
-                    weight: .semibold,
-                    design: .rounded
-                ))
+                .textStyle(.pickerField)
             HStack {
                 PickerTextField(value: $model.metricValue)
                     .parameterField(model.metricFieldMode)
@@ -45,7 +41,7 @@ struct PlannerSetCell: View {
                     .parameterFieldAligned()
                 Text(model.weightLabel)
             }
-            .font(.system(size: 15, weight: .medium, design: .rounded))
+            .textStyle(.pickerAccessory)
             .padding(4)
             .background(
                 RoundedRectangle(cornerRadius: 8)

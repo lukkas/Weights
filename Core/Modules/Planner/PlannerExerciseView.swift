@@ -29,11 +29,7 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
                     }
                 } label: {
                     Text(L10n.Planner.Exercise.add)
-                        .font(.system(
-                            size: 16,
-                            weight: .medium,
-                            design: .rounded
-                        ))
+                        .textStyle(.mediumButton)
                         .padding(.vertical, 8)
                 }
                 .buttonStyle(.borderless)

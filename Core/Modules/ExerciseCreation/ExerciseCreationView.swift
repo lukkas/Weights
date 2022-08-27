@@ -18,20 +18,16 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
             Form {
                 TextField(L10n.ExerciseCreation.NameField.title, text: $model.name)
                 Section(
-                    header: Text(
-                        verbatim: L10n.ExerciseCreation.MetricSelector.title
-                    )
-                        .font(.headline),
-                    footer: Text(
-                        verbatim: L10n.ExerciseCreation.MetricSelector.comment
-                    )
+                    header: Text(L10n.ExerciseCreation.MetricSelector.title)
+                        .textStyle(.sectionTitle),
+                    footer: Text(L10n.ExerciseCreation.MetricSelector.comment)
                 ) {
                     optionButton(metric: .reps)
                     optionButton(metric: .duration)
                 }
                 Section(
                     header: Text(verbatim: L10n.ExerciseCreation.LateralitySelector.title)
-                        .font(.headline),
+                        .textStyle(.sectionTitle),
                     footer: Text(verbatim: L10n.ExerciseCreation.LateralitySelector.comment)
                 ) {
                     optionButton(laterality: .bilateral)

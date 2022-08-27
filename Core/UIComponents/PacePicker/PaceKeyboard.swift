@@ -55,13 +55,7 @@ struct KeyboardButtonStyle: ButtonStyle {
                 )
                 .frame(height: 52)
             configuration.label
-                .font(
-                    .system(
-                        size: 18,
-                        weight: .medium,
-                        design: .rounded
-                    )
-                )
+                .textStyle(.largeButton)
         }
     }
 }

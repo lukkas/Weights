@@ -18,11 +18,7 @@ struct PickedExerciseCell: View {
                 onRemoveTapped()
             } label: {
                 Text(exercise.exerciseName)
-                    .font(
-                        .system(size: 16,
-                                weight: .regular,
-                                design: .default)
-                    )
+                    .textStyle(.mediumButton)
                     .padding(.vertical, 12)
                     .padding(.horizontal)
             }

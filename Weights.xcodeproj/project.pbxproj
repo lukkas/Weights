@@ -49,7 +49,6 @@
 		3D159795C8D8593A19A27CB1 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697CDEAD6E20FD9516DB3177 /* Plan.swift */; };
 		401E7F74ED8B2F68D259874A /* PlanStoringStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D751F143E9EB4C8ABFDD73 /* PlanStoringStub.swift */; };
 		414DAD18E85EC399A3D93B2F /* TestFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9350F94AFEAFA8A8C1449F83 /* TestFailure.swift */; };
-		417952FDC77E835D41937022 /* ParameterGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27C9EADFB9BC8B435E427 /* ParameterGauge.swift */; };
 		45D91F2B041AAB17C905625F /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AEDBD65BF68A257ACEA645 /* PlannerExerciseView.swift */; };
 		475399D6B4FBE256010F92D2 /* ExercisePickerViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBA1F205EF00FC4BC45365 /* ExercisePickerViewModel_tests.swift */; };
 		47B7FC952E787ABF8CE66523 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010EFB3A4C95D481D8D56EE0 /* Plan.swift */; };
@@ -60,7 +59,6 @@
 		505D1BDFA4EA3F465C206DB3 /* UIImpactFeedbackGeneratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8E203CCB39CFA9168B466 /* UIImpactFeedbackGeneratorMock.swift */; };
 		50FA619ECCEA641B2F2563E7 /* WeightsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D811FBC4C179E303111635B /* WeightsTests.swift */; };
 		57E68713F0BE71CD40839E94 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7CDB5692ECF1994B89EA52 /* AppDependencies.swift */; };
-		58822B7E4D9821AD59BC6827 /* SetCounterField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12EBFB1AFE46A5A8511DDC9 /* SetCounterField.swift */; };
 		5944DF8483CCCBF50C86A669 /* CoreDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E280A14D80882ECF38597D66 /* CoreDependencies.swift */; };
 		5D823F9EB14237CDC08B8A1C /* PaceKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A13AD3BF29D959C3632D85 /* PaceKeyboard.swift */; };
 		5ED4B07F3E850E9F49D53DEE /* UIPanGestureRecognizerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F07A9DE4A9C1B6D861C2FC /* UIPanGestureRecognizerMock.swift */; };
@@ -393,7 +391,6 @@
 		D9AF5AE31EA0CB1B05F67F21 /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
 		DD8B329198C197368D37EF7B /* PlannerExerciseDraggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseDraggable.swift; sourceTree = "<group>"; };
 		E0399ADA616BA6616BEA2088 /* Colors+UseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+UseCases.swift"; sourceTree = "<group>"; };
-		E12EBFB1AFE46A5A8511DDC9 /* SetCounterField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCounterField.swift; sourceTree = "<group>"; };
 		E17D64C4F24BA3A01D80983F /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		E280A14D80882ECF38597D66 /* CoreDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDependencies.swift; sourceTree = "<group>"; };
 		E7C8A798C24A2437E522B9B4 /* SetCollectionValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCollectionValueTransformer.swift; sourceTree = "<group>"; };
@@ -402,7 +399,6 @@
 		EC19EEA98F43DA001843FBEE /* TestUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC910D9256ECC76C0EC71473 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		EE22DCEE3CB26046082A0DA4 /* UIPacePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPacePicker.swift; sourceTree = "<group>"; };
-		EEF27C9EADFB9BC8B435E427 /* ParameterGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterGauge.swift; sourceTree = "<group>"; };
 		EF7D354FB5635990F61E7E53 /* Exercise+ModelAdapting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+ModelAdapting.swift"; sourceTree = "<group>"; };
 		F2ADC09BA00A61E62A815712 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4196EBECDC1E2392B12B54C /* PlannedExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExercise.swift; sourceTree = "<group>"; };
@@ -843,9 +839,7 @@
 				7B8CA20D92DC983B7C3E76AC /* Styling */,
 				8A7D9D2AEA2915227FB54D6C /* FrozenParameterField.swift */,
 				633DAEF5B7B36CE0DD757AD7 /* ParameterField.swift */,
-				EEF27C9EADFB9BC8B435E427 /* ParameterGauge.swift */,
 				B1853E1DB11D26506431105A /* RPEPicker.swift */,
-				E12EBFB1AFE46A5A8511DDC9 /* SetCounterField.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1272,7 +1266,6 @@
 				EF046E6EBCC37E070A6FDF46 /* PacePicker.swift in Sources */,
 				929BFB6FDCF17F91B74DB2C4 /* ParameterField.swift in Sources */,
 				0F74945A28B68C8A00612A31 /* PlanViewModel.swift in Sources */,
-				417952FDC77E835D41937022 /* ParameterGauge.swift in Sources */,
 				DC6C990B3260BF6461EA912E /* PickedExerciseCell.swift in Sources */,
 				AE0958B5F5518FFDCB007AA4 /* PickerTextField.swift in Sources */,
 				D4A3CB2CD13B26BD0FA28282 /* PlaceholderClosures.swift in Sources */,
@@ -1294,7 +1287,6 @@
 				72967505F4415EFBCF933A4E /* RPE.swift in Sources */,
 				C9E1A855E879DD1D904DAB6A /* RPEPicker.swift in Sources */,
 				BBE22A981E6BDBD8FF4BCB86 /* RootView.swift in Sources */,
-				58822B7E4D9821AD59BC6827 /* SetCounterField.swift in Sources */,
 				FA8BBBF4A2EC47D3B4B2054B /* TextStyle.swift in Sources */,
 				1E5A098A0A7776486CD42DD6 /* TrainingBottomBar.swift in Sources */,
 				BC491AE4145A0A997A7A4127 /* UIFont+Rounded.swift in Sources */,
