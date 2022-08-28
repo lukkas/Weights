@@ -39,7 +39,7 @@ struct TextStyle: ViewModifier {
         case .sectionTitle:
             return .system(size: 18, weight: .semibold, design: .rounded)
         case .collectionPlaceholderTitle:
-            return .system(size: 32, weight: .medium, design: .rounded)
+            return .system(size: 28, weight: .medium, design: .rounded)
         case .collectionPlaceholderSubtitle:
             return .system(size: 16, weight: .regular, design: .rounded)
         case .pickerField:
@@ -81,7 +81,7 @@ extension UIFont {
         case .sectionTitle:
             return .rounded(ofSize: 18, weight: .semibold)
         case .collectionPlaceholderTitle:
-            return .rounded(ofSize: 32, weight: .medium)
+            return .rounded(ofSize: 28, weight: .medium)
         case .collectionPlaceholderSubtitle:
             return .rounded(ofSize: 16, weight: .regular)
         case .pickerField:

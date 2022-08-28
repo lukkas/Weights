@@ -115,6 +115,20 @@ internal enum L10n {
   }
 
   internal enum Plans {
+    internal enum Collection {
+      internal enum Placeholder {
+        /// Tap plus to add your first plan
+        internal static let subtitle = L10n.tr("Localizable", "plans.collection.placeholder.subtitle")
+        /// You haven't added any plans yet
+        internal static let title = L10n.tr("Localizable", "plans.collection.placeholder.title")
+      }
+      internal enum SectionHeader {
+        /// CURRENT PLAN
+        internal static let currentPlan = L10n.tr("Localizable", "plans.collection.sectionHeader.currentPlan")
+        /// OTHER PLANS
+        internal static let otherPlans = L10n.tr("Localizable", "plans.collection.sectionHeader.otherPlans")
+      }
+    }
     internal enum NavBar {
       /// Plan
       internal static let title = L10n.tr("Localizable", "plans.navBar.title")

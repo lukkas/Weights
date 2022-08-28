@@ -89,6 +89,7 @@ struct ActivePlanCell: View {
             Text(model.schedulingInfo)
         }
         .padding(16)
+        .cardDesign()
     }
     
     private func dayLabelColor(for status: ActivePlanCellModel.DayState) -> Color {
@@ -107,14 +108,11 @@ struct ActivePlanCell: View {
     }
 }
 
-struct ActivePlanCell_Previews: PreviewProvider {
-    static var previews: some View {
-        ActivePlanCell(model: model)
-            .cardPreview()
-    }
-    
-    private static var model: ActivePlanCellModel {
-        return ActivePlanCellModel(
+// MARK: - Design time
+
+extension ActivePlanCellModel {
+    static func dt_upperLower() -> Self {
+        ActivePlanCellModel(
             name: "Upper - Lower",
             days: [
                 .init(id: .init(), name: "A1", state: .regular),
@@ -134,5 +132,12 @@ struct ActivePlanCell_Previews: PreviewProvider {
                 options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
             )
         )
+    }
+}
+
+struct ActivePlanCell_Previews: PreviewProvider {
+    static var previews: some View {
+        ActivePlanCell(model: .dt_upperLower())
+            .cellPreview()
     }
 }

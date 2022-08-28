@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct PlanCellModel {
+struct PlanCellModel: Identifiable {
+    let id: UUID
     let name: String
     let days: [String]
 }
@@ -47,19 +48,25 @@ struct PlanCell: View {
             Text("Last performed: 12.03.2022 - 21.04.2022")
         }
         .padding()
+        .cardDesign()
+    }
+}
+
+// MARK: - Design time
+
+extension PlanCellModel {
+    static func dt_pushPullLegs() -> Self {
+        return PlanCellModel(
+            id: UUID(),
+            name: "Push - pull - legs",
+            days: ["Push", "Pull", "Legs", "FBW"]
+        )
     }
 }
 
 struct PlanCell_Previews: PreviewProvider {
     static var previews: some View {
-        PlanCell(model: model)
-            .cardPreview()
-    }
-    
-    private static var model: PlanCellModel {
-        return PlanCellModel(
-            name: "Push - pull - legs",
-            days: ["Push", "Pull", "Legs", "FBW"]
-        )
+        PlanCell(model: .dt_pushPullLegs())
+            .cellPreview()
     }
 }

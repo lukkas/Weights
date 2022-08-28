@@ -8,6 +8,9 @@
 import Foundation
 
 class PlanViewModel: PlanViewModeling {
+    @Published private(set) var currentPlan: ActivePlanCellModel?
+    @Published private(set) var otherPlans: [PlanCellModel] = []
+    
     private let planStorage: PlanStoring
     
     init(planStorage: PlanStoring) {

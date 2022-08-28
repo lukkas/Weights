@@ -12,8 +12,8 @@ struct CardDesign: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background {
-                Color.background
-                    .cornerRadius(10)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .foregroundColor(.background)
             }
     }
 }

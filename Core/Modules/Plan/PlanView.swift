@@ -18,11 +18,45 @@ struct PlanView<
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVStack {
-                    
+            Group {
+                if model.currentPlan == nil && model.otherPlans.isEmpty {
+                    VStack {
+                        Text(L10n.Plans.Collection.Placeholder.title)
+                            .multilineTextAlignment(TextAlignment.center)
+                            .textStyle(.collectionPlaceholderTitle)
+                        Text(L10n.Plans.Collection.Placeholder.subtitle)
+                            .textStyle(.collectionPlaceholderSubtitle)
+                    }
+                } else {
+                    ScrollView {
+                        LazyVStack {
+                            if let current = model.currentPlan {
+                                Section {
+                                    ActivePlanCell(model: current)
+                                } header: {
+                                    sectionHeader(
+                                        titled: L10n.Plans.Collection.SectionHeader.currentPlan
+                                    )
+                                }
+                                .padding(.horizontal)
+                            }
+                            if !model.otherPlans.isEmpty {
+                                Section {
+                                    ForEach(model.otherPlans) { plan in
+                                        PlanCell(model: plan)
+                                    }
+                                } header: {
+                                    sectionHeader(
+                                        titled: L10n.Plans.Collection.SectionHeader.otherPlans
+                                    )
+                                }
+                                .padding(.horizontal)
+                            }
+                        }
+                    }
                 }
             }
+            .background(Color.groupedBackground)
             .navigationBarTitle(L10n.Plans.NavBar.title)
         }
 //        Button {
@@ -34,10 +68,19 @@ struct PlanView<
 //            router.planner(isPresented: $isPresentingPlanner)
 //        }
     }
+    
+    @ViewBuilder private func sectionHeader(titled title: String) -> some View {
+        Text(title)
+            .foregroundColor(.secondaryLabel)
+            .textStyle(.sectionTitle)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 8)
+    }
 }
 
 protocol PlanViewModeling: ObservableObject {
-    
+    var currentPlan: ActivePlanCellModel? { get }
+    var otherPlans: [PlanCellModel] { get }
 }
 
 @MainActor
@@ -50,7 +93,16 @@ protocol PlanRouting {
 // MARK: - Design time
 
 class DTPlanViewModel: PlanViewModeling {
+    var currentPlan: ActivePlanCellModel?
+    var otherPlans: [PlanCellModel]
     
+    init(
+        currentPlan: ActivePlanCellModel? = nil,
+        otherPlans: [PlanCellModel] = []
+    ) {
+        self.currentPlan = currentPlan
+        self.otherPlans = otherPlans
+    }
 }
 
 struct DTPlanRouter: PlanRouting {
@@ -62,8 +114,20 @@ struct DTPlanRouter: PlanRouting {
 struct PlanView_Previews: PreviewProvider {
     static var previews: some View {
         PlanView(
+            model: DTPlanViewModel(
+                currentPlan: .dt_upperLower(),
+                otherPlans: [
+                    .dt_pushPullLegs(),
+                    .dt_pushPullLegs()
+                ]
+            ),
+            router: DTPlanRouter()
+        )
+        .previewDisplayName("Current and others")
+        PlanView(
             model: DTPlanViewModel(),
             router: DTPlanRouter()
         )
+        .previewDisplayName("Empty state")
     }
 }

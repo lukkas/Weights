@@ -37,7 +37,7 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
                 Spacer()
             }
         }
-        .padding(10)
+        .padding(12)
         .cardDesign()
     }
 }

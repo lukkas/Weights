@@ -17,6 +17,10 @@
 "root.tab.exercises" = "Exercises";
 
 "plans.navBar.title" = "Plan";
+"plans.collection.placeholder.title" = "You haven't added any plans yet";
+"plans.collection.placeholder.subtitle" = "Tap plus to add your first plan";
+"plans.collection.sectionHeader.currentPlan" = "CURRENT PLAN";
+"plans.collection.sectionHeader.otherPlans" = "OTHER PLANS";
 
 "planner.title" = "Planner";
 "planner.addDay" = "Add training day";
