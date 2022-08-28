@@ -123,11 +123,11 @@ struct ActivePlanCell_Previews: PreviewProvider {
                 .init(id: .init(), name: "B2", state: .regular)
             ],
             selectedDayDescription: [
-                try! AttributedString(markdown: "**B1** (upcoming)"),
+                try! AttributedString(markdown: "**B1** (approx. in 3 days)"),
                 "4x Squat",
                 "3x Deadlift",
                 "3x Hip thrust",
-                "Last performed: 7 days ago"
+                "Last performed: 4 days ago"
             ],
             schedulingInfo: try! AttributedString(
                 markdown: "**Started:** 23rd of July\n3 cycles completed",
