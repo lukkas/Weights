@@ -114,6 +114,13 @@ internal enum L10n {
     }
   }
 
+  internal enum Plans {
+    internal enum NavBar {
+      /// Plan
+      internal static let title = L10n.tr("Localizable", "plans.navBar.title")
+    }
+  }
+
   internal enum Root {
     internal enum Tab {
       /// Exercises

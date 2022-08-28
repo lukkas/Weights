@@ -17,14 +17,22 @@ struct PlanView<
     let router: Router
     
     var body: some View {
-        Button {
-            isPresentingPlanner = true
-        } label: {
-            Text("Show planner")
+        NavigationStack {
+            ScrollView {
+                LazyVStack {
+                    
+                }
+            }
+            .navigationBarTitle(L10n.Plans.NavBar.title)
         }
-        .sheet(isPresented: $isPresentingPlanner) {
-            router.planner(isPresented: $isPresentingPlanner)
-        }
+//        Button {
+//            isPresentingPlanner = true
+//        } label: {
+//            Text("Show planner")
+//        }
+//        .sheet(isPresented: $isPresentingPlanner) {
+//            router.planner(isPresented: $isPresentingPlanner)
+//        }
     }
 }
 
