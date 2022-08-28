@@ -18,11 +18,12 @@ struct ActivePlanCellModel {
     struct Day: Identifiable {
         let id: UUID
         let name: String
-        let isUpcoming: Bool
+        let state: DayState
     }
     let name: String
     let days: [Day]
     let selectedDayDescription: [AttributedString]
+    let schedulingInfo: AttributedString
 }
 
 struct ActivePlanCell: View {
@@ -30,8 +31,18 @@ struct ActivePlanCell: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(model.name)
-                .textStyle(.largeSectionTitle)
+            HStack {
+                Text(model.name)
+                    .textStyle(.largeSectionTitle)
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .textStyle(.largeIconButton)
+                        .tint(.label)
+                }
+            }
             HStack {
                 HStack {
                     ForEach(model.days) { day in
@@ -39,19 +50,12 @@ struct ActivePlanCell: View {
                             
                         } label: {
                             Text(day.name)
-                                .foregroundColor(
-                                    day.isUpcoming
-                                    ? .contrastLabel
-                                    : .accentColor
-                                )
-                                .padding(4)
+                                .foregroundColor(dayLabelColor(for: day.state))
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
                                 .background(
                                     RoundedRectangle(cornerRadius: 4, style: .continuous)
-                                        .foregroundColor(
-                                            day.isUpcoming
-                                            ? .accentColor
-                                            : .secondaryBackground
-                                        )
+                                        .foregroundColor(dayForegroundColor(for: day.state))
                                 )
                         }
                         if day.id != model.days.last?.id {
@@ -82,8 +86,24 @@ struct ActivePlanCell: View {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .foregroundColor(.secondaryBackground)
             )
+            Text(model.schedulingInfo)
         }
         .padding(16)
+    }
+    
+    private func dayLabelColor(for status: ActivePlanCellModel.DayState) -> Color {
+        switch status {
+        case .regular: return .accentColor
+        case .selected, .upcoming: return .contrastLabel
+        }
+    }
+    
+    private func dayForegroundColor(for status: ActivePlanCellModel.DayState) -> Color {
+        switch status {
+        case .regular: return .secondaryBackground
+        case .selected: return .accentColor
+        case .upcoming: return Color.accentColor.opacity(0.5)
+        }
     }
 }
 
@@ -97,17 +117,22 @@ struct ActivePlanCell_Previews: PreviewProvider {
         return ActivePlanCellModel(
             name: "Upper - Lower",
             days: [
-                .init(id: .init(), name: "A1", isUpcoming: false),
-                .init(id: .init(), name: "B1", isUpcoming: true),
-                .init(id: .init(), name: "A2", isUpcoming: false),
-                .init(id: .init(), name: "B2", isUpcoming: false)
+                .init(id: .init(), name: "A1", state: .regular),
+                .init(id: .init(), name: "B1", state: .selected),
+                .init(id: .init(), name: "A2", state: .upcoming),
+                .init(id: .init(), name: "B2", state: .regular)
             ],
             selectedDayDescription: [
                 try! AttributedString(markdown: "**B1** (upcoming)"),
                 "4x Squat",
                 "3x Deadlift",
-                "3x Hip thrust"
-            ]
+                "3x Hip thrust",
+                "Last performed: 7 days ago"
+            ],
+            schedulingInfo: try! AttributedString(
+                markdown: "**Started:** 23rd of July\n3 cycles completed",
+                options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+            )
         )
     }
 }

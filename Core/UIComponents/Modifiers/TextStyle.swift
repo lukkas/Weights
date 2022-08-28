@@ -19,6 +19,7 @@ struct TextStyle: ViewModifier {
         case pickerAccessory
         case mediumButton
         case largeButton
+        case largeIconButton
     }
     
     let style: Style
@@ -49,6 +50,8 @@ struct TextStyle: ViewModifier {
             return .system(size: 16, weight: .medium, design: .rounded)
         case .largeButton:
             return .system(size: 18, weight: .medium, design: .rounded)
+        case .largeIconButton:
+            return .system(size: 24, weight: .regular, design: .default)
         }
     }
     
@@ -89,6 +92,8 @@ extension UIFont {
             return .rounded(ofSize: 16, weight: .medium)
         case .largeButton:
             return .rounded(ofSize: 18, weight: .medium)
+        case .largeIconButton:
+            return .systemFont(ofSize: 24, weight: .regular)
         }
     }
 }
