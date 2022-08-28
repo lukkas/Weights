@@ -9,6 +9,12 @@ import Foundation
 import SwiftUI
 
 struct ActivePlanCellModel {
+    enum DayState {
+        case selected
+        case upcoming
+        case regular
+    }
+    
     struct Day: Identifiable {
         let id: UUID
         let name: String
@@ -16,6 +22,7 @@ struct ActivePlanCellModel {
     }
     let name: String
     let days: [Day]
+    let selectedDayDescription: [AttributedString]
 }
 
 struct ActivePlanCell: View {
@@ -26,9 +33,30 @@ struct ActivePlanCell: View {
             Text(model.name)
                 .textStyle(.largeSectionTitle)
             HStack {
-                VStack {
+                HStack {
                     ForEach(model.days) { day in
-                        Text(day.name)
+                        Button {
+                            
+                        } label: {
+                            Text(day.name)
+                                .foregroundColor(
+                                    day.isUpcoming
+                                    ? .contrastLabel
+                                    : .accentColor
+                                )
+                                .padding(4)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 4, style: .continuous)
+                                        .foregroundColor(
+                                            day.isUpcoming
+                                            ? .accentColor
+                                            : .secondaryBackground
+                                        )
+                                )
+                        }
+                        if day.id != model.days.last?.id {
+                            Text("|")
+                        }
                     }
                 }
                 .font(.system(size: 18, weight: .medium, design: .rounded))
@@ -43,6 +71,17 @@ struct ActivePlanCell: View {
                 .tint(Color.green)
                 .buttonStyle(.borderedProminent)
             }
+            VStack(alignment: .leading) {
+                ForEach(model.selectedDayDescription, id: \.self) { descriptionLine in
+                    Text(descriptionLine)
+                }
+            }
+            .padding(8)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .foregroundColor(.secondaryBackground)
+            )
         }
         .padding(16)
     }
@@ -62,6 +101,12 @@ struct ActivePlanCell_Previews: PreviewProvider {
                 .init(id: .init(), name: "B1", isUpcoming: true),
                 .init(id: .init(), name: "A2", isUpcoming: false),
                 .init(id: .init(), name: "B2", isUpcoming: false)
+            ],
+            selectedDayDescription: [
+                try! AttributedString(markdown: "**B1** (upcoming)"),
+                "4x Squat",
+                "3x Deadlift",
+                "3x Hip thrust"
             ]
         )
     }
