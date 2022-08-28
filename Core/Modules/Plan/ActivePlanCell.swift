@@ -22,36 +22,36 @@ struct ActivePlanCell: View {
     let model: ActivePlanCellModel
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(model.name)
-                    .textStyle(.largeSectionTitle)
-                HStack {
-                    VStack {
-                        ForEach(model.days) { day in
-                            Text(day.name)
-                        }
+        VStack(alignment: .leading) {
+            Text(model.name)
+                .textStyle(.largeSectionTitle)
+            HStack {
+                VStack {
+                    ForEach(model.days) { day in
+                        Text(day.name)
                     }
-                    .font(.system(size: 18, weight: .medium, design: .rounded))
-                    Spacer()
-                    Button {
-                        
-                    } label: {
-                        Text("Start")
-                            .frame(minWidth: 60, minHeight: 44)
-                    }
-                    .tint(Color.green)
-                    .buttonStyle(.borderedProminent)
                 }
+                .font(.system(size: 18, weight: .medium, design: .rounded))
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Text("Start")
+                        .textStyle(.largeButton)
+                        .frame(minWidth: 60, minHeight: 44)
+                }
+                .tint(Color.green)
+                .buttonStyle(.borderedProminent)
             }
         }
+        .padding(16)
     }
 }
 
 struct ActivePlanCell_Previews: PreviewProvider {
     static var previews: some View {
         ActivePlanCell(model: model)
-            .cellPreview()
+            .cardPreview()
     }
     
     private static var model: ActivePlanCellModel {
