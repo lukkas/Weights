@@ -18,55 +18,58 @@ struct PlanView<
     
     var body: some View {
         NavigationStack {
-            Group {
-                if model.currentPlan == nil && model.otherPlans.isEmpty {
-                    VStack {
-                        Text(L10n.Plans.Collection.Placeholder.title)
-                            .multilineTextAlignment(TextAlignment.center)
-                            .textStyle(.collectionPlaceholderTitle)
-                        Text(L10n.Plans.Collection.Placeholder.subtitle)
-                            .textStyle(.collectionPlaceholderSubtitle)
-                    }
-                } else {
-                    ScrollView {
-                        LazyVStack {
-                            if let current = model.currentPlan {
-                                Section {
-                                    ActivePlanCell(model: current)
-                                } header: {
-                                    sectionHeader(
-                                        titled: L10n.Plans.Collection.SectionHeader.currentPlan
-                                    )
-                                }
-                                .padding(.horizontal)
-                            }
-                            if !model.otherPlans.isEmpty {
-                                Section {
-                                    ForEach(model.otherPlans) { plan in
-                                        PlanCell(model: plan)
+            ZStack {
+                Color.groupedBackground.ignoresSafeArea()
+                Group {
+                    if model.currentPlan == nil && model.otherPlans.isEmpty {
+                        VStack {
+                            Text(L10n.Plans.Collection.Placeholder.title)
+                                .multilineTextAlignment(TextAlignment.center)
+                                .textStyle(.collectionPlaceholderTitle)
+                            Text(L10n.Plans.Collection.Placeholder.subtitle)
+                                .textStyle(.collectionPlaceholderSubtitle)
+                        }
+                    } else {
+                        ScrollView {
+                            LazyVStack {
+                                if let current = model.currentPlan {
+                                    Section {
+                                        ActivePlanCell(model: current)
+                                    } header: {
+                                        sectionHeader(
+                                            titled: L10n.Plans.Collection.SectionHeader.currentPlan
+                                        )
                                     }
-                                } header: {
-                                    sectionHeader(
-                                        titled: L10n.Plans.Collection.SectionHeader.otherPlans
-                                    )
+                                    .padding(.horizontal)
                                 }
-                                .padding(.horizontal)
+                                if !model.otherPlans.isEmpty {
+                                    Section {
+                                        ForEach(model.otherPlans) { plan in
+                                            PlanCell(model: plan)
+                                        }
+                                    } header: {
+                                        sectionHeader(
+                                            titled: L10n.Plans.Collection.SectionHeader.otherPlans
+                                        )
+                                    }
+                                    .padding(.horizontal)
+                                }
                             }
                         }
                     }
                 }
             }
-            .background(Color.groupedBackground)
             .navigationBarTitle(L10n.Plans.NavBar.title)
+            .navigationBarItems(trailing:
+                Button(action: { isPresentingPlanner.toggle() }, label: {
+                    Image(systemName: "plus")
+                    .textStyle(.largeButton)
+                })
+            )
         }
-//        Button {
-//            isPresentingPlanner = true
-//        } label: {
-//            Text("Show planner")
-//        }
-//        .sheet(isPresented: $isPresentingPlanner) {
-//            router.planner(isPresented: $isPresentingPlanner)
-//        }
+        .sheet(isPresented: $isPresentingPlanner) {
+            router.planner(isPresented: $isPresentingPlanner)
+        }
     }
     
     @ViewBuilder private func sectionHeader(titled title: String) -> some View {
