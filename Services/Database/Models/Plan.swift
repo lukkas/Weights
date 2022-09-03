@@ -9,6 +9,7 @@ import CoreData
 import Foundation
 
 public class Plan: NSManagedObject {
+    @NSManaged public var id: UUID
     @NSManaged public var name: String
     @NSManaged public var days: NSOrderedSet
     @NSManaged public var isCurrent: Bool

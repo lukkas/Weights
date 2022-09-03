@@ -53,7 +53,7 @@ class PlanViewModel: PlanViewModeling {
     
     private func createPlanCellModel(from plan: Plan) -> PlanCellModel {
         return PlanCellModel(
-            id: UUID(),
+            id: plan.id,
             name: plan.name,
             days: []
         )

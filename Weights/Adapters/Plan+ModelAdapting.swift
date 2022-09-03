@@ -12,6 +12,7 @@ import Services
 extension Services.Plan {
     func toCore() -> Core.Plan {
         return Core.Plan(
+            id: id,
             name: name,
             days: days.map({ ($0 as! Services.PlannedDay).toCore() }),
             isCurrent: isCurrent

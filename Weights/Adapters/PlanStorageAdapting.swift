@@ -15,6 +15,7 @@ extension PlanRepository: PlanStoring {
     public func insert(_ plan: Core.Plan) {
         insertPlan { context in
             let insertedPlan = context.insertObject() as Services.Plan
+            insertedPlan.id = plan.id
             insertedPlan.name = plan.name
             insertedPlan.days = NSOrderedSet(array: prepareDays(for: plan, in: context))
             insertedPlan.isCurrent = plan.isCurrent

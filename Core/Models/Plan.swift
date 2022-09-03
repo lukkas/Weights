@@ -8,15 +8,18 @@
 import Foundation
 
 public struct Plan: Equatable {
+    public let id: UUID
     public let name: String
     public let days: [PlannedDay]
     public let isCurrent: Bool
     
     public init(
+        id: UUID,
         name: String,
         days: [PlannedDay],
         isCurrent: Bool
     ) {
+        self.id = id
         self.name = name
         self.days = days
         self.isCurrent = isCurrent
@@ -87,7 +90,12 @@ extension Plan {
             let day = PlannedDay(name: "A\(dayIndex + 1)", exercises: exercises)
             days.append(day)
         }
-        return Plan(name: "Upper-Lower", days: days, isCurrent: isCurrent)
+        return Plan(
+            id: UUID(),
+            name: "Upper-Lower",
+            days: days,
+            isCurrent: isCurrent
+        )
     }
 }
 #endif
