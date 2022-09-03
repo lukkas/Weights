@@ -102,6 +102,15 @@ class PlannerViewModelSpec: QuickSpec {
                     }
                 }
             }
+            func prepareTwoDayPlan() {
+                let exercises = Exercise.make(count: 5)
+                sut.addExerciseTapped()
+                sut.exercisePickerRelay?.pick(exercises)
+//                sut.pages[0].exercises[0].variations[0].numberOfSets
+            }
+            context("when save is tapped") {
+
+            }
         }
     }
 }
