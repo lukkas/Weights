@@ -17,7 +17,7 @@ class PlannerExerciseViewModel: PlannerExerciseViewModeling {
         }
     }
     
-    private let exercise: Exercise
+    let exercise: Exercise
     
     init(exercise: Exercise) {
         self.exercise = exercise

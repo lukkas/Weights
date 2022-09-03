@@ -62,7 +62,43 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     func saveNavigationButtonTapped() {
+        saveCreatedPlan()
         isPresented = false
+    }
+    
+    private func saveCreatedPlan() {
+        let plan = createPlanFromViewModels()
+        planStorage.insert(plan)
+    }
+    
+    private func createPlanFromViewModels() -> Plan {
+        return Plan(
+            id: UUID(),
+            name: "Can't name plan yet",
+            days: collectPlannedDays(),
+            isCurrent: false
+        )
+    }
+    
+    private func collectPlannedDays() -> [PlannedDay] {
+        return pages.map { pageViewModel in
+            return PlannedDay(
+                name: pageViewModel.name,
+                exercises: extractExercises(from: pageViewModel)
+            )
+        }
+    }
+    
+    private func extractExercises(
+        from pageViewModel: PlannerPageViewModel<PlannerExerciseViewModel>
+    ) -> [PlannedExercise] {
+        return pageViewModel.exercises.map { exerciseViewModel in
+            return PlannedExercise(
+                exercise: exerciseViewModel.exercise,
+                setCollections: [],
+                createsSupersets: false
+            )
+        }
     }
     
     func addExerciseTapped() {

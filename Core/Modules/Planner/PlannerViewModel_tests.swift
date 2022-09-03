@@ -103,13 +103,28 @@ class PlannerViewModelSpec: QuickSpec {
                 }
             }
             func prepareTwoDayPlan() {
-                let exercises = Exercise.make(count: 5)
                 sut.addExerciseTapped()
-                sut.exercisePickerRelay?.pick(exercises)
-//                sut.pages[0].exercises[0].variations[0].numberOfSets
+                sut.exercisePickerRelay?.pick(Exercise.make(count: 3))
+                sut.plusTapped()
+                sut.addExerciseTapped()
+                sut.exercisePickerRelay?.pick(Exercise.make(count: 5))
             }
             context("when save is tapped") {
-
+                context("when two pages are created") {
+                    beforeEach {
+                        prepareTwoDayPlan()
+                        sut.saveNavigationButtonTapped()
+                    }
+                    it("plan storage will receive plan") {
+                        expect(planStorage.insertedPlans).to(haveCount(1))
+                    }
+                    it("plan received by plan storage will have two days") {
+                        expect(planStorage.insertedPlans.last?.days).to(haveCount(2))
+                    }
+                    it("numer of exercises added by user will match added plan") {
+                        expect(planStorage.insertedPlans.last?.days.first?.exercises).to(haveCount(3))
+                    }
+                }
             }
         }
     }

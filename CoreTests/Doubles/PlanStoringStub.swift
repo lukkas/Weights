@@ -11,6 +11,7 @@ import Foundation
 
 class PlanStoringStub: PlanStoring {
     private let plans = CurrentValueSubject<[Plan], Never>([])
+    private(set) var insertedPlans: [Plan] = []
     
     // MARK: - Interface
     
@@ -19,7 +20,7 @@ class PlanStoringStub: PlanStoring {
     }
     
     func insert(_ plan: Plan) {
-        
+        insertedPlans.append(plan)
     }
     
     // MARK: - Stubbing
