@@ -49,6 +49,15 @@ targets:
       - path: Core
         excludes:
           - "**/*_tests.swift"
+    preBuildScripts:
+      - script: |
+                SWIFTGEN='/opt/homebrew/bin/swiftgen'
+                if [[ -f $SWIFTGEN ]]; then
+                  $SWIFTGEN
+                else
+                  echo "warning: relying on Swiftgen installation at $SWIFTGEN. Skipping for now."
+                fi
+        name: Run Swiftgen
   CoreTests:
     type: bundle.unit-test
     platform: iOS
