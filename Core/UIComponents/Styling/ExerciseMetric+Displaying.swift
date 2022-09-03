@@ -14,6 +14,7 @@ extension Exercise.Metric {
         switch self {
         case .reps: return L10n.Common.reps
         case .duration: return L10n.Common.minutes
+        case .distance: return L10n.Common.meters
         }
     }
     
@@ -21,6 +22,7 @@ extension Exercise.Metric {
         switch self {
         case .reps: return .reps
         case .duration: return .time
+        case .distance: return .distance
         }
     }
 }

@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum ParameterFieldKind {
-    case reps, weight, time, setsCount
+    case reps, weight, time, setsCount, distance
 }
 
 extension PickerTextField {
@@ -27,7 +27,7 @@ private extension ParameterFieldKind {
         switch self {
         case .reps, .setsCount: return .wholes
         case .time: return .time
-        case .weight: return .floatingPoint
+        case .weight, .distance: return .floatingPoint
         }
     }
     
@@ -36,6 +36,7 @@ private extension ParameterFieldKind {
         case .reps, .setsCount: return 1
         case .time: return 5
         case .weight: return 0.25
+        case .distance: return 0.5
         }
     }
     
@@ -44,15 +45,16 @@ private extension ParameterFieldKind {
         case .reps, .setsCount: return 0 ... 100
         case .time: return 0 ... 3600
         case .weight: return 0 ... 10000
+        case .distance: return 0 ... 1000
         }
     }
     
     var themeColor: Color {
         switch self {
-        case .reps: return .repsMarker
+        case .reps, .setsCount: return .repsMarker
         case .weight: return .weightMarker
-        case .setsCount: return .repsMarker
         case .time: return .durationMarker
+        case .distance: return .distanceMarker
         }
     }
 }

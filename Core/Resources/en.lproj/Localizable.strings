@@ -11,6 +11,7 @@
 "common.kg" = "kg";
 "common.reps" = "reps";
 "common.minutes" = "mins";
+"common.meters" = "meters";
 
 "root.tab.home" = "Home";
 "root.tab.plan" = "Plan";
@@ -49,6 +50,7 @@
 "exerciseCreation.metricSelector.title" = "Metric";
 "exerciseCreation.metricSelector.reps" = "Reps";
 "exerciseCreation.metricSelector.duration" = "Duration";
+"exerciseCreation.metricSelector.distance" = "Distance";
 "exerciseCreation.metricSelector.comment" = "Metric is how volume of exercise is measured.\nFor exercises with duration metric you'll be able to use Weights as timer indicating when your set is over.";
 
 "exerciseCreation.lateralitySelector.title" = "Laterality";

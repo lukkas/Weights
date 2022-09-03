@@ -35,6 +35,7 @@ extension Core.Exercise.Metric {
         switch self {
         case .reps: return .reps
         case .duration: return .duration
+        case .distance: return .distance
         }
     }
 }
@@ -44,6 +45,7 @@ extension Services.Exercise.Metric {
         switch self {
         case .reps: return .reps
         case .duration: return .duration
+        case .distance: return .distance
         }
     }
 }

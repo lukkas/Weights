@@ -13,5 +13,6 @@ extension Color {
     static var repsMarker: Color { .weightYellow }
     static var durationMarker: Color { .weightYellow }
     static var weightMarker: Color { .weightBlue }
+    static var distanceMarker: Color { .weightGreen }
 }
 

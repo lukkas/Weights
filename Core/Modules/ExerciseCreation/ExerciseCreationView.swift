@@ -24,6 +24,7 @@ struct ExerciseCreationView<Model: ExerciseCreationViewModeling>: View {
                 ) {
                     optionButton(metric: .reps)
                     optionButton(metric: .duration)
+                    optionButton(metric: .distance)
                 }
                 Section(
                     header: Text(verbatim: L10n.ExerciseCreation.LateralitySelector.title)
@@ -103,6 +104,7 @@ private extension Exercise.Metric {
         switch self {
         case .duration: return L10n.ExerciseCreation.MetricSelector.duration
         case .reps: return L10n.ExerciseCreation.MetricSelector.reps
+        case .distance: return L10n.ExerciseCreation.MetricSelector.distance
         }
     }
     
@@ -110,6 +112,7 @@ private extension Exercise.Metric {
         switch self {
         case .duration: return "clock"
         case .reps: return "number.circle"
+        case .distance: return "figure.walk"
         }
     }
 }

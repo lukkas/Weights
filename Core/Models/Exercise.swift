@@ -10,7 +10,7 @@ import Foundation
 
 public struct Exercise: Equatable, Codable {
     public enum Metric: CaseIterable, Codable {
-        case reps, duration
+        case reps, duration, distance
     }
     
     public enum Laterality: CaseIterable, Codable {

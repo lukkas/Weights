@@ -19,6 +19,7 @@ public class Exercise: NSManagedObject {
     @objc public enum Metric: Int16 {
         case reps = 0
         case duration
+        case distance
     }
     
     @NSManaged public internal(set) var id: UUID
