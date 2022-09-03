@@ -17,6 +17,7 @@ extension PlanRepository: PlanStoring {
             let insertedPlan = context.insertObject() as Services.Plan
             insertedPlan.name = plan.name
             insertedPlan.days = NSOrderedSet(array: prepareDays(for: plan, in: context))
+            insertedPlan.isCurrent = plan.isCurrent
         }
     }
     
@@ -58,10 +59,6 @@ extension PlanRepository: PlanStoring {
         request.fetchLimit = 1
         let result = try! context.fetch(request)
         return result.first!
-    }
-    
-    public var currentPlan: AnyPublisher<Core.Plan?, Never> {
-        return Just(nil).eraseToAnyPublisher()
     }
     
     public var autoupdatingPlans: AnyPublisher<[Core.Plan], Never> {

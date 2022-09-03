@@ -11,6 +11,7 @@ import Foundation
 public class Plan: NSManagedObject {
     @NSManaged public var name: String
     @NSManaged public var days: NSOrderedSet
+    @NSManaged public var isCurrent: Bool
 }
 
 extension Plan: Managed {

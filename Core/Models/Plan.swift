@@ -10,10 +10,16 @@ import Foundation
 public struct Plan: Equatable {
     public let name: String
     public let days: [PlannedDay]
+    public let isCurrent: Bool
     
-    public init(name: String, days: [PlannedDay]) {
+    public init(
+        name: String,
+        days: [PlannedDay],
+        isCurrent: Bool
+    ) {
         self.name = name
         self.days = days
+        self.isCurrent = isCurrent
     }
 }
 
@@ -25,6 +31,14 @@ extension Plan {
             
             init(_ exercises: Proto.Exercise...) {
                 self.exercisesPrototypes = exercises
+            }
+            
+            static var anyDay: Self {
+                return .init(
+                    Exercise(Collection(3, 10, 50)),
+                    Exercise(Collection(3, 5, 100)),
+                    Exercise(Collection(3, 10, 50))
+                )
             }
         }
         
@@ -49,7 +63,7 @@ extension Plan {
         }
     }
     
-    static func make(_ daysProtos: Proto.Day...) -> Plan {
+    static func make(isCurrent: Bool = false, _ daysProtos: Proto.Day...) -> Plan {
         var days = [PlannedDay]()
         for (dayIndex, dayProto) in daysProtos.enumerated() {
             var exercises = [PlannedExercise]()
@@ -73,7 +87,7 @@ extension Plan {
             let day = PlannedDay(name: "A\(dayIndex + 1)", exercises: exercises)
             days.append(day)
         }
-        return Plan(name: "Upper-Lower", days: days)
+        return Plan(name: "Upper-Lower", days: days, isCurrent: isCurrent)
     }
 }
 #endif

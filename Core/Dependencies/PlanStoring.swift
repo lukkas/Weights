@@ -9,7 +9,6 @@ import Combine
 import Foundation
 
 public protocol PlanStoring {
-    var currentPlan: AnyPublisher<Plan?, Never> { get }
     var autoupdatingPlans: AnyPublisher<[Plan], Never> { get }
     func insert(_ plan: Plan)
 }
@@ -18,10 +17,6 @@ public protocol PlanStoring {
 
 public class DTPlanStorage: PlanStoring {
     public init() {}
-    
-    public var currentPlan: AnyPublisher<Plan?, Never> {
-        Just(nil).eraseToAnyPublisher()
-    }
     
     public var autoupdatingPlans: AnyPublisher<[Plan], Never> {
         Just([]).eraseToAnyPublisher()

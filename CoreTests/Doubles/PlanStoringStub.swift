@@ -10,13 +10,25 @@ import Combine
 import Foundation
 
 class PlanStoringStub: PlanStoring {
-    var currentPlan: AnyPublisher<Plan?, Never> {
-        return Just(nil).eraseToAnyPublisher()
-    }
+    private let plans = CurrentValueSubject<[Plan], Never>([])
+    
+    // MARK: - Interface
+    
     var autoupdatingPlans: AnyPublisher<[Plan], Never> {
-        return Just([]).eraseToAnyPublisher()
+        return plans.eraseToAnyPublisher()
     }
+    
     func insert(_ plan: Plan) {
         
+    }
+    
+    // MARK: - Stubbing
+    
+    func setPlans(_ plans: [Plan]) {
+        self.plans.send(plans)
+    }
+    
+    func append(_ plan: Plan) {
+        self.plans.value.append(plan)
     }
 }
