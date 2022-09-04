@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Pace: Equatable {
-    public enum Component: Equatable {
+    public enum Component: Equatable, Hashable {
         case explosive
         case number(Int)
     }

@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 class UIPacePicker: UIControl, UIKeyInput {
-    struct InputState {
+    struct InputState: Hashable {
         var eccentric: Pace.Component?
         var isometric: Pace.Component?
         var concentric: Pace.Component?
