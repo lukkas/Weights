@@ -8,15 +8,19 @@
 import Foundation
 import SwiftUI
 
-struct PlannerExerciseSupersetView<Model: PlannerExerciseSupersetViewModeling>: View {
-    @ObservedObject var model: Model
+struct PlannerExerciseSupersetView: View {
+    @ObservedObject var model: DTPlannerExerciseSupersetViewModel
     
     var body: some View {
         VStack(spacing: 4) {
-            HStack {
-                Text(model.headerRow.name)
-                Spacer()
-                PacePicker(pace: $model.headerRow.pace)
+            VStack {
+                ForEach($model.headerRows) { $row in
+                    HStack {
+                        Text(row.name)
+                        Spacer()
+                        PacePicker(pace: $row.pace)
+                    }
+                }
             }
             Divider()
             ForEach($model.variations) { variation in
@@ -42,13 +46,14 @@ struct PlannerExerciseSupersetView<Model: PlannerExerciseSupersetViewModeling>: 
     }
 }
 
-struct PlannerExerciseHeaderRow: Hashable {
+struct PlannerExerciseHeaderRow: Hashable, Identifiable {
+    let id = UUID()
     let name: String
     var pace: UIPacePicker.InputState
 }
 
 protocol PlannerExerciseSupersetViewModeling: ObservableObject, Identifiable, Hashable {
-    var headerRow: PlannerExerciseHeaderRow { get set }
+    var headerRows: [PlannerExerciseHeaderRow] { get set }
     var variations: [PlannerSetCellModel] { get set }
     func addVariationTapped()
 }
@@ -57,13 +62,13 @@ extension PlannerExerciseSupersetViewModeling {
     static func == (lhs: Self, rhs: Self) -> Bool {
         return
             lhs.id == rhs.id
-            && lhs.headerRow == rhs.headerRow
+            && lhs.headerRows == rhs.headerRows
             && lhs.variations == rhs.variations
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(headerRow)
+        hasher.combine(headerRows)
         hasher.combine(variations)
     }
 }
@@ -75,10 +80,14 @@ class DTPlannerExerciseSupersetViewModel: PlannerExerciseSupersetViewModeling {
         
     }
     
-    @Published var headerRow = PlannerExerciseHeaderRow(
-        name: "Squat",
-        pace: UIPacePicker.InputState()
-    )
+    @Published var headerRows = [
+        PlannerExerciseHeaderRow(
+            name: "Squat", pace: UIPacePicker.InputState()
+        ),
+        PlannerExerciseHeaderRow(
+            name: "Deadlift", pace: UIPacePicker.InputState()
+        ),
+    ]
     @Published var variations: [PlannerSetCellModel] = [.dt_reps]
     
     func addVariationTapped() {
