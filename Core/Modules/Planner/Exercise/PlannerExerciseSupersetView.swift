@@ -17,14 +17,26 @@ struct PlannerExerciseSupersetView: View {
                 ForEach($model.headerRows) { $row in
                     HStack {
                         Text(row.name)
+                            .foregroundColor(row.themeColor)
                         Spacer()
                         PacePicker(pace: $row.pace)
                     }
                 }
             }
-            Divider()
+            .padding(8)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .foregroundColor(.secondaryBackground)
+            )
+            .padding(.bottom, 8)
             ForEach($model.variations) { variation in
-                PlannerSetCell(model: variation)
+                PlannerSupersetCell(model: variation)
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .foregroundColor(.secondaryBackground)
+                    )
+                    .padding(.bottom, 8)
             }
             HStack {
                 Button {
@@ -50,11 +62,12 @@ struct PlannerExerciseHeaderRow: Hashable, Identifiable {
     let id = UUID()
     let name: String
     var pace: UIPacePicker.InputState
+    let themeColor: Color
 }
 
 protocol PlannerExerciseSupersetViewModeling: ObservableObject, Identifiable, Hashable {
     var headerRows: [PlannerExerciseHeaderRow] { get set }
-    var variations: [PlannerSetCellModel] { get set }
+    var variations: [PlannerSupersetCellModel] { get set }
     func addVariationTapped()
 }
 
@@ -75,6 +88,7 @@ extension PlannerExerciseSupersetViewModeling {
 
 // MARK: - Design time
 
+#if DEBUG
 class DTPlannerExerciseSupersetViewModel: PlannerExerciseSupersetViewModeling {
     init() {
         
@@ -82,16 +96,20 @@ class DTPlannerExerciseSupersetViewModel: PlannerExerciseSupersetViewModeling {
     
     @Published var headerRows = [
         PlannerExerciseHeaderRow(
-            name: "Squat", pace: UIPacePicker.InputState()
+            name: "Squat",
+            pace: UIPacePicker.InputState(),
+            themeColor: .weightRed
         ),
         PlannerExerciseHeaderRow(
-            name: "Deadlift", pace: UIPacePicker.InputState()
+            name: "Deadlift",
+            pace: UIPacePicker.InputState(),
+            themeColor: .weightGreen
         ),
     ]
-    @Published var variations: [PlannerSetCellModel] = [.dt_reps]
+    @Published var variations: [PlannerSupersetCellModel] = [.dt_repsAndMins]
     
     func addVariationTapped() {
-        variations.append(.dt_reps)
+        variations.append(.dt_repsAndMins)
     }
 }
 
@@ -101,3 +119,4 @@ struct PlannerExerciseSupersetView_Previews: PreviewProvider {
             .cellPreview()
     }
 }
+#endif

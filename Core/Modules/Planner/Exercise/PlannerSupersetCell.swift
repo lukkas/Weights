@@ -29,22 +29,24 @@ struct PlannerSupersetCell: View {
     var body: some View {
         HStack(spacing: 4) {
             PickerTextField(value: $model.numberOfSets)
-                .fillColor(.background)
+                .fillColor(.clear)
                 .borderColor(.label)
                 .parameterField(.setsCount)
                 .parameterFieldAligned()
+            Spacer()
             Text("x")
-                .textStyle(.pickerField)
+                .textStyle(.collectionPlaceholderTitle)
+            Spacer()
             VStack(spacing: 0) {
                 ForEach($model.exercises) { $exercise in
                     HStack {
                         PickerTextField(value: $exercise.metricValue)
-                            .fillColor(Color(white: 0.9))
+                            .fillColor(.secondaryBackground)
                             .parameterField(exercise.metricFieldMode)
                             .parameterFieldAligned()
                         Text(exercise.metricLabel)
                         PickerTextField(value: $exercise.weight)
-                            .fillColor(Color(white: 0.9))
+                            .fillColor(.secondaryBackground)
                             .parameterField(.weight)
                             .parameterFieldAligned()
                         Text(exercise.weightLabel)
@@ -59,9 +61,7 @@ struct PlannerSupersetCell: View {
             .fixedSize(horizontal: true, vertical: false)
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .textStyle(.pickerAccessory)
-            Spacer()
         }
-        .background(Color.background)
     }
 }
 
