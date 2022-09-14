@@ -29,7 +29,7 @@ struct PlannerSupersetCell: View {
     var body: some View {
         HStack(spacing: 4) {
             PickerTextField(value: $model.numberOfSets)
-                .fillColor(.clear)
+                .fillColor(nil)
                 .borderColor(.label)
                 .parameterField(.setsCount)
                 .parameterFieldAligned()
