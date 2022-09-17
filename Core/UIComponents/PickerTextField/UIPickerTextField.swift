@@ -50,6 +50,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             adjustBorder(animated: false)
         }
     }
+    var fontSize: CGFloat {
+        get { return label.font.pointSize }
+        set {
+            label.font = label.font.withSize(newValue)
+            invalidateIntrinsicContentSize()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,7 +69,15 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     required init?(coder aDecoder: NSCoder) { fatalError("Storyboards are not compatible with truth and beauty") }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 50, height: 36)
+        let verticalPadding = 18.0
+        let defaultFontSize = 18.0
+        let aspectRatio = AspectRatio(
+            width: 50,
+            height: verticalPadding + defaultFontSize
+        )
+        let height = fontSize + verticalPadding
+        let width = aspectRatio.width(forHeight: fontSize + verticalPadding)
+        return CGSize(width: width, height: height)
     }
     
     override var canBecomeFirstResponder: Bool {

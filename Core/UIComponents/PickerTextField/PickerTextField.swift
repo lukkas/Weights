@@ -15,6 +15,7 @@ struct PickerTextField: UIViewRepresentable {
     private var themeColor: Color = .accentColor
     private var fillColor: Color? = .secondaryFill
     private var borderColor: Color? = nil
+    private var fontSize: CGFloat = 18
     private var mode: UIPickerTextField.Mode = .wholes
     private var jumpInterval: Double? = 1
     private var minMaxRange: ClosedRange<Double>? = nil
@@ -45,6 +46,7 @@ struct PickerTextField: UIViewRepresentable {
         uiView.borderColor = borderColor.map(UIColor.init)
         uiView.mode = mode
         uiView.minMaxRange = minMaxRange
+        uiView.fontSize = fontSize
     }
     
     func makeCoordinator() -> Coordinator {
@@ -100,19 +102,34 @@ extension PickerTextField {
         copy.minMaxRange = range
         return copy
     }
+    
+    func fontSize(_ size: CGFloat) -> PickerTextField {
+        var copy = self
+        copy.fontSize = size
+        return copy
+    }
 }
 
 struct PickerTextField_Previews: PreviewProvider {
     struct Wrapper: View {
         @State var value: Double? = nil
+        let fontSize: CGFloat
         
         var body: some View {
             PickerTextField(value: $value)
                 .fillColor(.fill)
+                .fontSize(fontSize)
         }
     }
     
     static var previews: some View {
-        Wrapper()
+        Wrapper(fontSize: 18)
+            .previewDisplayName("Regular font")
+        Wrapper(fontSize: 24)
+            .previewDisplayName("Large font")
+        Wrapper(fontSize: 36)
+            .previewDisplayName("Very large font")
+        Wrapper(fontSize: 52)
+            .previewDisplayName("Enormous font")
     }
 }

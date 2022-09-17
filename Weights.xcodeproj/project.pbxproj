@@ -16,6 +16,8 @@
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
 		0E3E3199BE87152BB3BA0843 /* Weight+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7612CDF82B1362E8125D92 /* Weight+ModelAdapting.swift */; };
 		0F018E2E28CE624B0018EF11 /* PlannerSupersetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */; };
+		0F760B0928D5F04D00BD6CAB /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */; };
+		0F760B0B28D5F14300BD6CAB /* AspectRatio_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */; };
 		0FC9681728C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9681628C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift */; };
 		104E0D87144B332C9621ADFB /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD62C2FCE97AEB0BB2DEE5A7 /* PlanView.swift */; };
 		10684DAACABE0990A7D9170D /* PlannerDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18EB1C8FFED3BE54A535A3 /* PlannerDropController.swift */; };
@@ -285,6 +287,8 @@
 		0EEC462F99EB429D83F58DD0 /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
 		0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSupersetCell.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
+		0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
+		0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio_tests.swift; sourceTree = "<group>"; };
 		0FC9681628C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseSupersetView.swift; sourceTree = "<group>"; };
 		0FFCBE909CFDD602034E48C6 /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
 		14EE3F53D1BFC117227C5C4D /* WeightValueTransformer_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightValueTransformer_tests.swift; sourceTree = "<group>"; };
@@ -620,6 +624,8 @@
 				89929007B8BB3E45CB60F3B6 /* FloatingPoint+Extensions.swift */,
 				8354D9B9F1815A6410039F4F /* UIFont+Rounded.swift */,
 				15D1B09C169147D6708C5457 /* View+Debug.swift */,
+				0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */,
+				0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1240,6 +1246,7 @@
 				2E70067F0C3EA009B6F1E747 /* PlannerExerciseViewModel_tests.swift in Sources */,
 				042D77AFA5DA3EBE4DAE3E30 /* PlannerViewModel_tests.swift in Sources */,
 				D2A11CD889E069CD0D5BE004 /* PublisherListener.swift in Sources */,
+				0F760B0B28D5F14300BD6CAB /* AspectRatio_tests.swift in Sources */,
 				414DAD18E85EC399A3D93B2F /* TestFailure.swift in Sources */,
 				505D1BDFA4EA3F465C206DB3 /* UIImpactFeedbackGeneratorMock.swift in Sources */,
 				E2C9A1F54A294CD275FB36B5 /* UINotificationFeedbackGeneratorMock.swift in Sources */,
@@ -1305,6 +1312,7 @@
 				5944DF8483CCCBF50C86A669 /* CoreDependencies.swift in Sources */,
 				E579E729A57101B997F65550 /* CoreEntry.swift in Sources */,
 				3B4AA9B8FB668858D0788CFF /* Exercise.swift in Sources */,
+				0F760B0928D5F04D00BD6CAB /* AspectRatio.swift in Sources */,
 				6AD64777EBF45B9D0AFE4851 /* ExerciseCellViewModel.swift in Sources */,
 				152E601168999FC8D0E1C33A /* ExerciseCreationView.swift in Sources */,
 				ACD881C01824CA2C10612B75 /* ExerciseCreationViewModel.swift in Sources */,
