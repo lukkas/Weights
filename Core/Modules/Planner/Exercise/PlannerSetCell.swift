@@ -26,7 +26,7 @@ struct PlannerSetCell: View {
         HStack(spacing: 4) {
             PickerTextField(value: $model.numberOfSets)
                 .fillColor(.background)
-                .borderColor(.label)
+                .highlightColor(.label)
                 .parameterField(.setsCount)
                 .parameterFieldAligned()
             Text("x")

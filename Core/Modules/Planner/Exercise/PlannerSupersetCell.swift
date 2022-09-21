@@ -31,7 +31,7 @@ struct PlannerSupersetCell: View {
             PickerTextField(value: $model.numberOfSets)
                 .fontSize(44)
                 .fillColor(nil)
-                .borderColor(.label)
+                .highlightColor(.label)
                 .highlightStyle(.underline)
                 .parameterField(.setsCount)
                 .parameterFieldAligned()
