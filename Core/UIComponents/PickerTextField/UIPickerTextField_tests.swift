@@ -273,12 +273,12 @@ class UIPickerTextFieldTests: XCTestCase {
         _ = try getTap()
     }
     
-    func test_tap_whenTapped_shouldHighlightWithBorder() throws {
+    func test_tap_whenTappedInBorderHighlightStyle_shouldHighlightWithBorder() throws {
         // when
         try getTap().tap()
         
         // then
-        XCTAssertEqual(sut.layer.borderWidth, 2)
+        verify_isFieldHighlighted()
     }
     
     func test_tap_whenTappedSecondTime_shouldRemoveBorderHighlight() throws {
@@ -294,7 +294,15 @@ class UIPickerTextFieldTests: XCTestCase {
     
     private func verify_isFieldHighlighted(_ highlighted: Bool = true) {
         let expectedWidth: CGFloat = highlighted ? 2 : 0
-        XCTAssertEqual(sut.layer.borderWidth, expectedWidth)
+        let highlightShapeLayer = sut.layer
+                .sublayers?
+                .compactMap({ $0 as? CAShapeLayer })
+                .first
+        XCTAssertEqual(highlightShapeLayer?.lineWidth, expectedWidth)
+    }
+
+    func test_onlyShapeLayerBeingHighlightLayerTestAssumption() {
+        XCTAssertEqual(sut.layer.sublayers?.compactMap({ $0 as? CAShapeLayer }).count, 1)
     }
     
     func test_panning_whenPanningStartsInVerticalDirection_shouldHighlightWithBorder() throws {

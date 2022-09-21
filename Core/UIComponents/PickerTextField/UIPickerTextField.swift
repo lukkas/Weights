@@ -14,6 +14,9 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     enum Mode {
         case wholes, floatingPoint, time
     }
+    enum HightlightStyle {
+        case border, underline
+    }
     
     var mode: Mode = .wholes {
         didSet {
@@ -38,16 +41,17 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     var textValue: String { label.text ?? "" }
     
     private var isBeingEdited = false {
-        didSet { adjustBorder(animated: true) }
+        didSet { adjustHighlight(animated: true) }
     }
     private var editor: Editing!
     private var resettingDrawerProgress: CGFloat = 0
     private let label = UILabel()
+    private let highlightLayer = CAShapeLayer()
     private let resettingDrawer = UIResetValueDrawer()
     
-    var borderColor: UIColor? {
+    var highlightColor: UIColor? {
         didSet {
-            adjustBorder(animated: false)
+            adjustHighlight(animated: false)
         }
     }
     var fontSize: CGFloat {
@@ -57,6 +61,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             invalidateIntrinsicContentSize()
         }
     }
+    var highlightStyle: HightlightStyle = .border
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -105,6 +110,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     override func layoutSubviews() {
         label.frame = bounds
         resettingDrawer.frame = calculateDrawerFrame(forProgress: resettingDrawerProgress)
+        highlightLayer.path = createHighlightBezierPath().cgPath
     }
     
     private enum DrawerAnimationType {
@@ -144,13 +150,28 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             .offsetBy(dx: offset, dy: 0)
     }
     
-    private func adjustBorder(animated: Bool) {
-        let shouldHighlightBorder = isBeingEdited || panningState is ValueSteppingPanner
-        let color = shouldHighlightBorder ? tintColor : borderColor
-        let borderWidth: CGFloat = shouldHighlightBorder || borderColor != nil ? 2 : 0
-        let adjustment = { [layer] in
-            layer.borderColor = color?.cgColor
-            layer.borderWidth = borderWidth
+    private func createHighlightBezierPath() -> UIBezierPath {
+        switch highlightStyle {
+        case .underline:
+            let path = UIBezierPath()
+            let yPosition = bounds.maxY - 0.5 * highlightThickness()
+            path.move(to: CGPoint(x: bounds.minX, y: yPosition))
+            path.addLine(to: CGPoint(x: bounds.maxX, y: yPosition))
+            return path
+        case .border:
+            let inset = 0.5 * highlightThickness()
+            let rect = bounds.insetBy(dx: inset, dy: inset)
+            return UIBezierPath(roundedRect: rect, cornerRadius: 8)
+        }
+    }
+    
+    private func adjustHighlight(animated: Bool) {
+        let shouldHighlight = isBeingEdited || panningState is ValueSteppingPanner
+        let color = shouldHighlight ? tintColor : highlightColor
+        let highlightWidth: CGFloat = shouldHighlight || highlightColor != nil ? highlightThickness() : 0
+        let adjustment = { [highlightLayer] in
+            highlightLayer.strokeColor = color?.cgColor
+            highlightLayer.lineWidth = highlightWidth
         }
         if animated {
             UIView.animateKeyframes(
@@ -231,6 +252,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         configureAutolayoutPriorities()
         applyStyling()
         addLabel()
+        addHighlightLayer()
         addResettingDrawer()
         configureGestures()
     }
@@ -246,13 +268,28 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         backgroundColor = .secondarySystemFill
         layer.cornerRadius = 8
         layer.masksToBounds = true
-        layer.borderWidth = 0
     }
     
     private func addLabel() {
         addSubview(label)
         label.textAlignment = .center
         label.font = .forStyle(.pickerField)
+    }
+    
+    private func addHighlightLayer() {
+        layer.addSublayer(highlightLayer)
+        highlightLayer.allowsEdgeAntialiasing = true
+        highlightLayer.fillColor = nil
+        highlightLayer.lineWidth = highlightThickness()
+    }
+    
+    private func highlightThickness() -> CGFloat {
+        switch fontSize {
+        case 0 ..< 24: return 2
+        case 24 ..< 36: return 3
+        case 36...: return 4
+        default: return 2
+        }
     }
     
     private func addResettingDrawer() {
@@ -294,7 +331,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private var panningState: Panning? {
         didSet {
             if oldValue == nil || panningState == nil {
-                adjustBorder(animated: true)
+                adjustHighlight(animated: true)
             }
         }
     }

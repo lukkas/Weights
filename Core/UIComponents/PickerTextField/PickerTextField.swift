@@ -19,6 +19,7 @@ struct PickerTextField: UIViewRepresentable {
     private var mode: UIPickerTextField.Mode = .wholes
     private var jumpInterval: Double? = 1
     private var minMaxRange: ClosedRange<Double>? = nil
+    private var highlightStyle: UIPickerTextField.HightlightStyle = .border
     
     init(value: Binding<Double?>) {
         _value = value
@@ -43,10 +44,11 @@ struct PickerTextField: UIViewRepresentable {
         uiView.value = value
         uiView.tintColor = UIColor(themeColor)
         uiView.backgroundColor = fillColor.map(UIColor.init)
-        uiView.borderColor = borderColor.map(UIColor.init)
+        uiView.highlightColor = borderColor.map(UIColor.init)
         uiView.mode = mode
         uiView.minMaxRange = minMaxRange
         uiView.fontSize = fontSize
+        uiView.highlightStyle = highlightStyle
     }
     
     func makeCoordinator() -> Coordinator {
@@ -108,23 +110,48 @@ extension PickerTextField {
         copy.fontSize = size
         return copy
     }
+    
+    func highlightStyle(_ style: UIPickerTextField.HightlightStyle) -> PickerTextField {
+        var copy = self
+        copy.highlightStyle = style
+        return copy
+    }
 }
 
 struct PickerTextField_Previews: PreviewProvider {
     struct Wrapper: View {
-        @State var value: Double? = nil
+        @State var value: Double?
         let fontSize: CGFloat
+        let fillColor: Color?
+        let highlightStyle: UIPickerTextField.HightlightStyle
+        
+        init(
+            value: Double? = 0,
+            fontSize: CGFloat = 18,
+            fillColor: Color? = .fill,
+            highlightStyle: UIPickerTextField.HightlightStyle = .border
+        ) {
+            self.value = value
+            self.fontSize = fontSize
+            self.fillColor = fillColor
+            self.highlightStyle = highlightStyle
+        }
         
         var body: some View {
             PickerTextField(value: $value)
-                .fillColor(.fill)
+                .fillColor(fillColor)
                 .fontSize(fontSize)
+                .highlightStyle(highlightStyle)
         }
     }
     
     static var previews: some View {
-        Wrapper(fontSize: 18)
-            .previewDisplayName("Regular font")
+        Wrapper()
+            .previewDisplayName("Regular appearance")
+        Wrapper(fillColor: nil)
+            .previewDisplayName("No fill")
+        Wrapper(highlightStyle: .underline)
+            .previewDisplayName("Underline highlight")
         Wrapper(fontSize: 24)
             .previewDisplayName("Large font")
         Wrapper(fontSize: 36)
