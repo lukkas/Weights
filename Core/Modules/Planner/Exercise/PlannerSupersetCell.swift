@@ -36,7 +36,7 @@ struct PlannerSupersetCell: View {
                 .parameterFieldAligned()
             Text("sets")
             Spacer()
-            VStack(spacing: 0) {
+            VStack(spacing: 4) {
                 ForEach($model.exercises) { $exercise in
                     HStack {
                         PickerTextField(value: $exercise.metricValue)
@@ -52,8 +52,13 @@ struct PlannerSupersetCell: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(6)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(exercise.highlightColor, lineWidth: 4)
+                    )
                     .background(
-                        exercise.highlightColor
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(.tertiaryBackground)
                     )
                 }
             }
