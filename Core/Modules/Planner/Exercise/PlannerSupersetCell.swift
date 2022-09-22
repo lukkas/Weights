@@ -29,15 +29,12 @@ struct PlannerSupersetCell: View {
     var body: some View {
         HStack(spacing: 4) {
             PickerTextField(value: $model.numberOfSets)
-                .fontSize(44)
                 .fillColor(nil)
                 .highlightColor(.label)
                 .highlightStyle(.underline)
                 .parameterField(.setsCount)
                 .parameterFieldAligned()
-            Spacer()
-            Text("x")
-                .textStyle(.collectionPlaceholderTitle)
+            Text("sets")
             Spacer()
             VStack(spacing: 0) {
                 ForEach($model.exercises) { $exercise in

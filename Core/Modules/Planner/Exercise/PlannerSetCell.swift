@@ -26,11 +26,13 @@ struct PlannerSetCell: View {
         HStack(spacing: 4) {
             PickerTextField(value: $model.numberOfSets)
                 .fillColor(.background)
+                .highlightStyle(.underline)
                 .highlightColor(.label)
                 .parameterField(.setsCount)
                 .parameterFieldAligned()
-            Text("x")
+            Text("sets")
                 .textStyle(.pickerField)
+            Spacer()
             HStack {
                 PickerTextField(value: $model.metricValue)
                     .parameterField(model.metricFieldMode)
@@ -47,7 +49,6 @@ struct PlannerSetCell: View {
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundColor(.secondaryBackground)
             )
-            Spacer()
         }
         .background(Color.background)
     }

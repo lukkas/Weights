@@ -77,7 +77,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         let verticalPadding = 18.0
         let defaultFontSize = 18.0
         let aspectRatio = AspectRatio(
-            width: 50,
+            width: 56,
             height: verticalPadding + defaultFontSize
         )
         let height = fontSize + verticalPadding
