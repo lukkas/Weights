@@ -18,10 +18,23 @@ struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
                 Spacer()
                 PacePicker(pace: $model.pace)
             }
-            Divider()
-            ForEach($model.variations) { variation in
-                PlannerSetCell(model: variation)
+            .padding(8)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .foregroundColor(.secondaryBackground)
+            )
+            .padding(.bottom, 8)
+            VStack(spacing: 4) {
+                ForEach($model.variations) { variation in
+                    PlannerSetCell(model: variation)
+                }
             }
+            .padding(8)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .foregroundColor(.secondaryBackground)
+            )
+            .padding(.bottom, 8)
             HStack {
                 Button {
                     withAnimation {

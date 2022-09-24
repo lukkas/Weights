@@ -25,7 +25,7 @@ struct PlannerSetCell: View {
     var body: some View {
         HStack(spacing: 4) {
             PickerTextField(value: $model.numberOfSets)
-                .fillColor(.background)
+                .fillColor(.secondaryBackground)
                 .highlightStyle(.underline)
                 .highlightColor(.label)
                 .parameterField(.setsCount)
@@ -47,10 +47,10 @@ struct PlannerSetCell: View {
             .padding(4)
             .background(
                 RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(.secondaryBackground)
+                    .foregroundColor(.tertiaryBackground)
             )
         }
-        .background(Color.background)
+        .background(Color.secondaryBackground)
     }
 }
 

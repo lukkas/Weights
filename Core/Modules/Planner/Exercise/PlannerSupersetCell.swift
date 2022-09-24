@@ -53,17 +53,16 @@ struct PlannerSupersetCell: View {
                     .frame(maxWidth: .infinity)
                     .padding(6)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(exercise.highlightColor, lineWidth: 4)
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .stroke(exercise.highlightColor, lineWidth: 2)
                     )
                     .background(
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .foregroundColor(.tertiaryBackground)
                     )
                 }
             }
             .fixedSize(horizontal: true, vertical: false)
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .textStyle(.pickerAccessory)
         }
     }
