@@ -55,28 +55,6 @@ struct PlannerExerciseView: View {
     }
 }
 
-protocol PlannerExerciseViewModeling: ObservableObject, Identifiable, Hashable {
-    var name: String { get }
-    var pace: UIPacePicker.InputState { get set }
-    var variations: [PlannerSetCellModel] { get set }
-    func addVariationTapped()
-}
-
-extension PlannerExerciseViewModeling {
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return
-            lhs.id == rhs.id
-            && lhs.name == rhs.name
-            && lhs.variations == rhs.variations
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(name)
-        hasher.combine(variations)
-    }
-}
-
 // MARK: - Design time
 
 #if DEBUG

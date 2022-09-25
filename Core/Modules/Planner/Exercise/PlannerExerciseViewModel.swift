@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PlannerExerciseViewModel: PlannerExerciseViewModeling {
+class PlannerExerciseViewModel: ObservableObject, Identifiable, Hashable {
     let exerciseId: UUID
     let name: String
     @Published var pace = UIPacePicker.InputState()
@@ -37,5 +37,22 @@ class PlannerExerciseViewModel: PlannerExerciseViewModeling {
     
     func addVariationTapped() {
         onAddVarationTap()
+    }
+    
+    static func == (lhs: PlannerExerciseViewModel, rhs: PlannerExerciseViewModel) -> Bool {
+        return
+            lhs.id == rhs.id
+            && lhs.exerciseId == rhs.exerciseId
+            && lhs.name == rhs.name
+            && lhs.variations == rhs.variations
+            && lhs.pace == rhs.pace
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(exerciseId)
+        hasher.combine(name)
+        hasher.combine(variations)
+        hasher.combine(pace)
     }
 }
