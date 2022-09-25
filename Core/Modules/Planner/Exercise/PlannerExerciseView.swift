@@ -79,6 +79,7 @@ extension PlannerExerciseViewModeling {
 
 // MARK: - Design time
 
+#if DEBUG
 class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
     init() {
         
@@ -95,7 +96,25 @@ class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
 
 struct PlannerExerciseView_Previews: PreviewProvider {
     static var previews: some View {
-        PlannerExerciseView(model: DTPlannerExerciseViewModel())
+        PlannerExerciseView(model: PlannerExerciseViewModel.dt_squat)
             .cellPreview()
     }
 }
+
+extension PlannerExerciseViewModel {
+    static var dt_squat: PlannerExerciseViewModel {
+        weak var weakModel: PlannerExerciseViewModel?
+        let model = PlannerExerciseViewModel(
+            exerciseId: UUID(),
+            exerciseName: "Squat",
+            setVariations: [.dt_reps],
+            onAddVarationTap: {
+                weakModel?.variations.append(.dt_reps)
+            },
+            onVariationsChanged: { _ in }
+        )
+        weakModel = model
+        return model
+    }
+}
+#endif
