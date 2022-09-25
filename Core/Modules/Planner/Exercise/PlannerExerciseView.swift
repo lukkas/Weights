@@ -80,20 +80,6 @@ extension PlannerExerciseViewModeling {
 // MARK: - Design time
 
 #if DEBUG
-class DTPlannerExerciseViewModel: PlannerExerciseViewModeling {
-    init() {
-        
-    }
-    
-    let name: String = "Squat"
-    @Published var pace = UIPacePicker.InputState()
-    @Published var variations: [PlannerSetCellModel] = [.dt_reps]
-    
-    func addVariationTapped() {
-        variations.append(.dt_reps)
-    }
-}
-
 struct PlannerExerciseView_Previews: PreviewProvider {
     static var previews: some View {
         PlannerExerciseView(model: PlannerExerciseViewModel.dt_squat)

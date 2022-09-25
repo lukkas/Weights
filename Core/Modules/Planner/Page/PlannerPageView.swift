@@ -78,7 +78,7 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
 struct PlannerPageView_Previews: PreviewProvider {
     static var previews: some View {
         PlannerPageView(
-            model: PlannerPageViewModel(name: "A1", exercises: [DTPlannerExerciseViewModel()]),
+            model: PlannerPageViewModel(name: "A1", exercises: [PlannerExerciseViewModel.dt_squat]),
             currentlyDragged: .constant(nil),
             allPages: .constant([]),
             addExerciseTapped: {}

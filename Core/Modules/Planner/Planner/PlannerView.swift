@@ -87,8 +87,8 @@ class DTPlannerPresenter: PlannerPresenting {
     init(viewModel: PlannerViewModel) {
 //        viewModel.pages = [
 //            PlannerPageViewModel(name: "A1", exercises: [
-//                DTPlannerExerciseViewModel(),
-//                DTPlannerExerciseViewModel()
+//                PlannerExerciseViewModel.dt_squat,
+//                PlannerExerciseViewModel.dt_squat
 //            ])
 //        ]
     }
@@ -102,10 +102,10 @@ class DTPlannerPresenter: PlannerPresenting {
 }
 
 class DTPlannerViewModel {
-    var pages: [PlannerPageViewModel<DTPlannerExerciseViewModel>] = [
+    var pages: [PlannerPageViewModel<PlannerExerciseViewModel>] = [
         PlannerPageViewModel(name: "A1", exercises: [
-            DTPlannerExerciseViewModel(),
-            DTPlannerExerciseViewModel()
+            PlannerExerciseViewModel.dt_squat,
+            PlannerExerciseViewModel.dt_squat
         ])
     ]
     @Published var visiblePage: Int = 0
