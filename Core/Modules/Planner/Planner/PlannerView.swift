@@ -102,7 +102,7 @@ class DTPlannerPresenter: PlannerPresenting {
 }
 
 class DTPlannerViewModel {
-    var pages: [PlannerPageViewModel<PlannerExerciseViewModel>] = [
+    var pages: [PlannerPageViewModel] = [
         PlannerPageViewModel(name: "A1", exercises: [
             PlannerExerciseViewModel.dt_squat,
             PlannerExerciseViewModel.dt_squat

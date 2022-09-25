@@ -8,28 +8,24 @@
 import Foundation
 import SwiftUI
 
-enum PlannerDraggingTarget<ExerciseViewModel: PlannerExerciseViewModeling> {
-    case emptyPage(PlannerPageViewModel<ExerciseViewModel>)
-    case exercise(ExerciseViewModel)
+enum PlannerDraggingTarget {
+    case emptyPage(PlannerPageViewModel)
+    case exercise(PlannerExerciseViewModel)
 }
 
 protocol PlannerDropControllerDelegate: AnyObject {
-    associatedtype ExerciseViewModel: PlannerExerciseViewModeling
-    
-    func currentlyDraggedItem(wasDraggedOver target: PlannerDraggingTarget<ExerciseViewModel>)
+    func currentlyDraggedItem(wasDraggedOver target: PlannerDraggingTarget)
 }
 
-class PlannerDropController<
-    ExerciseViewModel: PlannerExerciseViewModeling
->: DropDelegate {
-    private let target: PlannerDraggingTarget<ExerciseViewModel>
-    @Binding private var currentlyDragged: ExerciseViewModel?
-    @Binding private var pages: [PlannerPageViewModel<ExerciseViewModel>]
+class PlannerDropController: DropDelegate {
+    private let target: PlannerDraggingTarget
+    @Binding private var currentlyDragged: PlannerExerciseViewModel?
+    @Binding private var pages: [PlannerPageViewModel]
     
     init(
-        target: PlannerDraggingTarget<ExerciseViewModel>,
-        currentlyDragged: Binding<ExerciseViewModel?>,
-        pages: Binding<[PlannerPageViewModel<ExerciseViewModel>]>
+        target: PlannerDraggingTarget,
+        currentlyDragged: Binding<PlannerExerciseViewModel?>,
+        pages: Binding<[PlannerPageViewModel]>
     ) {
         self.target = target
         self._currentlyDragged = currentlyDragged
@@ -66,7 +62,7 @@ class PlannerDropController<
     }
     
     private func indexPath(
-        of item: ExerciseViewModel
+        of item: PlannerExerciseViewModel
     ) -> IndexPath? {
         for (unitIndex, unit) in pages.enumerated() {
             for (exerciseIndex, exercise) in unit.exercises.enumerated() where exercise == item {

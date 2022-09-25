@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct PlannerExerciseView<Model: PlannerExerciseViewModeling>: View {
-    @ObservedObject var model: Model
+struct PlannerExerciseView: View {
+    @ObservedObject var model: PlannerExerciseViewModel
     
     var body: some View {
         VStack(spacing: 4) {

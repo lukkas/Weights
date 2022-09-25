@@ -88,12 +88,12 @@ class PlannerDropControllerSpec: QuickSpec {
                 return viewModel.pages[page].exercises[item]
             }
             
-            func page(_ page: Int) -> PlannerPageViewModel<PlannerExerciseViewModel> {
+            func page(_ page: Int) -> PlannerPageViewModel {
                 return viewModel.pages[page]
             }
             
             func enterDrop(
-                target: PlannerDraggingTarget<PlannerExerciseViewModel>,
+                target: PlannerDraggingTarget,
                 dragged: PlannerExerciseViewModel
             ) {
                 let drop = PlannerDropController(

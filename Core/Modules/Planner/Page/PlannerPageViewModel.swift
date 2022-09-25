@@ -7,17 +7,17 @@
 
 import Foundation
 
-class PlannerPageViewModel<ExerciseModel: PlannerExerciseViewModeling>: ObservableObject, Identifiable, Hashable {
+class PlannerPageViewModel: ObservableObject, Identifiable, Hashable {
     let id = UUID()
     var name: String
-    @Published private(set) var exercises: [ExerciseModel]
+    @Published private(set) var exercises: [PlannerExerciseViewModel]
     
-    init(name: String, exercises: [ExerciseModel] = []) {
+    init(name: String, exercises: [PlannerExerciseViewModel] = []) {
         self.name = name
         self.exercises = exercises
     }
     
-    func addExercises(_ models: [ExerciseModel]) {
+    func addExercises(_ models: [PlannerExerciseViewModel]) {
         exercises.append(contentsOf: models)
     }
     
@@ -25,7 +25,7 @@ class PlannerPageViewModel<ExerciseModel: PlannerExerciseViewModeling>: Observab
         exercises.remove(at: index)
     }
     
-    func insertExercise(_ exercise: ExerciseModel, at index: Int) {
+    func insertExercise(_ exercise: PlannerExerciseViewModel, at index: Int) {
         exercises.insert(exercise, at: index)
     }
     
@@ -40,8 +40,8 @@ class PlannerPageViewModel<ExerciseModel: PlannerExerciseViewModeling>: Observab
     }
     
     static func == (
-        lhs: PlannerPageViewModel<ExerciseModel>,
-        rhs: PlannerPageViewModel<ExerciseModel>
+        lhs: PlannerPageViewModel,
+        rhs: PlannerPageViewModel
     ) -> Bool {
         return lhs.id == rhs.id
         && lhs.name == rhs.name

@@ -19,7 +19,7 @@ class PlannerPresenter: PlannerPresenting {
         viewModel.pages = [makeTemplateUnitModel()]
     }
     
-    private func makeTemplateUnitModel() -> PlannerPageViewModel<PlannerExerciseViewModel> {
+    private func makeTemplateUnitModel() -> PlannerPageViewModel {
         return PlannerPageViewModel(name: "A1")
     }
     
@@ -56,7 +56,7 @@ class PlannerPresenter: PlannerPresenting {
     }
     
     private func extractExercises(
-        from pageViewModel: PlannerPageViewModel<PlannerExerciseViewModel>
+        from pageViewModel: PlannerPageViewModel
     ) -> [PlannedExercise] {
         return pageViewModel.exercises.map { exerciseViewModel in
             return PlannedExercise(

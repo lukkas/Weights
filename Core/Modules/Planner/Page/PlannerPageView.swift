@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
-    @ObservedObject var model: PlannerPageViewModel<ExerciseViewModel>
-    @Binding var currentlyDragged: ExerciseViewModel?
-    @Binding var allPages: [PlannerPageViewModel<ExerciseViewModel>]
+struct PlannerPageView: View {
+    @ObservedObject var model: PlannerPageViewModel
+    @Binding var currentlyDragged: PlannerExerciseViewModel?
+    @Binding var allPages: [PlannerPageViewModel]
     let addExerciseTapped: () -> Void
     
     var body: some View {
@@ -29,7 +29,7 @@ struct PlannerPageView<ExerciseViewModel: PlannerExerciseViewModeling>: View {
         }
     }
     
-    @ViewBuilder private func exerciseView(_ exercise: ExerciseViewModel) -> some View {
+    @ViewBuilder private func exerciseView(_ exercise: PlannerExerciseViewModel) -> some View {
         PlannerExerciseView(model: exercise)
             .onDrag({
                 currentlyDragged = exercise
