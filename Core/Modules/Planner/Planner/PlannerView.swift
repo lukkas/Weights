@@ -8,9 +8,10 @@
 
 import SwiftUI
 
-struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
-    @StateObject var model: Model
-    @State private var currentlyDragged: Model.ExerciseViewModel?
+struct PlannerView<Presenter: PlannerPresenting, Router: PlannerRouting>: View {
+    @StateObject var model: PlannerViewModel
+    let presenter: Presenter
+    @State private var currentlyDragged: PlannerViewModel.ExerciseViewModel?
     let router: Router
     
     var body: some View {
@@ -23,7 +24,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                             currentlyDragged: $currentlyDragged,
                             allPages: $model.pages,
                             addExerciseTapped: {
-                                model.addExerciseTapped()
+                                presenter.addExerciseTapped()
                             })
                     }
                 }
@@ -34,9 +35,9 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                     workoutName: $model.currentUnitName,
                     leftArrowDisabled: model.leftArrowDisabled,
                     rightArrowDisabled: model.rightArrowDisabled,
-                    onLeftTapped: model.leftArrowTapped,
-                    onRightTapped: model.rightArrowTapped,
-                    onPlusTapped: model.plusTapped
+                    onLeftTapped: presenter.leftArrowTapped,
+                    onRightTapped: presenter.rightArrowTapped,
+                    onPlusTapped: presenter.plusTapped
                 )
             }
             .background(Color.secondaryBackground)
@@ -44,12 +45,12 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button(L10n.Common.cancel, role: .cancel) {
-                        model.cancelNavigationButtonTapped()
+                        presenter.cancelNavigationButtonTapped()
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(L10n.Planner.NavigationBar.save) {
-                        model.saveNavigationButtonTapped()
+                        presenter.saveNavigationButtonTapped()
                     }
                 }
             }
@@ -63,23 +64,14 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     }
 }
 
-protocol PlannerViewModeling: ObservableObject {
-    associatedtype ExerciseViewModel: PlannerExerciseViewModeling
-    
-    var pages: [PlannerPageViewModel<ExerciseViewModel>] { get set }
-    var visiblePage: Int { get set }
-    var currentUnitName: String { get set }
-    var exercisePickerRelay: ExercisePickerRelay? { get set }
-    var leftArrowDisabled: Bool { get }
-    var rightArrowDisabled: Bool { get }
-    
+protocol PlannerPresenting {
     func cancelNavigationButtonTapped()
     func saveNavigationButtonTapped()
     
-    func addExerciseTapped()
+    func plusTapped()
     func leftArrowTapped()
     func rightArrowTapped()
-    func plusTapped()
+    func addExerciseTapped()
 }
 
 @MainActor
@@ -91,7 +83,25 @@ protocol PlannerRouting {
 
 // MARK: - Design time
 
-class DTPlannerViewModel: PlannerViewModeling {
+class DTPlannerPresenter: PlannerPresenting {
+    init(viewModel: PlannerViewModel) {
+//        viewModel.pages = [
+//            PlannerPageViewModel(name: "A1", exercises: [
+//                DTPlannerExerciseViewModel(),
+//                DTPlannerExerciseViewModel()
+//            ])
+//        ]
+    }
+    
+    func cancelNavigationButtonTapped() {}
+    func saveNavigationButtonTapped() {}
+    func plusTapped() {}
+    func leftArrowTapped() {}
+    func rightArrowTapped() {}
+    func addExerciseTapped() {}
+}
+
+class DTPlannerViewModel {
     var pages: [PlannerPageViewModel<DTPlannerExerciseViewModel>] = [
         PlannerPageViewModel(name: "A1", exercises: [
             DTPlannerExerciseViewModel(),
@@ -137,6 +147,12 @@ struct DTPlannerRouter: PlannerRouting {
 
 struct PlannerView_Previews: PreviewProvider {
     static var previews: some View {
-        PlannerView(model: DTPlannerViewModel(), router: DTPlannerRouter())
+        let model = PlannerViewModel(isPresented: .constant(true))
+        let presenter = DTPlannerPresenter(viewModel: model)
+        PlannerView(
+            model: PlannerViewModel(isPresented: .constant(true)),
+            presenter: presenter,
+            router: DTPlannerRouter()
+        )
     }
 }

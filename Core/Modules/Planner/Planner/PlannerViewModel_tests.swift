@@ -13,107 +13,109 @@ import Quick
 class PlannerViewModelSpec: QuickSpec {
     override func spec() {
         describe("planner view model") {
-            var sut: PlannerViewModel!
+            var viewModel: PlannerViewModel!
+            var presenter: PlannerPresenter!
             var planStorage: PlanStoringStub!
             beforeEach {
                 planStorage = PlanStoringStub()
-                sut = PlannerViewModel(
-                    isPresented: .constant(true),
+                viewModel = PlannerViewModel(isPresented: .constant(true))
+                presenter = PlannerPresenter(
+                    viewModel: viewModel,
                     planStorage: planStorage
                 )
             }
             afterEach {
-                sut = nil
+                viewModel = nil
             }
             it("will start with empty single unit template") {
-                expect(sut.pages).to(haveCount(1))
-                expect(sut.pages.first?.exercises).to(haveCount(0))
+                expect(viewModel.pages).to(haveCount(1))
+                expect(viewModel.pages.first?.exercises).to(haveCount(0))
             }
             it("will start with disabled arrows") {
-                expect(sut.leftArrowDisabled).to(beTrue())
-                expect(sut.rightArrowDisabled).to(beTrue())
+                expect(viewModel.leftArrowDisabled).to(beTrue())
+                expect(viewModel.rightArrowDisabled).to(beTrue())
             }
             context("when add exercises is tapped") {
                 let exercises = Exercise.make(count: 3)
                 beforeEach {
-                    sut.addExerciseTapped()
-                    sut.exercisePickerRelay?.pick(exercises)
+                    presenter.addExerciseTapped()
+                    viewModel.exercisePickerRelay?.pick(exercises)
                 }
                 it("will add them to plan") {
-                    expect(sut.pages.first?.exercises).to(elementsEqual(exercises, by: { exerciseUnit, exercise in
+                    expect(viewModel.pages.first?.exercises).to(elementsEqual(exercises, by: { exerciseUnit, exercise in
                         exerciseUnit.name == exercise.name
                     }))
                 }
             }
             context("when plus is tapped") {
                 beforeEach {
-                    sut.plusTapped()
+                    presenter.plusTapped()
                 }
                 it("will add empty training unit") {
-                    expect(sut.pages).to(haveCount(2))
-                    expect(sut.pages[1].exercises).to(haveCount(0))
+                    expect(viewModel.pages).to(haveCount(2))
+                    expect(viewModel.pages[1].exercises).to(haveCount(0))
                 }
                 it("will move to newly added unit") {
-                    expect(sut.visiblePage).to(equal(1))
+                    expect(viewModel.visiblePage).to(equal(1))
                 }
                 it("will enable left arrow") {
-                    expect(sut.leftArrowDisabled).to(beFalse())
+                    expect(viewModel.leftArrowDisabled).to(beFalse())
                 }
                 it("will keep right arrow disabled") {
-                    expect(sut.rightArrowDisabled).to(beTrue())
+                    expect(viewModel.rightArrowDisabled).to(beTrue())
                 }
                 context("when left arrow is tapped") {
                     beforeEach {
-                        sut.leftArrowTapped()
+                        presenter.leftArrowTapped()
                     }
                     it("will go back to first page") {
-                        expect(sut.visiblePage).to(equal(0))
+                        expect(viewModel.visiblePage).to(equal(0))
                     }
                     it("will disable left arrow") {
-                        expect(sut.leftArrowDisabled).to(beTrue())
+                        expect(viewModel.leftArrowDisabled).to(beTrue())
                     }
                     it("will enable right arrow") {
-                        expect(sut.rightArrowDisabled).to(beFalse())
+                        expect(viewModel.rightArrowDisabled).to(beFalse())
                     }
                     context("when tapped again") {
                         beforeEach {
-                            sut.leftArrowTapped()
+                            presenter.leftArrowTapped()
                         }
                         it("will stay at leftmost page") {
-                            expect(sut.visiblePage).to(equal(0))
+                            expect(viewModel.visiblePage).to(equal(0))
                         }
                     }
                     context("when right arrow tapped") {
                         beforeEach {
-                            sut.rightArrowTapped()
+                            presenter.rightArrowTapped()
                         }
                         it("will move to second page again") {
-                            expect(sut.visiblePage).to(equal(1))
+                            expect(viewModel.visiblePage).to(equal(1))
                         }
                     }
                 }
                 
                 context("when right arrow is tapped") {
                     beforeEach {
-                        sut.rightArrowTapped()
+                        presenter.rightArrowTapped()
                     }
                     it("will stay on rightmost page") {
-                        expect(sut.visiblePage).to(equal(1))
+                        expect(viewModel.visiblePage).to(equal(1))
                     }
                 }
             }
             func prepareTwoDayPlan() {
-                sut.addExerciseTapped()
-                sut.exercisePickerRelay?.pick(Exercise.make(count: 3))
-                sut.plusTapped()
-                sut.addExerciseTapped()
-                sut.exercisePickerRelay?.pick(Exercise.make(count: 5))
+                presenter.addExerciseTapped()
+                viewModel.exercisePickerRelay?.pick(Exercise.make(count: 3))
+                presenter.plusTapped()
+                presenter.addExerciseTapped()
+                viewModel.exercisePickerRelay?.pick(Exercise.make(count: 5))
             }
             context("when save is tapped") {
                 context("when two pages are created") {
                     beforeEach {
                         prepareTwoDayPlan()
-                        sut.saveNavigationButtonTapped()
+                        presenter.saveNavigationButtonTapped()
                     }
                     it("plan storage will receive plan") {
                         expect(planStorage.insertedPlans).to(haveCount(1))

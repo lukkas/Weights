@@ -14,14 +14,13 @@ class PlannerDropControllerSpec: QuickSpec {
     override func spec() {
         describe("view model") {
             var viewModel: PlannerViewModel!
+            var presenter: PlannerPresenter!
             var planStorage: PlanStoringStub!
             
             beforeEach {
                 planStorage = PlanStoringStub()
-                viewModel = PlannerViewModel(
-                    isPresented: .constant(true),
-                    planStorage: planStorage
-                )
+                viewModel = PlannerViewModel(isPresented: .constant(true))
+                presenter = PlannerPresenter(viewModel: viewModel, planStorage: planStorage)
             }
             
             context("when first page has two items") {
@@ -47,7 +46,7 @@ class PlannerDropControllerSpec: QuickSpec {
                 
                 context("when second page is added") {
                     beforeEach {
-                        viewModel.plusTapped()
+                        presenter.plusTapped()
                     }
                     
                     context("when exercise is dragged to second page") {
@@ -81,7 +80,7 @@ class PlannerDropControllerSpec: QuickSpec {
             }
             
             func addExercises(_ exercises: [Exercise]) {
-                viewModel.addExerciseTapped()
+                presenter.addExerciseTapped()
                 viewModel.exercisePickerRelay?.pick(exercises)
             }
             

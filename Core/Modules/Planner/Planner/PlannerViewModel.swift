@@ -23,7 +23,7 @@ struct ExercisePickerRelay: Identifiable {
     }
 }
 
-class PlannerViewModel: PlannerViewModeling {
+class PlannerViewModel: ObservableObject {
     typealias ExerciseViewModel = PlannerExerciseViewModel
     
     @Published var pages: [PlannerPageViewModel<PlannerExerciseViewModel>] = []
@@ -44,90 +44,9 @@ class PlannerViewModel: PlannerViewModeling {
         }
     }
     @Published var exercisePickerRelay: ExercisePickerRelay?
-    @Binding private var isPresented: Bool
-    private let planStorage: PlanStoring
+    @Binding var isPresented: Bool
     
-    init(isPresented: Binding<Bool>, planStorage: PlanStoring) {
+    init(isPresented: Binding<Bool>) {
         _isPresented = isPresented
-        self.planStorage = planStorage
-        pages = [makeTemplateUnitModel()]
-    }
-    
-    private func makeTemplateUnitModel() -> PlannerPageViewModel<PlannerExerciseViewModel> {
-        return PlannerPageViewModel(name: "A1")
-    }
-    
-    func cancelNavigationButtonTapped() {
-        isPresented = false
-    }
-    
-    func saveNavigationButtonTapped() {
-        saveCreatedPlan()
-        isPresented = false
-    }
-    
-    private func saveCreatedPlan() {
-        let plan = createPlanFromViewModels()
-        planStorage.insert(plan)
-    }
-    
-    private func createPlanFromViewModels() -> Plan {
-        return Plan(
-            id: UUID(),
-            name: "Can't name plan yet",
-            days: collectPlannedDays(),
-            isCurrent: false
-        )
-    }
-    
-    private func collectPlannedDays() -> [PlannedDay] {
-        return pages.map { pageViewModel in
-            return PlannedDay(
-                name: pageViewModel.name,
-                exercises: extractExercises(from: pageViewModel)
-            )
-        }
-    }
-    
-    private func extractExercises(
-        from pageViewModel: PlannerPageViewModel<PlannerExerciseViewModel>
-    ) -> [PlannedExercise] {
-        return pageViewModel.exercises.map { exerciseViewModel in
-            return PlannedExercise(
-                exercise: exerciseViewModel.exercise,
-                setCollections: [],
-                createsSupersets: false
-            )
-        }
-    }
-    
-    func addExerciseTapped() {
-        exercisePickerRelay = ExercisePickerRelay(onPicked: { [weak self] exercises in
-            self?.handleExercisesPicked(exercises)
-            self?.exercisePickerRelay = nil
-        })
-    }
-    
-    private func handleExercisesPicked(_ exercises: [Exercise])  {
-        let unit = pages[visiblePage]
-        let exerciseModels = exercises.map {
-            PlannerExerciseViewModel(exercise: $0)
-        }
-        unit.addExercises(exerciseModels)
-    }
-    
-    func leftArrowTapped() {
-        if leftArrowDisabled { return }
-        visiblePage -= 1
-    }
-    
-    func rightArrowTapped() {
-        if rightArrowDisabled { return }
-        visiblePage += 1
-    }
-    
-    func plusTapped() {
-        pages.append(makeTemplateUnitModel())
-        visiblePage = pages.indices.last!
     }
 }
