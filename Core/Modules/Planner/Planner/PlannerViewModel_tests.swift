@@ -47,6 +47,36 @@ class PlannerViewModelSpec: QuickSpec {
                     }))
                 }
             }
+            context("when exercise is added") {
+                var addedExercise: PlannerExerciseViewModel!
+                beforeEach {
+                    let exercise = Exercise.make()
+                    presenter.addExerciseTapped()
+                    viewModel.exercisePickerRelay?.pick([exercise])
+                    addedExercise = viewModel.pages[0].exercises[0]
+                }
+                it("will have single variation with single set") {
+                    expect(addedExercise.variations).to(haveCount(1))
+                    expect(addedExercise.variations[0].numberOfSets).to(equal(1))
+                }
+                context("when add variation is tapped") {
+                    beforeEach {
+                        addedExercise.addVariationTapped()
+                    }
+                    it("will add another variation with single set") {
+                        expect(addedExercise.variations).to(haveCount(2))
+                        expect(addedExercise.variations[1].numberOfSets).to(equal(1))
+                    }
+                    context("when number of sets is set to zero") {
+                        beforeEach {
+                            addedExercise.variations[1].numberOfSets = 0
+                        }
+                        it("will remove variation") {
+                            expect(addedExercise.variations).to(haveCount(1))
+                        }
+                    }
+                }
+            }
             context("when plus is tapped") {
                 beforeEach {
                     presenter.plusTapped()

@@ -11,41 +11,29 @@ import Foundation
 class PlannerExerciseViewModel: PlannerExerciseViewModeling {
     var name: String { exercise.name }
     @Published var pace = UIPacePicker.InputState()
-    @Published var variations: [PlannerSetCellModel] = [] {
+    @Published var variations: [PlannerSetCellModel] {
         didSet {
-            performPostVariationsModificationCheck()
+            onVariationsChanged(variations)
         }
     }
     
     let exercise: Exercise
+    private let onAddVarationTap: () -> Void
+    private let onVariationsChanged: ([PlannerSetCellModel]) -> Void
     
-    init(exercise: Exercise) {
+    init(
+        exercise: Exercise,
+        setVariations: [PlannerSetCellModel],
+        onAddVarationTap: @escaping () -> Void,
+        onVariationsChanged: @escaping ([PlannerSetCellModel]) -> Void
+    ) {
         self.exercise = exercise
-        prepareInitialVariationsState()
-    }
-    
-    private func prepareInitialVariationsState() {
-        variations = [baseVariation()]
-    }
-    
-    private func baseVariation() -> PlannerSetCellModel {
-        PlannerSetCellModel(
-            metricLabel: exercise.metric.label,
-            metricFieldMode: exercise.metric.parameterFieldMode,
-            weightLabel: L10n.Common.kg,
-            numberOfSets: 1,
-            metricValue: 0,
-            weight: 0
-        )
-    }
-    
-    private func performPostVariationsModificationCheck() {
-        if let index = variations.lastIndex(where: { $0.numberOfSets == 0 }) {
-            variations.remove(at: index)
-        }
+        self.variations = setVariations
+        self.onAddVarationTap = onAddVarationTap
+        self.onVariationsChanged = onVariationsChanged
     }
     
     func addVariationTapped() {
-        variations.append(baseVariation())
+        onAddVarationTap()
     }
 }
