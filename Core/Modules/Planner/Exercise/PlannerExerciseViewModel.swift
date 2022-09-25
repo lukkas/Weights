@@ -9,7 +9,8 @@
 import Foundation
 
 class PlannerExerciseViewModel: PlannerExerciseViewModeling {
-    var name: String { exercise.name }
+    let exerciseId: UUID
+    let name: String
     @Published var pace = UIPacePicker.InputState()
     @Published var variations: [PlannerSetCellModel] {
         didSet {
@@ -17,17 +18,18 @@ class PlannerExerciseViewModel: PlannerExerciseViewModeling {
         }
     }
     
-    let exercise: Exercise
     private let onAddVarationTap: () -> Void
     private let onVariationsChanged: ([PlannerSetCellModel]) -> Void
     
     init(
-        exercise: Exercise,
+        exerciseId: UUID,
+        exerciseName: String,
         setVariations: [PlannerSetCellModel],
         onAddVarationTap: @escaping () -> Void,
         onVariationsChanged: @escaping ([PlannerSetCellModel]) -> Void
     ) {
-        self.exercise = exercise
+        self.exerciseId = exerciseId
+        self.name = exerciseName
         self.variations = setVariations
         self.onAddVarationTap = onAddVarationTap
         self.onVariationsChanged = onVariationsChanged

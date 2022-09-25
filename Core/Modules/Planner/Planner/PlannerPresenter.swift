@@ -8,6 +8,8 @@
 import Foundation
 
 class PlannerPresenter: PlannerPresenting {
+    private var addedExercises = [UUID: Exercise]()
+    
     private let viewModel: PlannerViewModel
     private let planStorage: PlanStoring
     
@@ -58,7 +60,7 @@ class PlannerPresenter: PlannerPresenting {
     ) -> [PlannedExercise] {
         return pageViewModel.exercises.map { exerciseViewModel in
             return PlannedExercise(
-                exercise: exerciseViewModel.exercise,
+                exercise: addedExercises[exerciseViewModel.exerciseId]!,
                 setCollections: [],
                 createsSupersets: false
             )
@@ -88,6 +90,9 @@ class PlannerPresenter: PlannerPresenting {
     }
     
     private func handleExercisesPicked(_ exercises: [Exercise])  {
+        exercises.forEach { exercise in
+            addedExercises[exercise.id] = exercise
+        }
         let unit = viewModel.pages[viewModel.visiblePage]
         let exerciseModels = exercises.map(createExerciseViewModel(for:))
         unit.addExercises(exerciseModels)
@@ -96,7 +101,8 @@ class PlannerPresenter: PlannerPresenting {
     private func createExerciseViewModel(for exercise: Exercise) -> PlannerExerciseViewModel {
         weak var weakModel: PlannerExerciseViewModel?
         let model = PlannerExerciseViewModel(
-            exercise: exercise,
+            exerciseId: exercise.id,
+            exerciseName: exercise.name,
             setVariations: [defaultExerciseSetVariation(for: exercise)],
             onAddVarationTap: { [weak self] in
                 guard let self = self else { return }
