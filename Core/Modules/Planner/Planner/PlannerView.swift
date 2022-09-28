@@ -85,12 +85,12 @@ protocol PlannerRouting {
 
 class DTPlannerPresenter: PlannerPresenting {
     init(viewModel: PlannerViewModel) {
-//        viewModel.pages = [
-//            PlannerPageViewModel(name: "A1", exercises: [
-//                PlannerExerciseViewModel.dt_squat,
-//                PlannerExerciseViewModel.dt_squat
-//            ])
-//        ]
+        viewModel.pages = [
+            PlannerPageViewModel(name: "A1", exercises: [
+                PlannerExerciseViewModel.dt_squat,
+                PlannerExerciseViewModel.dt_squat
+            ])
+        ]
     }
     
     func cancelNavigationButtonTapped() {}
@@ -99,44 +99,6 @@ class DTPlannerPresenter: PlannerPresenting {
     func leftArrowTapped() {}
     func rightArrowTapped() {}
     func addExerciseTapped() {}
-}
-
-class DTPlannerViewModel {
-    var pages: [PlannerPageViewModel] = [
-        PlannerPageViewModel(name: "A1", exercises: [
-            PlannerExerciseViewModel.dt_squat,
-            PlannerExerciseViewModel.dt_squat
-        ])
-    ]
-    @Published var visiblePage: Int = 0
-    @Published var currentUnitName: String = "Upper A"
-    @Published var exercisePickerRelay: ExercisePickerRelay?
-    var leftArrowDisabled: Bool { false }
-    var rightArrowDisabled: Bool { false }
-    
-    func cancelNavigationButtonTapped() {
-        
-    }
-    
-    func saveNavigationButtonTapped() {
-        
-    }
-    
-    func addExerciseTapped() {
-        
-    }
-    
-    func leftArrowTapped() {
-        
-    }
-    
-    func rightArrowTapped() {
-        
-    }
-    
-    func plusTapped() {
-        
-    }
 }
 
 struct DTPlannerRouter: PlannerRouting {
@@ -150,7 +112,7 @@ struct PlannerView_Previews: PreviewProvider {
         let model = PlannerViewModel(isPresented: .constant(true))
         let presenter = DTPlannerPresenter(viewModel: model)
         PlannerView(
-            model: PlannerViewModel(isPresented: .constant(true)),
+            model: model,
             presenter: presenter,
             router: DTPlannerRouter()
         )
