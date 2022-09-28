@@ -95,7 +95,7 @@ class PlannerPresenter: PlannerPresenting {
         }
         let unit = viewModel.pages[viewModel.visiblePage]
         let exerciseModels = exercises.map(createExerciseViewModel(for:))
-        unit.addExercises(exerciseModels)
+        unit.exercises.append(contentsOf: exerciseModels)
     }
     
     private func createExerciseViewModel(for exercise: Exercise) -> PlannerExerciseViewModel {

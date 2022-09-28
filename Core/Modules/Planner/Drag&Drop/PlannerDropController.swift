@@ -56,8 +56,8 @@ class PlannerDropController: DropDelegate {
             guard draggedItemIP != draggedOverItemIP else { return }
             swapItems(sourceIndexPath: draggedItemIP, targetIndexPath: draggedOverItemIP)
         case let .emptyPage(page):
-            page.addExercises([currentlyDragged])
-            pages[draggedItemIP.section].removeExercise(at: draggedItemIP.item)
+            page.exercises.append(currentlyDragged)
+            pages[draggedItemIP.section].exercises.remove(at: draggedItemIP.item)
         }
     }
     
@@ -81,13 +81,13 @@ class PlannerDropController: DropDelegate {
             let to = targetIndexPath.item > sourceIndexPath.item
             ? targetIndexPath.item + 1
             : targetIndexPath.item
-            page.move(fromOffsets: IndexSet(integer: sourceIndexPath.item), to: to)
+            page.exercises.move(fromOffsets: IndexSet(integer: sourceIndexPath.item), toOffset: to)
         } else {
             let sourcePage = pages[sourceIndexPath.section]
             let targetPage = pages[targetIndexPath.section]
             let sourceExercise = sourcePage.exercises[sourceIndexPath.item]
-            sourcePage.removeExercise(at: sourceIndexPath.item)
-            targetPage.insertExercise(sourceExercise, at: targetIndexPath.item)
+            sourcePage.exercises.remove(at: sourceIndexPath.item)
+            targetPage.exercises.insert(sourceExercise, at: targetIndexPath.item)
         }
     }
 }
