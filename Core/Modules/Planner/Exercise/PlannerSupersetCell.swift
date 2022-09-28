@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlannerSupersetCellModel: Identifiable, Hashable {
-    struct Exercise: Identifiable, Hashable {
+    struct SingleSet: Identifiable, Hashable {
         let id: UUID = UUID()
         let metricLabel: String
         let metricFieldMode: ParameterFieldKind
@@ -20,7 +20,7 @@ struct PlannerSupersetCellModel: Identifiable, Hashable {
     
     let id: UUID = UUID()
     var numberOfSets: Double? = nil
-    var exercises: [Exercise] = []
+    var singleSets: [SingleSet] = []
 }
 
 struct PlannerSupersetCell: View {
@@ -37,7 +37,7 @@ struct PlannerSupersetCell: View {
             Text("sets")
             Spacer()
             VStack(spacing: 4) {
-                ForEach($model.exercises) { $exercise in
+                ForEach($model.singleSets) { $exercise in
                     HStack {
                         PickerTextField(value: $exercise.metricValue)
                             .fillColor(.secondaryBackground)
@@ -86,7 +86,7 @@ struct PlannerSupersetCell_Previews: PreviewProvider {
 extension PlannerSupersetCellModel {
     static var dt_repsAndMins: Self {
         PlannerSupersetCellModel(
-            exercises: [
+            singleSets: [
                 .init(
                     metricLabel: "reps",
                     metricFieldMode: .reps,
