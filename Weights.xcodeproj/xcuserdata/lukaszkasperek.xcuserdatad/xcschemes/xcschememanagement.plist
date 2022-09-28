@@ -22,19 +22,19 @@
 		<key>Core.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>7</integer>
+		</dict>
+		<key>CoreTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>CoreTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>4</integer>
-		</dict>
-		<key>CoreTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false />
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>Services.xcscheme_^#shared#^_</key>
 		<dict>
@@ -54,16 +54,16 @@
 		<key>UIPickerTextFieldTests.test_onlyShapeLayerBeingHiglightLayerTestAssumption.xcscheme</key>
 		<dict>
 			<key>isShown</key>
-			<false />
+			<false/>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>5</integer>
 		</dict>
 		<key>UIPickerTextFieldTests.test_tap_whenTappedInBorderHighlightStyle_shouldHighlightWithBorder.xcscheme</key>
 		<dict>
 			<key>isShown</key>
-			<false />
+			<false/>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>6</integer>
 		</dict>
 		<key>Weights.xcscheme</key>
 		<dict>
@@ -81,7 +81,7 @@
 		<key>0F7EE5A3243010970015951B</key>
 		<dict>
 			<key>primary</key>
-			<true />
+			<true/>
 		</dict>
 	</dict>
 </dict>

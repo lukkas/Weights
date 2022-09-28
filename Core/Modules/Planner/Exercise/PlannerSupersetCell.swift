@@ -13,7 +13,6 @@ struct PlannerSupersetCellModel: Identifiable, Hashable {
         let metricLabel: String
         let metricFieldMode: ParameterFieldKind
         let weightLabel: String
-        let highlightColor: Color
         var metricValue: Double? = nil
         var weight: Double? = nil
     }
@@ -36,26 +35,30 @@ struct PlannerSupersetCell: View {
                 .parameterFieldAligned()
             Text("sets")
             Spacer()
-            VStack(spacing: 4) {
-                ForEach($model.singleSets) { $exercise in
+            VStack(spacing: 6) {
+                ForEach($model.singleSets) { $singleSet in
                     HStack {
-                        PickerTextField(value: $exercise.metricValue)
+                        PickerTextField(value: $singleSet.metricValue)
                             .fillColor(.secondaryBackground)
-                            .parameterField(exercise.metricFieldMode)
+                            .parameterField(singleSet.metricFieldMode)
                             .parameterFieldAligned()
-                        Text(exercise.metricLabel)
-                        PickerTextField(value: $exercise.weight)
+                        Text(singleSet.metricLabel)
+                        PickerTextField(value: $singleSet.weight)
                             .fillColor(.secondaryBackground)
                             .parameterField(.weight)
                             .parameterFieldAligned()
-                        Text(exercise.weightLabel)
+                        Text(singleSet.weightLabel)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(6)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(exercise.highlightColor, lineWidth: 2)
-                    )
+                    .if(model.singleSets.count > 1, transform: { view in
+                        view.overlay(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .stroke(
+                                    Color.forSupersetIdentification(at: model.singleSets.firstIndex(of: singleSet)!)
+                                )
+                        )
+                    })
                     .background(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .foregroundColor(.tertiaryBackground)
@@ -90,14 +93,12 @@ extension PlannerSupersetCellModel {
                 .init(
                     metricLabel: "reps",
                     metricFieldMode: .reps,
-                    weightLabel: "kg",
-                    highlightColor: .weightRed.opacity(0.35)
+                    weightLabel: "kg"
                 ),
                 .init(
                     metricLabel: "mins",
                     metricFieldMode: .time,
-                    weightLabel: "kg",
-                    highlightColor: .weightGreen.opacity(0.35)
+                    weightLabel: "kg"
                 ),
             ]
         )

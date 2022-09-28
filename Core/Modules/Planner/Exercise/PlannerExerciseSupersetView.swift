@@ -17,7 +17,9 @@ struct PlannerExerciseSupersetView: View {
                 ForEach($model.headerRows) { $row in
                     HStack {
                         Text(row.name)
-                            .foregroundColor(row.themeColor)
+                            .if(model.headerRows.count > 1, transform: { view in
+                                view.foregroundColor(.forSupersetIdentification(at: model.headerRows.firstIndex(of: row)!))
+                            })
                         Spacer()
                         PacePicker(pace: $row.pace)
                     }
@@ -62,7 +64,6 @@ struct PlannerExerciseHeaderRow: Hashable, Identifiable {
     let id = UUID()
     let name: String
     var pace: UIPacePicker.InputState
-    let themeColor: Color
 }
 
 protocol PlannerExerciseSupersetViewModeling: ObservableObject, Identifiable, Hashable {
@@ -97,14 +98,12 @@ class DTPlannerExerciseSupersetViewModel: PlannerExerciseSupersetViewModeling {
     @Published var headerRows = [
         PlannerExerciseHeaderRow(
             name: "Squat",
-            pace: UIPacePicker.InputState(),
-            themeColor: .weightRed
+            pace: UIPacePicker.InputState()
         ),
         PlannerExerciseHeaderRow(
             name: "Deadlift",
-            pace: UIPacePicker.InputState(),
-            themeColor: .weightGreen
-        ),
+            pace: UIPacePicker.InputState()
+        )
     ]
     @Published var variations: [PlannerSupersetCellModel] = [.dt_repsAndMins]
     
