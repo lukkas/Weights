@@ -16,6 +16,7 @@
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
 		0E3E3199BE87152BB3BA0843 /* Weight+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7612CDF82B1362E8125D92 /* Weight+ModelAdapting.swift */; };
 		0F018E2E28CE624B0018EF11 /* PlannerSupersetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */; };
+		0F281B3928F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F281B3828F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift */; };
 		0F760B0928D5F04D00BD6CAB /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */; };
 		0F760B0B28D5F14300BD6CAB /* AspectRatio_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */; };
 		0F8F2E6F28DF5FCA00B13733 /* PlannerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */; };
@@ -288,6 +289,7 @@
 		0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
 		0EEC462F99EB429D83F58DD0 /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
 		0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSupersetCell.swift; sourceTree = "<group>"; };
+		0F281B3828F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseSupersetViewModel.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
 		0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 		0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio_tests.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 				03AEDBD65BF68A257ACEA645 /* PlannerExerciseView.swift */,
 				794719391E1ADACE1587AA6E /* PlannerExerciseViewModel.swift */,
 				0FC9681628C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift */,
+				0F281B3828F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift */,
 				0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */,
 				0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */,
 				0FCA53DC28E4E6E300102667 /* SupersetIdentificationColors.swift */,
@@ -1346,6 +1349,7 @@
 				D4A3CB2CD13B26BD0FA28282 /* PlaceholderClosures.swift in Sources */,
 				3D159795C8D8593A19A27CB1 /* Plan.swift in Sources */,
 				F3FB8C43E93D2632DA1A0A67 /* PlanCell.swift in Sources */,
+				0F281B3928F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift in Sources */,
 				8BCDFB26212698263B3B780B /* PlanStoring.swift in Sources */,
 				104E0D87144B332C9621ADFB /* PlanView.swift in Sources */,
 				9E6A3929528D5B8EB71644B0 /* PlanViewModel.swift in Sources */,

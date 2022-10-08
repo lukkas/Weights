@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct PlannerExerciseSupersetView: View {
-    @ObservedObject var model: DTPlannerExerciseSupersetViewModel
+    @ObservedObject var model: PlannerExerciseSupersetViewModel
     
     var body: some View {
         VStack(spacing: 4) {
@@ -66,56 +66,32 @@ struct PlannerExerciseHeaderRow: Hashable, Identifiable {
     var pace: UIPacePicker.InputState
 }
 
-protocol PlannerExerciseSupersetViewModeling: ObservableObject, Identifiable, Hashable {
-    var headerRows: [PlannerExerciseHeaderRow] { get set }
-    var variations: [PlannerSupersetCellModel] { get set }
-    func addVariationTapped()
-}
-
-extension PlannerExerciseSupersetViewModeling {
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return
-            lhs.id == rhs.id
-            && lhs.headerRows == rhs.headerRows
-            && lhs.variations == rhs.variations
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(headerRows)
-        hasher.combine(variations)
-    }
-}
-
 // MARK: - Design time
 
 #if DEBUG
-class DTPlannerExerciseSupersetViewModel: PlannerExerciseSupersetViewModeling {
-    init() {
-        
-    }
-    
-    @Published var headerRows = [
-        PlannerExerciseHeaderRow(
-            name: "Squat",
-            pace: UIPacePicker.InputState()
-        ),
-        PlannerExerciseHeaderRow(
-            name: "Deadlift",
-            pace: UIPacePicker.InputState()
-        )
-    ]
-    @Published var variations: [PlannerSupersetCellModel] = [.dt_repsAndMins]
-    
-    func addVariationTapped() {
-        variations.append(.dt_repsAndMins)
+struct PlannerExerciseSupersetView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlannerExerciseSupersetView(model: .dt_squatDeadlift())
+            .cellPreview()
     }
 }
 
-struct PlannerExerciseSupersetView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlannerExerciseSupersetView(model: DTPlannerExerciseSupersetViewModel())
-            .cellPreview()
+extension PlannerExerciseSupersetViewModel {
+    static func dt_squatDeadlift() -> PlannerExerciseSupersetViewModel {
+        return PlannerExerciseSupersetViewModel(
+            headerRows: [
+                PlannerExerciseHeaderRow(
+                    name: "Squat",
+                    pace: UIPacePicker.InputState()
+                ),
+                PlannerExerciseHeaderRow(
+                    name: "Deadlift",
+                    pace: UIPacePicker.InputState()
+                )
+            ],
+            variations: [.dt_repsAndMins],
+            onAddVarationTap: {}
+        )
     }
 }
 #endif
