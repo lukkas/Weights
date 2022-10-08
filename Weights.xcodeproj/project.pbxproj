@@ -35,7 +35,6 @@
 		159DE36D2458DEE3779F11AD /* UIPickerTextField_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70ABE56919879680E5C1AF6 /* UIPickerTextField_tests.swift */; };
 		168BCD57A88CED1DEEBD4152 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DCE1A1D0B551991157425EE /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		178D7D8086FC1632B8902D74 /* WeightValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6AB7BA6737E8E21030F909 /* WeightValueTransformer.swift */; };
-		199608C68232E69AE830CB78 /* PlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */; };
 		1E0F964469C099E1B7427E71 /* PlanStorageAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743FAA5A398B7D56D60D2913 /* PlanStorageAdapting.swift */; };
 		1E5A098A0A7776486CD42DD6 /* TrainingBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A619C874E8471CE23892E1D /* TrainingBottomBar.swift */; };
 		1E7A046C57536CBE6BB67495 /* PlanStorageAdapting_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09FB44D458EEF570F97BFE /* PlanStorageAdapting_tests.swift */; };
@@ -52,7 +51,6 @@
 		3D159795C8D8593A19A27CB1 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697CDEAD6E20FD9516DB3177 /* Plan.swift */; };
 		401E7F74ED8B2F68D259874A /* PlanStoringStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D751F143E9EB4C8ABFDD73 /* PlanStoringStub.swift */; };
 		414DAD18E85EC399A3D93B2F /* TestFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9350F94AFEAFA8A8C1449F83 /* TestFailure.swift */; };
-		45D91F2B041AAB17C905625F /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AEDBD65BF68A257ACEA645 /* PlannerExerciseView.swift */; };
 		475399D6B4FBE256010F92D2 /* ExercisePickerViewModel_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBA1F205EF00FC4BC45365 /* ExercisePickerViewModel_tests.swift */; };
 		47B7FC952E787ABF8CE66523 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010EFB3A4C95D481D8D56EE0 /* Plan.swift */; };
 		4A397B7494712251545769ED /* Services.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CED722C50ABADFC4BE206B3 /* Services.framework */; };
@@ -73,7 +71,6 @@
 		64E670DCD9362282EF44D5DE /* Pace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B86B5ED1E69E4BD55ED561C /* Pace.swift */; };
 		67999B8978BE3339EBBA260C /* PlannedDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B13FAEBA687FE26CA52C7E /* PlannedDay.swift */; };
 		69CD08D2DE6299BD1B138FE7 /* DatabaseStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFCBE909CFDD602034E48C6 /* DatabaseStack.swift */; };
-		6A3A47E266465D445064E8A2 /* PlannerExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794719391E1ADACE1587AA6E /* PlannerExerciseViewModel.swift */; };
 		6A87860A0CDCEDC801D7E26F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6DB9560DB1ADDDB2B24B2FE5 /* Localizable.strings */; };
 		6AD64777EBF45B9D0AFE4851 /* ExerciseCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA9DF359FEB0332F44519D4 /* ExerciseCellViewModel.swift */; };
 		6BFD87C32C3DB686E64ED318 /* ExerciseStoringStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F05DCDCE6120EDC9EDE6A2 /* ExerciseStoringStub.swift */; };
@@ -279,14 +276,12 @@
 		010EFB3A4C95D481D8D56EE0 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		017A4E5E4364A2BCC598B446 /* MetatypeInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetatypeInjector.swift; sourceTree = "<group>"; };
 		02C608592A30DC1A44169979 /* ExerciseStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStoring.swift; sourceTree = "<group>"; };
-		03AEDBD65BF68A257ACEA645 /* PlannerExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseView.swift; sourceTree = "<group>"; };
 		04F07A9DE4A9C1B6D861C2FC /* UIPanGestureRecognizerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerMock.swift; sourceTree = "<group>"; };
 		088150A6DA7E70E8AB396CF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0C14336EBBFDB8B508B0A50D /* ServicesTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ServicesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C63D102A47C82F2F8C3C779 /* DateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
 		0CB074F5EFF4D9ACB8418888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0DA9DF359FEB0332F44519D4 /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
-		0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
 		0EEC462F99EB429D83F58DD0 /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
 		0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSupersetCell.swift; sourceTree = "<group>"; };
 		0F281B3828F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseSupersetViewModel.swift; sourceTree = "<group>"; };
@@ -356,7 +351,6 @@
 		727983A456EEF1C09ABC7E93 /* ExerciseMetric+Displaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseMetric+Displaying.swift"; sourceTree = "<group>"; };
 		743FAA5A398B7D56D60D2913 /* PlanStorageAdapting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStorageAdapting.swift; sourceTree = "<group>"; };
 		76B13FAEBA687FE26CA52C7E /* PlannedDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedDay.swift; sourceTree = "<group>"; };
-		794719391E1ADACE1587AA6E /* PlannerExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel.swift; sourceTree = "<group>"; };
 		7A889544A628A0546BFB7B9F /* ExercisePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePickerViewModel.swift; sourceTree = "<group>"; };
 		7F6AB7BA6737E8E21030F909 /* WeightValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightValueTransformer.swift; sourceTree = "<group>"; };
 		7FB5991E7A0E121A5069BB38 /* NSManagedObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Extensions.swift"; sourceTree = "<group>"; };
@@ -508,11 +502,8 @@
 		0FC9681528C4FAA5001B4CD1 /* Exercise */ = {
 			isa = PBXGroup;
 			children = (
-				03AEDBD65BF68A257ACEA645 /* PlannerExerciseView.swift */,
-				794719391E1ADACE1587AA6E /* PlannerExerciseViewModel.swift */,
 				0FC9681628C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift */,
 				0F281B3828F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift */,
-				0EDE8B5926A857A9DAD4C2AD /* PlannerSetCell.swift */,
 				0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */,
 				0FCA53DC28E4E6E300102667 /* SupersetIdentificationColors.swift */,
 			);
@@ -1358,11 +1349,8 @@
 				10684DAACABE0990A7D9170D /* PlannerDropController.swift in Sources */,
 				0FC9681728C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift in Sources */,
 				01476D0B53CA670AC7492912 /* PlannerExerciseDraggable.swift in Sources */,
-				45D91F2B041AAB17C905625F /* PlannerExerciseView.swift in Sources */,
-				6A3A47E266465D445064E8A2 /* PlannerExerciseViewModel.swift in Sources */,
 				126FF17F976E13D7604C987A /* PlannerPageView.swift in Sources */,
 				2C0AEA55A77E95345E84A121 /* PlannerPageViewModel.swift in Sources */,
-				199608C68232E69AE830CB78 /* PlannerSetCell.swift in Sources */,
 				5FD92420284A3A696EE699D7 /* PlannerView.swift in Sources */,
 				B474D285C23A76262D4AF67D /* PlannerViewModel.swift in Sources */,
 				72967505F4415EFBCF933A4E /* RPE.swift in Sources */,
