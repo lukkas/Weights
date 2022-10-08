@@ -11,7 +11,7 @@ import SwiftUI
 struct PlannerView<Presenter: PlannerPresenting, Router: PlannerRouting>: View {
     @StateObject var model: PlannerViewModel
     let presenter: Presenter
-    @State private var currentlyDragged: PlannerViewModel.ExerciseViewModel?
+    @State private var currentlyDragged: PlannerExerciseSupersetViewModel?
     let router: Router
     
     var body: some View {
@@ -87,8 +87,8 @@ class DTPlannerPresenter: PlannerPresenting {
     init(viewModel: PlannerViewModel) {
         viewModel.pages = [
             PlannerPageViewModel(name: "A1", exercises: [
-                PlannerExerciseViewModel.dt_squat,
-                PlannerExerciseViewModel.dt_squat
+                PlannerExerciseSupersetViewModel.dt_squatDeadlift(),
+                PlannerExerciseSupersetViewModel.dt_squatDeadlift()
             ])
         ]
     }

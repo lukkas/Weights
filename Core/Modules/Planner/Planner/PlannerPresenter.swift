@@ -58,12 +58,14 @@ class PlannerPresenter: PlannerPresenting {
     private func extractExercises(
         from pageViewModel: PlannerPageViewModel
     ) -> [PlannedExercise] {
-        return pageViewModel.exercises.map { exerciseViewModel in
-            return PlannedExercise(
-                exercise: addedExercises[exerciseViewModel.exerciseId]!,
-                setCollections: [],
-                createsSupersets: false
-            )
+        return pageViewModel.exercises.flatMap { exerciseViewModel in
+            return exerciseViewModel.headerRows.map { headerRow in
+                return PlannedExercise(
+                    exercise: addedExercises[headerRow.exerciseId]!,
+                    setCollections: [],
+                    createsSupersets: false
+                )
+            }
         }
     }
     
@@ -98,12 +100,11 @@ class PlannerPresenter: PlannerPresenting {
         unit.exercises.append(contentsOf: exerciseModels)
     }
     
-    private func createExerciseViewModel(for exercise: Exercise) -> PlannerExerciseViewModel {
-        weak var weakModel: PlannerExerciseViewModel?
-        let model = PlannerExerciseViewModel(
-            exerciseId: exercise.id,
-            exerciseName: exercise.name,
-            setVariations: [defaultExerciseSetVariation(for: exercise)],
+    private func createExerciseViewModel(for exercise: Exercise) -> PlannerExerciseSupersetViewModel {
+        weak var weakModel: PlannerExerciseSupersetViewModel?
+        let model = PlannerExerciseSupersetViewModel(
+            headerRows: [PlannerExerciseHeaderRow(exerciseId: exercise.id, name: exercise.name)],
+            variations: [defaultExerciseSetVariation(for: exercise)],
             onAddVarationTap: { [weak self] in
                 guard let self = self else { return }
                 let newSetVariation = self.defaultExerciseSetVariation(for: exercise)
@@ -113,19 +114,21 @@ class PlannerPresenter: PlannerPresenting {
                 if let index = variations.lastIndex(where: { $0.numberOfSets == 0 }) {
                     weakModel?.variations.remove(at: index)
                 }
-            })
+            }
+        )
         weakModel = model
         return model
     }
     
-    private func defaultExerciseSetVariation(for exercise: Exercise) -> PlannerSetCellModel {
-        return PlannerSetCellModel(
+    private func defaultExerciseSetVariation(for exercise: Exercise) -> PlannerSupersetCellModel {
+        let exerciseSet = PlannerSupersetCellModel.SingleSet(
             metricLabel: exercise.metric.label,
             metricFieldMode: exercise.metric.parameterFieldMode,
-            weightLabel: L10n.Common.kg,
+            weightLabel: L10n.Common.kg
+        )
+        return PlannerSupersetCellModel(
             numberOfSets: 1,
-            metricValue: 0,
-            weight: 0
+            singleSets: [exerciseSet]
         )
     }
 }

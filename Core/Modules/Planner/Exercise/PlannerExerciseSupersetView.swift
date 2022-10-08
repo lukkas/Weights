@@ -62,8 +62,9 @@ struct PlannerExerciseSupersetView: View {
 
 struct PlannerExerciseHeaderRow: Hashable, Identifiable {
     let id = UUID()
+    let exerciseId: UUID
     let name: String
-    var pace: UIPacePicker.InputState
+    var pace = UIPacePicker.InputState()
 }
 
 // MARK: - Design time
@@ -81,16 +82,19 @@ extension PlannerExerciseSupersetViewModel {
         return PlannerExerciseSupersetViewModel(
             headerRows: [
                 PlannerExerciseHeaderRow(
+                    exerciseId: UUID(),
                     name: "Squat",
                     pace: UIPacePicker.InputState()
                 ),
                 PlannerExerciseHeaderRow(
+                    exerciseId: UUID(),
                     name: "Deadlift",
                     pace: UIPacePicker.InputState()
                 )
             ],
             variations: [.dt_repsAndMins],
-            onAddVarationTap: {}
+            onAddVarationTap: {},
+            onVariationsChanged: { _ in }
         )
     }
 }

@@ -43,12 +43,12 @@ class PlannerViewModelSpec: QuickSpec {
                 }
                 it("will add them to plan") {
                     expect(viewModel.pages.first?.exercises).to(elementsEqual(exercises, by: { exerciseUnit, exercise in
-                        exerciseUnit.name == exercise.name
+                        exerciseUnit.headerRows[0].name == exercise.name
                     }))
                 }
             }
             context("when exercise is added") {
-                var addedExercise: PlannerExerciseViewModel!
+                var addedExercise: PlannerExerciseSupersetViewModel!
                 beforeEach {
                     let exercise = Exercise.make()
                     presenter.addExerciseTapped()

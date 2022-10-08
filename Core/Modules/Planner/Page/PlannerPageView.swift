@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlannerPageView: View {
     @ObservedObject var model: PlannerPageViewModel
-    @Binding var currentlyDragged: PlannerExerciseViewModel?
+    @Binding var currentlyDragged: PlannerExerciseSupersetViewModel?
     @Binding var allPages: [PlannerPageViewModel]
     let addExerciseTapped: () -> Void
     
@@ -29,8 +29,8 @@ struct PlannerPageView: View {
         }
     }
     
-    @ViewBuilder private func exerciseView(_ exercise: PlannerExerciseViewModel) -> some View {
-        PlannerExerciseView(model: exercise)
+    @ViewBuilder private func exerciseView(_ exercise: PlannerExerciseSupersetViewModel) -> some View {
+        PlannerExerciseSupersetView(model: exercise)
             .onDrag({
                 currentlyDragged = exercise
                 return PlannerExerciseDraggable.itemProvider
@@ -78,7 +78,7 @@ struct PlannerPageView: View {
 struct PlannerPageView_Previews: PreviewProvider {
     static var previews: some View {
         PlannerPageView(
-            model: PlannerPageViewModel(name: "A1", exercises: [PlannerExerciseViewModel.dt_squat]),
+            model: PlannerPageViewModel(name: "A1", exercises: [PlannerExerciseSupersetViewModel.dt_squatDeadlift()]),
             currentlyDragged: .constant(nil),
             allPages: .constant([]),
             addExerciseTapped: {}

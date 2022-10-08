@@ -24,7 +24,7 @@ class PlannerDropControllerSpec: QuickSpec {
             }
             
             context("when first page has two items") {
-                var originalExercises: [PlannerExerciseViewModel]!
+                var originalExercises: [PlannerExerciseSupersetViewModel]!
                 beforeEach {
                     let exercises = Exercise.make(count: 2)
                     addExercises(exercises)
@@ -84,7 +84,7 @@ class PlannerDropControllerSpec: QuickSpec {
                 viewModel.exercisePickerRelay?.pick(exercises)
             }
             
-            func item(_ page: Int, _ item: Int) -> PlannerExerciseViewModel {
+            func item(_ page: Int, _ item: Int) -> PlannerExerciseSupersetViewModel {
                 return viewModel.pages[page].exercises[item]
             }
             
@@ -94,7 +94,7 @@ class PlannerDropControllerSpec: QuickSpec {
             
             func enterDrop(
                 target: PlannerDraggingTarget,
-                dragged: PlannerExerciseViewModel
+                dragged: PlannerExerciseSupersetViewModel
             ) {
                 let drop = PlannerDropController(
                     target: target,

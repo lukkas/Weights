@@ -24,8 +24,6 @@ struct ExercisePickerRelay: Identifiable {
 }
 
 class PlannerViewModel: ObservableObject {
-    typealias ExerciseViewModel = PlannerExerciseViewModel
-    
     @Published var pages: [PlannerPageViewModel] = []
     @Published var visiblePage: Int = 0
     var leftArrowDisabled: Bool {

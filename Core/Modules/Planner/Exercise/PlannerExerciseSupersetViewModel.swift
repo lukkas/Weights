@@ -9,18 +9,25 @@ import Foundation
 
 class PlannerExerciseSupersetViewModel: ObservableObject, Identifiable {
     @Published var headerRows: [PlannerExerciseHeaderRow]
-    @Published var variations: [PlannerSupersetCellModel]
+    @Published var variations: [PlannerSupersetCellModel] {
+        didSet {
+            onVariationsChanged(variations)
+        }
+    }
     
     private let onAddVarationTap: () -> Void
+    private let onVariationsChanged: ([PlannerSupersetCellModel]) -> Void
     
     init(
         headerRows: [PlannerExerciseHeaderRow],
         variations: [PlannerSupersetCellModel],
-        onAddVarationTap: @escaping () -> Void
+        onAddVarationTap: @escaping () -> Void,
+        onVariationsChanged: @escaping ([PlannerSupersetCellModel]) -> Void
     ) {
         self.headerRows = headerRows
         self.variations = variations
         self.onAddVarationTap = onAddVarationTap
+        self.onVariationsChanged = onVariationsChanged
     }
     
     func addVariationTapped() {
