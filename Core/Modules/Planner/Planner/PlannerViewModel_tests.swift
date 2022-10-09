@@ -48,7 +48,7 @@ class PlannerViewModelSpec: QuickSpec {
                 }
             }
             context("when exercise is added") {
-                var addedExercise: PlannerExerciseSupersetViewModel!
+                var addedExercise: PlannerExerciseViewModel!
                 beforeEach {
                     let exercise = Exercise.make()
                     presenter.addExerciseTapped()

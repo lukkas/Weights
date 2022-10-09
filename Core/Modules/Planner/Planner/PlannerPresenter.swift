@@ -100,9 +100,9 @@ class PlannerPresenter: PlannerPresenting {
         unit.exercises.append(contentsOf: exerciseModels)
     }
     
-    private func createExerciseViewModel(for exercise: Exercise) -> PlannerExerciseSupersetViewModel {
-        weak var weakModel: PlannerExerciseSupersetViewModel?
-        let model = PlannerExerciseSupersetViewModel(
+    private func createExerciseViewModel(for exercise: Exercise) -> PlannerExerciseViewModel {
+        weak var weakModel: PlannerExerciseViewModel?
+        let model = PlannerExerciseViewModel(
             headerRows: [PlannerExerciseHeaderRow(exerciseId: exercise.id, name: exercise.name)],
             variations: [defaultExerciseSetVariation(for: exercise)],
             onAddVarationTap: { [weak self] in
@@ -120,15 +120,15 @@ class PlannerPresenter: PlannerPresenting {
         return model
     }
     
-    private func defaultExerciseSetVariation(for exercise: Exercise) -> PlannerSupersetCellModel {
-        let exerciseSet = PlannerSupersetCellModel.SingleSet(
+    private func defaultExerciseSetVariation(for exercise: Exercise) -> PlannerSetsCellModel {
+        let exerciseSet = PlannerSetsCellModel.ExerciseSet(
             metricLabel: exercise.metric.label,
             metricFieldMode: exercise.metric.parameterFieldMode,
             weightLabel: L10n.Common.kg
         )
-        return PlannerSupersetCellModel(
+        return PlannerSetsCellModel(
             numberOfSets: 1,
-            singleSets: [exerciseSet]
+            exerciseSets: [exerciseSet]
         )
     }
 }

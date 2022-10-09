@@ -15,12 +15,12 @@
 		05BAB1CC3858E06C486F511B /* PlannedDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE86388276C4CC23B878D7 /* PlannedDay.swift */; };
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
 		0E3E3199BE87152BB3BA0843 /* Weight+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7612CDF82B1362E8125D92 /* Weight+ModelAdapting.swift */; };
-		0F018E2E28CE624B0018EF11 /* PlannerSupersetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */; };
-		0F281B3928F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F281B3828F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift */; };
+		0F018E2E28CE624B0018EF11 /* PlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F018E2D28CE624B0018EF11 /* PlannerSetCell.swift */; };
+		0F281B3928F1FB9600CD994D /* PlannerExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F281B3828F1FB9600CD994D /* PlannerExerciseViewModel.swift */; };
 		0F760B0928D5F04D00BD6CAB /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */; };
 		0F760B0B28D5F14300BD6CAB /* AspectRatio_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */; };
 		0F8F2E6F28DF5FCA00B13733 /* PlannerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */; };
-		0FC9681728C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9681628C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift */; };
+		0FC9681728C4FB20001B4CD1 /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9681628C4FB20001B4CD1 /* PlannerExerciseView.swift */; };
 		0FCA53DD28E4E6E300102667 /* SupersetIdentificationColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCA53DC28E4E6E300102667 /* SupersetIdentificationColors.swift */; };
 		0FCA53DF28E4E84800102667 /* View+ConditionalModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCA53DE28E4E84800102667 /* View+ConditionalModifiers.swift */; };
 		104E0D87144B332C9621ADFB /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD62C2FCE97AEB0BB2DEE5A7 /* PlanView.swift */; };
@@ -283,13 +283,13 @@
 		0CB074F5EFF4D9ACB8418888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0DA9DF359FEB0332F44519D4 /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
 		0EEC462F99EB429D83F58DD0 /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
-		0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSupersetCell.swift; sourceTree = "<group>"; };
-		0F281B3828F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseSupersetViewModel.swift; sourceTree = "<group>"; };
+		0F018E2D28CE624B0018EF11 /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
+		0F281B3828F1FB9600CD994D /* PlannerExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
 		0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 		0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio_tests.swift; sourceTree = "<group>"; };
 		0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPresenter.swift; sourceTree = "<group>"; };
-		0FC9681628C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseSupersetView.swift; sourceTree = "<group>"; };
+		0FC9681628C4FB20001B4CD1 /* PlannerExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseView.swift; sourceTree = "<group>"; };
 		0FCA53DC28E4E6E300102667 /* SupersetIdentificationColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupersetIdentificationColors.swift; sourceTree = "<group>"; };
 		0FCA53DE28E4E84800102667 /* View+ConditionalModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ConditionalModifiers.swift"; sourceTree = "<group>"; };
 		0FFCBE909CFDD602034E48C6 /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
@@ -502,9 +502,9 @@
 		0FC9681528C4FAA5001B4CD1 /* Exercise */ = {
 			isa = PBXGroup;
 			children = (
-				0FC9681628C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift */,
-				0F281B3828F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift */,
-				0F018E2D28CE624B0018EF11 /* PlannerSupersetCell.swift */,
+				0FC9681628C4FB20001B4CD1 /* PlannerExerciseView.swift */,
+				0F281B3828F1FB9600CD994D /* PlannerExerciseViewModel.swift */,
+				0F018E2D28CE624B0018EF11 /* PlannerSetCell.swift */,
 				0FCA53DC28E4E6E300102667 /* SupersetIdentificationColors.swift */,
 			);
 			path = Exercise;
@@ -1333,21 +1333,21 @@
 				70FB5F42292B1F3EF3998E76 /* PaceKeyboardController.swift in Sources */,
 				EF046E6EBCC37E070A6FDF46 /* PacePicker.swift in Sources */,
 				0FCA53DD28E4E6E300102667 /* SupersetIdentificationColors.swift in Sources */,
-				0F018E2E28CE624B0018EF11 /* PlannerSupersetCell.swift in Sources */,
+				0F018E2E28CE624B0018EF11 /* PlannerSetCell.swift in Sources */,
 				929BFB6FDCF17F91B74DB2C4 /* ParameterField.swift in Sources */,
 				DC6C990B3260BF6461EA912E /* PickedExerciseCell.swift in Sources */,
 				AE0958B5F5518FFDCB007AA4 /* PickerTextField.swift in Sources */,
 				D4A3CB2CD13B26BD0FA28282 /* PlaceholderClosures.swift in Sources */,
 				3D159795C8D8593A19A27CB1 /* Plan.swift in Sources */,
 				F3FB8C43E93D2632DA1A0A67 /* PlanCell.swift in Sources */,
-				0F281B3928F1FB9600CD994D /* PlannerExerciseSupersetViewModel.swift in Sources */,
+				0F281B3928F1FB9600CD994D /* PlannerExerciseViewModel.swift in Sources */,
 				8BCDFB26212698263B3B780B /* PlanStoring.swift in Sources */,
 				104E0D87144B332C9621ADFB /* PlanView.swift in Sources */,
 				9E6A3929528D5B8EB71644B0 /* PlanViewModel.swift in Sources */,
 				67999B8978BE3339EBBA260C /* PlannedDay.swift in Sources */,
 				D43722D86F581789054168EC /* PlannedExercise.swift in Sources */,
 				10684DAACABE0990A7D9170D /* PlannerDropController.swift in Sources */,
-				0FC9681728C4FB20001B4CD1 /* PlannerExerciseSupersetView.swift in Sources */,
+				0FC9681728C4FB20001B4CD1 /* PlannerExerciseView.swift in Sources */,
 				01476D0B53CA670AC7492912 /* PlannerExerciseDraggable.swift in Sources */,
 				126FF17F976E13D7604C987A /* PlannerPageView.swift in Sources */,
 				2C0AEA55A77E95345E84A121 /* PlannerPageViewModel.swift in Sources */,

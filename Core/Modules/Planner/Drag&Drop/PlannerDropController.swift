@@ -10,7 +10,7 @@ import SwiftUI
 
 enum PlannerDraggingTarget {
     case emptyPage(PlannerPageViewModel)
-    case exercise(PlannerExerciseSupersetViewModel)
+    case exercise(PlannerExerciseViewModel)
 }
 
 protocol PlannerDropControllerDelegate: AnyObject {
@@ -19,12 +19,12 @@ protocol PlannerDropControllerDelegate: AnyObject {
 
 class PlannerDropController: DropDelegate {
     private let target: PlannerDraggingTarget
-    @Binding private var currentlyDragged: PlannerExerciseSupersetViewModel?
+    @Binding private var currentlyDragged: PlannerExerciseViewModel?
     @Binding private var pages: [PlannerPageViewModel]
     
     init(
         target: PlannerDraggingTarget,
-        currentlyDragged: Binding<PlannerExerciseSupersetViewModel?>,
+        currentlyDragged: Binding<PlannerExerciseViewModel?>,
         pages: Binding<[PlannerPageViewModel]>
     ) {
         self.target = target
@@ -62,7 +62,7 @@ class PlannerDropController: DropDelegate {
     }
     
     private func indexPath(
-        of item: PlannerExerciseSupersetViewModel
+        of item: PlannerExerciseViewModel
     ) -> IndexPath? {
         for (unitIndex, unit) in pages.enumerated() {
             for (exerciseIndex, exercise) in unit.exercises.enumerated() where exercise == item {

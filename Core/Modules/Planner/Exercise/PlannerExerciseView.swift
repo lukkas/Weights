@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct PlannerExerciseSupersetView: View {
-    @ObservedObject var model: PlannerExerciseSupersetViewModel
+struct PlannerExerciseView: View {
+    @ObservedObject var model: PlannerExerciseViewModel
     
     var body: some View {
         VStack(spacing: 4) {
@@ -32,7 +32,7 @@ struct PlannerExerciseSupersetView: View {
             )
             .padding(.bottom, 8)
             ForEach($model.variations) { variation in
-                PlannerSupersetCell(model: variation)
+                PlannerSetCell(model: variation)
                     .padding(8)
                     .background(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
@@ -72,14 +72,14 @@ struct PlannerExerciseHeaderRow: Hashable, Identifiable {
 #if DEBUG
 struct PlannerExerciseSupersetView_Previews: PreviewProvider {
     static var previews: some View {
-        PlannerExerciseSupersetView(model: .dt_squatDeadlift())
+        PlannerExerciseView(model: .dt_squatDeadlift())
             .cellPreview()
     }
 }
 
-extension PlannerExerciseSupersetViewModel {
-    static func dt_squatDeadlift() -> PlannerExerciseSupersetViewModel {
-        return PlannerExerciseSupersetViewModel(
+extension PlannerExerciseViewModel {
+    static func dt_squatDeadlift() -> PlannerExerciseViewModel {
+        return PlannerExerciseViewModel(
             headerRows: [
                 PlannerExerciseHeaderRow(
                     exerciseId: UUID(),

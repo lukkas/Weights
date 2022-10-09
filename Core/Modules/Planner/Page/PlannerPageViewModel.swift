@@ -10,9 +10,9 @@ import Foundation
 class PlannerPageViewModel: ObservableObject, Identifiable, Hashable {
     let id = UUID()
     var name: String
-    @Published var exercises: [PlannerExerciseSupersetViewModel]
+    @Published var exercises: [PlannerExerciseViewModel]
     
-    init(name: String, exercises: [PlannerExerciseSupersetViewModel] = []) {
+    init(name: String, exercises: [PlannerExerciseViewModel] = []) {
         self.name = name
         self.exercises = exercises
     }

@@ -7,22 +7,22 @@
 
 import Foundation
 
-class PlannerExerciseSupersetViewModel: ObservableObject, Identifiable {
+class PlannerExerciseViewModel: ObservableObject, Identifiable {
     @Published var headerRows: [PlannerExerciseHeaderRow]
-    @Published var variations: [PlannerSupersetCellModel] {
+    @Published var variations: [PlannerSetsCellModel] {
         didSet {
             onVariationsChanged(variations)
         }
     }
     
     private let onAddVarationTap: () -> Void
-    private let onVariationsChanged: ([PlannerSupersetCellModel]) -> Void
+    private let onVariationsChanged: ([PlannerSetsCellModel]) -> Void
     
     init(
         headerRows: [PlannerExerciseHeaderRow],
-        variations: [PlannerSupersetCellModel],
+        variations: [PlannerSetsCellModel],
         onAddVarationTap: @escaping () -> Void,
-        onVariationsChanged: @escaping ([PlannerSupersetCellModel]) -> Void
+        onVariationsChanged: @escaping ([PlannerSetsCellModel]) -> Void
     ) {
         self.headerRows = headerRows
         self.variations = variations
@@ -35,8 +35,8 @@ class PlannerExerciseSupersetViewModel: ObservableObject, Identifiable {
     }
 }
 
-extension PlannerExerciseSupersetViewModel: Hashable {
-    static func == (lhs: PlannerExerciseSupersetViewModel, rhs: PlannerExerciseSupersetViewModel) -> Bool {
+extension PlannerExerciseViewModel: Hashable {
+    static func == (lhs: PlannerExerciseViewModel, rhs: PlannerExerciseViewModel) -> Bool {
         return
             lhs.id == rhs.id
             && lhs.headerRows == rhs.headerRows

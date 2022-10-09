@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct PlannerSupersetCellModel: Identifiable, Hashable {
-    struct SingleSet: Identifiable, Hashable {
+struct PlannerSetsCellModel: Identifiable, Hashable {
+    struct ExerciseSet: Identifiable, Hashable {
         let id: UUID = UUID()
         let metricLabel: String
         let metricFieldMode: ParameterFieldKind
@@ -19,11 +19,11 @@ struct PlannerSupersetCellModel: Identifiable, Hashable {
     
     let id: UUID = UUID()
     var numberOfSets: Double? = nil
-    var singleSets: [SingleSet] = []
+    var exerciseSets: [ExerciseSet] = []
 }
 
-struct PlannerSupersetCell: View {
-    @Binding var model: PlannerSupersetCellModel
+struct PlannerSetCell: View {
+    @Binding var model: PlannerSetsCellModel
     
     var body: some View {
         HStack(spacing: 4) {
@@ -36,26 +36,26 @@ struct PlannerSupersetCell: View {
             Text("sets")
             Spacer()
             VStack(spacing: 6) {
-                ForEach($model.singleSets) { $singleSet in
+                ForEach($model.exerciseSets) { $exerciseSet in
                     HStack {
-                        PickerTextField(value: $singleSet.metricValue)
+                        PickerTextField(value: $exerciseSet.metricValue)
                             .fillColor(.secondaryBackground)
-                            .parameterField(singleSet.metricFieldMode)
+                            .parameterField(exerciseSet.metricFieldMode)
                             .parameterFieldAligned()
-                        Text(singleSet.metricLabel)
-                        PickerTextField(value: $singleSet.weight)
+                        Text(exerciseSet.metricLabel)
+                        PickerTextField(value: $exerciseSet.weight)
                             .fillColor(.secondaryBackground)
                             .parameterField(.weight)
                             .parameterFieldAligned()
-                        Text(singleSet.weightLabel)
+                        Text(exerciseSet.weightLabel)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(6)
-                    .if(model.singleSets.count > 1, transform: { view in
+                    .if(model.exerciseSets.count > 1, transform: { view in
                         view.overlay(
                             RoundedRectangle(cornerRadius: 12, style: .continuous)
                                 .stroke(
-                                    Color.forSupersetIdentification(at: model.singleSets.firstIndex(of: singleSet)!)
+                                    Color.forSupersetIdentification(at: model.exerciseSets.firstIndex(of: exerciseSet)!)
                                 )
                         )
                     })
@@ -73,10 +73,10 @@ struct PlannerSupersetCell: View {
 
 struct PlannerSupersetCell_Previews: PreviewProvider {
     struct Wrapper: View {
-        @State var model: PlannerSupersetCellModel
+        @State var model: PlannerSetsCellModel
         
         var body: some View {
-            PlannerSupersetCell(model: $model)
+            PlannerSetCell(model: $model)
         }
     }
     
@@ -86,10 +86,10 @@ struct PlannerSupersetCell_Previews: PreviewProvider {
     }
 }
 
-extension PlannerSupersetCellModel {
+extension PlannerSetsCellModel {
     static var dt_repsAndMins: Self {
-        PlannerSupersetCellModel(
-            singleSets: [
+        PlannerSetsCellModel(
+            exerciseSets: [
                 .init(
                     metricLabel: "reps",
                     metricFieldMode: .reps,
