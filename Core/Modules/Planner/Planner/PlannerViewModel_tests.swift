@@ -16,6 +16,9 @@ class PlannerViewModelSpec: QuickSpec {
             var viewModel: PlannerViewModel!
             var presenter: PlannerPresenter!
             var planStorage: PlanStoringStub!
+            var firstDay: PlannerPageViewModel {
+                viewModel.pages[0]
+            }
             beforeEach {
                 planStorage = PlanStoringStub()
                 viewModel = PlannerViewModel(isPresented: .constant(true))
@@ -53,7 +56,7 @@ class PlannerViewModelSpec: QuickSpec {
                     let exercise = Exercise.builder().build()
                     presenter.addExerciseTapped()
                     viewModel.exercisePickerRelay?.pick([exercise])
-                    addedExercise = viewModel.pages[0].exercises[0]
+                    addedExercise = firstDay.exercises[0]
                 }
                 it("will have single variation with single set") {
                     expect(addedExercise.variations).to(haveCount(1))
@@ -78,7 +81,22 @@ class PlannerViewModelSpec: QuickSpec {
                 }
             }
             context("when there are 3 exercises in a day") {
-                
+                beforeEach {
+                    let exercises = Exercise.arrayBuilder().build(count: 3)
+                    presenter.addExerciseTapped()
+                    viewModel.exercisePickerRelay?.pick(exercises)
+                }
+                context("when add superset is tapped on first") {
+                    beforeEach {
+                        firstDay.exercises[0].addToSuperset()
+                    }
+                    it("will have to exercises in first superset") {
+                        expect(firstDay.exercises[0].headerRows).to(haveCount(2))
+                    }
+                    it("will have two exercises on page") {
+                        expect(firstDay.exercises).to(haveCount(2))
+                    }
+                }
             }
             context("when plus is tapped") {
                 beforeEach {

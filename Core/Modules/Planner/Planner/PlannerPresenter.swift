@@ -95,30 +95,45 @@ class PlannerPresenter: PlannerPresenting {
         exercises.forEach { exercise in
             addedExercises[exercise.id] = exercise
         }
-        let unit = viewModel.pages[viewModel.visiblePage]
         let exerciseModels = exercises.map(createExerciseViewModel(for:))
-        unit.exercises.append(contentsOf: exerciseModels)
+        visiblePage.exercises.append(contentsOf: exerciseModels)
+    }
+    
+    private var visiblePage: PlannerPageViewModel {
+        return viewModel.pages[viewModel.visiblePage]
     }
     
     private func createExerciseViewModel(for exercise: Exercise) -> PlannerExerciseViewModel {
-        weak var weakModel: PlannerExerciseViewModel?
+        weak var weakModel: PlannerExerciseViewModel!
         let model = PlannerExerciseViewModel(
             headerRows: [PlannerExerciseHeaderRow(exerciseId: exercise.id, name: exercise.name)],
             variations: [defaultExerciseSetVariation(for: exercise)],
             onAddVarationTap: { [weak self] in
-                guard let self = self else { return }
+                guard let self else { return }
                 let newSetVariation = self.defaultExerciseSetVariation(for: exercise)
-                weakModel?.variations.append(newSetVariation)
+                weakModel.variations.append(newSetVariation)
             },
-            onSupersetAction: { _ in },
+            onSupersetAction: { action in
+                switch action {
+                case .add: self.handleAddSupersetAction(on: weakModel)
+                case .remove: break
+                }
+            },
             onVariationsChanged: { variations in
                 if let index = variations.lastIndex(where: { $0.numberOfSets == 0 }) {
-                    weakModel?.variations.remove(at: index)
+                    weakModel.variations.remove(at: index)
                 }
             }
         )
         weakModel = model
         return model
+    }
+    
+    private func handleAddSupersetAction(on exerciseVM: PlannerExerciseViewModel) {
+        guard
+            let index = visiblePage.exercises.firstIndex(of: exerciseVM),
+            visiblePage.exercises.indices.contains(index + 1) else { return }
+        
     }
     
     private func defaultExerciseSetVariation(for exercise: Exercise) -> PlannerSetsCellModel {
