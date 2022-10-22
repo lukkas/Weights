@@ -33,7 +33,11 @@ class ExercisePickerViewModelSpec: QuickSpec {
             }
             
             context("given populated storage") {
-                let exercises = Exercise.make(count: 3)
+                let exercises = Exercise
+                    .arrayBuilder()
+                    .with({ $0.withName("Squat") }, at: 0)
+                    .with({ $0.withName("Deadlift") }, at: .indexOtherThan(0))
+                    .build(count: 3)
                 
                 beforeEach {
                     exerciseStorage.preconfigure_populate(with: exercises)
@@ -52,7 +56,7 @@ class ExercisePickerViewModelSpec: QuickSpec {
                 
                 context("when search text is entered") {
                     beforeEach {
-                        sut.searchText = String(exercises.first!.name.prefix(2))
+                        sut.searchText = "Squ"
                     }
                     it("will display filtered items") {
                         expect(sut.exercises).to(equal([self.cellModel(reflecting: exercises.first!)]))

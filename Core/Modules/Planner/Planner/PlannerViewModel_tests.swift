@@ -36,7 +36,7 @@ class PlannerViewModelSpec: QuickSpec {
                 expect(viewModel.rightArrowDisabled).to(beTrue())
             }
             context("when add exercises is tapped") {
-                let exercises = Exercise.make(count: 3)
+                let exercises = Exercise.arrayBuilder().build(count: 3)
                 beforeEach {
                     presenter.addExerciseTapped()
                     viewModel.exercisePickerRelay?.pick(exercises)
@@ -50,7 +50,7 @@ class PlannerViewModelSpec: QuickSpec {
             context("when exercise is added") {
                 var addedExercise: PlannerExerciseViewModel!
                 beforeEach {
-                    let exercise = Exercise.make()
+                    let exercise = Exercise.builder().build()
                     presenter.addExerciseTapped()
                     viewModel.exercisePickerRelay?.pick([exercise])
                     addedExercise = viewModel.pages[0].exercises[0]
@@ -76,6 +76,9 @@ class PlannerViewModelSpec: QuickSpec {
                         }
                     }
                 }
+            }
+            context("when there are 3 exercises in a day") {
+                
             }
             context("when plus is tapped") {
                 beforeEach {
@@ -136,10 +139,10 @@ class PlannerViewModelSpec: QuickSpec {
             }
             func prepareTwoDayPlan() {
                 presenter.addExerciseTapped()
-                viewModel.exercisePickerRelay?.pick(Exercise.make(count: 3))
+                viewModel.exercisePickerRelay?.pick(Exercise.arrayBuilder().build(count: 3))
                 presenter.plusTapped()
                 presenter.addExerciseTapped()
-                viewModel.exercisePickerRelay?.pick(Exercise.make(count: 5))
+                viewModel.exercisePickerRelay?.pick(Exercise.arrayBuilder().build(count: 5))
             }
             context("when save is tapped") {
                 context("when two pages are created") {

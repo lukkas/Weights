@@ -26,7 +26,7 @@ class PlannerDropControllerSpec: QuickSpec {
             context("when first page has two items") {
                 var originalExercises: [PlannerExerciseViewModel]!
                 beforeEach {
-                    let exercises = Exercise.make(count: 2)
+                    let exercises = Exercise.arrayBuilder().build(count: 2)
                     addExercises(exercises)
                     originalExercises = page(0).exercises
                 }

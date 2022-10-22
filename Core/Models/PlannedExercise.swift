@@ -42,7 +42,7 @@ public struct PlannedExercise: Equatable {
 extension PlannedExercise {
     static func make() -> PlannedExercise {
         return PlannedExercise(
-            exercise: .make(),
+            exercise: .builder().build(),
             pace: nil,
             setCollections: [],
             createsSupersets: false
