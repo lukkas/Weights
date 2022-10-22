@@ -110,6 +110,7 @@ class PlannerPresenter: PlannerPresenting {
                 let newSetVariation = self.defaultExerciseSetVariation(for: exercise)
                 weakModel?.variations.append(newSetVariation)
             },
+            onSupersetAction: { _ in },
             onVariationsChanged: { variations in
                 if let index = variations.lastIndex(where: { $0.numberOfSets == 0 }) {
                     weakModel?.variations.remove(at: index)

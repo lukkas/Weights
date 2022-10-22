@@ -47,13 +47,27 @@ struct PlannerExerciseView: View {
                     }
                 } label: {
                     Text(L10n.Planner.Exercise.add)
-                        .textStyle(.mediumButton)
-                        .padding(.vertical, 8)
                 }
                 .buttonStyle(.borderless)
-                
                 Spacer()
+                Text(L10n.Planner.Exercise.supersets)
+                Button {
+                    model.addToSuperset()
+                } label: {
+                    Image(systemName: "arrow.turn.left.up")
+                }
+                .disabled(!model.supersetAddEnabled)
+                .buttonStyle(.borderedProminent)
+                Button {
+                    model.removeFromSuperset()
+                } label: {
+                    Image(systemName: "arrow.turn.right.down")
+                }
+                .disabled(!model.supersetRemoveEnabled)
+                .buttonStyle(.bordered)
             }
+            .padding(.vertical, 8)
+            .textStyle(.mediumButton)
         }
         .padding(12)
         .cardDesign()
@@ -74,6 +88,11 @@ struct PlannerExerciseSupersetView_Previews: PreviewProvider {
     static var previews: some View {
         PlannerExerciseView(model: .dt_squatDeadlift())
             .cellPreview()
+            .previewDisplayName("Superset")
+        
+        PlannerExerciseView(model: .dt_squat())
+            .cellPreview()
+            .previewDisplayName("Single set")
     }
 }
 
@@ -94,6 +113,23 @@ extension PlannerExerciseViewModel {
             ],
             variations: [.dt_repsAndMins],
             onAddVarationTap: {},
+            onSupersetAction: { _ in },
+            onVariationsChanged: { _ in }
+        )
+    }
+    
+    static func dt_squat() -> PlannerExerciseViewModel {
+        return PlannerExerciseViewModel(
+            headerRows: [
+                PlannerExerciseHeaderRow(
+                    exerciseId: UUID(),
+                    name: "Squat",
+                    pace: UIPacePicker.InputState()
+                )
+            ],
+            variations: [.dt_reps],
+            onAddVarationTap: {},
+            onSupersetAction: { _ in },
             onVariationsChanged: { _ in }
         )
     }

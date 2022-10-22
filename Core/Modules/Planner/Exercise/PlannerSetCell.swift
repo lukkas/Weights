@@ -103,4 +103,16 @@ extension PlannerSetsCellModel {
             ]
         )
     }
+    
+    static var dt_reps: Self {
+        PlannerSetsCellModel(
+            exerciseSets: [
+                .init(
+                    metricLabel: "reps",
+                    metricFieldMode: .reps,
+                    weightLabel: "kg"
+                )
+            ]
+        )
+    }
 }

@@ -30,6 +30,7 @@
 
 "planner.addExercise" = "Add exercise";
 "planner.exercise.add" = "Add next...";
+"planner.exercise.supersets" = "Supersets";
 
 "exercisePicker.navBar.add" = "Add";
 "exercisePicker.navBar.pickExercises" = "Pick exercises";
