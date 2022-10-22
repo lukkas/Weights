@@ -17,6 +17,7 @@
 		0E3E3199BE87152BB3BA0843 /* Weight+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7612CDF82B1362E8125D92 /* Weight+ModelAdapting.swift */; };
 		0F018E2E28CE624B0018EF11 /* PlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F018E2D28CE624B0018EF11 /* PlannerSetCell.swift */; };
 		0F281B3928F1FB9600CD994D /* PlannerExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F281B3828F1FB9600CD994D /* PlannerExerciseViewModel.swift */; };
+		0F39E07D29044AF000A40CE2 /* ModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F39E07C29044AF000A40CE2 /* ModelBuilder.swift */; };
 		0F760B0928D5F04D00BD6CAB /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */; };
 		0F760B0B28D5F14300BD6CAB /* AspectRatio_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */; };
 		0F8F2E6F28DF5FCA00B13733 /* PlannerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */; };
@@ -286,6 +287,7 @@
 		0F018E2D28CE624B0018EF11 /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
 		0F281B3828F1FB9600CD994D /* PlannerExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
+		0F39E07C29044AF000A40CE2 /* ModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelBuilder.swift; sourceTree = "<group>"; };
 		0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 		0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio_tests.swift; sourceTree = "<group>"; };
 		0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPresenter.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 				F4196EBECDC1E2392B12B54C /* PlannedExercise.swift */,
 				360714EB613D4B1B489F40CE /* RPE.swift */,
 				BE01113C55E2A1EB7FA8A8D5 /* Weight.swift */,
+				0F39E07C29044AF000A40CE2 /* ModelBuilder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1333,6 +1336,7 @@
 				70FB5F42292B1F3EF3998E76 /* PaceKeyboardController.swift in Sources */,
 				EF046E6EBCC37E070A6FDF46 /* PacePicker.swift in Sources */,
 				0FCA53DD28E4E6E300102667 /* SupersetIdentificationColors.swift in Sources */,
+				0F39E07D29044AF000A40CE2 /* ModelBuilder.swift in Sources */,
 				0F018E2E28CE624B0018EF11 /* PlannerSetCell.swift in Sources */,
 				929BFB6FDCF17F91B74DB2C4 /* ParameterField.swift in Sources */,
 				DC6C990B3260BF6461EA912E /* PickedExerciseCell.swift in Sources */,
