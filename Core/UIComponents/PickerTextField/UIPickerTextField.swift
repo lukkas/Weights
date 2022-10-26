@@ -29,6 +29,9 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     var minMaxRange: ClosedRange<Double>? {
         didSet { resetEditor() }
     }
+    var unitLabel: String? {
+        didSet {  }
+    }
     
     var value: Double? {
         get { editor.value }
@@ -74,15 +77,20 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     required init?(coder aDecoder: NSCoder) { fatalError("Storyboards are not compatible with truth and beauty") }
     
     override var intrinsicContentSize: CGSize {
-        let verticalPadding = 18.0
-        let defaultFontSize = 18.0
-        let aspectRatio = AspectRatio(
-            width: 56,
-            height: verticalPadding + defaultFontSize
+        let labelSize = label.intrinsicContentSize
+        return CGSize(
+            width: labelSize.width + 12,
+            height: labelSize.height + 8
         )
-        let height = fontSize + verticalPadding
-        let width = aspectRatio.width(forHeight: fontSize + verticalPadding)
-        return CGSize(width: width, height: height)
+//        let verticalPadding = 18.0
+//        let defaultFontSize = 18.0
+//        let aspectRatio = AspectRatio(
+//            width: 56,
+//            height: verticalPadding + defaultFontSize
+//        )
+//        let height = fontSize + verticalPadding
+//        let width = aspectRatio.width(forHeight: fontSize + verticalPadding)
+//        return CGSize(width: width, height: height)
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -187,7 +195,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func updateLabel() {
-        label.text = editor.getFormattedText()
+        let numberTextRepresentation = editor.getFormattedText()
+        if let unitLabel {
+            label.text = "\(numberTextRepresentation) \(unitLabel)"
+        } else {
+            label.text = numberTextRepresentation
+        }
+        invalidateIntrinsicContentSize()
     }
     
     // MARK: UIKeyInput

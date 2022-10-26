@@ -33,12 +33,12 @@ struct PlannerExerciseView: View {
             .padding(.bottom, 8)
             ForEach($model.variations) { variation in
                 PlannerSetCell(model: variation)
-                    .padding(8)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .foregroundColor(.secondaryBackground)
-                    )
-                    .padding(.bottom, 8)
+//                    .padding(8)
+//                    .background(
+//                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+//                            .foregroundColor(.secondaryBackground)
+//                    )
+//                    .padding(.bottom, 8)
             }
             HStack {
                 Button {
@@ -127,7 +127,7 @@ extension PlannerExerciseViewModel {
                     pace: UIPacePicker.InputState()
                 )
             ],
-            variations: [.dt_reps],
+            variations: [.dt_reps, .dt_reps, .dt_reps],
             onAddVarationTap: {},
             onSupersetAction: { _ in },
             onVariationsChanged: { _ in }

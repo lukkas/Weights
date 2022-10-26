@@ -35,39 +35,48 @@ struct PlannerSetCell: View {
                 .parameterFieldAligned()
             Text("sets")
             Spacer()
-            VStack(spacing: 6) {
+            VStack(spacing: 8) {
                 ForEach($model.exerciseSets) { $exerciseSet in
                     HStack {
                         PickerTextField(value: $exerciseSet.metricValue)
-                            .fillColor(.secondaryBackground)
+                            .unitLabel(exerciseSet.metricLabel)
+                            .fillColor(nil)
                             .parameterField(exerciseSet.metricFieldMode)
                             .parameterFieldAligned()
-                        Text(exerciseSet.metricLabel)
                         PickerTextField(value: $exerciseSet.weight)
-                            .fillColor(.secondaryBackground)
+                            .unitLabel(exerciseSet.weightLabel)
+                            .fillColor(nil)
                             .parameterField(.weight)
                             .parameterFieldAligned()
-                        Text(exerciseSet.weightLabel)
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(6)
-                    .if(model.exerciseSets.count > 1, transform: { view in
-                        view.overlay(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .stroke(
-                                    Color.forSupersetIdentification(at: model.exerciseSets.firstIndex(of: exerciseSet)!)
-                                )
-                        )
-                    })
-                    .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .foregroundColor(.tertiaryBackground)
-                    )
+//                    .padding(6)
+//                    .if(model.exerciseSets.count > 1, transform: { view in
+//                        view.overlay(
+//                            Underscore()
+//                                .stroke(
+//                                    Color.forSupersetIdentification(at: model.exerciseSets.firstIndex(of: exerciseSet)!)
+//                                )
+//                        )
+//                    })
+//                    .background(
+//                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+//                            .foregroundColor(.tertiaryBackground)
+//                    )
                 }
             }
             .fixedSize(horizontal: true, vertical: false)
             .textStyle(.pickerAccessory)
         }
+    }
+}
+
+struct Underscore: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        return path
     }
 }
 
@@ -82,6 +91,9 @@ struct PlannerSupersetCell_Previews: PreviewProvider {
     
     static var previews: some View {
         Wrapper(model: .dt_repsAndMins)
+            .cellPreview()
+        
+        Wrapper(model: .dt_reps)
             .cellPreview()
     }
 }
