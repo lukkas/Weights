@@ -23,52 +23,6 @@ class PlannerPresenter: PlannerPresenting {
         return PlannerPageViewModel(name: "A1")
     }
     
-    func cancelNavigationButtonTapped() {
-        viewModel.isPresented = false
-    }
-    
-    func saveNavigationButtonTapped() {
-        saveCreatedPlan()
-        viewModel.isPresented = false
-    }
-    
-    private func saveCreatedPlan() {
-        let plan = createPlanFromViewModels()
-        planStorage.insert(plan)
-    }
-    
-    private func createPlanFromViewModels() -> Plan {
-        return Plan(
-            id: UUID(),
-            name: "Can't name plan yet",
-            days: collectPlannedDays(),
-            isCurrent: false
-        )
-    }
-    
-    private func collectPlannedDays() -> [PlannedDay] {
-        return viewModel.pages.map { pageViewModel in
-            return PlannedDay(
-                name: pageViewModel.name,
-                exercises: extractExercises(from: pageViewModel)
-            )
-        }
-    }
-    
-    private func extractExercises(
-        from pageViewModel: PlannerPageViewModel
-    ) -> [PlannedExercise] {
-        return pageViewModel.exercises.flatMap { exerciseViewModel in
-            return exerciseViewModel.headerRows.map { headerRow in
-                return PlannedExercise(
-                    exercise: addedExercises[headerRow.exerciseId]!,
-                    setCollections: [],
-                    createsSupersets: false
-                )
-            }
-        }
-    }
-    
     func plusTapped() {
         viewModel.pages.append(makeTemplateUnitModel())
         viewModel.visiblePage = viewModel.pages.indices.last!

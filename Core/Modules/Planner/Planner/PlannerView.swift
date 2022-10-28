@@ -101,6 +101,10 @@ class DTPlannerPresenter: PlannerPresenting {
     func addExerciseTapped() {}
 }
 
+class DTPlannerInteractor: PlannerInteracting {
+    
+}
+
 struct DTPlannerRouter: PlannerRouting {
     @ViewBuilder func exercisePicker(relay: ExercisePickerRelay) -> some View {
         EmptyView()
@@ -109,7 +113,10 @@ struct DTPlannerRouter: PlannerRouting {
 
 struct PlannerView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = PlannerViewModel(isPresented: .constant(true))
+        let model = PlannerViewModel(
+            interactor: DTPlannerInteractor(),
+            isPresented: .constant(true)
+        )
         let presenter = DTPlannerPresenter(viewModel: model)
         PlannerView(
             model: model,

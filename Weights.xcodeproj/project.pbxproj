@@ -21,6 +21,7 @@
 		0F760B0928D5F04D00BD6CAB /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */; };
 		0F760B0B28D5F14300BD6CAB /* AspectRatio_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */; };
 		0F8F2E6F28DF5FCA00B13733 /* PlannerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */; };
+		0FB3874D2909D0660096EBC6 /* PlannerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3874C2909D0660096EBC6 /* PlannerInteractor.swift */; };
 		0FC9681728C4FB20001B4CD1 /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9681628C4FB20001B4CD1 /* PlannerExerciseView.swift */; };
 		0FCA53DD28E4E6E300102667 /* SupersetIdentificationColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCA53DC28E4E6E300102667 /* SupersetIdentificationColors.swift */; };
 		0FCA53DF28E4E84800102667 /* View+ConditionalModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCA53DE28E4E84800102667 /* View+ConditionalModifiers.swift */; };
@@ -291,6 +292,7 @@
 		0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 		0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio_tests.swift; sourceTree = "<group>"; };
 		0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPresenter.swift; sourceTree = "<group>"; };
+		0FB3874C2909D0660096EBC6 /* PlannerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerInteractor.swift; sourceTree = "<group>"; };
 		0FC9681628C4FB20001B4CD1 /* PlannerExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseView.swift; sourceTree = "<group>"; };
 		0FCA53DC28E4E6E300102667 /* SupersetIdentificationColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupersetIdentificationColors.swift; sourceTree = "<group>"; };
 		0FCA53DE28E4E84800102667 /* View+ConditionalModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ConditionalModifiers.swift"; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 				864A1F926C2A78430D8ED46C /* PlannerViewModel.swift */,
 				3A619C874E8471CE23892E1D /* TrainingBottomBar.swift */,
 				0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */,
+				0FB3874C2909D0660096EBC6 /* PlannerInteractor.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -1334,6 +1337,7 @@
 				BED9D70B1221BAB0E38D6405 /* Pace.swift in Sources */,
 				5D823F9EB14237CDC08B8A1C /* PaceKeyboard.swift in Sources */,
 				70FB5F42292B1F3EF3998E76 /* PaceKeyboardController.swift in Sources */,
+				0FB3874D2909D0660096EBC6 /* PlannerInteractor.swift in Sources */,
 				EF046E6EBCC37E070A6FDF46 /* PacePicker.swift in Sources */,
 				0FCA53DD28E4E6E300102667 /* SupersetIdentificationColors.swift in Sources */,
 				0F39E07D29044AF000A40CE2 /* ModelBuilder.swift in Sources */,
