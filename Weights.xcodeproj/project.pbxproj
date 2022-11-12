@@ -20,7 +20,6 @@
 		0F39E07D29044AF000A40CE2 /* ModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F39E07C29044AF000A40CE2 /* ModelBuilder.swift */; };
 		0F760B0928D5F04D00BD6CAB /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */; };
 		0F760B0B28D5F14300BD6CAB /* AspectRatio_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */; };
-		0F8F2E6F28DF5FCA00B13733 /* PlannerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */; };
 		0FC9681728C4FB20001B4CD1 /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9681628C4FB20001B4CD1 /* PlannerExerciseView.swift */; };
 		0FCA53DD28E4E6E300102667 /* SupersetIdentificationColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCA53DC28E4E6E300102667 /* SupersetIdentificationColors.swift */; };
 		0FCA53DF28E4E84800102667 /* View+ConditionalModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCA53DE28E4E84800102667 /* View+ConditionalModifiers.swift */; };
@@ -290,7 +289,6 @@
 		0F39E07C29044AF000A40CE2 /* ModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelBuilder.swift; sourceTree = "<group>"; };
 		0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 		0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio_tests.swift; sourceTree = "<group>"; };
-		0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPresenter.swift; sourceTree = "<group>"; };
 		0FC9681628C4FB20001B4CD1 /* PlannerExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseView.swift; sourceTree = "<group>"; };
 		0FCA53DC28E4E6E300102667 /* SupersetIdentificationColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupersetIdentificationColors.swift; sourceTree = "<group>"; };
 		0FCA53DE28E4E84800102667 /* View+ConditionalModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ConditionalModifiers.swift"; sourceTree = "<group>"; };
@@ -528,7 +526,6 @@
 				90843FCB8C011482CA2D573F /* PlannerViewModel_tests.swift */,
 				864A1F926C2A78430D8ED46C /* PlannerViewModel.swift */,
 				3A619C874E8471CE23892E1D /* TrainingBottomBar.swift */,
-				0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -1305,7 +1302,6 @@
 			files = (
 				CBF69EC8B222D88E272E850D /* ActivePlanCell.swift in Sources */,
 				143308342A80D6456FE2FCD4 /* CGFloat+Extensions.swift in Sources */,
-				0F8F2E6F28DF5FCA00B13733 /* PlannerPresenter.swift in Sources */,
 				325D71DB27E58A43ABF14DD1 /* CardDesign.swift in Sources */,
 				7CBF21AAFE47409AE2B8FC0B /* CardPreview.swift in Sources */,
 				C7DE215C131424B6A9685668 /* CellPreview.swift in Sources */,
