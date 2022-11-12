@@ -28,6 +28,30 @@ struct PlannerExercise: Identifiable, Hashable {
 }
 
 #if DEBUG
+extension PlannerExercise {
+    static func dt_deadlift(supersets: Bool = false) -> PlannerExercise {
+        return PlannerExercise(
+            id: UUID(),
+            exerciseId: UUID(),
+            name: "Deadlift",
+            pace: UIPacePicker.InputState(),
+            sets: [.dt_reps, .dt_reps, .dt_reps],
+            createsSupersets: supersets
+        )
+    }
+
+    static func dt_squat(supersets: Bool = false) -> PlannerExercise {
+        return PlannerExercise(
+            id: UUID(),
+            exerciseId: UUID(),
+            name: "Squat",
+            pace: UIPacePicker.InputState(),
+            sets: [.dt_reps, .dt_reps, .dt_reps],
+            createsSupersets: supersets
+        )
+    }
+}
+
 extension PlannerExercise.Set {
     static var dt_mins: Self {
         PlannerExercise.Set(

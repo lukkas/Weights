@@ -37,7 +37,8 @@ struct Underscore: Shape {
     }
 }
 
-struct PlannerSupersetCell_Previews: PreviewProvider {
+#if DEBUG
+struct PlannerSetCell_Previews: PreviewProvider {
     struct Wrapper: View {
         @State var model: PlannerExercise.Set
         
@@ -54,3 +55,4 @@ struct PlannerSupersetCell_Previews: PreviewProvider {
             .cellPreview()
     }
 }
+#endif

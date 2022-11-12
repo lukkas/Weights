@@ -37,12 +37,6 @@ struct PlannerExerciseView: View {
             .padding(.bottom, 8)
             ForEach($model.sets) { $set in
                 PlannerSetCell(model: $set)
-//                    .padding(8)
-//                    .background(
-//                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-//                            .foregroundColor(.secondaryBackground)
-//                    )
-//                    .padding(.bottom, 8)
             }
             HStack {
                 Button {
@@ -81,54 +75,24 @@ struct PlannerExerciseView: View {
 // MARK: - Design time
 
 #if DEBUG
-//struct PlannerExerciseSupersetView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlannerExerciseView(model: .dt_squatDeadlift())
-//            .cellPreview()
-//            .previewDisplayName("Superset")
-//
-//        PlannerExerciseView(model: .dt_squat())
-//            .cellPreview()
-//            .previewDisplayName("Single set")
-//    }
-//}
-//
-//extension PlannerExerciseViewModel {
-//    static func dt_squatDeadlift() -> PlannerExerciseViewModel {
-//        return PlannerExerciseViewModel(
-//            headerRows: [
-//                PlannerExerciseHeaderRow(
-//                    exerciseId: UUID(),
-//                    name: "Squat",
-//                    pace: UIPacePicker.InputState()
-//                ),
-//                PlannerExerciseHeaderRow(
-//                    exerciseId: UUID(),
-//                    name: "Deadlift",
-//                    pace: UIPacePicker.InputState()
-//                )
-//            ],
-//            variations: [.dt_repsAndMins],
-//            onAddVarationTap: {},
-//            onSupersetAction: { _ in },
-//            onVariationsChanged: { _ in }
-//        )
-//    }
-//
-//    static func dt_squat() -> PlannerExerciseViewModel {
-//        return PlannerExerciseViewModel(
-//            headerRows: [
-//                PlannerExerciseHeaderRow(
-//                    exerciseId: UUID(),
-//                    name: "Squat",
-//                    pace: UIPacePicker.InputState()
-//                )
-//            ],
-//            variations: [.dt_reps, .dt_reps, .dt_reps],
-//            onAddVarationTap: {},
-//            onSupersetAction: { _ in },
-//            onVariationsChanged: { _ in }
-//        )
-//    }
-//}
+struct PlannerExerciseView_Previews: PreviewProvider {
+    struct Wrapper: View {
+        @State var exercise = PlannerExercise.dt_squat()
+        
+        var body: some View {
+            PlannerExerciseView(
+                model: $exercise,
+                isAddToSupersetDisabled: false,
+                isRemoveFromSupersetDisabled: false,
+                onAction: { _ in }
+            )
+        }
+    }
+    
+    static var previews: some View {
+        Wrapper()
+            .cellPreview()
+    }
+}
+
 #endif
