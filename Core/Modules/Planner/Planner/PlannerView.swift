@@ -117,20 +117,26 @@ protocol PlannerViewModeling: ObservableObject {
 
 // MARK: - Design time
 
-class DTPlannerPresenter {
-//    init(viewModel: PlannerViewModel) {
-//        viewModel.pages = [
-//            PlannerPageViewModel(name: "A1", exercises: [
-//                PlannerExerciseViewModel.dt_squatDeadlift(),
-//                PlannerExerciseViewModel.dt_squatDeadlift()
-//            ])
-//        ]
-//    }
+#if DEBUG
+class DTPlannerViewModel: PlannerViewModeling {
+    var pages: [PlannerPage] = [
+        PlannerPage(
+            id: UUID(),
+            name: "A1",
+            exercises: [
+                .dt_squat(),
+                .dt_deadlift(supersets: true),
+                .dt_squat(supersets: true)
+            ]
+        )
+    ]
+    var planSaved: AnyPublisher<Void, Never> {
+        Empty(completeImmediately: false).eraseToAnyPublisher()
+    }
+    var exercisePickerRelay: ExercisePickerRelay?
+    
+    func consume(_ action: PlannerAction) {}
 }
-
-//class DTPlannerInteractor: PlannerInteracting {
-//
-//}
 
 struct DTPlannerRouter: PlannerRouting {
     @ViewBuilder func exercisePicker(relay: ExercisePickerRelay) -> some View {
@@ -138,17 +144,13 @@ struct DTPlannerRouter: PlannerRouting {
     }
 }
 
-//struct PlannerView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let model = PlannerViewModel(
-//            interactor: DTPlannerInteractor(),
-//            isPresented: .constant(true)
-//        )
-//        let presenter = DTPlannerPresenter(viewModel: model)
-//        PlannerView(
-//            model: model,
-//            presenter: presenter,
-//            router: DTPlannerRouter()
-//        )
-//    }
-//}
+struct PlannerView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlannerView(
+            model: DTPlannerViewModel(),
+            isPresented: .constant(false),
+            router: DTPlannerRouter()
+        )
+    }
+}
+#endif
