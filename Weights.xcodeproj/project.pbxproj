@@ -16,7 +16,6 @@
 		0753BC4CCE428677C89C53D3 /* ColorPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0CDB8224736DE53026F18F /* ColorPreviews.swift */; };
 		0E3E3199BE87152BB3BA0843 /* Weight+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7612CDF82B1362E8125D92 /* Weight+ModelAdapting.swift */; };
 		0F018E2E28CE624B0018EF11 /* PlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F018E2D28CE624B0018EF11 /* PlannerSetCell.swift */; };
-		0F15E8D3291458BD00EA7D82 /* PlanDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F15E8D2291458BD00EA7D82 /* PlanDraft.swift */; };
 		0F281B3928F1FB9600CD994D /* PlannerExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F281B3828F1FB9600CD994D /* PlannerExerciseViewModel.swift */; };
 		0F39E07D29044AF000A40CE2 /* ModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F39E07C29044AF000A40CE2 /* ModelBuilder.swift */; };
 		0F760B0928D5F04D00BD6CAB /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */; };
@@ -287,7 +286,6 @@
 		0DA9DF359FEB0332F44519D4 /* ExerciseCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCellViewModel.swift; sourceTree = "<group>"; };
 		0EEC462F99EB429D83F58DD0 /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
 		0F018E2D28CE624B0018EF11 /* PlannerSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSetCell.swift; sourceTree = "<group>"; };
-		0F15E8D2291458BD00EA7D82 /* PlanDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDraft.swift; sourceTree = "<group>"; };
 		0F281B3828F1FB9600CD994D /* PlannerExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseViewModel.swift; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
 		0F39E07C29044AF000A40CE2 /* ModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelBuilder.swift; sourceTree = "<group>"; };
@@ -534,7 +532,6 @@
 				3A619C874E8471CE23892E1D /* TrainingBottomBar.swift */,
 				0F8F2E6E28DF5FCA00B13733 /* PlannerPresenter.swift */,
 				0FB3874C2909D0660096EBC6 /* PlannerInteractor.swift */,
-				0F15E8D2291458BD00EA7D82 /* PlanDraft.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -1331,7 +1328,6 @@
 				12E90A6C57E6A509D9A1B475 /* ExerciseStoring.swift in Sources */,
 				C63C246E71E799854259D3A6 /* ExercisesListView.swift in Sources */,
 				BDE37D1EF4FFCC69032CBA14 /* ExercisesListViewModel.swift in Sources */,
-				0F15E8D3291458BD00EA7D82 /* PlanDraft.swift in Sources */,
 				D2E002313A8D8B2F2BA3B42E /* FieldHighlight.swift in Sources */,
 				A3DBE5B7000BA4F0CBD0048C /* FloatingPoint+Extensions.swift in Sources */,
 				4B0BE9764F2DB3A0AF4509C0 /* FrozenParameterField.swift in Sources */,

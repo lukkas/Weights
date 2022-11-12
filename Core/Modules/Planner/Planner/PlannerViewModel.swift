@@ -28,6 +28,7 @@ enum PlannerAction {
     case pageChanged(Int)
     case addPage
     case addExercise
+    case addSet(PlannerExercise, PlannerPage)
 }
 
 class PlannerViewModel: PlannerViewModeling {
@@ -57,8 +58,12 @@ class PlannerViewModel: PlannerViewModeling {
     func consume(_ action: PlannerAction) {
         switch action {
         case .save: break
-        case .addPage: addPageAction()
-        case .addExercise: addExerciseAction()
+        case .addPage:
+            addPageAction()
+        case .addExercise:
+            addExerciseAction()
+        case let .addSet(exercise, page):
+            addSetAction(exercise: exercise, page: page)
         case let .pageChanged(pageIndex):
             currentPageIndex = pageIndex
         }
@@ -86,27 +91,57 @@ class PlannerViewModel: PlannerViewModeling {
     private func plannerExercise(for exercise: Exercise) -> PlannerExercise {
         return PlannerExercise(
             id: UUID(),
+            exerciseId: exercise.id,
             name: exercise.name,
             pace: UIPacePicker.InputState(),
-            sets: defaultSets(for: exercise),
+            sets: [defaultSet(for: exercise)],
             createsSupersets: false
         )
     }
     
-    private func defaultSets(for exercise: Exercise) -> [PlannerExercise.Set] {
+    private func defaultSet(for exercise: Exercise) -> PlannerExercise.Set {
         let config = PlannerExercise.Set.Config(
             metricLabel: exercise.metric.label,
             metricFieldMode: exercise.metric.parameterFieldMode,
             weightLabel: L10n.Common.kg
         )
-        let set = PlannerExercise.Set(
+        return PlannerExercise.Set(
             id: UUID(),
             weight: 0,
             repCount: 0,
             config: config
         )
-        return [set]
     }
+    
+    private func addSetAction(
+        exercise: PlannerExercise,
+        page: PlannerPage
+    ) {
+        guard
+            let pageIndex = pages.firstIndex(of: page),
+            let exerciseIndex = page.exercises.firstIndex(of: exercise) else {
+            fatalError("didn't find exercise")
+        }
+        guard let exerciseModel = addedExercises[exercise.exerciseId] else {
+            fatalError("didn't find exercise")
+        }
+        let toAdd = defaultSet(for: exerciseModel)
+        pages[pageIndex].exercises[exerciseIndex].sets.append(toAdd)
+    }
+    
+//    private func mutate<T>(
+//        _ exercise: PlannerExercise,
+//        onPage page: PlannerPage,
+//        path: WritableKeyPath<PlannerExercise, T>,
+//        value: T
+//    ) {
+//        guard
+//            let pageIndex = pages.firstIndex(of: page),
+//            let exerciseIndex = page.exercises.firstIndex(of: exercise) else {
+//            fatalError("didn't find exercise")
+//        }
+//        pages[pageIndex].exercises[exerciseIndex]
+//    }
     
     private func saveCreatedPlan() {
 //        let plan = createPlanFromViewModels()

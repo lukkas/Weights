@@ -24,6 +24,7 @@ struct PlannerExercise: Identifiable, Hashable {
         let config: Config
     }
     let id: UUID
+    let exerciseId: UUID
     let name: String
     var pace: UIPacePicker.InputState
     var sets: [Set]

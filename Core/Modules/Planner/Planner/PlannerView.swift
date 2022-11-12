@@ -28,7 +28,8 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                                 switch action {
                                 case .addExercise:
                                     model.consume(.addExercise)
-                                case let .addSet(exercise): break
+                                case let .addSet(exercise):
+                                    model.consume(.addSet(exercise, page))
                                 case let .addToSupeset(exercise): break
                                 case let .removeFromSuperset(exercise): break
                                 }
@@ -54,8 +55,10 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                         }
                     },
                     onPlusTapped: {
-                        model.consume(.addPage)
-                        currentPageIndex = model.pages.indices.last!
+                        withAnimation {
+                            model.consume(.addPage)
+                            currentPageIndex = model.pages.indices.last!
+                        }
                     }
                 )
             }
@@ -77,7 +80,7 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
         .onReceive(model.planSaved, perform: {
             isPresented = false
         })
-        .onChange(of: currentPageIndex, perform: { pageIndex in 
+        .onChange(of: currentPageIndex, perform: { pageIndex in
             model.consume(.pageChanged(pageIndex))
         })
         .sheet(
