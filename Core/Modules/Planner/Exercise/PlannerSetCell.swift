@@ -25,19 +25,6 @@ struct PlannerSetCell: View {
         }
         .frame(maxWidth: .infinity)
         .textStyle(.pickerAccessory)
-//                    .padding(6)
-//                    .if(model.exerciseSets.count > 1, transform: { view in
-//                        view.overlay(
-//                            Underscore()
-//                                .stroke(
-//                                    Color.forSupersetIdentification(at: model.exerciseSets.firstIndex(of: exerciseSet)!)
-//                                )
-//                        )
-//                    })
-//                    .background(
-//                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-//                            .foregroundColor(.tertiaryBackground)
-//                    )
     }
 }
 
@@ -50,51 +37,20 @@ struct Underscore: Shape {
     }
 }
 
-//struct PlannerSupersetCell_Previews: PreviewProvider {
-//    struct Wrapper: View {
-//        @State var model: PlannerSetsCellModel
-//        
-//        var body: some View {
-//            PlannerSetCell(model: $model)
-//        }
-//    }
-//    
-//    static var previews: some View {
-//        Wrapper(model: .dt_repsAndMins)
-//            .cellPreview()
-//        
-//        Wrapper(model: .dt_reps)
-//            .cellPreview()
-//    }
-//}
-
-//extension PlannerSetsCellModel {
-//    static var dt_repsAndMins: Self {
-//        PlannerSetsCellModel(
-//            exerciseSets: [
-//                .init(
-//                    metricLabel: "reps",
-//                    metricFieldMode: .reps,
-//                    weightLabel: "kg"
-//                ),
-//                .init(
-//                    metricLabel: "mins",
-//                    metricFieldMode: .time,
-//                    weightLabel: "kg"
-//                ),
-//            ]
-//        )
-//    }
-//    
-//    static var dt_reps: Self {
-//        PlannerSetsCellModel(
-//            exerciseSets: [
-//                .init(
-//                    metricLabel: "reps",
-//                    metricFieldMode: .reps,
-//                    weightLabel: "kg"
-//                )
-//            ]
-//        )
-//    }
-//}
+struct PlannerSupersetCell_Previews: PreviewProvider {
+    struct Wrapper: View {
+        @State var model: PlannerExercise.Set
+        
+        var body: some View {
+            PlannerSetCell(model: $model)
+        }
+    }
+    
+    static var previews: some View {
+        Wrapper(model: .dt_mins)
+            .cellPreview()
+        
+        Wrapper(model: .dt_reps)
+            .cellPreview()
+    }
+}
