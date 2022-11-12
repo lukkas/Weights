@@ -14,17 +14,15 @@ class PlannerDropControllerSpec: QuickSpec {
     override func spec() {
         describe("view model") {
             var viewModel: PlannerViewModel!
-            var presenter: PlannerPresenter!
             var planStorage: PlanStoringStub!
             
             beforeEach {
                 planStorage = PlanStoringStub()
-                viewModel = PlannerViewModel(isPresented: .constant(true))
-                presenter = PlannerPresenter(viewModel: viewModel, planStorage: planStorage)
+                viewModel = PlannerViewModel(planStorage: planStorage)
             }
             
             context("when first page has two items") {
-                var originalExercises: [PlannerExerciseViewModel]!
+                var originalExercises: [PlannerExercise]!
                 beforeEach {
                     let exercises = Exercise.arrayBuilder().build(count: 2)
                     addExercises(exercises)
@@ -46,7 +44,7 @@ class PlannerDropControllerSpec: QuickSpec {
                 
                 context("when second page is added") {
                     beforeEach {
-                        presenter.plusTapped()
+                        viewModel.consume(.addPage)
                     }
                     
                     context("when exercise is dragged to second page") {
@@ -80,21 +78,21 @@ class PlannerDropControllerSpec: QuickSpec {
             }
             
             func addExercises(_ exercises: [Exercise]) {
-                presenter.addExerciseTapped()
+                viewModel.consume(.addExercise)
                 viewModel.exercisePickerRelay?.pick(exercises)
             }
             
-            func item(_ page: Int, _ item: Int) -> PlannerExerciseViewModel {
+            func item(_ page: Int, _ item: Int) -> PlannerExercise {
                 return viewModel.pages[page].exercises[item]
             }
             
-            func page(_ page: Int) -> PlannerPageViewModel {
+            func page(_ page: Int) -> PlannerPage {
                 return viewModel.pages[page]
             }
             
             func enterDrop(
                 target: PlannerDraggingTarget,
-                dragged: PlannerExerciseViewModel
+                dragged: PlannerExercise
             ) {
                 let drop = PlannerDropController(
                     target: target,

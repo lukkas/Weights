@@ -57,7 +57,8 @@ class PlannerViewModel: PlannerViewModeling {
     
     func consume(_ action: PlannerAction) {
         switch action {
-        case .save: break
+        case .save:
+            saveAction()
         case .addPage:
             addPageAction()
         case .addExercise:
@@ -143,37 +144,37 @@ class PlannerViewModel: PlannerViewModeling {
 //        pages[pageIndex].exercises[exerciseIndex]
 //    }
     
-    private func saveCreatedPlan() {
-//        let plan = createPlanFromViewModels()
+    private func saveAction() {
+        let plan = createPlanFromViewModels()
+        planStorage.insert(plan)
+        planSavedSubject.send()
     }
     
-//    private func createPlanFromViewModels() -> Plan {
-//        return Plan(
-//            id: UUID(),
-//            name: "Can't name plan yet",
-//            days: collectPlannedDays(),
-//            isCurrent: false
-//        )
-//    }
-//
-//    private func collectPlannedDays() -> [PlannedDay] {
-//        return pages.map { pageViewModel in
-//            return PlannedDay(
-//                name: pageViewModel.name,
-//                exercises: extractExercises(from: pageViewModel)
-//            )
-//        }
-//    }
-//
-//    private func extractExercises(from page: Page) -> [PlannedExercise] {
-//        return page.exercises.flatMap { exerciseViewModel in
-//            return exerciseViewModel.headerRows.map { headerRow in
-//                return PlannedExercise(
-//                    exercise: addedExercises[headerRow.exerciseId]!,
-//                    setCollections: [],
-//                    createsSupersets: false
-//                )
-//            }
-//        }
-//    }
+    private func createPlanFromViewModels() -> Plan {
+        return Plan(
+            id: UUID(),
+            name: "Can't name plan yet",
+            days: collectPlannedDays(),
+            isCurrent: false
+        )
+    }
+
+    private func collectPlannedDays() -> [PlannedDay] {
+        return pages.map { pageViewModel in
+            return PlannedDay(
+                name: pageViewModel.name,
+                exercises: extractExercises(from: pageViewModel)
+            )
+        }
+    }
+
+    private func extractExercises(from page: PlannerPage) -> [PlannedExercise] {
+        return page.exercises.map { exercise in
+            return PlannedExercise(
+                exercise: addedExercises[exercise.exerciseId]!,
+                setCollections: [],
+                createsSupersets: false
+            )
+        }
+    }
 }
