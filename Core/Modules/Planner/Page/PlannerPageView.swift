@@ -96,14 +96,33 @@ struct PlannerPageView: View {
 
 // MARK: - Design time
 
-//struct PlannerPageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlannerPageView(
-//            model: PlannerPageViewModel(name: "A1", exercises: [PlannerExerciseViewModel.dt_squatDeadlift()]),
-//            currentlyDragged: .constant(nil),
-//            allPages: .constant([]),
-//            addExerciseTapped: {}
-//        )
-//        .cellPreview()
-//    }
-//}
+#if DEBUG
+struct PlannerPageView_Previews: PreviewProvider {
+    struct Wrapper: View {
+        @State var page = PlannerPage(
+            id: UUID(),
+            name: "A1",
+            exercises: [
+                .dt_squat(),
+                .dt_deadlift(),
+                .dt_squat(supersets: true),
+                .dt_squat(supersets: true)
+            ]
+        )
+        
+        var body: some View {
+            PlannerPageView(
+                model: $page,
+                currentlyDragged: .constant(nil),
+                allPages: .constant([]),
+                onAction: { _ in }
+            )
+        }
+    }
+    
+    static var previews: some View {
+        Wrapper()
+            .cellPreview()
+    }
+}
+#endif
