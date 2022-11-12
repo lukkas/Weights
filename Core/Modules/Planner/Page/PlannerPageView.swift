@@ -8,17 +8,24 @@
 import SwiftUI
 
 struct PlannerPageView: View {
-    @ObservedObject var model: PlannerPageViewModel
-    @Binding var currentlyDragged: PlannerExerciseViewModel?
-    @Binding var allPages: [PlannerPageViewModel]
-    let addExerciseTapped: () -> Void
+    enum Action {
+        case addExercise
+        case addSet(PlannerExercise)
+        case addToSupeset(PlannerExercise)
+        case removeFromSuperset(PlannerExercise)
+    }
+    
+    @Binding var model: PlannerPage
+    @Binding var currentlyDragged: PlannerExercise?
+    @Binding var allPages: [PlannerPage]
+    let onAction: (Action) -> Void
     
     var body: some View {
         ScrollView {
             Color.clear
             LazyVStack(spacing: 16) {
-                ForEach(model.exercises) { exercise in
-                    exerciseView(exercise)
+                ForEach($model.exercises) { $exercise in
+                    exerciseView($exercise)
                 }
                 addExerciseButton()
                 if model.exercises.isEmpty {
@@ -29,26 +36,40 @@ struct PlannerPageView: View {
         }
     }
     
-    @ViewBuilder private func exerciseView(_ exercise: PlannerExerciseViewModel) -> some View {
-        PlannerExerciseView(model: exercise)
-            .onDrag({
-                currentlyDragged = exercise
-                return PlannerExerciseDraggable.itemProvider
-            })
-            .onDrop(
-                of: [PlannerExerciseDraggable.uti],
-                delegate: PlannerDropController(
-                    target: .exercise(exercise),
-                    currentlyDragged: $currentlyDragged,
-                    pages: $allPages
-                )
+    @ViewBuilder private func exerciseView(_ exercise: Binding<PlannerExercise>) -> some View {
+        PlannerExerciseView(
+            model: exercise,
+            isAddToSupersetDisabled: true,
+            isRemoveFromSupersetDisabled: true,
+            onAction: { action in
+                switch action {
+                case .addSet:
+                    onAction(.addSet(exercise.wrappedValue))
+                case .addToSuperset:
+                    onAction(.addToSupeset(exercise.wrappedValue))
+                case .removeFromSuperset:
+                    onAction(.removeFromSuperset(exercise.wrappedValue))
+                }
+            }
+        )
+        .onDrag({
+            currentlyDragged = exercise.wrappedValue
+            return PlannerExerciseDraggable.itemProvider
+        })
+        .onDrop(
+            of: [PlannerExerciseDraggable.uti],
+            delegate: PlannerDropController(
+                target: .exercise(exercise.wrappedValue),
+                currentlyDragged: $currentlyDragged,
+                pages: $allPages
             )
-            .padding(.horizontal, 16)
+        )
+        .padding(.horizontal, 16)
     }
     
     @ViewBuilder private func addExerciseButton() -> some View {
         Button {
-            addExerciseTapped()
+            onAction(.addExercise)
         } label: {
             Text(L10n.Planner.addExercise)
                 .textStyle(.largeButton)
@@ -75,14 +96,14 @@ struct PlannerPageView: View {
 
 // MARK: - Design time
 
-struct PlannerPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlannerPageView(
-            model: PlannerPageViewModel(name: "A1", exercises: [PlannerExerciseViewModel.dt_squatDeadlift()]),
-            currentlyDragged: .constant(nil),
-            allPages: .constant([]),
-            addExerciseTapped: {}
-        )
-        .cellPreview()
-    }
-}
+//struct PlannerPageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlannerPageView(
+//            model: PlannerPageViewModel(name: "A1", exercises: [PlannerExerciseViewModel.dt_squatDeadlift()]),
+//            currentlyDragged: .constant(nil),
+//            allPages: .constant([]),
+//            addExerciseTapped: {}
+//        )
+//        .cellPreview()
+//    }
+//}

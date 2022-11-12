@@ -23,80 +23,122 @@ struct ExercisePickerRelay: Identifiable {
     }
 }
 
-class PlannerViewModel: ObservableObject {
-    @Published var pages: [PlannerPageViewModel] = []
-    @Published var visiblePage: Int = 0
-    var leftArrowDisabled: Bool {
-        return visiblePage == 0
-    }
-    var rightArrowDisabled: Bool {
-        return visiblePage == pages.indices.last
-    }
-    var currentUnitName: String {
-        get {
-            pages[visiblePage].name
-        }
-        set {
-            objectWillChange.send()
-            pages[visiblePage].name = newValue
-        }
-    }
+enum PlannerAction {
+    case save
+    case pageChanged(Int)
+    case addPage
+    case addExercise
+}
+
+class PlannerViewModel: PlannerViewModeling {
+    @Published var pages: [PlannerPage] = []
     @Published var exercisePickerRelay: ExercisePickerRelay?
-    @Binding var isPresented: Bool
+    var planSaved: AnyPublisher<Void, Never> { planSavedSubject.eraseToAnyPublisher() }
+    private let planSavedSubject = PassthroughSubject<Void, Never>()
     
-    private let interactor: PlannerInteracting
+    private var currentPageIndex: Int = 0
+    private var addedExercises = [UUID: Exercise]()
     
-    init(
-        interactor: PlannerInteracting,
-        isPresented: Binding<Bool>
-    ) {
-        self.interactor = interactor
-        _isPresented = isPresented
+    private let planStorage: PlanStoring
+    
+    init(planStorage: PlanStoring) {
+        self.planStorage = planStorage
+        pages = [makeTemplatePage()]
     }
     
-    func cancelNavigationButtonTapped() {
-        isPresented = false
-    }
-    
-    func saveNavigationButtonTapped() {
-        saveCreatedPlan()
-        isPresented = false
-    }
-    
-    private func saveCreatedPlan() {
-        let plan = createPlanFromViewModels()
-        planStorage.insert(plan)
-    }
-    
-    private func createPlanFromViewModels() -> Plan {
-        return Plan(
+    private func makeTemplatePage() -> PlannerPage {
+        return PlannerPage(
             id: UUID(),
-            name: "Can't name plan yet",
-            days: collectPlannedDays(),
-            isCurrent: false
+            name: "A1",
+            exercises: []
         )
     }
     
-    private func collectPlannedDays() -> [PlannedDay] {
-        return pages.map { pageViewModel in
-            return PlannedDay(
-                name: pageViewModel.name,
-                exercises: extractExercises(from: pageViewModel)
-            )
+    func consume(_ action: PlannerAction) {
+        switch action {
+        case .save: break
+        case .addPage: addPageAction()
+        case .addExercise: addExerciseAction()
+        case let .pageChanged(pageIndex):
+            currentPageIndex = pageIndex
         }
     }
     
-    private func extractExercises(
-        from pageViewModel: PlannerPageViewModel
-    ) -> [PlannedExercise] {
-        return pageViewModel.exercises.flatMap { exerciseViewModel in
-            return exerciseViewModel.headerRows.map { headerRow in
-                return PlannedExercise(
-                    exercise: addedExercises[headerRow.exerciseId]!,
-                    setCollections: [],
-                    createsSupersets: false
-                )
-            }
-        }
+    private func addPageAction() {
+        pages.append(makeTemplatePage())
     }
+    
+    private func addExerciseAction() {
+        exercisePickerRelay = ExercisePickerRelay(onPicked: { [weak self] exercises in
+            self?.handleExercisesPicked(exercises)
+            self?.exercisePickerRelay = nil
+        })
+    }
+    
+    private func handleExercisesPicked(_ exercises: [Exercise])  {
+        exercises.forEach { exercise in
+            addedExercises[exercise.id] = exercise
+        }
+        let exerciseModels = exercises.map(plannerExercise(for:))
+        pages[currentPageIndex].exercises.append(contentsOf: exerciseModels)
+    }
+    
+    private func plannerExercise(for exercise: Exercise) -> PlannerExercise {
+        return PlannerExercise(
+            id: UUID(),
+            name: exercise.name,
+            pace: UIPacePicker.InputState(),
+            sets: defaultSets(for: exercise),
+            createsSupersets: false
+        )
+    }
+    
+    private func defaultSets(for exercise: Exercise) -> [PlannerExercise.Set] {
+        let config = PlannerExercise.Set.Config(
+            metricLabel: exercise.metric.label,
+            metricFieldMode: exercise.metric.parameterFieldMode,
+            weightLabel: L10n.Common.kg
+        )
+        let set = PlannerExercise.Set(
+            id: UUID(),
+            weight: 0,
+            repCount: 0,
+            config: config
+        )
+        return [set]
+    }
+    
+    private func saveCreatedPlan() {
+//        let plan = createPlanFromViewModels()
+    }
+    
+//    private func createPlanFromViewModels() -> Plan {
+//        return Plan(
+//            id: UUID(),
+//            name: "Can't name plan yet",
+//            days: collectPlannedDays(),
+//            isCurrent: false
+//        )
+//    }
+//
+//    private func collectPlannedDays() -> [PlannedDay] {
+//        return pages.map { pageViewModel in
+//            return PlannedDay(
+//                name: pageViewModel.name,
+//                exercises: extractExercises(from: pageViewModel)
+//            )
+//        }
+//    }
+//
+//    private func extractExercises(from page: Page) -> [PlannedExercise] {
+//        return page.exercises.flatMap { exerciseViewModel in
+//            return exerciseViewModel.headerRows.map { headerRow in
+//                return PlannedExercise(
+//                    exercise: addedExercises[headerRow.exerciseId]!,
+//                    setCollections: [],
+//                    createsSupersets: false
+//                )
+//            }
+//        }
+//    }
 }
