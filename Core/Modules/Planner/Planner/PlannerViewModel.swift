@@ -112,16 +112,13 @@ class PlannerViewModel: PlannerViewModeling {
         exercise: PlannerExercise,
         page: PlannerPage
     ) {
-        guard
-            let pageIndex = pages.firstIndex(of: page),
-            let exerciseIndex = page.exercises.firstIndex(of: exercise) else {
-            fatalError("didn't find exercise")
-        }
         guard let exerciseModel = addedExercises[exercise.exerciseId] else {
             fatalError("didn't find exercise")
         }
         let toAdd = defaultSet(for: exerciseModel)
-        pages[pageIndex].exercises[exerciseIndex].sets.append(toAdd)
+        mutateExercise(exercise, at: page) { exercise in
+            exercise.sets.append(toAdd)
+        }
     }
     
     private func removeSetAction(
@@ -129,29 +126,24 @@ class PlannerViewModel: PlannerViewModeling {
         exercise: PlannerExercise,
         page: PlannerPage
     ) {
-        guard
-            let pageIndex = pages.firstIndex(of: page),
-            let exerciseIndex = page.exercises.firstIndex(of: exercise),
-            let setIndex = exercise.sets.firstIndex(of: set)
-        else {
-            fatalError("didn't find exercise")
+        guard let setIndex = exercise.sets.firstIndex(of: set) else { return }
+        mutateExercise(exercise, at: page) { exercise in
+            exercise.sets.remove(at: setIndex)
         }
-        pages[pageIndex].exercises[exerciseIndex].sets.remove(at: setIndex)
     }
     
-//    private func mutate<T>(
-//        _ exercise: PlannerExercise,
-//        onPage page: PlannerPage,
-//        path: WritableKeyPath<PlannerExercise, T>,
-//        value: T
-//    ) {
-//        guard
-//            let pageIndex = pages.firstIndex(of: page),
-//            let exerciseIndex = page.exercises.firstIndex(of: exercise) else {
-//            fatalError("didn't find exercise")
-//        }
-//        pages[pageIndex].exercises[exerciseIndex]
-//    }
+    private func mutateExercise(
+        _ exercise: PlannerExercise,
+        at page: PlannerPage,
+        mutation: (inout PlannerExercise) -> Void
+    ) {
+        guard
+            let pageIndex = pages.firstIndex(of: page),
+            let exerciseIndex = page.exercises.firstIndex(of: exercise) else {
+            fatalError("didn't find exercise")
+        }
+        mutation(&pages[pageIndex].exercises[exerciseIndex])
+    }
     
     private func saveAction() {
         let plan = createPlanFromViewModels()
