@@ -10,21 +10,54 @@ import SwiftUI
 struct PlannerSetCell: View {
     @Binding var model: PlannerExercise.Set
     
+    @State private var dragOffset = CGFloat.zero
+    
     var body: some View {
-        HStack {
-            PickerTextField(value: $model.repCount)
-                .unitLabel(model.config.metricLabel)
-                .fillColor(nil)
-                .parameterField(model.config.metricFieldMode)
-                .parameterFieldAligned()
-            PickerTextField(value: $model.weight)
-                .unitLabel(model.config.weightLabel)
-                .fillColor(nil)
-                .parameterField(.weight)
-                .parameterFieldAligned()
+        ZStack {
+            Color.red
+            HStack {
+                PickerTextField(value: $model.repCount)
+                    .unitLabel(model.config.metricLabel)
+                    .fillColor(nil)
+                    .parameterField(model.config.metricFieldMode)
+                    .parameterFieldAligned()
+                PickerTextField(value: $model.weight)
+                    .unitLabel(model.config.weightLabel)
+                    .fillColor(nil)
+                    .parameterField(.weight)
+                    .parameterFieldAligned()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.background)
+            .offset(CGSize(width: dragOffset, height: 0))
+            .textStyle(.pickerAccessory)
         }
-        .frame(maxWidth: .infinity)
-        .textStyle(.pickerAccessory)
+        .clipped()
+        .gesture(
+            DragGesture()
+                .onChanged({ value in
+                    withAnimation(.interactiveSpring()) {
+                        dragOffset = min(value.translation.width, 0)
+                    }
+                })
+                .onEnded({ value in
+                    let animatesTowardsLeadingEdge = value.predictedEndTranslation.width < value.translation.width
+                    if animatesTowardsLeadingEdge {
+                        withAnimation(.spring()) {
+                            let outOfScreenOffset = min(
+                                -400,
+                                 value.predictedEndTranslation.width
+                            )
+                            dragOffset = outOfScreenOffset
+                        }
+                    } else {
+                        withAnimation(.spring()) {
+                            dragOffset = 0
+                        }
+                    }
+                })
+        )
+        .frame(maxWidth: .infinity, idealHeight: 40)
     }
 }
 

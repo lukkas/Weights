@@ -30,8 +30,10 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                                     model.consume(.addExercise)
                                 case let .addSet(exercise):
                                     model.consume(.addSet(exercise, page))
-                                case let .addToSupeset(exercise): break
-                                case let .removeFromSuperset(exercise): break
+                                case let .addToSupeset(exercise):
+                                    break
+                                case let .removeFromSuperset(exercise):
+                                    break
                                 }
                             }.tag(model.pages.firstIndex(of: page)!)
                     }

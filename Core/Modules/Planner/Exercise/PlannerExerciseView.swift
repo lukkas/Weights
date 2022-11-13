@@ -21,7 +21,7 @@ struct PlannerExerciseView: View {
     let onAction: (Action) -> Void
     
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 0) {
             VStack {
                 HStack {
                     Text(model.name)
