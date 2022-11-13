@@ -21,6 +21,7 @@ struct PickerTextField: UIViewRepresentable {
     private var minMaxRange: ClosedRange<Double>? = nil
     private var highlightStyle: UIPickerTextField.HightlightStyle = .border
     private var unitLabel: String? = nil
+    private var resettingValueEnabled = false
     
     init(value: Binding<Double?>) {
         _value = value
@@ -51,6 +52,7 @@ struct PickerTextField: UIViewRepresentable {
         uiView.fontSize = fontSize
         uiView.highlightStyle = highlightStyle
         uiView.unitLabel = unitLabel
+        uiView.resettingValueEnabled = resettingValueEnabled
     }
     
     func makeCoordinator() -> Coordinator {
@@ -122,6 +124,12 @@ extension PickerTextField {
     func unitLabel(_ label: String?) -> PickerTextField {
         var copy = self
         copy.unitLabel = label
+        return copy
+    }
+    
+    func resettingValueEnabled(_ enabled: Bool) -> PickerTextField {
+        var copy = self
+        copy.resettingValueEnabled = enabled
         return copy
     }
 }
