@@ -854,6 +854,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_panning_whenPanningHorizontally_shouldNotHighlight() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 0, jump: 1)
         
         // when
@@ -865,6 +866,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_panningHorizontally_whenPannedRequiredAmountToReset_shoulResetValue() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
         
         // when
@@ -890,6 +892,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_panningHorizontally_whenUserScrollsAllTheWayLeft_shouldGetHapticFeedback() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
         
         // when
@@ -901,6 +904,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_panningHorizontally_whenPannedHalfwayAndReleased_shouldLeaveValueAsIs() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
         
         // when
@@ -913,6 +917,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_panningHorizontally_whenGestureIsCancelled_shouldLeaveValueAsIs() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
         
         // when

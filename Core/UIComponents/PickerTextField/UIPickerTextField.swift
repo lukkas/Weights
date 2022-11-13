@@ -32,7 +32,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     var unitLabel: String? {
         didSet {  }
     }
-    var resettingValueEnabled = true
+    var resettingValueEnabled = false
     
     var value: Double? {
         get { editor.value }
