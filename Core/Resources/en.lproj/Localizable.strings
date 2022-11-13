@@ -29,7 +29,7 @@
 "planner.navigationBar.save" = "Save";
 
 "planner.addExercise" = "Add exercise";
-"planner.exercise.add" = "Add next...";
+"planner.exercise.addSet" = "Add set...";
 "planner.exercise.supersets" = "Supersets";
 
 "exercisePicker.navBar.add" = "Add";

@@ -51,7 +51,7 @@ struct PlannerExerciseView: View {
                         onAction(.addSet)
                     }
                 } label: {
-                    Text(L10n.Planner.Exercise.add)
+                    Text(L10n.Planner.Exercise.addSet)
                 }
                 .buttonStyle(.borderless)
                 Spacer()
