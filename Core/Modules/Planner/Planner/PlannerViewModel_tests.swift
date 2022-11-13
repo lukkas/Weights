@@ -21,6 +21,9 @@ class PlannerViewModelSpec: QuickSpec {
             func exercise(_ exerciseIndex: Int, fromPage page: Int) -> PlannerExercise {
                 viewModel.pages[page].exercises[exerciseIndex]
             }
+            func set(_ setIndex: Int, fromExercise exerciseIndex: Int, page: Int) -> PlannerExercise.Set {
+                viewModel.pages[page].exercises[exerciseIndex].sets[setIndex]
+            }
             beforeEach {
                 planStorage = PlanStoringStub()
                 viewModel = PlannerViewModel(planStorage: planStorage)
@@ -62,14 +65,19 @@ class PlannerViewModelSpec: QuickSpec {
                         let exercise = exercise(0, fromPage: 0)
                         expect(exercise.sets).to(haveCount(2))
                     }
-//                    context("when number of sets is set to zero") {
-//                        beforeEach {
-//                            addedExercise.variations[1].numberOfSets = 0
-//                        }
-//                        it("will remove variation") {
-//                            expect(addedExercise.variations).to(haveCount(1))
-//                        }
-//                    }
+                    context("when remove set action is made") {
+                        beforeEach {
+                            viewModel.consume(.removeSet(
+                                set(1, fromExercise: 0, page: 0),
+                                exercise(0, fromPage: 0),
+                                page(0)
+                            ))
+                        }
+                        it("will remove set") {
+                            let exercise = exercise(0, fromPage: 0)
+                            expect(exercise.sets).to(haveCount(1))
+                        }
+                    }
                 }
             }
             context("when there are 3 exercises in a day") {

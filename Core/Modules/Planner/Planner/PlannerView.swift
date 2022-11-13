@@ -9,6 +9,15 @@
 import Combine
 import SwiftUI
 
+enum PlannerAction {
+    case save
+    case pageChanged(Int)
+    case addPage
+    case addExercise
+    case addSet(PlannerExercise, PlannerPage)
+    case removeSet(PlannerExercise.Set, PlannerExercise, PlannerPage)
+}
+
 struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
     @StateObject var model: Model
     @Binding var isPresented: Bool
@@ -30,6 +39,8 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                                     model.consume(.addExercise)
                                 case let .addSet(exercise):
                                     model.consume(.addSet(exercise, page))
+                                case let .removeSet(set, exercise):
+                                    model.consume(.removeSet(set, exercise, page))
                                 case let .addToSupeset(exercise):
                                     break
                                 case let .removeFromSuperset(exercise):

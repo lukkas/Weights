@@ -11,6 +11,7 @@ struct PlannerPageView: View {
     enum Action {
         case addExercise
         case addSet(PlannerExercise)
+        case removeSet(PlannerExercise.Set, PlannerExercise)
         case addToSupeset(PlannerExercise)
         case removeFromSuperset(PlannerExercise)
     }
@@ -36,7 +37,9 @@ struct PlannerPageView: View {
         }
     }
     
-    @ViewBuilder private func exerciseView(_ exercise: Binding<PlannerExercise>) -> some View {
+    @ViewBuilder private func exerciseView(
+        _ exercise: Binding<PlannerExercise>
+    ) -> some View {
         PlannerExerciseView(
             model: exercise,
             isAddToSupersetDisabled: true,
@@ -45,6 +48,8 @@ struct PlannerPageView: View {
                 switch action {
                 case .addSet:
                     onAction(.addSet(exercise.wrappedValue))
+                case let .removeSet(set):
+                    onAction(.removeSet(set, exercise.wrappedValue))
                 case .addToSuperset:
                     onAction(.addToSupeset(exercise.wrappedValue))
                 case .removeFromSuperset:

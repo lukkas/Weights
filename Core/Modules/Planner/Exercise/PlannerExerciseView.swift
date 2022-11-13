@@ -11,6 +11,7 @@ import SwiftUI
 struct PlannerExerciseView: View {
     enum Action {
         case addSet
+        case removeSet(PlannerExercise.Set)
         case addToSuperset
         case removeFromSuperset
     }
@@ -36,7 +37,12 @@ struct PlannerExerciseView: View {
             )
             .padding(.bottom, 8)
             ForEach($model.sets) { $set in
-                PlannerSetCell(model: $set)
+                PlannerSetCell(model: $set) { action in
+                    switch action {
+                    case .remove:
+                        onAction(.removeSet(set))
+                    }
+                }
             }
             HStack {
                 Button {

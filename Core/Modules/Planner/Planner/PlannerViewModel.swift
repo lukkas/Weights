@@ -23,14 +23,6 @@ struct ExercisePickerRelay: Identifiable {
     }
 }
 
-enum PlannerAction {
-    case save
-    case pageChanged(Int)
-    case addPage
-    case addExercise
-    case addSet(PlannerExercise, PlannerPage)
-}
-
 class PlannerViewModel: PlannerViewModeling {
     @Published var pages: [PlannerPage] = []
     @Published var exercisePickerRelay: ExercisePickerRelay?
@@ -65,6 +57,8 @@ class PlannerViewModel: PlannerViewModeling {
             addExerciseAction()
         case let .addSet(exercise, page):
             addSetAction(exercise: exercise, page: page)
+        case let .removeSet(set, exercise, page):
+            removeSetAction(set: set, exercise: exercise, page: page)
         case let .pageChanged(pageIndex):
             currentPageIndex = pageIndex
         }
@@ -128,6 +122,21 @@ class PlannerViewModel: PlannerViewModeling {
         }
         let toAdd = defaultSet(for: exerciseModel)
         pages[pageIndex].exercises[exerciseIndex].sets.append(toAdd)
+    }
+    
+    private func removeSetAction(
+        set: PlannerExercise.Set,
+        exercise: PlannerExercise,
+        page: PlannerPage
+    ) {
+        guard
+            let pageIndex = pages.firstIndex(of: page),
+            let exerciseIndex = page.exercises.firstIndex(of: exercise),
+            let setIndex = exercise.sets.firstIndex(of: set)
+        else {
+            fatalError("didn't find exercise")
+        }
+        pages[pageIndex].exercises[exerciseIndex].sets.remove(at: setIndex)
     }
     
 //    private func mutate<T>(

@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct PlannerSetCell: View {
+    enum Action {
+        case remove
+    }
+    
     @Binding var model: PlannerExercise.Set
+    let onAction: (Action) -> Void
     
     @State private var dragOffset = CGFloat.zero
     
@@ -49,6 +54,7 @@ struct PlannerSetCell: View {
                                  value.predictedEndTranslation.width
                             )
                             dragOffset = outOfScreenOffset
+                            onAction(.remove)
                         }
                     } else {
                         withAnimation(.spring()) {
@@ -76,7 +82,7 @@ struct PlannerSetCell_Previews: PreviewProvider {
         @State var model: PlannerExercise.Set
         
         var body: some View {
-            PlannerSetCell(model: $model)
+            PlannerSetCell(model: $model, onAction: { _ in })
         }
     }
     
