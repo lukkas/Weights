@@ -37,7 +37,8 @@ struct PlannerExerciseView: View {
             )
             .padding(.bottom, 8)
             ForEach($model.sets) { $set in
-                PlannerSetCell(model: $set) { action in
+                let index = model.sets.firstIndex(of: set)!
+                PlannerSetCell(model: $set, setIndex: index) { action in
                     switch action {
                     case .remove:
                         onAction(.removeSet(set))

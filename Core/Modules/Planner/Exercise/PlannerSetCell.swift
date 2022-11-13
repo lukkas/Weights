@@ -13,6 +13,7 @@ struct PlannerSetCell: View {
     }
     
     @Binding var model: PlannerExercise.Set
+    let setIndex: Int
     let onAction: (Action) -> Void
     
     @State private var dragOffset = CGFloat.zero
@@ -21,6 +22,9 @@ struct PlannerSetCell: View {
         ZStack {
             Color.red
             HStack {
+                Text(String(setIndex + 1))
+                    .padding()
+                Spacer()
                 PickerTextField(value: $model.repCount)
                     .unitLabel(model.config.metricLabel)
                     .fillColor(nil)
@@ -82,7 +86,7 @@ struct PlannerSetCell_Previews: PreviewProvider {
         @State var model: PlannerExercise.Set
         
         var body: some View {
-            PlannerSetCell(model: $model, onAction: { _ in })
+            PlannerSetCell(model: $model, setIndex: 0, onAction: { _ in })
         }
     }
     
