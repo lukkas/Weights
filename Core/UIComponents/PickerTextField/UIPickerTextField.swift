@@ -32,6 +32,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     var unitLabel: String? {
         didSet {  }
     }
+    var resettingValueEnabled = true
     
     var value: Double? {
         get { editor.value }
@@ -82,15 +83,6 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             width: labelSize.width + 12,
             height: labelSize.height + 8
         )
-//        let verticalPadding = 18.0
-//        let defaultFontSize = 18.0
-//        let aspectRatio = AspectRatio(
-//            width: 56,
-//            height: verticalPadding + defaultFontSize
-//        )
-//        let height = fontSize + verticalPadding
-//        let width = aspectRatio.width(forHeight: fontSize + verticalPadding)
-//        return CGSize(width: width, height: height)
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -376,7 +368,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         if abs(translation.y) > abs(translation.x) {
             return newValueSteppingPanner()
         }
-        if abs(translation.x) > abs(translation.y) && value != nil {
+        let resettingValuePossible = resettingValueEnabled && value != nil
+        if abs(translation.x) > abs(translation.y) && resettingValuePossible {
             return newValueResettingPanner()
         }
         return nil

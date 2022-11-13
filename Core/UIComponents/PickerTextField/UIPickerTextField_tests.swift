@@ -875,6 +875,19 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.value, nil)
     }
     
+    func test_panningHorizontally_whenPannedCorrectlyWithResettingDiabled_shouldLeaveCurrentValue() throws {
+        // given
+        sut.resettingValueEnabled = false
+        let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toReset: 1))
+        pan.endPanning()
+        
+        // then
+        XCTAssertEqual(sut.value, 5)
+    }
+    
     func test_panningHorizontally_whenUserScrollsAllTheWayLeft_shouldGetHapticFeedback() throws {
         // given
         let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
