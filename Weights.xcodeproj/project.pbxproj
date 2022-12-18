@@ -18,6 +18,7 @@
 		0F018E2E28CE624B0018EF11 /* PlannerSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F018E2D28CE624B0018EF11 /* PlannerSetCell.swift */; };
 		0F397DD9292012FF006D7224 /* PlannerExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F397DD8292012FF006D7224 /* PlannerExercise.swift */; };
 		0F39E07D29044AF000A40CE2 /* ModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F39E07C29044AF000A40CE2 /* ModelBuilder.swift */; };
+		0F5C370C294F6B24001DB196 /* CGFloat+Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5C370B294F6B24001DB196 /* CGFloat+Spacing.swift */; };
 		0F760B0928D5F04D00BD6CAB /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */; };
 		0F760B0B28D5F14300BD6CAB /* AspectRatio_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */; };
 		0FC9681728C4FB20001B4CD1 /* PlannerExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9681628C4FB20001B4CD1 /* PlannerExerciseView.swift */; };
@@ -287,6 +288,7 @@
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
 		0F397DD8292012FF006D7224 /* PlannerExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExercise.swift; sourceTree = "<group>"; };
 		0F39E07C29044AF000A40CE2 /* ModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelBuilder.swift; sourceTree = "<group>"; };
+		0F5C370B294F6B24001DB196 /* CGFloat+Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Spacing.swift"; sourceTree = "<group>"; };
 		0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 		0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio_tests.swift; sourceTree = "<group>"; };
 		0FC9681628C4FB20001B4CD1 /* PlannerExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerExerciseView.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 				0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */,
 				0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */,
 				0FCA53DE28E4E84800102667 /* View+ConditionalModifiers.swift */,
+				0F5C370B294F6B24001DB196 /* CGFloat+Spacing.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1316,6 +1319,7 @@
 				152E601168999FC8D0E1C33A /* ExerciseCreationView.swift in Sources */,
 				ACD881C01824CA2C10612B75 /* ExerciseCreationViewModel.swift in Sources */,
 				26086ED282292ABF09DF89F1 /* ExerciseMetric+Displaying.swift in Sources */,
+				0F5C370C294F6B24001DB196 /* CGFloat+Spacing.swift in Sources */,
 				A56FF804F9E4F0AEAFD0E7C2 /* ExercisePickerView.swift in Sources */,
 				EFD7CB129A43CD54DA03489B /* ExercisePickerViewModel.swift in Sources */,
 				12E90A6C57E6A509D9A1B475 /* ExerciseStoring.swift in Sources */,

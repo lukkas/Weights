@@ -21,7 +21,7 @@ struct PlannerSetCell: View {
     var body: some View {
         ZStack {
             Color.red
-            HStack {
+            HStack(spacing: .grid(2)) {
                 Text(String(setIndex + 1))
                     .padding()
                 Spacer()
