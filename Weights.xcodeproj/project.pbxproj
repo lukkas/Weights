@@ -40,7 +40,7 @@
 		1E7A046C57536CBE6BB67495 /* PlanStorageAdapting_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09FB44D458EEF570F97BFE /* PlanStorageAdapting_tests.swift */; };
 		1F776B12EE644B65C3869AEF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3565ED3A0AA4A39F3B6D5 /* SceneDelegate.swift */; };
 		26086ED282292ABF09DF89F1 /* ExerciseMetric+Displaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727983A456EEF1C09ABC7E93 /* ExerciseMetric+Displaying.swift */; };
-		2C0AEA55A77E95345E84A121 /* PlannerPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CE4DB972A54C0B8D8326CF /* PlannerPageViewModel.swift */; };
+		2C0AEA55A77E95345E84A121 /* PlannerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CE4DB972A54C0B8D8326CF /* PlannerPage.swift */; };
 		2CE046C10822AD4CFC2E1BCB /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 3A299CEEAD6FD3EB9DC52045 /* Nimble */; };
 		2DF87FCCB67E7B784CF43C61 /* TestUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC19EEA98F43DA001843FBEE /* TestUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F438036DDF1551CCB056364 /* Services.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CED722C50ABADFC4BE206B3 /* Services.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -317,7 +317,7 @@
 		3EF0EBA9F2A2D6A6B6E27020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		41A27E03502B54B2C2EB550A /* ExerciseCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationView.swift; sourceTree = "<group>"; };
 		44C8E203CCB39CFA9168B466 /* UIImpactFeedbackGeneratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImpactFeedbackGeneratorMock.swift; sourceTree = "<group>"; };
-		45CE4DB972A54C0B8D8326CF /* PlannerPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPageViewModel.swift; sourceTree = "<group>"; };
+		45CE4DB972A54C0B8D8326CF /* PlannerPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPage.swift; sourceTree = "<group>"; };
 		46385803AA82596533B78C26 /* Plan+ModelAdapting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plan+ModelAdapting.swift"; sourceTree = "<group>"; };
 		47739F44CA31A6360E726E01 /* Weights.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Weights.xcdatamodel; sourceTree = "<group>"; };
 		47C7B0FE6A434745AFC97825 /* ActivePlanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivePlanCell.swift; sourceTree = "<group>"; };
@@ -514,7 +514,7 @@
 			isa = PBXGroup;
 			children = (
 				844D2A9C4C036BBA331525F7 /* PlannerPageView.swift */,
-				45CE4DB972A54C0B8D8326CF /* PlannerPageViewModel.swift */,
+				45CE4DB972A54C0B8D8326CF /* PlannerPage.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -1350,7 +1350,7 @@
 				0FC9681728C4FB20001B4CD1 /* PlannerExerciseView.swift in Sources */,
 				01476D0B53CA670AC7492912 /* PlannerExerciseDraggable.swift in Sources */,
 				126FF17F976E13D7604C987A /* PlannerPageView.swift in Sources */,
-				2C0AEA55A77E95345E84A121 /* PlannerPageViewModel.swift in Sources */,
+				2C0AEA55A77E95345E84A121 /* PlannerPage.swift in Sources */,
 				5FD92420284A3A696EE699D7 /* PlannerView.swift in Sources */,
 				B474D285C23A76262D4AF67D /* PlannerViewModel.swift in Sources */,
 				72967505F4415EFBCF933A4E /* RPE.swift in Sources */,
