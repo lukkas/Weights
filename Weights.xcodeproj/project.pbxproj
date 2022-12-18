@@ -115,7 +115,7 @@
 		B7BC2298D41052EBF16F11B5 /* CodableValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BD98A381F15B30A4E62598 /* CodableValueTransformer.swift */; };
 		B83573D1568FF63F3C5F8417 /* TestUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 85D25006DE560A3A9DFCF70F /* TestUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BBE22A981E6BDBD8FF4BCB86 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69995F2351E4AA105AD9A99C /* RootView.swift */; };
-		BC491AE4145A0A997A7A4127 /* UIFont+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8354D9B9F1815A6410039F4F /* UIFont+Rounded.swift */; };
+		BC491AE4145A0A997A7A4127 /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8354D9B9F1815A6410039F4F /* UIFont+Traits.swift */; };
 		BD2366EBCECEE10B075DAC6F /* Metatypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB97EC4060942211AB3A1E1B /* Metatypes.swift */; };
 		BDE37D1EF4FFCC69032CBA14 /* ExercisesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD222DA34F363A3B4259A22E /* ExercisesListViewModel.swift */; };
 		BED9D70B1221BAB0E38D6405 /* Pace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841260E762FAE286FA9E47AA /* Pace.swift */; };
@@ -359,7 +359,7 @@
 		8071038C19516EF4AC870CA4 /* ExerciseCreationViewModel_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCreationViewModel_tests.swift; sourceTree = "<group>"; };
 		80BA6FDB6A7CA0DEF34E3349 /* PacePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacePicker.swift; sourceTree = "<group>"; };
 		81D13B668CFCBC633047C5C0 /* ExercisesRepository_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesRepository_tests.swift; sourceTree = "<group>"; };
-		8354D9B9F1815A6410039F4F /* UIFont+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Rounded.swift"; sourceTree = "<group>"; };
+		8354D9B9F1815A6410039F4F /* UIFont+Traits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Traits.swift"; sourceTree = "<group>"; };
 		841260E762FAE286FA9E47AA /* Pace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pace.swift; sourceTree = "<group>"; };
 		844D2A9C4C036BBA331525F7 /* PlannerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerPageView.swift; sourceTree = "<group>"; };
 		85D25006DE560A3A9DFCF70F /* TestUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestUtilities.h; sourceTree = "<group>"; };
@@ -622,7 +622,7 @@
 			children = (
 				AE5D4262D258C3BCDE6B6D2E /* CGFloat+Extensions.swift */,
 				89929007B8BB3E45CB60F3B6 /* FloatingPoint+Extensions.swift */,
-				8354D9B9F1815A6410039F4F /* UIFont+Rounded.swift */,
+				8354D9B9F1815A6410039F4F /* UIFont+Traits.swift */,
 				15D1B09C169147D6708C5457 /* View+Debug.swift */,
 				0F760B0828D5F04D00BD6CAB /* AspectRatio.swift */,
 				0F760B0A28D5F14300BD6CAB /* AspectRatio_tests.swift */,
@@ -1363,7 +1363,7 @@
 				FA8BBBF4A2EC47D3B4B2054B /* TextStyle.swift in Sources */,
 				1E5A098A0A7776486CD42DD6 /* TrainingBottomBar.swift in Sources */,
 				0FCA53DF28E4E84800102667 /* View+ConditionalModifiers.swift in Sources */,
-				BC491AE4145A0A997A7A4127 /* UIFont+Rounded.swift in Sources */,
+				BC491AE4145A0A997A7A4127 /* UIFont+Traits.swift in Sources */,
 				DFD41CE4B0BF90F4D21A8339 /* UIPacePicker.swift in Sources */,
 				DE874A76B547428A1586FE16 /* UIPickerTextField.swift in Sources */,
 				F11FAE22673DA842C8567DCA /* UIResetValueDrawer.swift in Sources */,

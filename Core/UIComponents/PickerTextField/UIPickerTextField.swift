@@ -15,7 +15,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         case wholes, floatingPoint, time
     }
     enum HightlightStyle {
-        case border, underline
+        case border, underline, text
     }
     
     var mode: Mode = .wholes {
@@ -110,7 +110,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     override func layoutSubviews() {
         label.frame = bounds
         resettingDrawer.frame = calculateDrawerFrame(forProgress: resettingDrawerProgress)
-        highlightLayer.path = createHighlightBezierPath().cgPath
+        switch highlightStyle {
+        case .border:
+            highlightLayer.path = createBorderHighlightBezierPath().cgPath
+        case .underline:
+            highlightLayer.path = createUnderlineHighlightBezierPath().cgPath
+        case .text: break
+        }
     }
     
     private enum DrawerAnimationType {
@@ -150,28 +156,36 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             .offsetBy(dx: offset, dy: 0)
     }
     
-    private func createHighlightBezierPath() -> UIBezierPath {
-        switch highlightStyle {
-        case .underline:
-            let path = UIBezierPath()
-            let yPosition = bounds.maxY - 0.5 * highlightThickness()
-            path.move(to: CGPoint(x: bounds.minX, y: yPosition))
-            path.addLine(to: CGPoint(x: bounds.maxX, y: yPosition))
-            return path
-        case .border:
-            let inset = 0.5 * highlightThickness()
-            let rect = bounds.insetBy(dx: inset, dy: inset)
-            return UIBezierPath(roundedRect: rect, cornerRadius: 8)
-        }
+    private func createUnderlineHighlightBezierPath() -> UIBezierPath {
+        let path = UIBezierPath()
+        let yPosition = bounds.maxY - 0.5 * highlightThickness()
+        path.move(to: CGPoint(x: bounds.minX, y: yPosition))
+        path.addLine(to: CGPoint(x: bounds.maxX, y: yPosition))
+        return path
+    }
+    
+    private func createBorderHighlightBezierPath() -> UIBezierPath {
+        let inset = 0.5 * highlightThickness()
+        let rect = bounds.insetBy(dx: inset, dy: inset)
+        return UIBezierPath(roundedRect: rect, cornerRadius: 8)
     }
     
     private func adjustHighlight(animated: Bool) {
         let shouldHighlight = isBeingEdited || panningState is ValueSteppingPanner
-        let color = shouldHighlight ? tintColor : highlightColor
-        let highlightWidth: CGFloat = shouldHighlight || highlightColor != nil ? highlightThickness() : 0
-        let adjustment = { [highlightLayer] in
-            highlightLayer.strokeColor = color?.cgColor
-            highlightLayer.lineWidth = highlightWidth
+        let adjustment: () -> Void
+        switch highlightStyle {
+        case .border, .underline:
+            let color = shouldHighlight ? tintColor : highlightColor
+            let highlightWidth: CGFloat = shouldHighlight || highlightColor != nil ? highlightThickness() : 0
+            adjustment = { [highlightLayer] in
+                highlightLayer.strokeColor = color?.cgColor
+                highlightLayer.lineWidth = highlightWidth
+            }
+        case .text:
+            let color = shouldHighlight ? tintColor : .label
+            adjustment = { [label] in
+                label.textColor = color
+            }
         }
         if animated {
             UIView.animateKeyframes(
@@ -279,7 +293,11 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private func addLabel() {
         addSubview(label)
         label.textAlignment = .center
-        label.font = .forStyle(.pickerField)
+        label.font = baseFont()
+    }
+    
+    private func baseFont() -> UIFont {
+        return .forStyle(.pickerField)
     }
     
     private func addHighlightLayer() {
