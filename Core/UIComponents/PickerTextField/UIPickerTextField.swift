@@ -32,7 +32,9 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     var unitLabel: String? {
         didSet {  }
     }
-    var resettingValueEnabled = false
+    var resettingValueEnabled = false {
+        didSet { resetEditor() }
+    }
     
     var value: Double? {
         get { editor.value }
@@ -256,11 +258,24 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private func resetEditor() {
         switch mode {
         case .wholes:
-            editor = NumberEditor(value: editor?.value, decimalMode: false, minMaxRange: minMaxRange)
+            editor = NumberEditor(
+                value: editor?.value,
+                decimalMode: false,
+                minMaxRange: minMaxRange,
+                resettingValueEnabled: resettingValueEnabled
+            )
         case .floatingPoint:
-            editor = NumberEditor(value: editor?.value, decimalMode: true, minMaxRange: minMaxRange)
+            editor = NumberEditor(
+                value: editor?.value,
+                decimalMode: true,
+                minMaxRange: minMaxRange,
+                resettingValueEnabled: resettingValueEnabled
+            )
         case .time:
-            editor = TimeEditor(value: editor?.value)
+            editor = TimeEditor(
+                value: editor?.value,
+                resettingValueEnabled: resettingValueEnabled
+            )
         }
     }
     
@@ -592,6 +607,7 @@ private class NumberEditor: Editing {
     private let formatter = NumberFormatter()
     private let decimalMode: Bool
     private let minMaxRange: ClosedRange<Double>?
+    private let resettingValueEnabled: Bool
     private var isDecimalSeparatorLastEntered = false
     
     private(set) var value: Double?
@@ -599,11 +615,13 @@ private class NumberEditor: Editing {
     init(
         value: Double?,
         decimalMode: Bool,
-        minMaxRange: ClosedRange<Double>?
+        minMaxRange: ClosedRange<Double>?,
+        resettingValueEnabled: Bool
     ) {
         self.value = value
         self.decimalMode = decimalMode
         self.minMaxRange = minMaxRange
+        self.resettingValueEnabled = resettingValueEnabled
         formatter.minimumSignificantDigits = decimalMode ? 1 : 0
     }
     
@@ -643,6 +661,14 @@ private class NumberEditor: Editing {
         if currentText.isEmpty {
             throw ValueOutOfRangeError()
         }
+        if !resettingValueEnabled && currentText.count == 1 {
+            if currentText == "0" {
+                throw ValueOutOfRangeError()
+            } else {
+                value = 0
+                return
+            }
+        }
         value = try getValue(forText: String(currentText.dropLast()))
     }
     
@@ -672,10 +698,12 @@ private class NumberEditor: Editing {
 }
 
 private class TimeEditor: Editing {
-    private var components: [Double] = []
+    private var components: [Double] = [] // c0 * 60 + c1 * 10 + c2 * 1
     private let maximumValue: Double = 599 // 9:59
+    private let resettingValueEnabled: Bool
     
-    init(value: Double?) {
+    init(value: Double?, resettingValueEnabled: Bool) {
+        self.resettingValueEnabled = resettingValueEnabled
         setComponents(for: value)
     }
     
@@ -763,6 +791,12 @@ private class TimeEditor: Editing {
     
     func deleteBackward() throws {
         let popped = components.popLast()
+        if !resettingValueEnabled && components.isEmpty {
+            components = [0]
+            if popped == nil {
+                throw ValueOutOfRangeError()
+            }
+        }
         if popped == nil {
             throw ValueOutOfRangeError()
         }
