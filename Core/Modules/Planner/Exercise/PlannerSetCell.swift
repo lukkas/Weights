@@ -41,27 +41,30 @@ struct PlannerSetCell: View {
             .offset(CGSize(width: dragOffset, height: 0))
             .textStyle(.pickerAccessory)
         }
+        .transition(.asymmetric(insertion: .move(edge: .top), removal: .push(from: .bottom)))
         .clipped()
         .gesture(
             DragGesture()
                 .onChanged({ value in
-                    withAnimation(.interactiveSpring()) {
-                        dragOffset = min(value.translation.width, 0)
-                    }
+                    dragOffset = min(value.translation.width, 0)
                 })
                 .onEnded({ value in
                     let animatesTowardsLeadingEdge = value.predictedEndTranslation.width < value.translation.width
                     if animatesTowardsLeadingEdge {
-                        withAnimation(.spring()) {
+                        withAnimation(.easeOut) {
                             let outOfScreenOffset = min(
-                                -400,
+                                -UIScreen.main.bounds.width,
                                  value.predictedEndTranslation.width
                             )
                             dragOffset = outOfScreenOffset
+                            // wait till drag animation ends
+                            _ = task {
+                                try? await Task.sleep(nanoseconds: 180_000_000)
+                            }
                             onAction(.remove)
                         }
                     } else {
-                        withAnimation(.spring()) {
+                        withAnimation(.easeOut) {
                             dragOffset = 0
                         }
                     }
@@ -93,9 +96,11 @@ struct PlannerSetCell_Previews: PreviewProvider {
     static var previews: some View {
         Wrapper(model: .dt_mins)
             .cellPreview()
+            .frame(maxHeight: 44)
         
         Wrapper(model: .dt_reps)
             .cellPreview()
+            .frame(maxHeight: 44)
     }
 }
 #endif

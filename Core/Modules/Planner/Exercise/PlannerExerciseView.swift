@@ -45,6 +45,11 @@ struct PlannerExerciseView: View {
                     }
                 }
             }
+            .onDelete { indexSet in
+                for index in indexSet {
+                    onAction(.removeSet(model.sets[index]))
+                }
+            }
             HStack {
                 Button {
                     withAnimation {
