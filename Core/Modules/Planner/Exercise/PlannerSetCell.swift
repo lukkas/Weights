@@ -74,15 +74,6 @@ struct PlannerSetCell: View {
     }
 }
 
-struct Underscore: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        return path
-    }
-}
-
 #if DEBUG
 struct PlannerSetCell_Previews: PreviewProvider {
     struct Wrapper: View {
