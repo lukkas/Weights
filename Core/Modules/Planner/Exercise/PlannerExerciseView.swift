@@ -17,7 +17,8 @@ struct PlannerExerciseView: View {
     }
     
     @Binding var model: PlannerExercise
-    @StateObject private var batchEditor = ExerciseBatchEditor()
+    @StateObject private var repsBatchEditor = ExerciseBatchEditor()
+    @StateObject private var weightBatchEditor = ExerciseBatchEditor()
     let isAddToSupersetDisabled: Bool
     let isRemoveFromSupersetDisabled: Bool
     let onAction: (Action) -> Void
@@ -46,7 +47,12 @@ struct PlannerExerciseView: View {
             .padding(.bottom, 8)
             ForEach($model.sets) { $set in
                 let index = model.sets.firstIndex(of: set)!
-                PlannerSetCell(model: $set, batchEditor: batchEditor, setIndex: index) { action in
+                PlannerSetCell(
+                    model: $set,
+                    repsBatchEditor: repsBatchEditor,
+                    weightBatchEditor: weightBatchEditor,
+                    setIndex: index
+                ) { action in
                     switch action {
                     case .remove:
                         onAction(.removeSet(set))

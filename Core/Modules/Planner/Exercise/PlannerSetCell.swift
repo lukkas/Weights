@@ -13,12 +13,14 @@ struct PlannerSetCell: View {
     }
     
     @Binding var model: PlannerExercise.Set
-    @ObservedObject var batchEditor: ExerciseBatchEditor
+    @ObservedObject var repsBatchEditor: ExerciseBatchEditor
+    @ObservedObject var weightBatchEditor: ExerciseBatchEditor
     let setIndex: Int
     let onAction: (Action) -> Void
     
     @State private var dragOffset = CGFloat.zero
     @FocusState private var isRepCountFocused
+    @FocusState private var isWeightFocused
     
     var body: some View {
         ZStack {
@@ -41,6 +43,7 @@ struct PlannerSetCell: View {
                     .fillColor(nil)
                     .parameterField(.weight)
                     .parameterFieldAligned()
+                    .focused($isWeightFocused)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.background)
@@ -48,16 +51,29 @@ struct PlannerSetCell: View {
             .textStyle(.pickerAccessory)
         }
         .onChange(of: isRepCountFocused, perform: { newValue in
-            batchEditor.focusDidChange(newValue, onIndex: setIndex)
+            repsBatchEditor.focusDidChange(newValue, onIndex: setIndex)
         })
         .onChange(of: model.repCount, perform: { newValue in
             if isRepCountFocused {
-                batchEditor.valueDidChange(at: setIndex, value: newValue)
+                repsBatchEditor.valueDidChange(at: setIndex, value: newValue)
             }
         })
-        .onReceive(batchEditor.updates, perform: { update in
+        .onReceive(repsBatchEditor.updates, perform: { update in
             if update.indices.contains(setIndex) {
                 model.repCount = update.value
+            }
+        })
+        .onChange(of: isWeightFocused, perform: { newValue in
+            weightBatchEditor.focusDidChange(newValue, onIndex: setIndex)
+        })
+        .onChange(of: model.weight, perform: { newValue in
+            if isWeightFocused {
+                weightBatchEditor.valueDidChange(at: setIndex, value: newValue)
+            }
+        })
+        .onReceive(weightBatchEditor.updates, perform: { update in
+            if update.indices.contains(setIndex) {
+                model.weight = update.value
             }
         })
         .transition(.asymmetric(insertion: .move(edge: .top), removal: .push(from: .bottom)))
@@ -97,12 +113,14 @@ struct PlannerSetCell: View {
 struct PlannerSetCell_Previews: PreviewProvider {
     struct Wrapper: View {
         @State var model: PlannerExercise.Set
-        @StateObject var batchEditor = ExerciseBatchEditor()
+        @StateObject var repsBatchEditor = ExerciseBatchEditor()
+        @StateObject var weightBatchEditor = ExerciseBatchEditor()
         
         var body: some View {
             PlannerSetCell(
                 model: $model,
-                batchEditor: batchEditor,
+                repsBatchEditor: repsBatchEditor,
+                weightBatchEditor: weightBatchEditor,
                 setIndex: 0,
                 onAction: { _ in }
             )
