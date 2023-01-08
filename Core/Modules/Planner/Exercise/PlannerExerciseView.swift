@@ -59,11 +59,6 @@ struct PlannerExerciseView: View {
                     }
                 }
             }
-            .onDelete { indexSet in
-                for index in indexSet {
-                    onAction(.removeSet(model.sets[index]))
-                }
-            }
             HStack {
                 Button {
                     withAnimation {
@@ -110,7 +105,16 @@ struct PlannerExerciseView_Previews: PreviewProvider {
                 model: $exercise,
                 isAddToSupersetDisabled: false,
                 isRemoveFromSupersetDisabled: false,
-                onAction: { _ in }
+                onAction: { action in
+                    switch action {
+                    case .addSet:
+                        exercise.sets.append(.dt_reps)
+                    case let .removeSet(set):
+                        exercise.sets.remove(at: exercise.sets.firstIndex(of: set)!)
+                    default:
+                        break
+                    }
+                }
             )
         }
     }

@@ -48,8 +48,10 @@ class ExerciseBatchEditor: ObservableObject {
     }
     
     func valueDidChange(at index: Int, value: Double?) {
-        guard let focusedIndex else { return }
-        guard focusedIndex == index else { return }
+        if focusedIndex != index {
+            focusedIndex = index
+            batchEditedIndices = IndexSet(integersIn: (index + 1)...)
+        }
         let update = Update(indices: batchEditedIndices, value: value)
         updatesSubject.send(update)
     }
