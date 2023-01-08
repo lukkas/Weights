@@ -17,11 +17,19 @@ struct PlannerExerciseView: View {
     }
     
     @Binding var model: PlannerExercise
+    @StateObject private var batchEditor = ExerciseBatchEditor()
     let isAddToSupersetDisabled: Bool
     let isRemoveFromSupersetDisabled: Bool
     let onAction: (Action) -> Void
     
     var body: some View {
+//        TextField("", text: .constant("")) { editingChanged in
+//            
+//        } onCommit: {
+//            
+//        }
+//        .focus
+
         VStack(spacing: 0) {
             VStack {
                 HStack {
@@ -38,7 +46,7 @@ struct PlannerExerciseView: View {
             .padding(.bottom, 8)
             ForEach($model.sets) { $set in
                 let index = model.sets.firstIndex(of: set)!
-                PlannerSetCell(model: $set, setIndex: index) { action in
+                PlannerSetCell(model: $set, batchEditor: batchEditor, setIndex: index) { action in
                     switch action {
                     case .remove:
                         onAction(.removeSet(set))

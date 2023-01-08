@@ -13,10 +13,12 @@ struct PlannerSetCell: View {
     }
     
     @Binding var model: PlannerExercise.Set
+    @ObservedObject var batchEditor: ExerciseBatchEditor
     let setIndex: Int
     let onAction: (Action) -> Void
     
     @State private var dragOffset = CGFloat.zero
+    @FocusState private var isRepCountFocused
     
     var body: some View {
         ZStack {
@@ -25,12 +27,14 @@ struct PlannerSetCell: View {
                 Text(String(setIndex + 1))
                     .padding()
                 Spacer()
+//                Image(systemName: "square.stack.3d.up.fill")
                 PickerTextField(value: $model.repCount)
                     .unitLabel(model.config.metricLabel)
                     .highlightStyle(.text)
                     .fillColor(nil)
                     .parameterField(model.config.metricFieldMode)
                     .parameterFieldAligned()
+                    .focused($isRepCountFocused)
                 PickerTextField(value: $model.weight)
                     .unitLabel(model.config.weightLabel)
                     .highlightStyle(.text)
@@ -43,6 +47,19 @@ struct PlannerSetCell: View {
             .offset(CGSize(width: dragOffset, height: 0))
             .textStyle(.pickerAccessory)
         }
+        .onChange(of: isRepCountFocused, perform: { newValue in
+            batchEditor.focusDidChange(newValue, onIndex: setIndex)
+        })
+        .onChange(of: model.repCount, perform: { newValue in
+            if isRepCountFocused {
+                batchEditor.valueDidChange(at: setIndex, value: newValue)
+            }
+        })
+        .onReceive(batchEditor.updates, perform: { update in
+            if update.indices.contains(setIndex) {
+                model.repCount = update.value
+            }
+        })
         .transition(.asymmetric(insertion: .move(edge: .top), removal: .push(from: .bottom)))
         .clipped()
         .gesture(
@@ -80,9 +97,15 @@ struct PlannerSetCell: View {
 struct PlannerSetCell_Previews: PreviewProvider {
     struct Wrapper: View {
         @State var model: PlannerExercise.Set
+        @StateObject var batchEditor = ExerciseBatchEditor()
         
         var body: some View {
-            PlannerSetCell(model: $model, setIndex: 0, onAction: { _ in })
+            PlannerSetCell(
+                model: $model,
+                batchEditor: batchEditor,
+                setIndex: 0,
+                onAction: { _ in }
+            )
         }
     }
     
