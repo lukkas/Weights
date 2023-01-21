@@ -54,6 +54,30 @@ class ExerciseBatchEditorSpec: QuickSpec {
                         }
                     }
                 }
+                context("when batch editing is toggled") {
+                    beforeEach {
+                        batchEditor.batchEditingSwitchDidToggle(at: 2)
+                        simulateChange(at: 0, to: 8)
+                    }
+                    it("will omit it when batch editing") {
+                        expect(sets).to(equal([8, 8, 0, 8]))
+                    }
+                    it("will be contained in excluded indices") {
+                        expect(batchEditor.excludedFromBatchEditing).to(contain([2]))
+                    }
+                    context("when batch editing is toggled back") {
+                        beforeEach {
+                            batchEditor.batchEditingSwitchDidToggle(at: 2)
+                            simulateChange(at: 0, to: 1)
+                        }
+                        it("will start working again") {
+                            expect(sets).to(equal([1, 1, 1, 1]))
+                        }
+                        it("will disappear from excluded indices") {
+                            expect(batchEditor.excludedFromBatchEditing).to(beEmpty())
+                        }
+                    }
+                }
             }
         }
     }

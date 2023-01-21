@@ -39,7 +39,13 @@ class ExerciseBatchEditor: ObservableObject {
     }
     
     func batchEditingSwitchDidToggle(at index: Int) {
-        
+        if batchEditedIndices.contains(index) {
+            batchEditedIndices.remove(index)
+            excludedFromBatchEditing.insert(index)
+        } else {
+            batchEditedIndices.insert(index)
+            excludedFromBatchEditing.remove(index)
+        }
     }
     
     func valueDidChange(at index: Int, value: Double?) {
