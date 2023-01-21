@@ -82,7 +82,7 @@ struct PlannerSetCell: View {
 //        })
         .transition(.asymmetric(
             insertion: .move(edge: .top),
-            removal: .push(from: .bottom)
+            removal: .move(edge: .leading)
         ))
         .clipped()
         .gesture(

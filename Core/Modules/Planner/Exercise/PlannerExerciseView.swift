@@ -24,13 +24,6 @@ struct PlannerExerciseView: View {
     let onAction: (Action) -> Void
     
     var body: some View {
-//        TextField("", text: .constant("")) { editingChanged in
-//            
-//        } onCommit: {
-//            
-//        }
-//        .focus
-
         VStack(spacing: 0) {
             VStack {
                 HStack {
@@ -48,7 +41,7 @@ struct PlannerExerciseView: View {
             ForEach($model.sets) { $set in
                 let index = model.sets.firstIndex(of: set)!
                 PlannerSetCell(
-                    model: $set,
+                    model: $model.sets[index],
                     repsBatchEditor: repsBatchEditor,
                     weightBatchEditor: weightBatchEditor,
                     setIndex: index
@@ -65,10 +58,22 @@ struct PlannerExerciseView: View {
                         onAction(.addSet)
                     }
                 } label: {
-                    Text(L10n.Planner.Exercise.addSet)
+                    Image(systemName: "plus")
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.borderedProminent)
+                Button {
+                    guard let set = model.sets.last else { return }
+                    withAnimation {
+                        onAction(.removeSet(set))
+                    }
+                } label: {
+                    Image(systemName: "minus")
+                        .frame(maxHeight: .infinity)
+                }
+                .buttonStyle(.bordered)
+                
                 Spacer()
+                
                 Text(L10n.Planner.Exercise.supersets)
                 Button {
                     onAction(.addToSuperset)
@@ -85,6 +90,7 @@ struct PlannerExerciseView: View {
                 .disabled(isRemoveFromSupersetDisabled)
                 .buttonStyle(.bordered)
             }
+            .fixedSize(horizontal: false, vertical: true)
             .padding(.vertical, 8)
             .textStyle(.mediumButton)
         }

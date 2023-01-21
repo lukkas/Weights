@@ -95,6 +95,7 @@ protocol PlanRouting {
 
 // MARK: - Design time
 
+#if DEBUG
 class DTPlanViewModel: PlanViewModeling {
     var currentPlan: ActivePlanCellModel?
     var otherPlans: [PlanCellModel]
@@ -134,3 +135,4 @@ struct PlanView_Previews: PreviewProvider {
         .previewDisplayName("Empty state")
     }
 }
+#endif

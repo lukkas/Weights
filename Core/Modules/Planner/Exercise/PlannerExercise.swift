@@ -23,7 +23,12 @@ struct PlannerExercise: Identifiable, Hashable {
     let exerciseId: UUID
     let name: String
     var pace: UIPacePicker.InputState
-    var sets: [Set]
+    var sets: [Set] {
+        didSet {
+            print("IDs")
+            print(sets.map(\.id).map(\.uuidString).joined(separator: "\n"))
+        }
+    }
     let createsSupersets: Bool
 }
 
