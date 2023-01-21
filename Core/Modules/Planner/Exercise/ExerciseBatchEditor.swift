@@ -10,22 +10,13 @@ import Foundation
 import SwiftUI
 
 class ExerciseBatchEditor: ObservableObject {
-    struct Update: Equatable {
-        let indices: IndexSet
-        let value: Double?
-    }
-    
     private var focusedIndex: Int?
     @Published private(set) var batchEditedIndices = IndexSet()
     @Published private(set) var excludedFromBatchEditing = IndexSet()
-    var updates: AnyPublisher<Update, Never> {
-        updatesSubject.eraseToAnyPublisher()
-    }
     var isActive: Bool { focusedIndex != nil }
-    private let updatesSubject = PassthroughSubject<Update, Never>()
-    private var sets: Binding<[PlannerExercise.Set]>
+    private var sets: Binding<[Double?]>
     
-    init(sets: Binding<[PlannerExercise.Set]>) {
+    init(sets: Binding<[Double?]>) {
         self.sets = sets
     }
     
@@ -57,9 +48,7 @@ class ExerciseBatchEditor: ObservableObject {
             batchEditedIndices = IndexSet(integersIn: (index + 1)...)
         }
         for index in sets.indices where batchEditedIndices.contains(index) {
-            sets.wrappedValue[index].repCount = value
+            sets.wrappedValue[index] = value
         }
-//        let update = Update(indices: batchEditedIndices, value: value)
-//        updatesSubject.send(update)
     }
 }

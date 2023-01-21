@@ -30,8 +30,28 @@ struct PlannerExerciseView: View {
         onAction: @escaping (Action) -> Void
     ) {
         _model = model
-        _repsBatchEditor = StateObject(wrappedValue: ExerciseBatchEditor(sets: model.sets))
-        _weightBatchEditor = StateObject(wrappedValue: ExerciseBatchEditor(sets: model.sets))
+        let repsBinding = Binding<[Double?]>(
+            get: { model.wrappedValue.sets.map(\.repCount) },
+            set: { values in
+                for index in model.wrappedValue.sets.indices {
+                    model.wrappedValue.sets[index].repCount = values[index]
+                }
+            }
+        )
+        let weightBinding = Binding<[Double?]>(
+            get: { model.wrappedValue.sets.map(\.weight) },
+            set: { values in
+                for index in model.wrappedValue.sets.indices {
+                    model.wrappedValue.sets[index].weight = values[index]
+                }
+            }
+        )
+        _repsBatchEditor = StateObject(
+            wrappedValue: ExerciseBatchEditor(sets: repsBinding)
+        )
+        _weightBatchEditor = StateObject(
+            wrappedValue: ExerciseBatchEditor(sets: weightBinding)
+        )
         self.isAddToSupersetDisabled = isAddToSupersetDisabled
         self.isRemoveFromSupersetDisabled = isRemoveFromSupersetDisabled
         self.onAction = onAction

@@ -55,22 +55,12 @@ struct PlannerSetCell: View {
                 repsBatchEditor.valueDidChange(at: setIndex, value: newValue)
             }
         })
-        .onReceive(repsBatchEditor.updates, perform: { update in
-            if update.indices.contains(setIndex) {
-                model.repCount = update.value
-            }
-        })
         .onChange(of: isWeightFocused, perform: { newValue in
             weightBatchEditor.focusDidChange(newValue, onIndex: setIndex)
         })
         .onChange(of: model.weight, perform: { newValue in
             if isWeightFocused {
                 weightBatchEditor.valueDidChange(at: setIndex, value: newValue)
-            }
-        })
-        .onReceive(weightBatchEditor.updates, perform: { update in
-            if update.indices.contains(setIndex) {
-                model.weight = update.value
             }
         })
         .transition(.asymmetric(
