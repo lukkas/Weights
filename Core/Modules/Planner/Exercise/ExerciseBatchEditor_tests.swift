@@ -79,6 +79,16 @@ class ExerciseBatchEditorSpec: QuickSpec {
                     }
                 }
             }
+            context("when fields after focused field have different values") {
+                beforeEach {
+                    sets = [0, 3, 4, 0]
+                    batchEditor.focusDidChange(true, onIndex: 0)
+                }
+                it("will mark only fields with same values for batch editing") {
+                    expect(batchEditor.batchEditedIndices).to(contain(3))
+                    expect(batchEditor.excludedFromBatchEditing).to(contain([1, 2]))
+                }
+            }
         }
     }
 }
