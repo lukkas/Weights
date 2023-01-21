@@ -45,12 +45,7 @@ struct PlannerExerciseView: View {
                     repsBatchEditor: repsBatchEditor,
                     weightBatchEditor: weightBatchEditor,
                     setIndex: index
-                ) { action in
-                    switch action {
-                    case .remove:
-                        onAction(.removeSet(set))
-                    }
-                }
+                )
             }
             HStack {
                 Button {

@@ -8,52 +8,41 @@
 import SwiftUI
 
 struct PlannerSetCell: View {
-    enum Action {
-        case remove
-    }
-    
     @Binding var model: PlannerExercise.Set
     @ObservedObject var repsBatchEditor: ExerciseBatchEditor
     @ObservedObject var weightBatchEditor: ExerciseBatchEditor
     let setIndex: Int
-    let onAction: (Action) -> Void
     
-    @State private var dragOffset = CGFloat.zero
     @FocusState private var isRepCountFocused
     @FocusState private var isWeightFocused
     
     var body: some View {
-        ZStack {
-            Color.red
-            HStack(spacing: .grid(2)) {
-                Text(String(setIndex + 1))
-                    .padding()
-                Spacer()
-                Button {
-                    
-                } label: {
-                    Image(systemName: "square.stack.3d.up.fill")
-                }
-                PickerTextField(value: $model.repCount)
-                    .unitLabel(model.config.metricLabel)
-                    .highlightStyle(.text)
-                    .fillColor(nil)
-                    .parameterField(model.config.metricFieldMode)
-                    .parameterFieldAligned()
-                    .focused($isRepCountFocused)
-                PickerTextField(value: $model.weight)
-                    .unitLabel(model.config.weightLabel)
-                    .highlightStyle(.text)
-                    .fillColor(nil)
-                    .parameterField(.weight)
-                    .parameterFieldAligned()
-                    .focused($isWeightFocused)
+        HStack(spacing: .grid(2)) {
+            Text(String(setIndex + 1))
+                .padding()
+            Spacer()
+            Button {
+                
+            } label: {
+                Image(systemName: "square.stack.3d.up.fill")
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.background)
-            .offset(CGSize(width: dragOffset, height: 0))
-            .textStyle(.pickerAccessory)
+            PickerTextField(value: $model.repCount)
+                .unitLabel(model.config.metricLabel)
+                .highlightStyle(.text)
+                .fillColor(nil)
+                .parameterField(model.config.metricFieldMode)
+                .parameterFieldAligned()
+                .focused($isRepCountFocused)
+            PickerTextField(value: $model.weight)
+                .unitLabel(model.config.weightLabel)
+                .highlightStyle(.text)
+                .fillColor(nil)
+                .parameterField(.weight)
+                .parameterFieldAligned()
+                .focused($isWeightFocused)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .textStyle(.pickerAccessory)
 //        .onChange(of: isRepCountFocused, perform: { newValue in
 //            repsBatchEditor.focusDidChange(newValue, onIndex: setIndex)
 //        })
@@ -85,33 +74,6 @@ struct PlannerSetCell: View {
             removal: .move(edge: .leading)
         ))
         .clipped()
-        .gesture(
-            DragGesture()
-                .onChanged({ value in
-                    dragOffset = min(value.translation.width, 0)
-                })
-                .onEnded({ value in
-                    let animatesTowardsLeadingEdge = value.predictedEndTranslation.width < value.translation.width
-                    if animatesTowardsLeadingEdge {
-                        withAnimation(.easeOut) {
-                            let outOfScreenOffset = min(
-                                -UIScreen.main.bounds.width,
-                                 value.predictedEndTranslation.width
-                            )
-                            dragOffset = outOfScreenOffset
-                            // wait till drag animation ends
-                            _ = task {
-                                try? await Task.sleep(nanoseconds: 180_000_000)
-                            }
-                            onAction(.remove)
-                        }
-                    } else {
-                        withAnimation(.easeOut) {
-                            dragOffset = 0
-                        }
-                    }
-                })
-        )
         .frame(maxWidth: .infinity, idealHeight: 40)
     }
 }
@@ -128,8 +90,7 @@ struct PlannerSetCell_Previews: PreviewProvider {
                 model: $model,
                 repsBatchEditor: repsBatchEditor,
                 weightBatchEditor: weightBatchEditor,
-                setIndex: 0,
-                onAction: { _ in }
+                setIndex: 0
             )
         }
     }
