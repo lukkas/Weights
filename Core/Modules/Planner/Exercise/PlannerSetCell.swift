@@ -93,30 +93,30 @@ struct PlannerSetCell: View {
 }
 
 #if DEBUG
-struct PlannerSetCell_Previews: PreviewProvider {
-    struct Wrapper: View {
-        @State var model: PlannerExercise.Set
-        @StateObject var repsBatchEditor = ExerciseBatchEditor()
-        @StateObject var weightBatchEditor = ExerciseBatchEditor()
-        
-        var body: some View {
-            PlannerSetCell(
-                model: $model,
-                repsBatchEditor: repsBatchEditor,
-                weightBatchEditor: weightBatchEditor,
-                setIndex: 0
-            )
-        }
-    }
-    
-    static var previews: some View {
-        Wrapper(model: .dt_mins)
-            .cellPreview()
-            .frame(maxHeight: 44)
-        
-        Wrapper(model: .dt_reps)
-            .cellPreview()
-            .frame(maxHeight: 44)
-    }
-}
+//struct PlannerSetCell_Previews: PreviewProvider {
+//    struct Wrapper: View {
+//        @State var model: PlannerExercise.Set
+//        @StateObject var repsBatchEditor = ExerciseBatchEditor()
+//        @StateObject var weightBatchEditor = ExerciseBatchEditor()
+//
+//        var body: some View {
+//            PlannerSetCell(
+//                model: $model,
+//                repsBatchEditor: repsBatchEditor,
+//                weightBatchEditor: weightBatchEditor,
+//                setIndex: 0
+//            )
+//        }
+//    }
+//
+//    static var previews: some View {
+//        Wrapper(model: .dt_mins)
+//            .cellPreview()
+//            .frame(maxHeight: 44)
+//
+//        Wrapper(model: .dt_reps)
+//            .cellPreview()
+//            .frame(maxHeight: 44)
+//    }
+//}
 #endif

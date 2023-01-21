@@ -17,11 +17,25 @@ struct PlannerExerciseView: View {
     }
     
     @Binding var model: PlannerExercise
-    @StateObject private var repsBatchEditor = ExerciseBatchEditor()
-    @StateObject private var weightBatchEditor = ExerciseBatchEditor()
+    @StateObject private var repsBatchEditor: ExerciseBatchEditor
+    @StateObject private var weightBatchEditor: ExerciseBatchEditor
     let isAddToSupersetDisabled: Bool
     let isRemoveFromSupersetDisabled: Bool
     let onAction: (Action) -> Void
+    
+    init(
+        model: Binding<PlannerExercise>,
+        isAddToSupersetDisabled: Bool,
+        isRemoveFromSupersetDisabled: Bool,
+        onAction: @escaping (Action) -> Void
+    ) {
+        _model = model
+        _repsBatchEditor = StateObject(wrappedValue: ExerciseBatchEditor(sets: model.sets))
+        _weightBatchEditor = StateObject(wrappedValue: ExerciseBatchEditor(sets: model.sets))
+        self.isAddToSupersetDisabled = isAddToSupersetDisabled
+        self.isRemoveFromSupersetDisabled = isRemoveFromSupersetDisabled
+        self.onAction = onAction
+    }
     
     var body: some View {
         VStack(spacing: 0) {

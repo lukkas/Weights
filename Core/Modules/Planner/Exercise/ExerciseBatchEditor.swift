@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 class ExerciseBatchEditor: ObservableObject {
     struct Update: Equatable {
@@ -22,6 +23,11 @@ class ExerciseBatchEditor: ObservableObject {
     }
     var isActive: Bool { focusedIndex != nil }
     private let updatesSubject = PassthroughSubject<Update, Never>()
+    private var sets: Binding<[PlannerExercise.Set]>
+    
+    init(sets: Binding<[PlannerExercise.Set]>) {
+        self.sets = sets
+    }
     
     // next -> jak podac licze pol, ktore sa w to zamieszane
     // inputs
@@ -50,7 +56,10 @@ class ExerciseBatchEditor: ObservableObject {
             focusedIndex = index
             batchEditedIndices = IndexSet(integersIn: (index + 1)...)
         }
-        let update = Update(indices: batchEditedIndices, value: value)
-        updatesSubject.send(update)
+        for index in sets.indices where batchEditedIndices.contains(index) {
+            sets.wrappedValue[index].repCount = value
+        }
+//        let update = Update(indices: batchEditedIndices, value: value)
+//        updatesSubject.send(update)
     }
 }
