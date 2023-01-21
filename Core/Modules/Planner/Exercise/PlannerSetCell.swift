@@ -70,8 +70,8 @@ struct PlannerSetCell: View {
 //            }
 //        })
         .transition(.asymmetric(
-            insertion: .move(edge: .top),
-            removal: .move(edge: .leading)
+            insertion: .push(from: .top),
+            removal: .push(from: .bottom)
         ))
         .clipped()
         .frame(maxWidth: .infinity, idealHeight: 40)
