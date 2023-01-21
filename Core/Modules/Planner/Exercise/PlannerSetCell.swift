@@ -22,9 +22,13 @@ struct PlannerSetCell: View {
                 .padding()
             Spacer()
             Button {
-                
+                activeBatchEditor?.batchEditingSwitchDidToggle(at: setIndex)
             } label: {
-                Image(systemName: "square.stack.3d.up.fill")
+                if activeBatchEditor?.batchEditedIndices.contains(setIndex) == true {
+                    Image(systemName: "checkmark.square.fill")
+                } else if activeBatchEditor?.excludedFromBatchEditing.contains(setIndex) == true {
+                    Image(systemName: "checkmark.square")
+                }
             }
             PickerTextField(value: $model.repCount)
                 .unitLabel(model.config.metricLabel)
@@ -75,6 +79,16 @@ struct PlannerSetCell: View {
         ))
         .clipped()
         .frame(maxWidth: .infinity, idealHeight: 40)
+    }
+    
+    private var activeBatchEditor: ExerciseBatchEditor? {
+        if repsBatchEditor.isActive {
+            return repsBatchEditor
+        }
+        if weightBatchEditor.isActive {
+            return weightBatchEditor
+        }
+        return nil
     }
 }
 

@@ -13,16 +13,14 @@ class ExerciseBatchEditor: ObservableObject {
         let indices: IndexSet
         let value: Double?
     }
-//    private struct Focus {
-//        let focusedIndex: Int
-//        var
-//    }
     
     private var focusedIndex: Int?
     @Published private(set) var batchEditedIndices = IndexSet()
+    @Published private(set) var excludedFromBatchEditing = IndexSet()
     var updates: AnyPublisher<Update, Never> {
         updatesSubject.eraseToAnyPublisher()
     }
+    var isActive: Bool { focusedIndex != nil }
     private let updatesSubject = PassthroughSubject<Update, Never>()
     
     // next -> jak podac licze pol, ktore sa w to zamieszane
