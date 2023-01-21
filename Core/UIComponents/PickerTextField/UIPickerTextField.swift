@@ -56,9 +56,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private let resettingDrawer = UIResetValueDrawer()
     
     var highlightColor: UIColor? {
-        didSet {
-            adjustHighlight(animated: false)
-        }
+        didSet { adjustHighlight(animated: false) }
+    }
+    var keepHighlighted: Bool = false {
+        didSet { adjustHighlight(animated: true) }
     }
     var fontSize: CGFloat {
         get { return label.font.pointSize }
@@ -173,7 +174,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func adjustHighlight(animated: Bool) {
-        let shouldHighlight = isBeingEdited || panningState is ValueSteppingPanner
+        let shouldHighlight = isBeingEdited || panningState is ValueSteppingPanner || keepHighlighted
         let adjustment: () -> Void
         switch highlightStyle {
         case .border, .underline:
