@@ -25,8 +25,16 @@ struct PlannerPageView: View {
         ScrollView {
             Color.clear
             LazyVStack(spacing: 16) {
-                ForEach($model.exercises) { $exercise in
-                    exerciseView($exercise)
+                ForEach(model.exercises) { exercise in
+                    exerciseView(
+                        Binding(
+                            get: { model.exercises.first(matchingIdOf: exercise)! },
+                            set: { exercise in
+                                let index = model.exercises.firstIndex(matchingIdOf: exercise)!
+                                model.exercises[index] = exercise
+                            }
+                        )
+                    )
                 }
                 addExerciseButton()
                 if model.exercises.isEmpty {
