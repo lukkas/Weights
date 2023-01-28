@@ -59,18 +59,13 @@ struct PlannerExerciseView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            VStack {
-                HStack {
-                    Text(model.name)
-                    Spacer()
-                    PacePicker(pace: $model.pace)
-                }
+            HStack {
+                Text(model.name)
+                    .padding(.leading, .grid(1))
+                Spacer()
+                PacePicker(pace: $model.pace)
             }
-            .padding(8)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .foregroundColor(.secondaryBackground)
-            )
+            .textStyle(.sectionTitle)
             .padding(.bottom, 8)
             ForEach($model.sets) { $set in
                 let index = model.sets.firstIndex(of: set)!
