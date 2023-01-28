@@ -102,22 +102,6 @@ struct PlannerExerciseView: View {
                 .buttonStyle(.bordered)
                 
                 Spacer()
-                
-                Text(L10n.Planner.Exercise.supersets)
-                Button {
-                    onAction(.addToSuperset)
-                } label: {
-                    Image(systemName: "arrow.turn.left.up")
-                }
-                .disabled(isAddToSupersetDisabled)
-                .buttonStyle(.borderedProminent)
-                Button {
-                    onAction(.removeFromSuperset)
-                } label: {
-                    Image(systemName: "arrow.turn.right.down")
-                }
-                .disabled(isRemoveFromSupersetDisabled)
-                .buttonStyle(.bordered)
             }
             .fixedSize(horizontal: false, vertical: true)
             .padding(.vertical, 8)
