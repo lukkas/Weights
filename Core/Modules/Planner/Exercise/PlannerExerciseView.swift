@@ -103,7 +103,6 @@ struct PlannerExerciseView: View {
             .textStyle(.mediumButton)
         }
         .padding(12)
-        .cardDesign()
     }
 }
 

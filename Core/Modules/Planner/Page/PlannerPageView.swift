@@ -24,7 +24,7 @@ struct PlannerPageView: View {
     var body: some View {
         ScrollView {
             Color.clear
-            LazyVStack(spacing: 16) {
+            LazyVStack(spacing: 0) {
                 ForEach(model.exercises) { exercise in
                     exerciseView(
                         Binding(
@@ -35,6 +35,11 @@ struct PlannerPageView: View {
                             }
                         )
                     )
+                    if model.exercises.last != exercise {
+                        ExerciseSupersetConnectionView {
+                            
+                        }
+                    }
                 }
                 addExerciseButton()
                 if model.exercises.isEmpty {
@@ -65,6 +70,7 @@ struct PlannerPageView: View {
                 }
             }
         )
+        .linkedCardDesign(edges: .vertical)
         .onDrag({
             currentlyDragged = exercise.wrappedValue
             return PlannerExerciseDraggable.itemProvider

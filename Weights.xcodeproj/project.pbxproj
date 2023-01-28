@@ -17,6 +17,7 @@
 		0E3E3199BE87152BB3BA0843 /* Weight+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7612CDF82B1362E8125D92 /* Weight+ModelAdapting.swift */; };
 		0F4DB65F297D9BC300C25C68 /* Collection+IdentifiableLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DB65E297D9BC300C25C68 /* Collection+IdentifiableLookup.swift */; };
 		0FA3357B4AFD09B699807B4F /* SupersetIdentificationColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787FF71E1DE5D80995A8E5F /* SupersetIdentificationColors.swift */; };
+		0FBC28D1298565D300367B5B /* ExerciseSupersetConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC28D0298565D300367B5B /* ExerciseSupersetConnectionView.swift */; };
 		104E0D87144B332C9621ADFB /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD62C2FCE97AEB0BB2DEE5A7 /* PlanView.swift */; };
 		10684DAACABE0990A7D9170D /* PlannerDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC18EB1C8FFED3BE54A535A3 /* PlannerDropController.swift */; };
 		11246CED938A686ACC999DCB /* PublisherAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D5BCF88EB0872B2FBCF98A /* PublisherAccumulator.swift */; };
@@ -290,6 +291,7 @@
 		0EEC462F99EB429D83F58DD0 /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
 		0F2E59264DFD8D48FD73264B /* UIResetValueDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResetValueDrawer.swift; sourceTree = "<group>"; };
 		0F4DB65E297D9BC300C25C68 /* Collection+IdentifiableLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IdentifiableLookup.swift"; sourceTree = "<group>"; };
+		0FBC28D0298565D300367B5B /* ExerciseSupersetConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSupersetConnectionView.swift; sourceTree = "<group>"; };
 		0FFCBE909CFDD602034E48C6 /* DatabaseStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseStack.swift; sourceTree = "<group>"; };
 		14A57BABAA867AFF7695F936 /* View+ConditionalModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ConditionalModifiers.swift"; sourceTree = "<group>"; };
 		14EE3F53D1BFC117227C5C4D /* WeightValueTransformer_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightValueTransformer_tests.swift; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 			children = (
 				64846E1562132346E8A12B4F /* PlannerPage.swift */,
 				4043568C7BA15403D3E28FD7 /* PlannerPageView.swift */,
+				0FBC28D0298565D300367B5B /* ExerciseSupersetConnectionView.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -1328,6 +1331,7 @@
 				E579E729A57101B997F65550 /* CoreEntry.swift in Sources */,
 				3B4AA9B8FB668858D0788CFF /* Exercise.swift in Sources */,
 				B53CAD9E26E2109A1CFC831A /* ExerciseBatchEditor.swift in Sources */,
+				0FBC28D1298565D300367B5B /* ExerciseSupersetConnectionView.swift in Sources */,
 				6AD64777EBF45B9D0AFE4851 /* ExerciseCellViewModel.swift in Sources */,
 				152E601168999FC8D0E1C33A /* ExerciseCreationView.swift in Sources */,
 				ACD881C01824CA2C10612B75 /* ExerciseCreationViewModel.swift in Sources */,
