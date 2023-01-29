@@ -124,16 +124,41 @@ class PlannerViewModelSpec: QuickSpec {
                             it("will join both supersets") {
                                 expect(superset(0)).to(equal([0, 1, 2, 3]))
                             }
+                            context("when toggled on third") {
+                                beforeEach {
+                                    viewModel.consume(.toggleSuperset(exercise(2, fromPage: 0), page(0)))
+                                }
+                                it("will only remove last exercise from superset") {
+                                    expect(superset(0)).to(equal([0, 1, 2]))
+                                }
+                            }
+                            context("when toggled on first") {
+                                beforeEach {
+                                    viewModel.consume(.toggleSuperset(exercise(0, fromPage: 0), page(0)))
+                                }
+                                it("will only remove first exercise from superset") {
+                                    expect(superset(0)).to(equal([1, 2, 3]))
+                                }
+                            }
+                            context("when toggled on second") {
+                                beforeEach {
+                                    viewModel.consume(.toggleSuperset(exercise(1, fromPage: 0), page(0)))
+                                }
+                                it("will split into two supersets") {
+                                    expect(superset(0)).to(equal([0, 1]))
+                                    expect(superset(1)).to(equal([2, 3]))
+                                }
+                            }
                         }
-//                        context("when toggle superset is tapped on first") {
-//                            beforeEach {
-//                                viewModel.consume(.toggleSuperset(exercise(0, fromPage: 0), page(0)))
-//                            }
-//                            it("will leave only first superset") {
-//                                expect(superset(0)).to(equal([2, 3]))
-//                                expect(superset(1)).to(equal([]))
-//                            }
-//                        }
+                        context("when toggle superset is tapped on first") {
+                            beforeEach {
+                                viewModel.consume(.toggleSuperset(exercise(0, fromPage: 0), page(0)))
+                            }
+                            it("will leave only first superset") {
+                                expect(superset(0)).to(equal([]))
+                                expect(superset(1)).to(equal([2, 3]))
+                            }
+                        }
                     }
                 }
             }
