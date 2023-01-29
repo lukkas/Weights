@@ -26,6 +26,8 @@ struct PlannerPageView: View {
             Color.clear
             LazyVStack(spacing: 0) {
                 ForEach(model.exercises) { exercise in
+                    let isFirst = model.exercises.first == exercise
+                    let isLast = model.exercises.last == exercise
                     exerciseView(
                         Binding(
                             get: { model.exercises.first(matchingIdOf: exercise)! },
@@ -33,14 +35,17 @@ struct PlannerPageView: View {
                                 let index = model.exercises.firstIndex(matchingIdOf: exercise)!
                                 model.exercises[index] = exercise
                             }
-                        )
+                        ),
+                        isFirst: isFirst,
+                        isLast: isLast
                     )
-                    if model.exercises.last != exercise {
+                    if !isLast {
                         ExerciseSupersetConnectionView {
                             
                         }
                     }
                 }
+                Color.clear
                 addExerciseButton()
                 if model.exercises.isEmpty {
                     emptyDropArea()
@@ -50,10 +55,22 @@ struct PlannerPageView: View {
         }
     }
     
-    @ViewBuilder private func exerciseView(
-        _ exercise: Binding<PlannerExercise>
+    private func exerciseView(
+        _ exercise: Binding<PlannerExercise>,
+        isFirst: Bool,
+        isLast: Bool
     ) -> some View {
-        PlannerExerciseView(
+        func edges() -> Edge.Set {
+            var edges = [] as Edge.Set
+            if !isFirst {
+                edges.insert(.top)
+            }
+            if !isLast {
+                edges.insert(.bottom)
+            }
+            return edges
+        }
+        return PlannerExerciseView(
             model: exercise,
             isAddToSupersetDisabled: true,
             isRemoveFromSupersetDisabled: true,
@@ -70,7 +87,7 @@ struct PlannerPageView: View {
                 }
             }
         )
-        .linkedCardDesign(edges: .vertical)
+        .linkedCardDesign(edges: edges())
         .onDrag({
             currentlyDragged = exercise.wrappedValue
             return PlannerExerciseDraggable.itemProvider
