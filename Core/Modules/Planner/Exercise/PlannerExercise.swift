@@ -24,30 +24,33 @@ struct PlannerExercise: Identifiable, Hashable {
     let name: String
     var pace: UIPacePicker.InputState
     var sets: [Set]
-    let createsSupersets: Bool
+    
+    /// Index of superset an exercise is member of.
+    /// nil: exercise is not a part of superset.
+    var supersetIndex: Int?
 }
 
 #if DEBUG
 extension PlannerExercise {
-    static func dt_deadlift(supersets: Bool = false) -> PlannerExercise {
+    static func dt_deadlift(supersetIndex: Int? = nil) -> PlannerExercise {
         return PlannerExercise(
             id: UUID(),
             exerciseId: UUID(),
             name: "Deadlift",
             pace: UIPacePicker.InputState(),
             sets: [.dt_reps, .dt_reps, .dt_reps],
-            createsSupersets: supersets
+            supersetIndex: supersetIndex
         )
     }
 
-    static func dt_squat(supersets: Bool = false) -> PlannerExercise {
+    static func dt_squat(supersetIndex: Int? = nil) -> PlannerExercise {
         return PlannerExercise(
             id: UUID(),
             exerciseId: UUID(),
             name: "Squat",
             pace: UIPacePicker.InputState(),
             sets: [.dt_reps, .dt_reps, .dt_reps],
-            createsSupersets: supersets
+            supersetIndex: supersetIndex
         )
     }
 }

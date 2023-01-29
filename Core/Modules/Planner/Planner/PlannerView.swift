@@ -16,6 +16,7 @@ enum PlannerAction {
     case addExercise
     case addSet(PlannerExercise, PlannerPage)
     case removeSet(PlannerExercise.Set, PlannerExercise, PlannerPage)
+    case toggleSuperset(PlannerExercise, PlannerPage)
 }
 
 struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
@@ -41,10 +42,8 @@ struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
                                     model.consume(.addSet(exercise, page))
                                 case let .removeSet(set, exercise):
                                     model.consume(.removeSet(set, exercise, page))
-                                case let .addToSupeset(exercise):
-                                    break
-                                case let .removeFromSuperset(exercise):
-                                    break
+                                case let .toggleSuperset(exercise):
+                                    model.consume(.toggleSuperset(exercise, page))
                                 }
                             }.tag(model.pages.firstIndex(of: page)!)
                     }
@@ -138,8 +137,8 @@ class DTPlannerViewModel: PlannerViewModeling {
             name: "A1",
             exercises: [
                 .dt_squat(),
-                .dt_deadlift(supersets: true),
-                .dt_squat(supersets: true)
+                .dt_deadlift(supersetIndex: 0),
+                .dt_squat(supersetIndex: 0)
             ]
         )
     ]

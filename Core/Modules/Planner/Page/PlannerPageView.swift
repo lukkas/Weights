@@ -12,8 +12,7 @@ struct PlannerPageView: View {
         case addExercise
         case addSet(PlannerExercise)
         case removeSet(PlannerExercise.Set, PlannerExercise)
-        case addToSupeset(PlannerExercise)
-        case removeFromSuperset(PlannerExercise)
+        case toggleSuperset(after: PlannerExercise)
     }
     
     @Binding var model: PlannerPage
@@ -41,7 +40,7 @@ struct PlannerPageView: View {
                     )
                     if !isLast {
                         ExerciseSupersetConnectionView {
-                            
+                            onAction(.toggleSuperset(after: exercise))
                         }
                     }
                 }
@@ -80,10 +79,6 @@ struct PlannerPageView: View {
                     onAction(.addSet(exercise.wrappedValue))
                 case let .removeSet(set):
                     onAction(.removeSet(set, exercise.wrappedValue))
-                case .addToSuperset:
-                    onAction(.addToSupeset(exercise.wrappedValue))
-                case .removeFromSuperset:
-                    onAction(.removeFromSuperset(exercise.wrappedValue))
                 }
             }
         )
@@ -141,8 +136,8 @@ struct PlannerPageView_Previews: PreviewProvider {
             exercises: [
                 .dt_squat(),
                 .dt_deadlift(),
-                .dt_squat(supersets: true),
-                .dt_squat(supersets: true)
+                .dt_squat(supersetIndex: 0),
+                .dt_squat(supersetIndex: 0)
             ]
         )
         

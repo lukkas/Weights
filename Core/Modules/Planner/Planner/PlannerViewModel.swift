@@ -61,6 +61,8 @@ class PlannerViewModel: PlannerViewModeling {
             removeSetAction(set: set, exercise: exercise, page: page)
         case let .pageChanged(pageIndex):
             currentPageIndex = pageIndex
+        case let .toggleSuperset(exercise, page):
+            break
         }
     }
     
@@ -90,7 +92,7 @@ class PlannerViewModel: PlannerViewModeling {
             name: exercise.name,
             pace: UIPacePicker.InputState(),
             sets: [defaultSet(for: exercise)],
-            createsSupersets: false
+            supersetIndex: nil
         )
     }
     

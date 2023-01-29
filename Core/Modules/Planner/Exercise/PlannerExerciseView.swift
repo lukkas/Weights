@@ -12,8 +12,6 @@ struct PlannerExerciseView: View {
     enum Action {
         case addSet
         case removeSet(PlannerExercise.Set)
-        case addToSuperset
-        case removeFromSuperset
     }
     
     @Binding var model: PlannerExercise
@@ -124,8 +122,6 @@ struct PlannerExerciseView_Previews: PreviewProvider {
                         exercise.sets.append(.dt_reps)
                     case let .removeSet(set):
                         exercise.sets.remove(at: exercise.sets.firstIndex(of: set)!)
-                    default:
-                        break
                     }
                 }
             )

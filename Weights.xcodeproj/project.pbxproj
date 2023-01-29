@@ -801,6 +801,7 @@
 				64846E1562132346E8A12B4F /* PlannerPage.swift */,
 				4043568C7BA15403D3E28FD7 /* PlannerPageView.swift */,
 				0FBC28D0298565D300367B5B /* ExerciseSupersetConnectionView.swift */,
+				D787FF71E1DE5D80995A8E5F /* SupersetIdentificationColors.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -834,7 +835,6 @@
 				FEB65596B7D0D3FB1C36B0B5 /* PlannerExercise.swift */,
 				A4EE7FEDCD0E173B857D4B12 /* PlannerExerciseView.swift */,
 				5481BD4FD0A9391FA4B9059C /* PlannerSetCell.swift */,
-				D787FF71E1DE5D80995A8E5F /* SupersetIdentificationColors.swift */,
 			);
 			path = Exercise;
 			sourceTree = "<group>";
