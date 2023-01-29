@@ -135,20 +135,50 @@ class PlannerViewModel: PlannerViewModeling {
     }
     
     private func toggleSuprset(after exercise: PlannerExercise, onPage page: PlannerPage) {
-        let indexPath = self.indexPath(of: exercise, onPage: page)
-        var supersetToAddTo: Int?
-        mutateExercise(at: indexPath) { exercise in
-            if let supersetIndex = exercise.supersetIndex {
-                supersetToAddTo = supersetIndex
-            } else {
-                let supersetIndex = findFirstFreeSupersetIndex(onPage: indexPath.page)
-                exercise.supersetIndex = supersetIndex
-                supersetToAddTo = supersetIndex
+        let ip = indexPath(of: exercise, onPage: page)
+        let nextIp = ip.nextOnPageIndexPath()
+        let nextExercise = self.exercise(at: nextIp)
+        switch (exercise.supersetIndex, nextExercise.supersetIndex) {
+        case (nil, nil):
+            let index = findFirstFreeSupersetIndex(onPage: ip.page)
+            mutateExercise(at: ip) { exercise in
+                exercise.supersetIndex = index
             }
+            mutateExercise(at: nextIp) { exercise in
+                exercise.supersetIndex = index
+            }
+        case (nil, _?):
+            mutateExercise(at: ip) { mutated in
+                mutated.supersetIndex = nextExercise.supersetIndex
+            }
+        case (_?, nil):
+            mutateExercise(at: nextIp) { mutated in
+                mutated.supersetIndex = exercise.supersetIndex
+            }
+        case let (one?, two?) where one == two:
+            break
+        case let (one?, two?) where one != two:
+            mutatePageExercises(from: nextIp) { mutated in
+                if mutated.supersetIndex == two {
+                    mutated.supersetIndex = one
+                }
+            }
+        default:
+            fatalError("all cases should be handled, but compiler chan't check this one")
         }
-        mutateExercise(at: indexPath.nextOnPageIndexPath()) { exercise in
-            exercise.supersetIndex = supersetToAddTo
-        }
+//        var supersetToAddTo: Int?
+//        mutateExercise(at: ip) { exercise in
+//            if let supersetIndex = exercise.supersetIndex {
+//                supersetToAddTo = supersetIndex
+//            } else {
+//                let supersetIndex = findFirstFreeSupersetIndex(onPage: ip.page)
+//                exercise.supersetIndex = supersetIndex
+//                supersetToAddTo = supersetIndex
+//            }
+//        }
+//        mutateExercise(at: ip.nextOnPageIndexPath()) { exercise in
+//            exercise.supersetIndex = supersetToAddTo
+//        }
     }
     
     private func findFirstFreeSupersetIndex(onPage pageIndex: Int) -> Int {
@@ -193,6 +223,19 @@ class PlannerViewModel: PlannerViewModeling {
             fatalError("didn't find exercise")
         }
         return IndexPath(page: pageIndex, exercise: exerciseIndex)
+    }
+    
+    private func mutatePageExercises(
+        from indexPath: IndexPath,
+        mutation: (inout PlannerExercise) -> Void
+    ) {
+        for exerciseIndex in indexPath.exercise ..< pages[indexPath.page].exercises.count {
+            mutation(&pages[indexPath.page].exercises[exerciseIndex])
+        }
+    }
+    
+    private func exercise(at indexPath: IndexPath) -> PlannerExercise {
+        pages[indexPath.page].exercises[indexPath.exercise]
     }
     
     private func saveAction() {

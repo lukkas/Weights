@@ -117,6 +117,23 @@ class PlannerViewModelSpec: QuickSpec {
                             expect(superset(0)).to(equal([0, 1]))
                             expect(superset(1)).to(equal([2, 3]))
                         }
+                        context("when toggle superset is tapped on second") {
+                            beforeEach {
+                                viewModel.consume(.toggleSuperset(exercise(1, fromPage: 0), page(0)))
+                            }
+                            it("will join both supersets") {
+                                expect(superset(0)).to(equal([0, 1, 2, 3]))
+                            }
+                        }
+//                        context("when toggle superset is tapped on first") {
+//                            beforeEach {
+//                                viewModel.consume(.toggleSuperset(exercise(0, fromPage: 0), page(0)))
+//                            }
+//                            it("will leave only first superset") {
+//                                expect(superset(0)).to(equal([2, 3]))
+//                                expect(superset(1)).to(equal([]))
+//                            }
+//                        }
                     }
                 }
             }
