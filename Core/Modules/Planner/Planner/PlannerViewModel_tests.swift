@@ -18,11 +18,19 @@ class PlannerViewModelSpec: QuickSpec {
             func page(_ index: Int) -> PlannerPage {
                 viewModel.pages[index]
             }
-            func exercise(_ exerciseIndex: Int, fromPage page: Int) -> PlannerExercise {
+            func exercise(_ exerciseIndex: Int, fromPage page: Int = 0) -> PlannerExercise {
                 viewModel.pages[page].exercises[exerciseIndex]
             }
-            func set(_ setIndex: Int, fromExercise exerciseIndex: Int, page: Int) -> PlannerExercise.Set {
+            func set(_ setIndex: Int, fromExercise exerciseIndex: Int, page: Int = 0) -> PlannerExercise.Set {
                 viewModel.pages[page].exercises[exerciseIndex].sets[setIndex]
+            }
+            func superset(_ supersetIndex: Int, onPage page: Int = 0) -> [Int] {
+                let page = viewModel.pages[page]
+                return page.exercises
+                    .enumerated()
+                    .compactMap { index, exercise -> Int? in
+                        return exercise.supersetIndex == supersetIndex ? index : nil
+                    }
             }
             beforeEach {
                 planStorage = PlanStoringStub()
@@ -80,23 +88,37 @@ class PlannerViewModelSpec: QuickSpec {
                     }
                 }
             }
-            context("when there are 3 exercises in a day") {
+            context("when there are 5 exercises in a day") {
                 beforeEach {
-                    let exercises = Exercise.arrayBuilder().build(count: 3)
+                    let exercises = Exercise.arrayBuilder().build(count: 5)
                     viewModel.consume(.addExercise)
                     viewModel.exercisePickerRelay?.pick(exercises)
                 }
-//                context("when add superset is tapped on first") {
-//                    beforeEach {
-//                        firstDay.exercises[0].addToSuperset()
-//                    }
-//                    it("will have to exercises in first superset") {
-//                        expect(firstDay.exercises[0].headerRows).to(haveCount(2))
-//                    }
-//                    it("will have two exercises on page") {
-//                        expect(firstDay.exercises).to(haveCount(2))
-//                    }
-//                }
+                context("when toggle superset is tapped on first") {
+                    beforeEach {
+                        viewModel.consume(.toggleSuperset(exercise(0, fromPage: 0), page(0)))
+                    }
+                    it("will have two exercises in first superset") {
+                        expect(superset(0)).to(equal([0, 1]))
+                    }
+                    context("when toggle superset is tapped on second") {
+                        beforeEach {
+                            viewModel.consume(.toggleSuperset(exercise(1, fromPage: 0), page(0)))
+                        }
+                        it("will add third exercise to first superset") {
+                            expect(superset(0)).to(equal([0, 1, 2]))
+                        }
+                    }
+                    context("when toggle superset is tapped on third") {
+                        beforeEach {
+                            viewModel.consume(.toggleSuperset(exercise(2, fromPage: 0), page(0)))
+                        }
+                        it("will create second superset from third and fourth exercise") {
+                            expect(superset(0)).to(equal([0, 1]))
+                            expect(superset(1)).to(equal([2, 3]))
+                        }
+                    }
+                }
             }
             context("when plus is tapped") {
                 beforeEach {

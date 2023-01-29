@@ -62,7 +62,7 @@ class PlannerViewModel: PlannerViewModeling {
         case let .pageChanged(pageIndex):
             currentPageIndex = pageIndex
         case let .toggleSuperset(exercise, page):
-            break
+            toggleSuprset(after: exercise, onPage: page)
         }
     }
     
@@ -134,17 +134,65 @@ class PlannerViewModel: PlannerViewModeling {
         }
     }
     
+    private func toggleSuprset(after exercise: PlannerExercise, onPage page: PlannerPage) {
+        let indexPath = self.indexPath(of: exercise, onPage: page)
+        var supersetToAddTo: Int?
+        mutateExercise(at: indexPath) { exercise in
+            if let supersetIndex = exercise.supersetIndex {
+                supersetToAddTo = supersetIndex
+            } else {
+                let supersetIndex = findFirstFreeSupersetIndex(onPage: indexPath.page)
+                exercise.supersetIndex = supersetIndex
+                supersetToAddTo = supersetIndex
+            }
+        }
+        mutateExercise(at: indexPath.nextOnPageIndexPath()) { exercise in
+            exercise.supersetIndex = supersetToAddTo
+        }
+    }
+    
+    private func findFirstFreeSupersetIndex(onPage pageIndex: Int) -> Int {
+        let page = pages[pageIndex]
+        var availableIndices = IndexSet(integersIn: 0...)
+        for case let supersetIndex in page.exercises.compactMap(\.supersetIndex){
+            if availableIndices.contains(supersetIndex) {
+                availableIndices.remove(supersetIndex)
+            }
+        }
+        return availableIndices.first!
+    }
+    
+    private func findExercise(after exercise: PlannerExercise, onPage page: PlannerPage) -> PlannerExercise {
+        let indexPath = self.indexPath(of: exercise, onPage: page)
+        guard pages[indexPath.page].exercises.count > indexPath.exercise + 1 else {
+            preconditionFailure("should not be possible to toggle superset on last exercise")
+        }
+        return pages[indexPath.page].exercises[indexPath.exercise + 1]
+    }
+    
     private func mutateExercise(
         _ exercise: PlannerExercise,
         at page: PlannerPage,
         mutation: (inout PlannerExercise) -> Void
     ) {
+        let indexPath = self.indexPath(of: exercise, onPage: page)
+        mutation(&pages[indexPath.page].exercises[indexPath.exercise])
+    }
+    
+    private func mutateExercise(
+        at indexPath: IndexPath,
+        mutation: (inout PlannerExercise) -> Void
+    ) {
+        mutation(&pages[indexPath.page].exercises[indexPath.exercise])
+    }
+    
+    private func indexPath(of exercise: PlannerExercise, onPage page: PlannerPage) -> IndexPath {
         guard
             let pageIndex = pages.firstIndex(of: page),
             let exerciseIndex = page.exercises.firstIndex(of: exercise) else {
             fatalError("didn't find exercise")
         }
-        mutation(&pages[pageIndex].exercises[exerciseIndex])
+        return IndexPath(page: pageIndex, exercise: exerciseIndex)
     }
     
     private func saveAction() {
@@ -179,5 +227,18 @@ class PlannerViewModel: PlannerViewModeling {
                 createsSupersets: false
             )
         }
+    }
+}
+
+private extension IndexPath {
+    init(page: Int, exercise: Int) {
+        self.init(item: exercise, section: page)
+    }
+    
+    var page: Int { section }
+    var exercise: Int { item }
+    
+    func nextOnPageIndexPath() -> IndexPath {
+        return IndexPath(page: page, exercise: exercise + 1)
     }
 }
