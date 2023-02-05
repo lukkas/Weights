@@ -195,6 +195,9 @@ class PlannerViewModelSpec: QuickSpec {
                         expect(planStorage.insertedPlans.last?.days.first?.exercises).to(haveCount(3))
                     }
                 }
+                context("when three sets are added to first exercise") {
+                    
+                }
             }
         }
     }

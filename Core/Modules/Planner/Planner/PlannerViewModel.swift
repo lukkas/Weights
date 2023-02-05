@@ -281,11 +281,14 @@ class PlannerViewModel: PlannerViewModeling {
         return page.exercises.map { exercise in
             return PlannedExercise(
                 exercise: addedExercises[exercise.exerciseId]!,
+                pace: nil,
                 setCollections: [],
                 createsSupersets: false
             )
         }
     }
+    
+    
 }
 
 private extension IndexPath {
