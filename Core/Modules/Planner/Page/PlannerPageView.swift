@@ -82,7 +82,12 @@ struct PlannerPageView: View {
                 }
             }
         )
-        .linkedCardDesign(edges: edges())
+        .linkedCardDesign(
+            edges: edges(),
+            borderColor: exercise.supersetIndex
+                .wrappedValue
+                .map({ Color.forSupersetIdentification(at: $0) })
+        )
         .onDrag({
             currentlyDragged = exercise.wrappedValue
             return PlannerExerciseDraggable.itemProvider

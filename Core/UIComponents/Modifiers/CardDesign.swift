@@ -9,25 +9,48 @@
 import SwiftUI
 
 struct CardDesign: ViewModifier {
+    let backgroundColor: Color
+    let borderColor: Color?
+    
     func body(content: Content) -> some View {
         content
             .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .foregroundColor(.background)
+                shape
+                    .foregroundColor(backgroundColor)
+            }
+            .unwrapping(borderColor) { view, borderColor in
+                view.overlay {
+                    shape
+                        .stroke(borderColor, lineWidth: 2)
+                }
             }
     }
+    
+    private let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
 }
 
 struct LinkedCardDesign: ViewModifier {
     /// Currently only supports top and bottom.
     let edges: Edge.Set
+    let backgroundColor: Color
+    let borderColor: Color?
     
     func body(content: Content) -> some View {
         content
             .background {
-                LinkedRoundedRectangle(cornerRadius: 16, edges: edges)
-                    .foregroundColor(.background)
+                shape
+                    .foregroundColor(backgroundColor)
             }
+            .unwrapping(borderColor) { view, borderColor in
+                view.overlay {
+                    shape
+                        .stroke(borderColor, lineWidth: 2)
+                }
+            }
+    }
+    
+    private var shape: LinkedRoundedRectangle {
+        LinkedRoundedRectangle(cornerRadius: 16, edges: edges)
     }
 }
 
@@ -78,12 +101,27 @@ private struct LinkedRoundedRectangle: Shape {
 }
 
 extension View {
-    func cardDesign() -> some View {
-        return modifier(CardDesign())
+    func cardDesign(
+        backgroundColor: Color = .background,
+        borderColor: Color? = nil
+    ) -> some View {
+        return modifier(
+            CardDesign(backgroundColor: backgroundColor, borderColor: borderColor)
+        )
     }
     
-    func linkedCardDesign(edges: Edge.Set) -> some View {
-        return modifier(LinkedCardDesign(edges: edges))
+    func linkedCardDesign(
+        edges: Edge.Set,
+        backgroundColor: Color = .background,
+        borderColor: Color? = nil
+    ) -> some View {
+        return modifier(
+            LinkedCardDesign(
+                edges: edges,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor
+            )
+        )
     }
 }
 
