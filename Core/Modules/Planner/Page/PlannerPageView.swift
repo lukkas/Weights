@@ -8,18 +8,43 @@
 import SwiftUI
 
 struct PlannerPageView: View {
-    @ObservedObject var model: PlannerPageViewModel
-    @Binding var currentlyDragged: PlannerExerciseViewModel?
-    @Binding var allPages: [PlannerPageViewModel]
-    let addExerciseTapped: () -> Void
+    enum Action {
+        case addExercise
+        case addSet(PlannerExercise)
+        case removeSet(PlannerExercise.Set, PlannerExercise)
+        case toggleSuperset(after: PlannerExercise)
+    }
+    
+    @Binding var model: PlannerPage
+    @Binding var currentlyDragged: PlannerExercise?
+    @Binding var allPages: [PlannerPage]
+    let onAction: (Action) -> Void
     
     var body: some View {
         ScrollView {
             Color.clear
-            LazyVStack(spacing: 16) {
+            LazyVStack(spacing: 0) {
                 ForEach(model.exercises) { exercise in
-                    exerciseView(exercise)
+                    let isFirst = model.exercises.first == exercise
+                    let isLast = model.exercises.last == exercise
+                    exerciseView(
+                        Binding(
+                            get: { model.exercises.first(matchingIdOf: exercise)! },
+                            set: { exercise in
+                                let index = model.exercises.firstIndex(matchingIdOf: exercise)!
+                                model.exercises[index] = exercise
+                            }
+                        ),
+                        isFirst: isFirst,
+                        isLast: isLast
+                    )
+                    if !isLast {
+                        ExerciseSupersetConnectionView {
+                            onAction(.toggleSuperset(after: exercise))
+                        }
+                    }
                 }
+                Color.clear
                 addExerciseButton()
                 if model.exercises.isEmpty {
                     emptyDropArea()
@@ -29,26 +54,58 @@ struct PlannerPageView: View {
         }
     }
     
-    @ViewBuilder private func exerciseView(_ exercise: PlannerExerciseViewModel) -> some View {
-        PlannerExerciseView(model: exercise)
-            .onDrag({
-                currentlyDragged = exercise
-                return PlannerExerciseDraggable.itemProvider
-            })
-            .onDrop(
-                of: [PlannerExerciseDraggable.uti],
-                delegate: PlannerDropController(
-                    target: .exercise(exercise),
-                    currentlyDragged: $currentlyDragged,
-                    pages: $allPages
-                )
+    private func exerciseView(
+        _ exercise: Binding<PlannerExercise>,
+        isFirst: Bool,
+        isLast: Bool
+    ) -> some View {
+        func edges() -> Edge.Set {
+            var edges = [] as Edge.Set
+            if !isFirst {
+                edges.insert(.top)
+            }
+            if !isLast {
+                edges.insert(.bottom)
+            }
+            return edges
+        }
+        return PlannerExerciseView(
+            model: exercise,
+            isAddToSupersetDisabled: true,
+            isRemoveFromSupersetDisabled: true,
+            onAction: { action in
+                switch action {
+                case .addSet:
+                    onAction(.addSet(exercise.wrappedValue))
+                case let .removeSet(set):
+                    onAction(.removeSet(set, exercise.wrappedValue))
+                }
+            }
+        )
+        .linkedCardDesign(
+            edges: edges(),
+            borderColor: exercise.supersetIndex
+                .wrappedValue
+                .map({ Color.forSupersetIdentification(at: $0) })
+        )
+        .onDrag({
+            currentlyDragged = exercise.wrappedValue
+            return PlannerExerciseDraggable.itemProvider
+        })
+        .onDrop(
+            of: [PlannerExerciseDraggable.uti],
+            delegate: PlannerDropController(
+                target: .exercise(exercise.wrappedValue),
+                currentlyDragged: $currentlyDragged,
+                pages: $allPages
             )
-            .padding(.horizontal, 16)
+        )
+        .padding(.horizontal, 16)
     }
     
     @ViewBuilder private func addExerciseButton() -> some View {
         Button {
-            addExerciseTapped()
+            onAction(.addExercise)
         } label: {
             Text(L10n.Planner.addExercise)
                 .textStyle(.largeButton)
@@ -75,14 +132,33 @@ struct PlannerPageView: View {
 
 // MARK: - Design time
 
+#if DEBUG
 struct PlannerPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlannerPageView(
-            model: PlannerPageViewModel(name: "A1", exercises: [PlannerExerciseViewModel.dt_squat]),
-            currentlyDragged: .constant(nil),
-            allPages: .constant([]),
-            addExerciseTapped: {}
+    struct Wrapper: View {
+        @State var page = PlannerPage(
+            id: UUID(),
+            name: "A1",
+            exercises: [
+                .dt_squat(),
+                .dt_deadlift(),
+                .dt_squat(supersetIndex: 0),
+                .dt_squat(supersetIndex: 0)
+            ]
         )
-        .cellPreview()
+        
+        var body: some View {
+            PlannerPageView(
+                model: $page,
+                currentlyDragged: .constant(nil),
+                allPages: .constant([]),
+                onAction: { _ in }
+            )
+        }
+    }
+    
+    static var previews: some View {
+        Wrapper()
+            .cellPreview()
     }
 }
+#endif

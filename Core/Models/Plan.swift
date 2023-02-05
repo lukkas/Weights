@@ -80,7 +80,7 @@ extension Plan {
                         )
                     }
                 let exercise = PlannedExercise(
-                    exercise: .make(),
+                    exercise: .builder().build(),
                     pace: nil,
                     setCollections: setCollection,
                     createsSupersets: false

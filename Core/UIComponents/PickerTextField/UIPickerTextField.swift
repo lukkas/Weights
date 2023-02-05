@@ -15,7 +15,7 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         case wholes, floatingPoint, time
     }
     enum HightlightStyle {
-        case border, underline
+        case border, underline, text
     }
     
     var mode: Mode = .wholes {
@@ -27,6 +27,12 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     var jumpInterval: Double? = 1
     var minMaxRange: ClosedRange<Double>? {
+        didSet { resetEditor() }
+    }
+    var unitLabel: String? {
+        didSet {  }
+    }
+    var resettingValueEnabled = false {
         didSet { resetEditor() }
     }
     
@@ -50,9 +56,10 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private let resettingDrawer = UIResetValueDrawer()
     
     var highlightColor: UIColor? {
-        didSet {
-            adjustHighlight(animated: false)
-        }
+        didSet { adjustHighlight(animated: false) }
+    }
+    var keepHighlighted: Bool = false {
+        didSet { adjustHighlight(animated: true) }
     }
     var fontSize: CGFloat {
         get { return label.font.pointSize }
@@ -74,15 +81,11 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     required init?(coder aDecoder: NSCoder) { fatalError("Storyboards are not compatible with truth and beauty") }
     
     override var intrinsicContentSize: CGSize {
-        let verticalPadding = 18.0
-        let defaultFontSize = 18.0
-        let aspectRatio = AspectRatio(
-            width: 56,
-            height: verticalPadding + defaultFontSize
+        let labelSize = label.intrinsicContentSize
+        return CGSize(
+            width: labelSize.width + 12,
+            height: labelSize.height + 8
         )
-        let height = fontSize + verticalPadding
-        let width = aspectRatio.width(forHeight: fontSize + verticalPadding)
-        return CGSize(width: width, height: height)
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -110,7 +113,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     override func layoutSubviews() {
         label.frame = bounds
         resettingDrawer.frame = calculateDrawerFrame(forProgress: resettingDrawerProgress)
-        highlightLayer.path = createHighlightBezierPath().cgPath
+        switch highlightStyle {
+        case .border:
+            highlightLayer.path = createBorderHighlightBezierPath().cgPath
+        case .underline:
+            highlightLayer.path = createUnderlineHighlightBezierPath().cgPath
+        case .text: break
+        }
     }
     
     private enum DrawerAnimationType {
@@ -150,28 +159,36 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
             .offsetBy(dx: offset, dy: 0)
     }
     
-    private func createHighlightBezierPath() -> UIBezierPath {
-        switch highlightStyle {
-        case .underline:
-            let path = UIBezierPath()
-            let yPosition = bounds.maxY - 0.5 * highlightThickness()
-            path.move(to: CGPoint(x: bounds.minX, y: yPosition))
-            path.addLine(to: CGPoint(x: bounds.maxX, y: yPosition))
-            return path
-        case .border:
-            let inset = 0.5 * highlightThickness()
-            let rect = bounds.insetBy(dx: inset, dy: inset)
-            return UIBezierPath(roundedRect: rect, cornerRadius: 8)
-        }
+    private func createUnderlineHighlightBezierPath() -> UIBezierPath {
+        let path = UIBezierPath()
+        let yPosition = bounds.maxY - 0.5 * highlightThickness()
+        path.move(to: CGPoint(x: bounds.minX, y: yPosition))
+        path.addLine(to: CGPoint(x: bounds.maxX, y: yPosition))
+        return path
+    }
+    
+    private func createBorderHighlightBezierPath() -> UIBezierPath {
+        let inset = 0.5 * highlightThickness()
+        let rect = bounds.insetBy(dx: inset, dy: inset)
+        return UIBezierPath(roundedRect: rect, cornerRadius: 8)
     }
     
     private func adjustHighlight(animated: Bool) {
-        let shouldHighlight = isBeingEdited || panningState is ValueSteppingPanner
-        let color = shouldHighlight ? tintColor : highlightColor
-        let highlightWidth: CGFloat = shouldHighlight || highlightColor != nil ? highlightThickness() : 0
-        let adjustment = { [highlightLayer] in
-            highlightLayer.strokeColor = color?.cgColor
-            highlightLayer.lineWidth = highlightWidth
+        let shouldHighlight = isBeingEdited || panningState is ValueSteppingPanner || keepHighlighted
+        let adjustment: () -> Void
+        switch highlightStyle {
+        case .border, .underline:
+            let color = shouldHighlight ? tintColor : highlightColor
+            let highlightWidth: CGFloat = shouldHighlight || highlightColor != nil ? highlightThickness() : 0
+            adjustment = { [highlightLayer] in
+                highlightLayer.strokeColor = color?.cgColor
+                highlightLayer.lineWidth = highlightWidth
+            }
+        case .text:
+            let color = shouldHighlight ? tintColor : .label
+            adjustment = { [label] in
+                label.textColor = color
+            }
         }
         if animated {
             UIView.animateKeyframes(
@@ -187,7 +204,13 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     }
     
     private func updateLabel() {
-        label.text = editor.getFormattedText()
+        let numberTextRepresentation = editor.getFormattedText()
+        if let unitLabel {
+            label.text = "\(numberTextRepresentation) \(unitLabel)"
+        } else {
+            label.text = numberTextRepresentation
+        }
+        invalidateIntrinsicContentSize()
     }
     
     // MARK: UIKeyInput
@@ -236,11 +259,24 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private func resetEditor() {
         switch mode {
         case .wholes:
-            editor = NumberEditor(value: editor?.value, decimalMode: false, minMaxRange: minMaxRange)
+            editor = NumberEditor(
+                value: editor?.value,
+                decimalMode: false,
+                minMaxRange: minMaxRange,
+                resettingValueEnabled: resettingValueEnabled
+            )
         case .floatingPoint:
-            editor = NumberEditor(value: editor?.value, decimalMode: true, minMaxRange: minMaxRange)
+            editor = NumberEditor(
+                value: editor?.value,
+                decimalMode: true,
+                minMaxRange: minMaxRange,
+                resettingValueEnabled: resettingValueEnabled
+            )
         case .time:
-            editor = TimeEditor(value: editor?.value)
+            editor = TimeEditor(
+                value: editor?.value,
+                resettingValueEnabled: resettingValueEnabled
+            )
         }
     }
     
@@ -273,7 +309,11 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
     private func addLabel() {
         addSubview(label)
         label.textAlignment = .center
-        label.font = .forStyle(.pickerField)
+        label.font = baseFont()
+    }
+    
+    private func baseFont() -> UIFont {
+        return .forStyle(.pickerField)
     }
     
     private func addHighlightLayer() {
@@ -362,7 +402,8 @@ class UIPickerTextField: UIControl, UIKeyInput, UIGestureRecognizerDelegate {
         if abs(translation.y) > abs(translation.x) {
             return newValueSteppingPanner()
         }
-        if abs(translation.x) > abs(translation.y) && value != nil {
+        let resettingValuePossible = resettingValueEnabled && value != nil
+        if abs(translation.x) > abs(translation.y) && resettingValuePossible {
             return newValueResettingPanner()
         }
         return nil
@@ -567,6 +608,7 @@ private class NumberEditor: Editing {
     private let formatter = NumberFormatter()
     private let decimalMode: Bool
     private let minMaxRange: ClosedRange<Double>?
+    private let resettingValueEnabled: Bool
     private var isDecimalSeparatorLastEntered = false
     
     private(set) var value: Double?
@@ -574,11 +616,13 @@ private class NumberEditor: Editing {
     init(
         value: Double?,
         decimalMode: Bool,
-        minMaxRange: ClosedRange<Double>?
+        minMaxRange: ClosedRange<Double>?,
+        resettingValueEnabled: Bool
     ) {
         self.value = value
         self.decimalMode = decimalMode
         self.minMaxRange = minMaxRange
+        self.resettingValueEnabled = resettingValueEnabled
         formatter.minimumSignificantDigits = decimalMode ? 1 : 0
     }
     
@@ -618,6 +662,14 @@ private class NumberEditor: Editing {
         if currentText.isEmpty {
             throw ValueOutOfRangeError()
         }
+        if !resettingValueEnabled && currentText.count == 1 {
+            if currentText == "0" {
+                throw ValueOutOfRangeError()
+            } else {
+                value = 0
+                return
+            }
+        }
         value = try getValue(forText: String(currentText.dropLast()))
     }
     
@@ -647,10 +699,12 @@ private class NumberEditor: Editing {
 }
 
 private class TimeEditor: Editing {
-    private var components: [Double] = []
+    private var components: [Double] = [] // c0 * 60 + c1 * 10 + c2 * 1
     private let maximumValue: Double = 599 // 9:59
+    private let resettingValueEnabled: Bool
     
-    init(value: Double?) {
+    init(value: Double?, resettingValueEnabled: Bool) {
+        self.resettingValueEnabled = resettingValueEnabled
         setComponents(for: value)
     }
     
@@ -738,6 +792,12 @@ private class TimeEditor: Editing {
     
     func deleteBackward() throws {
         let popped = components.popLast()
+        if !resettingValueEnabled && components.isEmpty {
+            components = [0]
+            if popped == nil {
+                throw ValueOutOfRangeError()
+            }
+        }
         if popped == nil {
             throw ValueOutOfRangeError()
         }

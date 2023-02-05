@@ -54,6 +54,7 @@ struct PlanCell: View {
 
 // MARK: - Design time
 
+#if DEBUG
 extension PlanCellModel {
     static func dt_pushPullLegs() -> Self {
         return PlanCellModel(
@@ -70,3 +71,4 @@ struct PlanCell_Previews: PreviewProvider {
             .cellPreview()
     }
 }
+#endif

@@ -1,57 +1,106 @@
 //
-//  PlannerExerciseView.swift
+//  PlannerExerciseSupersetView.swift
 //  Core
 //
-//  Created by Łukasz Kasperek on 11/10/2020.
-//  Copyright © 2020 Łukasz Kasperek. All rights reserved.
+//  Created by Łukasz Kasperek on 04/09/2022.
 //
 
+import Foundation
 import SwiftUI
 
 struct PlannerExerciseView: View {
-    @ObservedObject var model: PlannerExerciseViewModel
+    enum Action {
+        case addSet
+        case removeSet(PlannerExercise.Set)
+    }
+    
+    @Binding var model: PlannerExercise
+    @StateObject private var repsBatchEditor: ExerciseBatchEditor
+    @StateObject private var weightBatchEditor: ExerciseBatchEditor
+    let isAddToSupersetDisabled: Bool
+    let isRemoveFromSupersetDisabled: Bool
+    let onAction: (Action) -> Void
+    
+    init(
+        model: Binding<PlannerExercise>,
+        isAddToSupersetDisabled: Bool,
+        isRemoveFromSupersetDisabled: Bool,
+        onAction: @escaping (Action) -> Void
+    ) {
+        _model = model
+        let repsBinding = Binding<[Double?]>(
+            get: { model.wrappedValue.sets.map(\.repCount) },
+            set: { values in
+                for index in model.wrappedValue.sets.indices {
+                    model.wrappedValue.sets[index].repCount = values[index]
+                }
+            }
+        )
+        let weightBinding = Binding<[Double?]>(
+            get: { model.wrappedValue.sets.map(\.weight) },
+            set: { values in
+                for index in model.wrappedValue.sets.indices {
+                    model.wrappedValue.sets[index].weight = values[index]
+                }
+            }
+        )
+        _repsBatchEditor = StateObject(
+            wrappedValue: ExerciseBatchEditor(sets: repsBinding)
+        )
+        _weightBatchEditor = StateObject(
+            wrappedValue: ExerciseBatchEditor(sets: weightBinding)
+        )
+        self.isAddToSupersetDisabled = isAddToSupersetDisabled
+        self.isRemoveFromSupersetDisabled = isRemoveFromSupersetDisabled
+        self.onAction = onAction
+    }
     
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 0) {
             HStack {
                 Text(model.name)
+                    .padding(.leading, .grid(1))
                 Spacer()
                 PacePicker(pace: $model.pace)
             }
-            .padding(8)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .foregroundColor(.secondaryBackground)
-            )
+            .textStyle(.sectionTitle)
             .padding(.bottom, 8)
-            VStack(spacing: 4) {
-                ForEach($model.variations) { variation in
-                    PlannerSetCell(model: variation)
-                }
+            ForEach($model.sets) { $set in
+                let index = model.sets.firstIndex(of: set)!
+                PlannerSetCell(
+                    model: $model.sets[index],
+                    repsBatchEditor: repsBatchEditor,
+                    weightBatchEditor: weightBatchEditor,
+                    setIndex: index
+                )
             }
-            .padding(8)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .foregroundColor(.secondaryBackground)
-            )
-            .padding(.bottom, 8)
             HStack {
                 Button {
                     withAnimation {
-                        model.addVariationTapped()
+                        onAction(.addSet)
                     }
                 } label: {
-                    Text(L10n.Planner.Exercise.add)
-                        .textStyle(.mediumButton)
-                        .padding(.vertical, 8)
+                    Image(systemName: "plus")
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.borderedProminent)
+                Button {
+                    guard let set = model.sets.last else { return }
+                    withAnimation {
+                        onAction(.removeSet(set))
+                    }
+                } label: {
+                    Image(systemName: "minus")
+                        .frame(maxHeight: .infinity)
+                }
+                .buttonStyle(.bordered)
                 
                 Spacer()
             }
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.vertical, 8)
+            .textStyle(.mediumButton)
         }
         .padding(12)
-        .cardDesign()
     }
 }
 
@@ -59,26 +108,30 @@ struct PlannerExerciseView: View {
 
 #if DEBUG
 struct PlannerExerciseView_Previews: PreviewProvider {
+    struct Wrapper: View {
+        @State var exercise = PlannerExercise.dt_squat()
+        
+        var body: some View {
+            PlannerExerciseView(
+                model: $exercise,
+                isAddToSupersetDisabled: false,
+                isRemoveFromSupersetDisabled: false,
+                onAction: { action in
+                    switch action {
+                    case .addSet:
+                        exercise.sets.append(.dt_reps)
+                    case let .removeSet(set):
+                        exercise.sets.remove(at: exercise.sets.firstIndex(of: set)!)
+                    }
+                }
+            )
+        }
+    }
+    
     static var previews: some View {
-        PlannerExerciseView(model: PlannerExerciseViewModel.dt_squat)
+        Wrapper()
             .cellPreview()
     }
 }
 
-extension PlannerExerciseViewModel {
-    static var dt_squat: PlannerExerciseViewModel {
-        weak var weakModel: PlannerExerciseViewModel?
-        let model = PlannerExerciseViewModel(
-            exerciseId: UUID(),
-            exerciseName: "Squat",
-            setVariations: [.dt_reps],
-            onAddVarationTap: {
-                weakModel?.variations.append(.dt_reps)
-            },
-            onVariationsChanged: { _ in }
-        )
-        weakModel = model
-        return model
-    }
-}
 #endif

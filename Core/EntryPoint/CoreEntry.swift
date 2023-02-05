@@ -52,14 +52,10 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, Plann
     // MARK: - PlanRouting
     
     @ViewBuilder func planner(isPresented: Binding<Bool>) -> some View {
-        let model = PlannerViewModel(isPresented: isPresented)
-        let presenter = PlannerPresenter(
-            viewModel: model,
-            planStorage: dependencies.planStorage
-        )
+        let viewModel = PlannerViewModel(planStorage: dependencies.planStorage)
         PlannerView(
-            model: model,
-            presenter: presenter,
+            model: viewModel,
+            isPresented: isPresented,
             router: self
         )
     }

@@ -14,15 +14,27 @@ class PlannerViewModelSpec: QuickSpec {
     override func spec() {
         describe("planner view model") {
             var viewModel: PlannerViewModel!
-            var presenter: PlannerPresenter!
             var planStorage: PlanStoringStub!
+            func page(_ index: Int) -> PlannerPage {
+                viewModel.pages[index]
+            }
+            func exercise(_ exerciseIndex: Int, fromPage page: Int = 0) -> PlannerExercise {
+                viewModel.pages[page].exercises[exerciseIndex]
+            }
+            func set(_ setIndex: Int, fromExercise exerciseIndex: Int, page: Int = 0) -> PlannerExercise.Set {
+                viewModel.pages[page].exercises[exerciseIndex].sets[setIndex]
+            }
+            func superset(_ supersetIndex: Int, onPage page: Int = 0) -> [Int] {
+                let page = viewModel.pages[page]
+                return page.exercises
+                    .enumerated()
+                    .compactMap { index, exercise -> Int? in
+                        return exercise.supersetIndex == supersetIndex ? index : nil
+                    }
+            }
             beforeEach {
                 planStorage = PlanStoringStub()
-                viewModel = PlannerViewModel(isPresented: .constant(true))
-                presenter = PlannerPresenter(
-                    viewModel: viewModel,
-                    planStorage: planStorage
-                )
+                viewModel = PlannerViewModel(planStorage: planStorage)
             }
             afterEach {
                 viewModel = nil
@@ -31,14 +43,10 @@ class PlannerViewModelSpec: QuickSpec {
                 expect(viewModel.pages).to(haveCount(1))
                 expect(viewModel.pages.first?.exercises).to(haveCount(0))
             }
-            it("will start with disabled arrows") {
-                expect(viewModel.leftArrowDisabled).to(beTrue())
-                expect(viewModel.rightArrowDisabled).to(beTrue())
-            }
             context("when add exercises is tapped") {
-                let exercises = Exercise.make(count: 3)
+                let exercises = Exercise.arrayBuilder().build(count: 3)
                 beforeEach {
-                    presenter.addExerciseTapped()
+                    viewModel.consume(.addExercise)
                     viewModel.exercisePickerRelay?.pick(exercises)
                 }
                 it("will add them to plan") {
@@ -48,104 +56,134 @@ class PlannerViewModelSpec: QuickSpec {
                 }
             }
             context("when exercise is added") {
-                var addedExercise: PlannerExerciseViewModel!
                 beforeEach {
-                    let exercise = Exercise.make()
-                    presenter.addExerciseTapped()
+                    let exercise = Exercise.builder().build()
+                    viewModel.consume(.addExercise)
                     viewModel.exercisePickerRelay?.pick([exercise])
-                    addedExercise = viewModel.pages[0].exercises[0]
                 }
-                it("will have single variation with single set") {
-                    expect(addedExercise.variations).to(haveCount(1))
-                    expect(addedExercise.variations[0].numberOfSets).to(equal(1))
+                it("will have single set") {
+                    expect(exercise(0, fromPage: 0).sets).to(haveCount(1))
                 }
-                context("when add variation is tapped") {
+                context("when add set is tapped") {
                     beforeEach {
-                        addedExercise.addVariationTapped()
+                        let exercise = exercise(0, fromPage: 0)
+                        viewModel.consume(.addSet(exercise, page(0)))
                     }
-                    it("will add another variation with single set") {
-                        expect(addedExercise.variations).to(haveCount(2))
-                        expect(addedExercise.variations[1].numberOfSets).to(equal(1))
+                    it("will have two sets") {
+                        let exercise = exercise(0, fromPage: 0)
+                        expect(exercise.sets).to(haveCount(2))
                     }
-                    context("when number of sets is set to zero") {
+                    context("when remove set action is made") {
                         beforeEach {
-                            addedExercise.variations[1].numberOfSets = 0
+                            viewModel.consume(.removeSet(
+                                set(1, fromExercise: 0, page: 0),
+                                exercise(0, fromPage: 0),
+                                page(0)
+                            ))
                         }
-                        it("will remove variation") {
-                            expect(addedExercise.variations).to(haveCount(1))
+                        it("will remove set") {
+                            let exercise = exercise(0, fromPage: 0)
+                            expect(exercise.sets).to(haveCount(1))
+                        }
+                    }
+                }
+            }
+            context("when there are 5 exercises in a day") {
+                beforeEach {
+                    let exercises = Exercise.arrayBuilder().build(count: 5)
+                    viewModel.consume(.addExercise)
+                    viewModel.exercisePickerRelay?.pick(exercises)
+                }
+                context("when toggle superset is tapped on first") {
+                    beforeEach {
+                        viewModel.consume(.toggleSuperset(exercise(0, fromPage: 0), page(0)))
+                    }
+                    it("will have two exercises in first superset") {
+                        expect(superset(0)).to(equal([0, 1]))
+                    }
+                    context("when toggle superset is tapped on second") {
+                        beforeEach {
+                            viewModel.consume(.toggleSuperset(exercise(1, fromPage: 0), page(0)))
+                        }
+                        it("will add third exercise to first superset") {
+                            expect(superset(0)).to(equal([0, 1, 2]))
+                        }
+                    }
+                    context("when toggle superset is tapped on third") {
+                        beforeEach {
+                            viewModel.consume(.toggleSuperset(exercise(2, fromPage: 0), page(0)))
+                        }
+                        it("will create second superset from third and fourth exercise") {
+                            expect(superset(0)).to(equal([0, 1]))
+                            expect(superset(1)).to(equal([2, 3]))
+                        }
+                        context("when toggle superset is tapped on second") {
+                            beforeEach {
+                                viewModel.consume(.toggleSuperset(exercise(1, fromPage: 0), page(0)))
+                            }
+                            it("will join both supersets") {
+                                expect(superset(0)).to(equal([0, 1, 2, 3]))
+                            }
+                            context("when toggled on third") {
+                                beforeEach {
+                                    viewModel.consume(.toggleSuperset(exercise(2, fromPage: 0), page(0)))
+                                }
+                                it("will only remove last exercise from superset") {
+                                    expect(superset(0)).to(equal([0, 1, 2]))
+                                }
+                            }
+                            context("when toggled on first") {
+                                beforeEach {
+                                    viewModel.consume(.toggleSuperset(exercise(0, fromPage: 0), page(0)))
+                                }
+                                it("will only remove first exercise from superset") {
+                                    expect(superset(0)).to(equal([1, 2, 3]))
+                                }
+                            }
+                            context("when toggled on second") {
+                                beforeEach {
+                                    viewModel.consume(.toggleSuperset(exercise(1, fromPage: 0), page(0)))
+                                }
+                                it("will split into two supersets") {
+                                    expect(superset(0)).to(equal([0, 1]))
+                                    expect(superset(1)).to(equal([2, 3]))
+                                }
+                            }
+                        }
+                        context("when toggle superset is tapped on first") {
+                            beforeEach {
+                                viewModel.consume(.toggleSuperset(exercise(0, fromPage: 0), page(0)))
+                            }
+                            it("will leave only first superset") {
+                                expect(superset(0)).to(equal([]))
+                                expect(superset(1)).to(equal([2, 3]))
+                            }
                         }
                     }
                 }
             }
             context("when plus is tapped") {
                 beforeEach {
-                    presenter.plusTapped()
+                    viewModel.consume(.addPage)
                 }
                 it("will add empty training unit") {
                     expect(viewModel.pages).to(haveCount(2))
                     expect(viewModel.pages[1].exercises).to(haveCount(0))
                 }
-                it("will move to newly added unit") {
-                    expect(viewModel.visiblePage).to(equal(1))
-                }
-                it("will enable left arrow") {
-                    expect(viewModel.leftArrowDisabled).to(beFalse())
-                }
-                it("will keep right arrow disabled") {
-                    expect(viewModel.rightArrowDisabled).to(beTrue())
-                }
-                context("when left arrow is tapped") {
-                    beforeEach {
-                        presenter.leftArrowTapped()
-                    }
-                    it("will go back to first page") {
-                        expect(viewModel.visiblePage).to(equal(0))
-                    }
-                    it("will disable left arrow") {
-                        expect(viewModel.leftArrowDisabled).to(beTrue())
-                    }
-                    it("will enable right arrow") {
-                        expect(viewModel.rightArrowDisabled).to(beFalse())
-                    }
-                    context("when tapped again") {
-                        beforeEach {
-                            presenter.leftArrowTapped()
-                        }
-                        it("will stay at leftmost page") {
-                            expect(viewModel.visiblePage).to(equal(0))
-                        }
-                    }
-                    context("when right arrow tapped") {
-                        beforeEach {
-                            presenter.rightArrowTapped()
-                        }
-                        it("will move to second page again") {
-                            expect(viewModel.visiblePage).to(equal(1))
-                        }
-                    }
-                }
-                
-                context("when right arrow is tapped") {
-                    beforeEach {
-                        presenter.rightArrowTapped()
-                    }
-                    it("will stay on rightmost page") {
-                        expect(viewModel.visiblePage).to(equal(1))
-                    }
-                }
             }
             func prepareTwoDayPlan() {
-                presenter.addExerciseTapped()
-                viewModel.exercisePickerRelay?.pick(Exercise.make(count: 3))
-                presenter.plusTapped()
-                presenter.addExerciseTapped()
-                viewModel.exercisePickerRelay?.pick(Exercise.make(count: 5))
+                viewModel.consume(.addExercise)
+                viewModel.exercisePickerRelay?.pick(Exercise.arrayBuilder().build(count: 3))
+                viewModel.consume(.addPage)
+                viewModel.consume(.pageChanged(1))
+                viewModel.consume(.addExercise)
+                viewModel.exercisePickerRelay?.pick(Exercise.arrayBuilder().build(count: 5))
             }
             context("when save is tapped") {
                 context("when two pages are created") {
                     beforeEach {
                         prepareTwoDayPlan()
-                        presenter.saveNavigationButtonTapped()
+                        viewModel.consume(.save)
                     }
                     it("plan storage will receive plan") {
                         expect(planStorage.insertedPlans).to(haveCount(1))

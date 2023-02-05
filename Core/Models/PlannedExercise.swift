@@ -23,6 +23,12 @@ public struct PlannedExercise: Equatable {
     public let exercise: Exercise
     public let pace: Pace?
     public let setCollections: [SetCollection]
+    
+    /// Creates superset with item behind it in the exercises list.
+    /// Assuming there're two supersets next to each other,
+    /// their createsSupersets properties
+    /// will look like: true, false, true, false
+    /// For four exercises gigaset it will be: true, true, true, false.
     public let createsSupersets: Bool
     
     public init(
@@ -42,7 +48,7 @@ public struct PlannedExercise: Equatable {
 extension PlannedExercise {
     static func make() -> PlannedExercise {
         return PlannedExercise(
-            exercise: .make(),
+            exercise: .builder().build(),
             pace: nil,
             setCollections: [],
             createsSupersets: false

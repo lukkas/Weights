@@ -62,8 +62,33 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.value, nil)
     }
     
-    func test_backspace_whenOneNumberWasEntered() {
+    func test_backspace_whenResettingValueDisabledAndUserDeletesZero_shouldLeaveZero() throws {
         // given
+        sut.resettingValueEnabled = false
+        sut.value = 0
+        
+        // when
+        sut.deleteBackward()
+        
+        // then
+        XCTAssertEqual(sut.value, 0)
+    }
+    
+    func test_backspace_whenResettingValueDisabledAndUserDeletesNonZeroNumber_shouldTurnZero() throws {
+        // given
+        sut.resettingValueEnabled = false
+        sut.value = 5
+        
+        // when
+        sut.deleteBackward()
+        
+        // then
+        XCTAssertEqual(sut.value, 0)
+    }
+    
+    func test_backspace_whenOneNumberWasEnteredAndResettingValueIsEnabled() {
+        // given
+        sut.resettingValueEnabled = true
         sut.insertText("2")
         
         // when
@@ -779,9 +804,23 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.textValue, "0:13")
     }
     
-    func test_backspacingEntireTimeEntry() throws {
+    func test_backspacingTime_whenResettingModeDisabledAndZeroIsSet_shouldDoNothigng() throws {
+        // given
+        try preconfigure_enteringTime()
+        sut.value = 0
+        sut.resettingValueEnabled = false
+        
+        // when
+        sut.deleteBackward()
+        
+        // then
+        XCTAssertEqual(sut.value, 0)
+    }
+    
+    func test_backspacingEntireTimeEntry_whenResettingValueIsEnabled() throws {
         // given
         try preconfigure(timeEntered: "8", "3", "9")
+        sut.resettingValueEnabled = true
         
         // when
         for _ in 0 ..< 3 {
@@ -791,6 +830,21 @@ class UIPickerTextFieldTests: XCTestCase {
         // then
         XCTAssertEqual(sut.textValue, "0:00")
         XCTAssertEqual(sut.value, nil)
+    }
+    
+    func test_backspacingEntireTimeEntry_whenResettingValueIsDisabled_shouldTurnValueToZero() throws {
+        // given
+        try preconfigure(timeEntered: "8", "3", "9")
+        sut.resettingValueEnabled = false
+        
+        // when
+        for _ in 0 ..< 3 {
+            sut.deleteBackward()
+        }
+        
+        // then
+        XCTAssertEqual(sut.textValue, "0:00")
+        XCTAssertEqual(sut.value, 0)
     }
     
     func test_timeEnteringHaptics_whenUserTriesToEnterFourthNumber_shouldVibrate() throws {
@@ -804,9 +858,35 @@ class UIPickerTextFieldTests: XCTestCase {
         try getNotificationHaptics().verify_givenFeedback(.warning)
     }
     
-    func test_timeEnteringHaptics_whenUserTriesToBackspaceWhenNothingIsEntered_shouldVibrate() throws {
+    func test_timeEnteringHaptics_whenUserTriesToBackspaceWhenNothingIsEnteredAndResettingValueIsEnabled_shouldVibrate() throws {
         // given
         try preconfigure_enteringTime()
+        sut.resettingValueEnabled = true
+        
+        // when
+        sut.deleteBackward()
+        
+        // then
+        try getNotificationHaptics().verify_givenFeedback(.warning)
+    }
+    
+    func test_timeEnteringHaptics_whenUserTriesToBackspaceWhenNothingIsEnteredAndResettingValueIsDisabled_shouldVibrate() throws {
+        // given
+        try preconfigure_enteringTime()
+        sut.resettingValueEnabled = false
+        
+        // when
+        sut.deleteBackward()
+        
+        // then
+        try getNotificationHaptics().verify_givenFeedback(.warning)
+    }
+    
+    func test_timeEnteringHaptics_whenUserTriesToBackspaceWhenZeroIsEnteredAndResettingValueIsDisabled_shouldVibrate() throws {
+        // given
+        try preconfigure_enteringTime()
+        sut.value = 0
+        sut.resettingValueEnabled = false
         
         // when
         sut.deleteBackward()
@@ -854,6 +934,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_panning_whenPanningHorizontally_shouldNotHighlight() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 0, jump: 1)
         
         // when
@@ -865,6 +946,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_panningHorizontally_whenPannedRequiredAmountToReset_shoulResetValue() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
         
         // when
@@ -875,8 +957,22 @@ class UIPickerTextFieldTests: XCTestCase {
         XCTAssertEqual(sut.value, nil)
     }
     
+    func test_panningHorizontally_whenPannedCorrectlyWithResettingDiabled_shouldLeaveCurrentValue() throws {
+        // given
+        sut.resettingValueEnabled = false
+        let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
+        
+        // when
+        pan.continuePanning(by: panTranslation(toReset: 1))
+        pan.endPanning()
+        
+        // then
+        XCTAssertEqual(sut.value, 5)
+    }
+    
     func test_panningHorizontally_whenUserScrollsAllTheWayLeft_shouldGetHapticFeedback() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
         
         // when
@@ -888,6 +984,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_panningHorizontally_whenPannedHalfwayAndReleased_shouldLeaveValueAsIs() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
         
         // when
@@ -900,6 +997,7 @@ class UIPickerTextFieldTests: XCTestCase {
     
     func test_panningHorizontally_whenGestureIsCancelled_shouldLeaveValueAsIs() throws {
         // given
+        sut.resettingValueEnabled = true
         let pan = try preconfigure_beganPanning(initialValue: 5, jump: 1)
         
         // when

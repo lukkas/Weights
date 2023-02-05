@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 enum PlannerDraggingTarget {
-    case emptyPage(PlannerPageViewModel)
-    case exercise(PlannerExerciseViewModel)
+    case emptyPage(PlannerPage)
+    case exercise(PlannerExercise)
 }
 
 protocol PlannerDropControllerDelegate: AnyObject {
@@ -19,13 +19,13 @@ protocol PlannerDropControllerDelegate: AnyObject {
 
 class PlannerDropController: DropDelegate {
     private let target: PlannerDraggingTarget
-    @Binding private var currentlyDragged: PlannerExerciseViewModel?
-    @Binding private var pages: [PlannerPageViewModel]
+    @Binding private var currentlyDragged: PlannerExercise?
+    @Binding private var pages: [PlannerPage]
     
     init(
         target: PlannerDraggingTarget,
-        currentlyDragged: Binding<PlannerExerciseViewModel?>,
-        pages: Binding<[PlannerPageViewModel]>
+        currentlyDragged: Binding<PlannerExercise?>,
+        pages: Binding<[PlannerPage]>
     ) {
         self.target = target
         self._currentlyDragged = currentlyDragged
@@ -56,14 +56,13 @@ class PlannerDropController: DropDelegate {
             guard draggedItemIP != draggedOverItemIP else { return }
             swapItems(sourceIndexPath: draggedItemIP, targetIndexPath: draggedOverItemIP)
         case let .emptyPage(page):
-            page.exercises.append(currentlyDragged)
+            guard let emptyPageIndex = pages.firstIndex(of: page) else { return }
+            pages[emptyPageIndex].exercises.append(currentlyDragged)
             pages[draggedItemIP.section].exercises.remove(at: draggedItemIP.item)
         }
     }
     
-    private func indexPath(
-        of item: PlannerExerciseViewModel
-    ) -> IndexPath? {
+    private func indexPath(of item: PlannerExercise) -> IndexPath? {
         for (unitIndex, unit) in pages.enumerated() {
             for (exerciseIndex, exercise) in unit.exercises.enumerated() where exercise == item {
                 return IndexPath(item: exerciseIndex, section: unitIndex)
@@ -77,17 +76,17 @@ class PlannerDropController: DropDelegate {
         targetIndexPath: IndexPath
     ) {
         if sourceIndexPath.section == targetIndexPath.section {
-            let page = pages[sourceIndexPath.section]
             let to = targetIndexPath.item > sourceIndexPath.item
             ? targetIndexPath.item + 1
             : targetIndexPath.item
-            page.exercises.move(fromOffsets: IndexSet(integer: sourceIndexPath.item), toOffset: to)
+            pages[sourceIndexPath.section].exercises.move(
+                fromOffsets: IndexSet(integer: sourceIndexPath.item),
+                toOffset: to
+            )
         } else {
-            let sourcePage = pages[sourceIndexPath.section]
-            let targetPage = pages[targetIndexPath.section]
-            let sourceExercise = sourcePage.exercises[sourceIndexPath.item]
-            sourcePage.exercises.remove(at: sourceIndexPath.item)
-            targetPage.exercises.insert(sourceExercise, at: targetIndexPath.item)
+            let sourceExercise = pages[sourceIndexPath.section].exercises[sourceIndexPath.item]
+            pages[sourceIndexPath.section].exercises.remove(at: sourceIndexPath.item)
+            pages[targetIndexPath.section].exercises.insert(sourceExercise, at: targetIndexPath.item)
         }
     }
 }

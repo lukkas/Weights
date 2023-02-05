@@ -20,6 +20,9 @@ struct PickerTextField: UIViewRepresentable {
     private var jumpInterval: Double? = 1
     private var minMaxRange: ClosedRange<Double>? = nil
     private var highlightStyle: UIPickerTextField.HightlightStyle = .border
+    private var keepHighlighted: Bool = false
+    private var unitLabel: String? = nil
+    private var resettingValueEnabled = false
     
     init(value: Binding<Double?>) {
         _value = value
@@ -49,6 +52,9 @@ struct PickerTextField: UIViewRepresentable {
         uiView.minMaxRange = minMaxRange
         uiView.fontSize = fontSize
         uiView.highlightStyle = highlightStyle
+        uiView.keepHighlighted = keepHighlighted
+        uiView.unitLabel = unitLabel
+        uiView.resettingValueEnabled = resettingValueEnabled
     }
     
     func makeCoordinator() -> Coordinator {
@@ -116,6 +122,24 @@ extension PickerTextField {
         copy.highlightStyle = style
         return copy
     }
+    
+    func keepHighlighted(_ keep: Bool) -> PickerTextField {
+        var copy = self
+        copy.keepHighlighted = keep
+        return copy
+    }
+    
+    func unitLabel(_ label: String?) -> PickerTextField {
+        var copy = self
+        copy.unitLabel = label
+        return copy
+    }
+    
+    func resettingValueEnabled(_ enabled: Bool) -> PickerTextField {
+        var copy = self
+        copy.resettingValueEnabled = enabled
+        return copy
+    }
 }
 
 struct PickerTextField_Previews: PreviewProvider {
@@ -139,6 +163,7 @@ struct PickerTextField_Previews: PreviewProvider {
         
         var body: some View {
             PickerTextField(value: $value)
+                .unitLabel("kg")
                 .fillColor(fillColor)
                 .fontSize(fontSize)
                 .highlightStyle(highlightStyle)

@@ -6,38 +6,72 @@
 //  Copyright © 2020 Łukasz Kasperek. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
-struct PlannerView<Presenter: PlannerPresenting, Router: PlannerRouting>: View {
-    @StateObject var model: PlannerViewModel
-    let presenter: Presenter
-    @State private var currentlyDragged: PlannerViewModel.ExerciseViewModel?
+enum PlannerAction {
+    case save
+    case pageChanged(Int)
+    case addPage
+    case addExercise
+    case addSet(PlannerExercise, PlannerPage)
+    case removeSet(PlannerExercise.Set, PlannerExercise, PlannerPage)
+    case toggleSuperset(PlannerExercise, PlannerPage)
+}
+
+struct PlannerView<Model: PlannerViewModeling, Router: PlannerRouting>: View {
+    @StateObject var model: Model
+    @Binding var isPresented: Bool
+    @State private var currentlyDragged: PlannerExercise?
+    @State private var currentPageIndex: Int = 0
     let router: Router
     
     var body: some View {
         NavigationStack {
             VStack {
-                TabView(selection: $model.visiblePage) {
-                    ForEach(model.pages.indices, id: \.self) { index in
+                TabView(selection: $currentPageIndex) {
+                    ForEach($model.pages) { $page in
                         PlannerPageView(
-                            model: model.pages[index],
+                            model: $page,
                             currentlyDragged: $currentlyDragged,
-                            allPages: $model.pages,
-                            addExerciseTapped: {
-                                presenter.addExerciseTapped()
-                            })
+                            allPages: $model.pages) { action in
+                                switch action {
+                                case .addExercise:
+                                    model.consume(.addExercise)
+                                case let .addSet(exercise):
+                                    model.consume(.addSet(exercise, page))
+                                case let .removeSet(set, exercise):
+                                    model.consume(.removeSet(set, exercise, page))
+                                case let .toggleSuperset(exercise):
+                                    model.consume(.toggleSuperset(exercise, page))
+                                }
+                            }.tag(model.pages.firstIndex(of: page)!)
                     }
                 }
-                .tabViewStyle(.page(indexDisplayMode: .automatic))
-                .id(model.pages)
+                .tabViewStyle(.page)
                 
                 TrainingBottomBar(
-                    workoutName: $model.currentUnitName,
-                    leftArrowDisabled: model.leftArrowDisabled,
-                    rightArrowDisabled: model.rightArrowDisabled,
-                    onLeftTapped: presenter.leftArrowTapped,
-                    onRightTapped: presenter.rightArrowTapped,
-                    onPlusTapped: presenter.plusTapped
+                    workoutName: Binding(
+                        get: { model.pages[currentPageIndex].name },
+                        set: { model.pages[currentPageIndex].name = $0 }),
+                    leftArrowDisabled: leftArrowDisabled,
+                    rightArrowDisabled: rightArrowDisabled,
+                    onLeftTapped: {
+                        withAnimation {
+                            currentPageIndex -= 1
+                        }
+                    },
+                    onRightTapped: {
+                        withAnimation {
+                            currentPageIndex += 1
+                        }
+                    },
+                    onPlusTapped: {
+                        withAnimation {
+                            model.consume(.addPage)
+                            currentPageIndex = model.pages.indices.last!
+                        }
+                    }
                 )
             }
             .background(Color.secondaryBackground)
@@ -45,16 +79,22 @@ struct PlannerView<Presenter: PlannerPresenting, Router: PlannerRouting>: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button(L10n.Common.cancel, role: .cancel) {
-                        presenter.cancelNavigationButtonTapped()
+                        isPresented = false
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(L10n.Planner.NavigationBar.save) {
-                        presenter.saveNavigationButtonTapped()
+                        model.consume(.save)
                     }
                 }
             }
         }
+        .onReceive(model.planSaved, perform: {
+            isPresented = false
+        })
+        .onChange(of: currentPageIndex, perform: { pageIndex in
+            model.consume(.pageChanged(pageIndex))
+        })
         .sheet(
             item: $model.exercisePickerRelay,
             onDismiss: nil
@@ -62,16 +102,14 @@ struct PlannerView<Presenter: PlannerPresenting, Router: PlannerRouting>: View {
             router.exercisePicker(relay: pickerRelay)
         }
     }
-}
-
-protocol PlannerPresenting {
-    func cancelNavigationButtonTapped()
-    func saveNavigationButtonTapped()
     
-    func plusTapped()
-    func leftArrowTapped()
-    func rightArrowTapped()
-    func addExerciseTapped()
+    private var leftArrowDisabled: Bool {
+        currentPageIndex == model.pages.indices.first
+    }
+    
+    private var rightArrowDisabled: Bool {
+        currentPageIndex == model.pages.indices.last
+    }
 }
 
 @MainActor
@@ -81,24 +119,35 @@ protocol PlannerRouting {
     func exercisePicker(relay: ExercisePickerRelay) -> ExercisePickerViewType
 }
 
+protocol PlannerViewModeling: ObservableObject {
+    var pages: [PlannerPage] { get set }
+    var planSaved: AnyPublisher<Void, Never> { get }
+    var exercisePickerRelay: ExercisePickerRelay? { get set }
+    
+    func consume(_ action: PlannerAction)
+}
+
 // MARK: - Design time
 
-class DTPlannerPresenter: PlannerPresenting {
-    init(viewModel: PlannerViewModel) {
-        viewModel.pages = [
-            PlannerPageViewModel(name: "A1", exercises: [
-                PlannerExerciseViewModel.dt_squat,
-                PlannerExerciseViewModel.dt_squat
-            ])
-        ]
+#if DEBUG
+class DTPlannerViewModel: PlannerViewModeling {
+    var pages: [PlannerPage] = [
+        PlannerPage(
+            id: UUID(),
+            name: "A1",
+            exercises: [
+                .dt_squat(),
+                .dt_deadlift(supersetIndex: 0),
+                .dt_squat(supersetIndex: 0)
+            ]
+        )
+    ]
+    var planSaved: AnyPublisher<Void, Never> {
+        Empty(completeImmediately: false).eraseToAnyPublisher()
     }
+    var exercisePickerRelay: ExercisePickerRelay?
     
-    func cancelNavigationButtonTapped() {}
-    func saveNavigationButtonTapped() {}
-    func plusTapped() {}
-    func leftArrowTapped() {}
-    func rightArrowTapped() {}
-    func addExerciseTapped() {}
+    func consume(_ action: PlannerAction) {}
 }
 
 struct DTPlannerRouter: PlannerRouting {
@@ -109,12 +158,11 @@ struct DTPlannerRouter: PlannerRouting {
 
 struct PlannerView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = PlannerViewModel(isPresented: .constant(true))
-        let presenter = DTPlannerPresenter(viewModel: model)
         PlannerView(
-            model: model,
-            presenter: presenter,
+            model: DTPlannerViewModel(),
+            isPresented: .constant(false),
             router: DTPlannerRouter()
         )
     }
 }
+#endif

@@ -108,8 +108,10 @@ internal enum L10n {
       }
     }
     internal enum Exercise {
-      /// Add next...
-      internal static let add = L10n.tr("Localizable", "planner.exercise.add", fallback: "Add next...")
+      /// Add set...
+      internal static let addSet = L10n.tr("Localizable", "planner.exercise.addSet", fallback: "Add set...")
+      /// Supersets
+      internal static let supersets = L10n.tr("Localizable", "planner.exercise.supersets", fallback: "Supersets")
     }
     internal enum NavigationBar {
       /// Save
