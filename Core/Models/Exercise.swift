@@ -53,9 +53,9 @@ extension Exercise: Buildable {
 }
 
 struct ExerciseBuilder: Builder {
-    private var name: String = "Squat"
-    private var metric: Exercise.Metric = .reps
-    private var laterality: Exercise.Laterality = .bilateral
+    var name: String = "Squat"
+    var metric: Exercise.Metric = .reps
+    var laterality: Exercise.Laterality = .bilateral
     
     func build() -> Exercise {
         return Exercise(
@@ -64,12 +64,6 @@ struct ExerciseBuilder: Builder {
             metric: metric,
             laterality: laterality
         )
-    }
-    
-    func withName(_ name: String) -> ExerciseBuilder {
-        var copy = self
-        copy.name = name
-        return copy
     }
 }
 #endif

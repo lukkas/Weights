@@ -30,6 +30,17 @@ protocol Builder {
     func build() -> BuildableType
 }
 
+extension Builder {
+    func setting<T>(
+        _ keyPath: WritableKeyPath<Self, T>,
+        to value: T
+    ) -> Self {
+        var copy = self
+        copy[keyPath: keyPath] = value
+        return copy
+    }
+}
+
 struct ArrayBuilder<T: Buildable> {
     typealias Tweak = (T.BuilderType) -> T.BuilderType
     enum Rule: Hashable, ExpressibleByIntegerLiteral {
