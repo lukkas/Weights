@@ -18,7 +18,6 @@ extension Stubbable {
         return StubberType()
     }
     
-    
     /// Convienience method, when no parameters need to be
     /// modified for the purpose of a test
     static func dummy() -> Self {
@@ -30,7 +29,6 @@ extension Array where Element: Stubbable {
     static func stubber() -> ArrayStubber<Element> {
         return ArrayStubber()
     }
-    
     
     /// Convenience method, when no parameters need to be
     /// modified for the purpose of a test
@@ -59,31 +57,31 @@ extension Stubber {
 }
 
 struct ArrayStubber<T: Stubbable> {
-    typealias Tweak = (T.StubberType) -> T.StubberType
-    enum Rule: Hashable, ExpressibleByIntegerLiteral {
-        case index(Int)
-        case indexOtherThan(Int)
+    private typealias Tweak = (T.StubberType) -> T.StubberType
+    enum IndexSet: Hashable, ExpressibleByIntegerLiteral {
+        case equal(Int)
+        case otherThan(Int)
         
         func doesApply(for index: Int) -> Bool {
             switch self {
-            case let .index(ruleIndex): return ruleIndex == index
-            case let .indexOtherThan(ruleIndex): return ruleIndex != index
+            case let .equal(setIndex): return setIndex == index
+            case let .otherThan(setIndex): return setIndex != index
             }
         }
         
         init(integerLiteral value: Int) {
-            self = .index(value)
+            self = .equal(value)
         }
     }
     
-    private var tweaks: [Rule: [Tweak]] = [:]
+    private var tweaks: [IndexSet: [Tweak]] = [:]
     
-    func setting<Value>(_ keyPath: WritableKeyPath<T.StubberType, Value>, to value: Value, at rules: Rule...) -> Self {
+    func setting<Value>(_ keyPath: WritableKeyPath<T.StubberType, Value>, to value: Value, atIndices indexSets: IndexSet...) -> Self {
         var copy = self
-        for rule in rules {
-            var tweaks = copy.tweaks[rule] ?? []
+        for indexSet in indexSets {
+            var tweaks = copy.tweaks[indexSet] ?? []
             tweaks.append { $0.setting(keyPath, to: value) }
-            copy.tweaks[rule] = tweaks
+            copy.tweaks[indexSet] = tweaks
         }
         return copy
     }

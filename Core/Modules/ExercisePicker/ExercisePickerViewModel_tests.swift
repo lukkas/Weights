@@ -35,8 +35,8 @@ class ExercisePickerViewModelSpec: QuickSpec {
             context("given populated storage") {
                 let exercises = [Exercise]
                     .stubber()
-                    .setting(\.name, to: "Squat", at: 0)
-                    .setting(\.name, to: "Deadlift", at: .indexOtherThan(0))
+                    .setting(\.name, to: "Squat", atIndices: 0)
+                    .setting(\.name, to: "Deadlift", atIndices: .otherThan(0))
                     .stub(count: 3)
                 
                 beforeEach {
