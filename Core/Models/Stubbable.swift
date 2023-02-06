@@ -78,11 +78,11 @@ struct ArrayStubber<T: Stubbable> {
     
     private var tweaks: [Rule: [Tweak]] = [:]
     
-    func with(_ tweak: @escaping Tweak, at rules: Rule...) -> Self {
+    func setting<Value>(_ keyPath: WritableKeyPath<T.StubberType, Value>, to value: Value, at rules: Rule...) -> Self {
         var copy = self
         for rule in rules {
             var tweaks = copy.tweaks[rule] ?? []
-            tweaks.append(tweak)
+            tweaks.append { $0.setting(keyPath, to: value) }
             copy.tweaks[rule] = tweaks
         }
         return copy
