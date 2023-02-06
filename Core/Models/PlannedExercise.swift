@@ -48,7 +48,7 @@ public struct PlannedExercise: Equatable {
 extension PlannedExercise {
     static func make() -> PlannedExercise {
         return PlannedExercise(
-            exercise: .builder().build(),
+            exercise: .stubber().stub(),
             pace: nil,
             setCollections: [],
             createsSupersets: false

@@ -8,29 +8,29 @@
 import Foundation
 
 #if DEBUG
-protocol Buildable {
-    associatedtype BuilderType: Builder where BuilderType.BuildableType == Self
-    static func builder() -> BuilderType
-    static func arrayBuilder() -> ArrayBuilder<Self>
+protocol Stubbable {
+    associatedtype StubberType: Stubber where StubberType.StubbableType == Self
+    static func stubber() -> StubberType
+    static func arrayStubber() -> ArrayStubber<Self>
 }
 
-extension Buildable {
-    static func builder() -> BuilderType {
-        return BuilderType()
+extension Stubbable {
+    static func stubber() -> StubberType {
+        return StubberType()
     }
     
-    static func arrayBuilder() -> ArrayBuilder<Self> {
-        return ArrayBuilder()
+    static func arrayStubber() -> ArrayStubber<Self> {
+        return ArrayStubber()
     }
 }
 
-protocol Builder {
-    associatedtype BuildableType: Buildable
+protocol Stubber {
+    associatedtype StubbableType: Stubbable
     init()
-    func build() -> BuildableType
+    func stub() -> StubbableType
 }
 
-extension Builder {
+extension Stubber {
     func setting<T>(
         _ keyPath: WritableKeyPath<Self, T>,
         to value: T
@@ -41,8 +41,8 @@ extension Builder {
     }
 }
 
-struct ArrayBuilder<T: Buildable> {
-    typealias Tweak = (T.BuilderType) -> T.BuilderType
+struct ArrayStubber<T: Stubbable> {
+    typealias Tweak = (T.StubberType) -> T.StubberType
     enum Rule: Hashable, ExpressibleByIntegerLiteral {
         case index(Int)
         case indexOtherThan(Int)
@@ -71,18 +71,18 @@ struct ArrayBuilder<T: Buildable> {
         return copy
     }
     
-    func build(count: Int) -> [T] {
+    func stub(count: Int) -> [T] {
         var result = [T]()
         for index in 0 ..< count {
             let applicableTweaks = tweaks
                 .filter({ $0.key.doesApply(for: index) })
                 .values
                 .flatMap({ $0 })
-            var builder = T.builder()
+            var builder = T.stubber()
             for tweak in applicableTweaks {
                 builder = tweak(builder)
             }
-            result.append(builder.build())
+            result.append(builder.stub())
         }
         return result
     }

@@ -48,16 +48,16 @@ extension Exercise.Laterality: Identifiable {
 }
 
 #if DEBUG
-extension Exercise: Buildable {
-    typealias BuilderType = ExerciseBuilder
+extension Exercise: Stubbable {
+    typealias StubberType = ExerciseStubber
 }
 
-struct ExerciseBuilder: Builder {
+struct ExerciseStubber: Stubber {
     var name: String = "Squat"
     var metric: Exercise.Metric = .reps
     var laterality: Exercise.Laterality = .bilateral
     
-    func build() -> Exercise {
+    func stub() -> Exercise {
         return Exercise(
             id: UUID(),
             name: name,

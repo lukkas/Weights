@@ -120,7 +120,7 @@
 		C03E7159EAE78984FCEEF6AB /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 2C26EA57E911AAC561F213F0 /* Nimble */; };
 		C504ACC50916EF078747E5F5 /* XCTestCase+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC462F99EB429D83F58DD0 /* XCTestCase+Combine.swift */; };
 		C63C246E71E799854259D3A6 /* ExercisesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACECADA41232607ED40C8C5 /* ExercisesListView.swift */; };
-		C6922581A56B433EC38D2792 /* ModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6924B1938AABCDB3D40D93EE /* ModelBuilder.swift */; };
+		C6922581A56B433EC38D2792 /* Stubbable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6924B1938AABCDB3D40D93EE /* Stubbable.swift */; };
 		C6E9A097186D494101F7E709 /* Pace_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003EC20592A0DEFB55C19521 /* Pace_tests.swift */; };
 		C7DE215C131424B6A9685668 /* CellPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8485AD9DF465DADB97DE25 /* CellPreview.swift */; };
 		C8B67A57310BABD32B4774F4 /* PlannerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64846E1562132346E8A12B4F /* PlannerPage.swift */; };
@@ -347,7 +347,7 @@
 		66D751F143E9EB4C8ABFDD73 /* PlanStoringStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStoringStub.swift; sourceTree = "<group>"; };
 		671BA3FA27696CB12503382F /* TrainingBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingBottomBar.swift; sourceTree = "<group>"; };
 		688FFAD1F043444A85D28ECB /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
-		6924B1938AABCDB3D40D93EE /* ModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelBuilder.swift; sourceTree = "<group>"; };
+		6924B1938AABCDB3D40D93EE /* Stubbable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubbable.swift; sourceTree = "<group>"; };
 		697CDEAD6E20FD9516DB3177 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		69995F2351E4AA105AD9A99C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		6ABC9D442B4C2C0E76A45227 /* ExerciseStorageAdapting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStorageAdapting.swift; sourceTree = "<group>"; };
@@ -636,7 +636,7 @@
 			isa = PBXGroup;
 			children = (
 				54646216B886C324B58419B1 /* Exercise.swift */,
-				6924B1938AABCDB3D40D93EE /* ModelBuilder.swift */,
+				6924B1938AABCDB3D40D93EE /* Stubbable.swift */,
 				003EC20592A0DEFB55C19521 /* Pace_tests.swift */,
 				841260E762FAE286FA9E47AA /* Pace.swift */,
 				697CDEAD6E20FD9516DB3177 /* Plan.swift */,
@@ -1347,7 +1347,7 @@
 				D6E874988EE82A6996B09A0B /* InnerDepthShadow.swift in Sources */,
 				6066448E9A7CF8ACAEA054F1 /* Localizable.swift in Sources */,
 				BD2366EBCECEE10B075DAC6F /* Metatypes.swift in Sources */,
-				C6922581A56B433EC38D2792 /* ModelBuilder.swift in Sources */,
+				C6922581A56B433EC38D2792 /* Stubbable.swift in Sources */,
 				BED9D70B1221BAB0E38D6405 /* Pace.swift in Sources */,
 				5D823F9EB14237CDC08B8A1C /* PaceKeyboard.swift in Sources */,
 				70FB5F42292B1F3EF3998E76 /* PaceKeyboardController.swift in Sources */,

@@ -34,10 +34,10 @@ class ExercisePickerViewModelSpec: QuickSpec {
             
             context("given populated storage") {
                 let exercises = Exercise
-                    .arrayBuilder()
+                    .arrayStubber()
                     .with({ $0.setting(\.name, to: "Squat") }, at: 0)
                     .with({ $0.setting(\.name, to: "Deadlift") }, at: .indexOtherThan(0))
-                    .build(count: 3)
+                    .stub(count: 3)
                 
                 beforeEach {
                     exerciseStorage.preconfigure_populate(with: exercises)
