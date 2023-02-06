@@ -11,7 +11,6 @@ import Foundation
 protocol Stubbable {
     associatedtype StubberType: Stubber where StubberType.StubbableType == Self
     static func stubber() -> StubberType
-    static func arrayStubber() -> ArrayStubber<Self>
 }
 
 extension Stubbable {
@@ -19,8 +18,26 @@ extension Stubbable {
         return StubberType()
     }
     
-    static func arrayStubber() -> ArrayStubber<Self> {
+    
+    /// Convienience method, when no parameters need to be
+    /// modified for the purpose of a test
+    static func dummy() -> Self {
+        return stubber().stub()
+    }
+}
+
+extension Array where Element: Stubbable {
+    static func stubber() -> ArrayStubber<Element> {
         return ArrayStubber()
+    }
+    
+    
+    /// Convenience method, when no parameters need to be
+    /// modified for the purpose of a test
+    /// - Parameter count: Number of elements to create
+    /// - Returns: Dummies
+    static func dummies(count: Int) -> [Element] {
+        return stubber().stub(count: count)
     }
 }
 

@@ -33,8 +33,8 @@ class ExercisePickerViewModelSpec: QuickSpec {
             }
             
             context("given populated storage") {
-                let exercises = Exercise
-                    .arrayStubber()
+                let exercises = [Exercise]
+                    .stubber()
                     .with({ $0.setting(\.name, to: "Squat") }, at: 0)
                     .with({ $0.setting(\.name, to: "Deadlift") }, at: .indexOtherThan(0))
                     .stub(count: 3)

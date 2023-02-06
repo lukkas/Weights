@@ -44,7 +44,7 @@ class PlannerViewModelSpec: QuickSpec {
                 expect(viewModel.pages.first?.exercises).to(haveCount(0))
             }
             context("when add exercises is tapped") {
-                let exercises = Exercise.arrayStubber().stub(count: 3)
+                let exercises = [Exercise].dummies(count: 3)
                 beforeEach {
                     viewModel.consume(.addExercise)
                     viewModel.exercisePickerRelay?.pick(exercises)
@@ -90,7 +90,7 @@ class PlannerViewModelSpec: QuickSpec {
             }
             context("when there are 5 exercises in a day") {
                 beforeEach {
-                    let exercises = Exercise.arrayStubber().stub(count: 5)
+                    let exercises = [Exercise].stubber().stub(count: 5)
                     viewModel.consume(.addExercise)
                     viewModel.exercisePickerRelay?.pick(exercises)
                 }
@@ -173,11 +173,11 @@ class PlannerViewModelSpec: QuickSpec {
             }
             func prepareTwoDayPlan() {
                 viewModel.consume(.addExercise)
-                viewModel.exercisePickerRelay?.pick(Exercise.arrayStubber().stub(count: 3))
+                viewModel.exercisePickerRelay?.pick([Exercise].stubber().stub(count: 3))
                 viewModel.consume(.addPage)
                 viewModel.consume(.pageChanged(1))
                 viewModel.consume(.addExercise)
-                viewModel.exercisePickerRelay?.pick(Exercise.arrayStubber().stub(count: 5))
+                viewModel.exercisePickerRelay?.pick([Exercise].stubber().stub(count: 5))
             }
             context("when save is tapped") {
                 context("when two pages are created") {
