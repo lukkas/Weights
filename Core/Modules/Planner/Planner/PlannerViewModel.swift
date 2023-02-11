@@ -282,7 +282,7 @@ class PlannerViewModel: PlannerViewModeling {
             return PlannedExercise(
                 exercise: addedExercises[exercise.exerciseId]!,
                 pace: nil,
-                setCollections: [],
+                sets: [],
                 createsSupersets: false
             )
         }

@@ -35,7 +35,9 @@ class PlanViewModelSpec: QuickSpec {
                 }
                 context("when one active plan in storage") {
                     beforeEach {
-                        planStorage.setPlans([.make(isCurrent: true, .anyDay)])
+                        planStorage.setPlans([
+                            aPlan.setting(\.isCurrent, to: true).stub()
+                        ])
                     }
                     it("will set active plan") {
                         expect(sut.currentPlan).toNot(beNil())
@@ -43,7 +45,9 @@ class PlanViewModelSpec: QuickSpec {
                 }
                 context("when one inactive plan in storage") {
                     beforeEach {
-                        planStorage.setPlans([.make(isCurrent: false, .anyDay)])
+                        planStorage.setPlans([
+                            aPlan.setting(\.isCurrent, to: false).stub()
+                        ])
                     }
                     it("will not set active plan") {
                         expect(sut.currentPlan).to(beNil())
@@ -55,7 +59,9 @@ class PlanViewModelSpec: QuickSpec {
                         var firstPlanId: UUID!
                         beforeEach {
                             firstPlanId = sut.otherPlans.first!.id
-                            planStorage.append(.make(isCurrent: false, .anyDay))
+                            planStorage.append(
+                                aPlan.setting(\.isCurrent, to: false).stub()
+                            )
                         }
                         it("first plan will keep its id") {
                             expect(sut.otherPlans).to(containElementSatisfying({ element in

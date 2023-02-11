@@ -77,6 +77,7 @@ struct ArrayStubber<T: Stubbable> {
     }
     
     private var alterations: [IndexSet: [Alteration]] = [:]
+    private var count: Int = 1
     
     func setting<Value>(_ keyPath: WritableKeyPath<T.StubberType, Value>, to value: Value, atIndices indexSets: IndexSet...) -> Self {
         var copy = self
@@ -88,9 +89,19 @@ struct ArrayStubber<T: Stubbable> {
         return copy
     }
     
-    func stub(count: Int) -> [T] {
+    
+    /// Sets the number of items that will be created when calling
+    /// `stub()` method. Count passed to `stub()` method
+    /// overrides count set by this method.
+    func setting(count: Int) -> Self {
+        var copy = self
+        copy.count = count
+        return copy
+    }
+    
+    func stub(count: Int? = nil) -> [T] {
         var result = [T]()
-        for index in 0 ..< count {
+        for index in 0 ..< (count ?? self.count) {
             let applicableAlterations = alterations
                 .filter({ $0.key.doesApply(for: index) })
                 .values

@@ -18,11 +18,20 @@ public struct PlannedDay: Equatable {
 }
 
 #if DEBUG
-extension PlannedDay {
-    static func make() -> PlannedDay {
+extension PlannedDay: Stubbable {
+    typealias StubberType = PlannedDayStubber
+}
+
+var aPlannedDay: PlannedDayStubber { PlannedDay.stubber() }
+
+struct PlannedDayStubber: Stubber {
+    var name = "A1"
+    var exercises = ArrayStubber<PlannedExercise>()
+    
+    func stub() -> PlannedDay {
         return PlannedDay(
-            name: "A1",
-            exercises: []
+            name: name,
+            exercises: exercises.stub()
         )
     }
 }

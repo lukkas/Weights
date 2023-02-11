@@ -8,13 +8,11 @@
 import Foundation
 
 public struct PlannedExercise: Equatable {
-    public struct SetCollection: Equatable {
-        public let numberOfSets: Int
+    public struct Set: Equatable {
         public let volume: Int // reps/seconds/meters
         public let weight: Weight
         
-        public init(numberOfSets: Int, volume: Int, weight: Weight) {
-            self.numberOfSets = numberOfSets
+        public init(volume: Int, weight: Weight) {
             self.volume = volume
             self.weight = weight
         }
@@ -22,7 +20,7 @@ public struct PlannedExercise: Equatable {
     
     public let exercise: Exercise
     public let pace: Pace?
-    public let setCollections: [SetCollection]
+    public let sets: [Set]
     
     /// Creates superset with item behind it in the exercises list.
     /// Assuming there're two supersets next to each other,
@@ -34,24 +32,36 @@ public struct PlannedExercise: Equatable {
     public init(
         exercise: Exercise,
         pace: Pace? = nil,
-        setCollections: [PlannedExercise.SetCollection],
+        sets: [PlannedExercise.Set],
         createsSupersets: Bool
     ) {
         self.exercise = exercise
         self.pace = pace
-        self.setCollections = setCollections
+        self.sets = sets
         self.createsSupersets = createsSupersets
     }
 }
 
 #if DEBUG
-extension PlannedExercise {
-    static func make() -> PlannedExercise {
+extension PlannedExercise: Stubbable {
+    typealias StubberType = PlannedExerciseStubber
+}
+
+var aPlannedExercise: PlannedExerciseStubber { PlannedExercise.stubber() }
+
+struct PlannedExerciseStubber: Stubber {
+    var exercise: ExerciseStubber = .init()
+    var pace: Pace?
+    var sets: [PlannedExercise.Set] = []
+    var createsSupersets: Bool = false
+    
+    
+    func stub() -> PlannedExercise {
         return PlannedExercise(
-            exercise: .stubber().stub(),
-            pace: nil,
-            setCollections: [],
-            createsSupersets: false
+            exercise: exercise.stub(),
+            pace: pace,
+            sets: sets,
+            createsSupersets: createsSupersets
         )
     }
 }
