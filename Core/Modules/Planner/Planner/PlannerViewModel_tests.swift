@@ -35,6 +35,9 @@ class PlannerViewModelSpec: QuickSpec {
             func savedPlan() -> Plan? {
                 planStorage.insertedPlans.last
             }
+            func savedExercise(at exerciseIndex: Int, day: Int) -> PlannedExercise? {
+                savedPlan()?.days[day].exercises[exerciseIndex]
+            }
             beforeEach {
                 planStorage = PlanStoringStub()
                 viewModel = PlannerViewModel(planStorage: planStorage)
@@ -182,32 +185,57 @@ class PlannerViewModelSpec: QuickSpec {
                 viewModel.consume(.addExercise)
                 viewModel.exercisePickerRelay?.pick([Exercise].stubber().stub(count: 5))
             }
-            context("when save is tapped") {
-                context("when two pages are created") {
-                    beforeEach {
-                        prepareTwoDayPlan()
-                        viewModel.consume(.save)
-                    }
-                    it("plan storage will receive plan") {
-                        expect(planStorage.insertedPlans).to(haveCount(1))
-                    }
-                    it("plan received by plan storage will have two days") {
-                        expect(savedPlan()?.days).to(haveCount(2))
-                    }
-                    it("numer of exercises added by user will match added plan") {
-                        expect(savedPlan()?.days.first?.exercises).to(haveCount(3))
-                    }
+            context("when two pages are created and save is tapped") {
+                beforeEach {
+                    prepareTwoDayPlan()
+                    viewModel.consume(.save)
                 }
-                context("when two sets are added to first exercise") {
+                it("plan storage will receive plan") {
+                    expect(planStorage.insertedPlans).to(haveCount(1))
+                }
+                it("plan received by plan storage will have two days") {
+                    expect(savedPlan()?.days).to(haveCount(2))
+                }
+                it("numer of exercises added by user will match added plan") {
+                    expect(savedPlan()?.days.first?.exercises).to(haveCount(3))
+                }
+            }
+            context("when two sets are added to first exercise") {
+                beforeEach {
+                    viewModel.consume(.addExercise)
+                    viewModel.exercisePickerRelay?.pick([Exercise].stubber().stub(count: 1))
+                    viewModel.consume(.addSet(exercise(0), page(0)))
+                    viewModel.consume(.addSet(exercise(0), page(0)))
+                }
+                context("when save is tapped") {
                     beforeEach {
-                        viewModel.consume(.addExercise)
-                        viewModel.exercisePickerRelay?.pick([Exercise].stubber().stub(count: 1))
-                        viewModel.consume(.addSet(exercise(0), page(0)))
-                        viewModel.consume(.addSet(exercise(0), page(0)))
                         viewModel.consume(.save)
                     }
                     it("will save exercise with 3 sets") {
-//                        expect(savedPlan()?.days.first?.exercises.first?.setCollections)
+                        expect(savedPlan()?.days.first?.exercises.first?.sets).to(haveCount(3))
+                    }
+                }
+                context("when sets have reps and weight set and set is saved") {
+                    beforeEach {
+                        viewModel.pages[0].exercises[0].sets[0].weight = 100
+                        viewModel.pages[0].exercises[0].sets[0].repCount = 8
+                        viewModel.consume(.save)
+                    }
+                    it("will be passed to saved plan") {
+                        expect(savedExercise(at: 0, day: 0)?.sets[0].weight.value).to(equal(100))
+                        expect(savedExercise(at: 0, day: 0)?.sets[0].volume).to(equal(8))
+                    }
+                }
+                context("when pace is set") {
+                    beforeEach { exampleMetadata in
+                        viewModel.pages[0].exercises[0].pace = UIPacePicker.InputState(
+                            eccentric: 3, isometric: 1, concentric: .explosive, startingPoint: 0
+                        )
+                        viewModel.consume(.save)
+                    }
+                    it("will pass it") {
+                        let expectedPace = Pace(eccentric: 3, isometric: 1, concentric: .explosive, startingPoint: 0)
+                        expect(savedExercise(at: 0, day: 0)?.pace).to(equal(expectedPace))
                     }
                 }
             }

@@ -281,14 +281,38 @@ class PlannerViewModel: PlannerViewModeling {
         return page.exercises.map { exercise in
             return PlannedExercise(
                 exercise: addedExercises[exercise.exerciseId]!,
-                pace: nil,
-                sets: [],
+                pace: extractPace(from: exercise),
+                sets: extractSets(from: exercise),
                 createsSupersets: false
             )
         }
     }
     
+    private func extractSets(from exercise: PlannerExercise) -> [PlannedExercise.Set] {
+        return exercise.sets.map { plannerSet in
+            guard let repCount = plannerSet.repCount.map(Int.init) else {
+                fatalError("UI contract should ensure weight being non nil and convertable to Int")
+            }
+            guard let weightValue = plannerSet.weight else {
+                fatalError("UI contract should ensure non-nil weight")
+            }
+            let weight = Weight(value: weightValue, unit: .kg)
+            return PlannedExercise.Set(volume: repCount, weight: weight)
+        }
+    }
     
+    private func extractPace(from exercise: PlannerExercise) -> Pace? {
+        let pace = exercise.pace
+        guard
+            let e = pace.eccentric,
+            let i = pace.isometric,
+            let c = pace.concentric,
+            let s = pace.startingPoint
+        else {
+            return nil
+        }
+        return Pace(eccentric: e, isometric: i, concentric: c, startingPoint: s)
+    }
 }
 
 private extension IndexPath {
