@@ -51,8 +51,8 @@ public class CoreEntry: RootRouting, ExerciseListViewRouting, PlanRouting, Plann
     
     // MARK: - PlanRouting
     
-    @ViewBuilder func planner(isPresented: Binding<Bool>) -> some View {
-        let viewModel = PlannerViewModel(planStorage: dependencies.planStorage)
+    @ViewBuilder func planner(plan: Plan?, isPresented: Binding<Bool>) -> some View {
+        let viewModel = PlannerViewModel(plan: plan, planStorage: dependencies.planStorage)
         PlannerView(
             model: viewModel,
             isPresented: isPresented,

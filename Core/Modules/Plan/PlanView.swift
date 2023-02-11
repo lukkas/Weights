@@ -68,7 +68,7 @@ struct PlanView<
             )
         }
         .sheet(isPresented: $isPresentingPlanner) {
-            router.planner(isPresented: $isPresentingPlanner)
+            router.planner(plan: nil, isPresented: $isPresentingPlanner)
         }
     }
     
@@ -90,7 +90,7 @@ protocol PlanViewModeling: ObservableObject {
 protocol PlanRouting {
     associatedtype PlannerViewType: View
     
-    func planner(isPresented: Binding<Bool>) -> PlannerViewType
+    func planner(plan: Plan?, isPresented: Binding<Bool>) -> PlannerViewType
 }
 
 // MARK: - Design time
@@ -110,7 +110,7 @@ class DTPlanViewModel: PlanViewModeling {
 }
 
 struct DTPlanRouter: PlanRouting {
-    @ViewBuilder func planner(isPresented: Binding<Bool>) -> some View {
+    @ViewBuilder func planner(plan: Plan?, isPresented: Binding<Bool>) -> some View {
         EmptyView()
     }
 }

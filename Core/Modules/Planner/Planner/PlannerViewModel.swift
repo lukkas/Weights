@@ -34,7 +34,7 @@ class PlannerViewModel: PlannerViewModeling {
     
     private let planStorage: PlanStoring
     
-    init(planStorage: PlanStoring) {
+    init(plan: Plan?, planStorage: PlanStoring) {
         self.planStorage = planStorage
         pages = [makeTemplatePage()]
     }
@@ -284,7 +284,7 @@ class PlannerViewModel: PlannerViewModeling {
             }
             let supersetIndex = page.exercises[index].supersetIndex
             let nextSupersetIndex = page.exercises[index + 1].supersetIndex
-            return supersetIndex != nil && supersetIndex == nextSupersetIndex 
+            return supersetIndex != nil && supersetIndex == nextSupersetIndex
         }
         return page.exercises.enumerated().map { index, exercise in
             return PlannedExercise(
