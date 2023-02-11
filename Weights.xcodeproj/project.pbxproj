@@ -130,7 +130,7 @@
 		CB671D011F7CE008A2D55F05 /* NSFetchRequest+Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C975CB3511C07A14A3485A /* NSFetchRequest+Publishers.swift */; };
 		CBF69EC8B222D88E272E850D /* ActivePlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7B0FE6A434745AFC97825 /* ActivePlanCell.swift */; };
 		D1955616B3C8A621B7DD70CC /* PlannerDropController_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96181235132F399F7DE7456 /* PlannerDropController_tests.swift */; };
-		D1A5AA5211E1F108306C12DF /* PlannedExerciseSetCollection+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9FD0267339A9A5EC9866EA /* PlannedExerciseSetCollection+ModelAdapting.swift */; };
+		D1A5AA5211E1F108306C12DF /* PlannedExerciseSet+ModelAdapting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9FD0267339A9A5EC9866EA /* PlannedExerciseSet+ModelAdapting.swift */; };
 		D2A11CD889E069CD0D5BE004 /* PublisherListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FB86AC764D015053A7E35C /* PublisherListener.swift */; };
 		D2E002313A8D8B2F2BA3B42E /* FieldHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B829281E8BD71968F7490E /* FieldHighlight.swift */; };
 		D43722D86F581789054168EC /* PlannedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4196EBECDC1E2392B12B54C /* PlannedExercise.swift */; };
@@ -334,7 +334,7 @@
 		5BB8522184AFDA376EE595D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CED722C50ABADFC4BE206B3 /* Services.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Services.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D811FBC4C179E303111635B /* WeightsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightsTests.swift; sourceTree = "<group>"; };
-		5D9FD0267339A9A5EC9866EA /* PlannedExerciseSetCollection+ModelAdapting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlannedExerciseSetCollection+ModelAdapting.swift"; sourceTree = "<group>"; };
+		5D9FD0267339A9A5EC9866EA /* PlannedExerciseSet+ModelAdapting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlannedExerciseSet+ModelAdapting.swift"; sourceTree = "<group>"; };
 		5F7515BC221DAE3B175FD324 /* PlanRepository_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanRepository_tests.swift; sourceTree = "<group>"; };
 		607040772D334F6FEF723653 /* PlanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanRepository.swift; sourceTree = "<group>"; };
 		62327F3961AAE0E9ABF5CCDC /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -493,7 +493,7 @@
 				EF7D354FB5635990F61E7E53 /* Exercise+ModelAdapting.swift */,
 				6ABC9D442B4C2C0E76A45227 /* ExerciseStorageAdapting.swift */,
 				46385803AA82596533B78C26 /* Plan+ModelAdapting.swift */,
-				5D9FD0267339A9A5EC9866EA /* PlannedExerciseSetCollection+ModelAdapting.swift */,
+				5D9FD0267339A9A5EC9866EA /* PlannedExerciseSet+ModelAdapting.swift */,
 				3E09FB44D458EEF570F97BFE /* PlanStorageAdapting_tests.swift */,
 				743FAA5A398B7D56D60D2913 /* PlanStorageAdapting.swift */,
 				8D7612CDF82B1362E8125D92 /* Weight+ModelAdapting.swift */,
@@ -1238,7 +1238,7 @@
 				89BFDAF2809C9BCF6DB82C88 /* ExerciseStorageAdapting.swift in Sources */,
 				38FBBBAA9877365831F350B2 /* Plan+ModelAdapting.swift in Sources */,
 				1E0F964469C099E1B7427E71 /* PlanStorageAdapting.swift in Sources */,
-				D1A5AA5211E1F108306C12DF /* PlannedExerciseSetCollection+ModelAdapting.swift in Sources */,
+				D1A5AA5211E1F108306C12DF /* PlannedExerciseSet+ModelAdapting.swift in Sources */,
 				1F776B12EE644B65C3869AEF /* SceneDelegate.swift in Sources */,
 				0E3E3199BE87152BB3BA0843 /* Weight+ModelAdapting.swift in Sources */,
 				B509D39B624B6A4EED3D505F /* Weights.xcdatamodeld in Sources */,

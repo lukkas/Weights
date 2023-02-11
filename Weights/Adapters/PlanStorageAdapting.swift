@@ -44,7 +44,7 @@ extension PlanRepository: PlanStoring {
         for modelExercise in day.exercises {
             let exercise = context.insertObject() as Services.PlannedExercise
             exercise.exercise = findExercise(matching: modelExercise.exercise, in: context)
-            exercise.setCollections = modelExercise.setCollections.map({ $0.toServices() })
+            exercise.sets = modelExercise.sets.map({ $0.toServices() })
             exercise.createsSupersets = modelExercise.createsSupersets
             exercises.append(exercise)
         }

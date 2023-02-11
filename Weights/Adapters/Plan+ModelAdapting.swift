@@ -33,7 +33,7 @@ extension Services.PlannedExercise {
     func toCore() -> Core.PlannedExercise {
         return Core.PlannedExercise(
             exercise: exercise.toCore(),
-            setCollections: setCollections.map({ $0.toCore() }),
+            sets: sets.map({ $0.toCore() }),
             createsSupersets: createsSupersets
         )
     }
