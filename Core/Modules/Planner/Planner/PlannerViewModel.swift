@@ -278,12 +278,20 @@ class PlannerViewModel: PlannerViewModeling {
     }
 
     private func extractExercises(from page: PlannerPage) -> [PlannedExercise] {
-        return page.exercises.map { exercise in
+        func createsSuperset(exerciseAt index: Int) -> Bool {
+            if index == page.exercises.indices.last {
+                return false
+            }
+            let supersetIndex = page.exercises[index].supersetIndex
+            let nextSupersetIndex = page.exercises[index + 1].supersetIndex
+            return supersetIndex != nil && supersetIndex == nextSupersetIndex 
+        }
+        return page.exercises.enumerated().map { index, exercise in
             return PlannedExercise(
                 exercise: addedExercises[exercise.exerciseId]!,
                 pace: extractPace(from: exercise),
                 sets: extractSets(from: exercise),
-                createsSupersets: false
+                createsSupersets: createsSuperset(exerciseAt: index)
             )
         }
     }

@@ -239,6 +239,23 @@ class PlannerViewModelSpec: QuickSpec {
                     }
                 }
             }
+            context("when there are supersets in plan") {
+                beforeEach {
+                    viewModel.consume(.addExercise)
+                    viewModel.exercisePickerRelay?.pick([Exercise].stubber().stub(count: 5))
+                    viewModel.consume(.toggleSuperset(exercise(0), page(0)))
+                    viewModel.consume(.toggleSuperset(exercise(1), page(0)))
+                    viewModel.consume(.toggleSuperset(exercise(3), page(0)))
+                    viewModel.consume(.save)
+                }
+                it("will accordingly set creates supersets fields") {
+                    expect(savedExercise(at: 0, day: 0)?.createsSupersets).to(beTrue())
+                    expect(savedExercise(at: 1, day: 0)?.createsSupersets).to(beTrue())
+                    expect(savedExercise(at: 2, day: 0)?.createsSupersets).to(beFalse())
+                    expect(savedExercise(at: 3, day: 0)?.createsSupersets).to(beTrue())
+                    expect(savedExercise(at: 4, day: 0)?.createsSupersets).to(beFalse())
+                }
+            }
         }
     }
 }
