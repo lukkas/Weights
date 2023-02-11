@@ -21,6 +21,6 @@ struct AppDependencies: CoreDependencies {
             persistentContainer: DatabaseStack.makeWeightsPersistentContainer()
         )
         self.exerciseStorage = database.getExercisesRepository()
-        self.planStorage = DTPlanStorage()
+        self.planStorage = database.getPlanRepository()
     }
 }

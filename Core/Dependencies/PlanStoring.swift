@@ -14,7 +14,6 @@ public protocol PlanStoring {
 }
 
 #if DEBUG
-
 public class DTPlanStorage: PlanStoring {
     public init() {}
     
@@ -26,5 +25,4 @@ public class DTPlanStorage: PlanStoring {
         
     }
 }
-
 #endif

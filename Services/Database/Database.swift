@@ -19,4 +19,8 @@ public class Database {
     public func getExercisesRepository() -> ExercisesRepository {
         return ExercisesRepository(context: persistentContainer.viewContext)
     }
+    
+    public func getPlanRepository() -> PlanRepository {
+        return PlanRepository(context: persistentContainer.viewContext)
+    }
 }
