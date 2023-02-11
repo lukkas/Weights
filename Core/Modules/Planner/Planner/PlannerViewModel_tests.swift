@@ -32,6 +32,9 @@ class PlannerViewModelSpec: QuickSpec {
                         return exercise.supersetIndex == supersetIndex ? index : nil
                     }
             }
+            func savedPlan() -> Plan? {
+                planStorage.insertedPlans.last
+            }
             beforeEach {
                 planStorage = PlanStoringStub()
                 viewModel = PlannerViewModel(planStorage: planStorage)
@@ -189,14 +192,23 @@ class PlannerViewModelSpec: QuickSpec {
                         expect(planStorage.insertedPlans).to(haveCount(1))
                     }
                     it("plan received by plan storage will have two days") {
-                        expect(planStorage.insertedPlans.last?.days).to(haveCount(2))
+                        expect(savedPlan()?.days).to(haveCount(2))
                     }
                     it("numer of exercises added by user will match added plan") {
-                        expect(planStorage.insertedPlans.last?.days.first?.exercises).to(haveCount(3))
+                        expect(savedPlan()?.days.first?.exercises).to(haveCount(3))
                     }
                 }
-                context("when three sets are added to first exercise") {
-                    
+                context("when two sets are added to first exercise") {
+                    beforeEach {
+                        viewModel.consume(.addExercise)
+                        viewModel.exercisePickerRelay?.pick([Exercise].stubber().stub(count: 1))
+                        viewModel.consume(.addSet(exercise(0), page(0)))
+                        viewModel.consume(.addSet(exercise(0), page(0)))
+                        viewModel.consume(.save)
+                    }
+                    it("will save exercise with 3 sets") {
+//                        expect(savedPlan()?.days.first?.exercises.first?.setCollections)
+                    }
                 }
             }
         }
